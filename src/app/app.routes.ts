@@ -1,10 +1,16 @@
-import {Routes, RouterModule} from '@angular/router';
 import {ModuleWithProviders} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
+import {LoginPageComponent} from '@modules/authentication/containers/login-page/login-page.component';
 
 const routes: Routes = [
   {
     path: 'teachers',
-    loadChildren: './modules/teachers/teachers.module#TeachersModule'
+    loadChildren: './modules/teachers/teachers.module#TeachersModule',
+  },
+  {
+    path: 'auth',
+    component: LoginPageComponent,
+    pathMatch: 'full',
   },
   {
     path: 'groups',
