@@ -1,5 +1,6 @@
 import {ModuleWithProviders} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
+import {DashboardPageComponent} from '@modules/dashboard/containers/dashboard-page/dashboard-page.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
     path: 'students',
     loadChildren: './modules/students/students.module#StudentsModule'
   },
+  {
+    path: '',
+    component: DashboardPageComponent
+  }
 ];
 
 export const appRoutes: ModuleWithProviders = RouterModule.forRoot(routes);
