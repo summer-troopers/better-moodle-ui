@@ -6,7 +6,8 @@
 
       <a class="navbar-brand btn btn-secondary bg-dark menubtn"
          (click)="isCollapsed = true">
-        <i class="fa fa-home icon" routerLink=""></i>
+        <i class="fa fa-home icon"
+           routerLink=""></i>
       </a>
 
       <!--big screen-->
@@ -21,10 +22,11 @@
         </ul>
       </div>
 
-      <app-user-dropdown [isCollapsed]="isCollapsed" class="nvbar-right ml-auto"> </app-user-dropdown>
+      <app-user-dropdown [isCollapsed]="isCollapsed"
+                         class="nvbar-right ml-auto"> </app-user-dropdown>
 
 
-        <div class="btn-group navbar-toggler toggle-container">
+      <div class="btn-group navbar-toggler toggle-container">
         <button type="button"
                 class="btn btn-secondary bg-dark menubtn"
                 (click)="changeCollapse()">
@@ -47,6 +49,8 @@
 
 <ng-template #unauthenticatedTemplate>
   <nav class="bg-dark pt-1 pb-1">
-    <h1 class="site-name text-center">Better Moodle <span class="site-name__version">v1</span></h1>
+    <h1 class="site-name text-center">Better Moodle
+      <span class="site-name__version">v1</span>
+    </h1>
   </nav>
 </ng-template>
