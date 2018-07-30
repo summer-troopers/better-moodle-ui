@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: 'groups',
-    loadChildren: '@modules/groups/groups.modules#GroupsModule'
+    loadChildren: '@modules/groups/groups.module#GroupsModule'
   },
   {
     path: 'specialties',
