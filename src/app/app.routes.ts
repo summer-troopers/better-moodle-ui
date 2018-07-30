@@ -13,6 +13,10 @@ const routes: Routes = [
   {
     path: 'specialties',
     loadChildren: '@modules/specialties/specialties.module#SpecialtiesModule'
+  },
+  {
+    path: 'courses',
+    loadChildren: '@modules/courses/courses.module#CoursesModule'
   }
 ];
 
