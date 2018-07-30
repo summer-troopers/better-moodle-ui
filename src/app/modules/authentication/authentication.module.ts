@@ -12,6 +12,7 @@ import { RecoverPasswordPageComponent, LoginPageComponent } from './containers/'
     FormsModule,
     authenticationRoutes
   ],
+  exports: [LoginPageComponent, RecoverPasswordPageComponent],
   declarations: [LoginPageComponent, RecoverPasswordPageComponent],
   providers: [AuthenticationService],
 })
