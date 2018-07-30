@@ -1,6 +1,5 @@
 import {ModuleWithProviders} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {LoginPageComponent} from '@modules/authentication/containers/login-page/login-page.component';
 
 const routes: Routes = [
   {
@@ -9,8 +8,7 @@ const routes: Routes = [
   },
   {
     path: 'auth',
-    component: LoginPageComponent,
-    pathMatch: 'full',
+    loadChildren: './modules/authentication/authentication.module#AuthenticationModule'
   },
   {
     path: 'groups',
