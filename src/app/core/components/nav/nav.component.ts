@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {NavBarLink} from '@shared/models';
 
 @Component({
   selector: 'app-nav',
@@ -7,14 +7,40 @@ import { Router, NavigationEnd } from '@angular/router';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
+  public items: Array<NavBarLink> = [
+    {
+      name: 'Teacher',
+      url: '/teacher'
+    },
+    {
+      name: 'Student',
+      url: '/student'
+    },
+    {
+      name: 'Courses',
+      url: '/courses'
+    },
+    {
+      name: 'Groups',
+      url: '/groups'
+    },
+    {
+      name: 'Specialties',
+      url: '/specialties'
+    }
+  ];
 
   currentUrl: string;
+  isCollapsed = true;
 
-   constructor(private router: Router) {
-    router.events.subscribe((_: NavigationEnd) => this.currentUrl = _.url)
+  constructor() {
   }
 
   ngOnInit() {
+  }
+
+  changeCollapse() {
+    this.isCollapsed = !this.isCollapsed;
   }
 
 }

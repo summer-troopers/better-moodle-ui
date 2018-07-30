@@ -1,35 +1,52 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark app-nav">
   <div class="container">
-    <a class="navbar-brand" routerLink="" [class.activated]="currentUrl == '/'">
-      <img src="../../../../assets/images/logo.png" />
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07" aria-controls="navbarsExample07"
-      aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
 
-    <div class="collapse navbar-collapse" id="navbarsExample07">
+    <a class="navbar-brand" routerLink="">
+      <i class="fa fa-home icon"></i>
+    </a>
+
+    <!--big screen-->
+    <div class=" collapse navbar-collapse block">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item" [class.activated]="currentUrl == '/teachers'">
-          <a class="nav-link" routerLink="teachers">Teachers</a>
-        </li>
-        <li class="nav-item" [class.activated]="currentUrl == '/students'">
-          <a class="nav-link" routerLink="students">Students</a>
-        </li>
-        <li class="nav-item" [class.activated]="currentUrl == '/courses'">
-          <a class="nav-link" routerLink="courses">Courses</a>
-        </li>
-        <li class="nav-item" [class.activated]="currentUrl == '/groups'">
-          <a class="nav-link" routerLink="groups">Groups</a>
-        </li>
-        <li class="nav-item" [class.activated]="currentUrl == '/specialties'">
-          <a class="nav-link" routerLink="specialties">Specialties</a>
+        <li class="nav-item" *ngFor="let item of items" [routerLinkActive]="'activated'">
+          <a class="nav-link" routerLink="{{item.url}}">{{item.name}}</a>
         </li>
       </ul>
-      <form class="form-inline mt-2 mt-md-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
     </div>
+
+
+    <!--small screen-->
+    <div class="btn-group navbar-toggler">
+      <button  type="button" class="btn btn-secondary" (click)="changeCollapse()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <ul class="collapse bg-dark dropdown-menu-right dropfont"   [collapse]="isCollapsed">
+        <li class="nav-item" *ngFor="let item of items" [routerLinkActive]="'activated'">
+          <a class="nav-link" routerLink="{{item.url}}">{{item.name}}</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="'activated'">
+          <a class="nav-link" routerLink="auth">Log out</a>
+        </li>
+        <li [routerLinkActive]="'activated'">
+          <a class="nav-link" routerLink="dashboard">My Profile
+            <i class="fa fa-user icon" routerLink="dashboard"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!--big screen-->
+    <div class="collapse navbar-collapse block">
+      <ul class="navbar-nav nvbar-right mr-auto">
+        <li class="nav-item" [class.activated]="currentUrl == '/logout'" [routerLinkActive]="'activated'">
+          <a class="nav-link" routerLink="auth">Log out</a>
+        </li>
+      </ul>
+
+      <a class="navbar-brand">
+        <i class="fa fa-user icon" routerLink="dashboard"></i>
+      </a>
+    </div>
+
   </div>
 </nav>
