@@ -1,8 +1,10 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { CoreModule} from '@core/core.module';
-import { AppComponent } from './app.component';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+
+import {CoreModule} from '@core/core.module';
+import {AppComponent} from './app.component';
 import {appRoutes} from './app.routes';
+import {DashboardModule} from '@modules/dashboard/dashboard.module';
 
 @NgModule({
   declarations: [
@@ -11,6 +13,7 @@ import {appRoutes} from './app.routes';
   imports: [
     BrowserModule,
     CoreModule,
+    DashboardModule,
     appRoutes
   ],
   providers: [],
