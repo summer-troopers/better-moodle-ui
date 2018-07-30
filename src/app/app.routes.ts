@@ -17,7 +17,11 @@ const routes: Routes = [
   {
     path: 'courses',
     loadChildren: '@modules/courses/courses.module#CoursesModule'
-  }
+  },
+  {
+    path: 'students',
+    loadChildren: './modules/students/students.module#StudentsModule'
+  },
 ];
 
 export const appRoutes: ModuleWithProviders = RouterModule.forRoot(routes);
