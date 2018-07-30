@@ -5,21 +5,22 @@ import {AdminDashboardComponent} from './components/admin-dashboard/admin-dashbo
 import {StudentDashboardComponent} from './components/student-dashboard/student-dashboard.component';
 import {TeacherDashboardComponent} from './components/teacher-dashboard/teacher-dashboard.component';
 
+const COMPONENTS = [
+  DashboardPageComponent,
+  AdminDashboardComponent,
+  StudentDashboardComponent,
+  TeacherDashboardComponent
+];
+
 @NgModule({
   imports: [
     CommonModule
   ],
   declarations: [
-    DashboardPageComponent,
-    AdminDashboardComponent,
-    StudentDashboardComponent,
-    TeacherDashboardComponent
+    ...COMPONENTS
   ],
   exports: [
-    DashboardPageComponent,
-    AdminDashboardComponent,
-    StudentDashboardComponent,
-    TeacherDashboardComponent
+    ...COMPONENTS
   ],
 })
 export class DashboardModule {
