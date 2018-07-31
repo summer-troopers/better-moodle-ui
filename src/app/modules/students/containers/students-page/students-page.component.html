@@ -4,7 +4,7 @@
   <div class="form-group form-group-justified row" *ngIf="students.length > 0; else noStudents">
 
     <div class="col-sm-4 col-xs-12 card" *ngFor="let student of students" style="width:20rem;margin:5px 0px 5px 0px">
-      <img class="card-img-top" src="../../../../../assets/images/user-icon.png" alt="Card image cap" style="width:100%">
+      <img class="card-img-top" src="../../../../../assets/images/user-icon.png" alt="Student profile picture" style="width:100%">
       <div class="card-body">
         <h5 class="card-title">{{student.firstName}} {{student.lastName}}</h5>
         <a [routerLink]="['/students', student.id]" class="btn btn-primary">See Profile</a>

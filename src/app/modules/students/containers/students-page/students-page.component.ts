@@ -11,8 +11,8 @@ export class StudentsPageComponent implements OnInit {
   constructor(private studentsService: StudentsService) { }
 
   ngOnInit() {
-    this.studentsService.getStudents().subscribe(students => this.students = students);
-    console.log()
+    this.studentsService.getStudents()
+      .subscribe(students => this.students = students);
   }
 
 }

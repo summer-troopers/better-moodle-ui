@@ -9,7 +9,7 @@ import { HttpHeaders } from '../../../../node_modules/@angular/common/http';
 export class StudentsService {
 
   options = {
-    headers : new HttpHeaders({
+    headers: new HttpHeaders({
       'token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJ1c2VyIjoxLCJpYXQiOjE1MzMwNDI5NTMsImV4cCI6MTUzMzkwNjk1M30.Pw3ed7GSJBnfOeWKM4uJigdICuFO0JRzBbSTpg8Pe2M"
     })
   }
@@ -17,11 +17,13 @@ export class StudentsService {
   constructor(private api: BackendApiService) { }
 
   getStudents() {
-    return this.api.get(`students`, this.options).pipe(map(result => result.data));
+    return this.api.get(`students`, this.options)
+      .pipe(map(result => result.data));
   }
 
   getStudent(id: number) {
-    return this.api.get(`students/${id}`, this.options).pipe(map(result => result));
+    return this.api.get(`students/${id}`, this.options)
+      .pipe(map(result => result));
   }
 
   addStudent(newStudent) {
