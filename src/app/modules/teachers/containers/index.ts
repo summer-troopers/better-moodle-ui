@@ -1,7 +1,7 @@
-import { TeacherDetailsPageComponent } from './teacher-details-page/teacher-details-page.component';
-import { TeachersPageComponent } from './teachers-page/teachers-page.component';
+import { TeacherDetailsPageComponent } from '@modules/teachers/containers/teacher-details-page/teacher-details-page.component';
+import { TeachersPageComponent } from '@modules/teachers/containers/teachers-page/teachers-page.component';
 
-export{
+export {
   TeacherDetailsPageComponent,
   TeachersPageComponent
 }
