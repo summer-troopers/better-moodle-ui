@@ -2,6 +2,7 @@ import {ModuleWithProviders} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {DashboardPageComponent} from '@modules/dashboard/containers/dashboard-page/dashboard-page.component';
 import {HomePageComponent} from '@modules/home/home-page/home-page.component';
+
 const routes: Routes = [
   {
     path: 'auth',
@@ -33,12 +34,12 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: HomePageComponent,
-    pathMatch: 'full'
+    component: HomePageComponent
   },
   {
     path: '**',
-    component: HomePageComponent
+    component: HomePageComponent,
+    pathMatch: 'full'
   }
 ];
 

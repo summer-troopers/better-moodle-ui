@@ -7,6 +7,7 @@ import {appRoutes} from './app.routes';
 import {DashboardModule} from '@modules/dashboard/dashboard.module';
 import {HomeModule} from '@modules/home/home.module';
 
+
 @NgModule({
   declarations: [
     AppComponent,
