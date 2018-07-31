@@ -17,8 +17,9 @@ export class StudentsService {
     return this.api.get(`students/${id}`).pipe(map(result => result));
   }
 
-  addStudent() {
-
+  addStudent(newStudent) {
+    return this.api.post(`students`, newStudent)
+      .pipe(map(result => result));
   }
 
   editStudent(id: number) {

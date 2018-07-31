@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BackendApiService } from '@core/services/api/backend-api.service';
+import { StudentsService } from '@modules/students/students.service';
 
 @Component({
   selector: 'app-add-student',
@@ -11,7 +11,7 @@ export class AddStudentComponent implements OnInit {
   studentForm: FormGroup;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder, private api: BackendApiService) { }
+  constructor(private formBuilder: FormBuilder, private api: StudentsService) { }
 
   ngOnInit() {
     this.studentForm = this.formBuilder.group({
@@ -25,6 +25,12 @@ export class AddStudentComponent implements OnInit {
 
   get f() {
     return this.studentForm.controls;
+  }
+
+  onSubmit() {
+    this.submitted = true;
+    return this.api.addStudent(this.studentForm.value)
+      .subscribe((response) => console.log(response));
   }
 
 }
