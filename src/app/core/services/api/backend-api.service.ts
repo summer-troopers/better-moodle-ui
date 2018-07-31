@@ -11,6 +11,7 @@ export class BackendApiService {
   protected URL: string = environment.apiUrl;
 
   constructor(private http: HttpClient) {
+    console.log(this.URL);
   }
 
   /**
