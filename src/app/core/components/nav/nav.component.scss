@@ -20,6 +20,9 @@
   background-color:  #9f8060!important;
   border-color: #d98026!important;
 }
+.nav-link {
+
+}
 
 img {
   width: 45px;
@@ -29,11 +32,12 @@ img {
 .icon {
   color: #d98026;
   font-size: 200% !important;
+  padding-left: 2px;
 }
 
 .icon:hover {
   color: #f0b375;
-  margin-left: 0%;
+  padding-left: 0%;
 }
 
 .search:hover {
@@ -43,8 +47,6 @@ img {
 .nvbar-right {
   margin-left: 30%;
   margin-right: 0% !important;
-  float: right;
-  align: right;
 }
 
 .search-form {
