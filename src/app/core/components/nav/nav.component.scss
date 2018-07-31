@@ -20,8 +20,9 @@
   background-color:  #9f8060!important;
   border-color: #d98026!important;
 }
-.nav-link {
 
+.mynav {
+  padding: 0px 20px 0px 0px;
 }
 
 img {
@@ -37,7 +38,6 @@ img {
 
 .icon:hover {
   color: #f0b375;
-  padding-left: 0%;
 }
 
 .search:hover {
@@ -49,6 +49,14 @@ img {
   margin-right: 0% !important;
 }
 
-.search-form {
-  display: inline-block;
+a:first-letter {
+  text-transform:capitalize;
+}
+
+.form-inline {
+  display: inline !important;
+}
+
+.container {
+
 }
