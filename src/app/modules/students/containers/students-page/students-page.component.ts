@@ -6,28 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./students-page.component.scss']
 })
 export class StudentsPageComponent implements OnInit {
-  students: Array<any> = [
-    {
-      id: 1,
-      firstName: "Steve",
-      lastName: "Rogers",
-    },
-    {
-      id: 2,
-      firstName: "John",
-      lastName: "Doe",
-    },
-    {
-      id: 3,
-      firstName: "Jane",
-      lastName: "Doe",
-    },
-    {
-      id: 4,
-      firstName: "Mary",
-      lastName: "Smith",
-    }
-  ]
+  students: Array<any> = [];
 
   constructor() { }
 
