@@ -3,12 +3,13 @@
     <a class="navbar-brand" routerLink="" [class.activated]="currentUrl == '/'">
       <img src="../../../../assets/images/logo.png" />
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07" aria-controls="navbarsExample07"
-      aria-expanded="false" aria-label="Toggle navigation">
+
+    <button class="navbar-toggler" (click)="isCollapsed=!isCollapsed" type="button" aria-controls="navbarsExample07"
+            [attr.aria-expanded]="!isCollapsed" >
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarsExample07">
+    <div class="collapse navbar-collapse" id="navbarsExample07" [collapse]="isCollapsed">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item" [class.activated]="currentUrl == '/teachers'">
           <a class="nav-link" routerLink="teachers">Teachers</a>
