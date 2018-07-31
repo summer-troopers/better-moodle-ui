@@ -7,11 +7,13 @@ import {Router, NavigationEnd} from '@angular/router';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
+  public items: Array<string> = ['teachers', 'students', 'courses', 'groups', 'specialties'];
 
   currentUrl: string;
   isCollapsed = true;
 
-  constructor() {}
+  constructor() {
+  }
 
   ngOnInit() {
   }
