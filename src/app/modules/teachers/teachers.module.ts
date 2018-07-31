@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TeacherDetailsPageComponent, TeachersPageComponent } from './containers';
+import { TeacherDetailsPageComponent, TeachersPageComponent } from '@modules/teachers/containers';
 
 import { teacherRoutes } from './teachers.routes';
 
