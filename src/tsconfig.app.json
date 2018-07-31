@@ -6,12 +6,24 @@
     "types": [],
     "baseUrl": "./",
     "paths": {
-      "@shared/*":["app/shared/*"],
-      "@core/*":["app/core/*"],
-      "@modules/*":["app/modules/*"],
-      "@env/*":["environments/*"],
-      "@teacherModals/*":["app/modules/teachers/modals/*"],
-      "@teacherService/*":["app/modules/teachers/*"],
+      "@shared/*": [
+        "app/shared/*"
+      ],
+      "@core/*": [
+        "app/core/*"
+      ],
+      "@modules/*": [
+        "app/modules/*"
+      ],
+      "@env/*": [
+        "environments/*"
+      ],
+      "@teacherModals/*": [
+        "app/modules/teachers/modals/*"
+      ],
+      "@teacherService/*": [
+        "app/modules/teachers/*"
+      ],
     }
   },
   "exclude": [

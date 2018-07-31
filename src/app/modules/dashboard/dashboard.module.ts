@@ -25,7 +25,6 @@ const COMPONENTS = [
   MyGroupsComponent,
   MyStudentsComponent
 ];
-
 @NgModule({
   imports: [
     CommonModule,

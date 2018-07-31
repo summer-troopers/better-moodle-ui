@@ -1,19 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { StudentsService } from '@modules/students/students.service';
+import { Student } from '../../../../shared/models/student';
+import { Subscription } from '../../../../../../node_modules/rxjs';
 
 @Component({
   selector: 'app-student-details-page',
   templateUrl: './student-details-page.component.html',
   styleUrls: ['./student-details-page.component.scss']
 })
-export class StudentDetailsPageComponent implements OnInit {
+export class StudentDetailsPageComponent implements OnInit, OnDestroy {
+  id: number;
+  student: Student;
+  groupName: string;
+  private subscription: Subscription;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private studentsService: StudentsService) { }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      console.log(params);
+    this.subscription = this.route.params.subscribe(params => {
+      this.id = +params['id'];
+      this.studentsService.getStudent(this.id).subscribe((element) => {
+        this.student = element;
+        this.studentsService.getStudentsGroup(this.student.idGroup).subscribe((groupName) => {
+          this.groupName = groupName;
+        })
+      })
+
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }
