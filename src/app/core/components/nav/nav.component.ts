@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Router, NavigationEnd} from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -8,8 +8,12 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class NavComponent implements OnInit {
 
+  currentUrl: string;
+  isCollapsed = true;
 
-   constructor() { }
+  constructor(private router: Router) {
+    router.events.subscribe((_: NavigationEnd) => this.currentUrl = _.url);
+  }
 
   ngOnInit() {
   }
