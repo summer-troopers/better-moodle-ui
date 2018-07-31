@@ -4,7 +4,7 @@
       <i class="fa fa-home icon"></i>
     </a>
 
-    <div class="collapse navbar-collapse block" id="navbarsExample07">
+    <div class="collapse navbar-collapse block" id="navbarsExample07" [collapse]="isCollapsed">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item" [routerLinkActive]="'activated'">
           <a class="nav-link" routerLink="teachers">Teachers</a>
@@ -29,9 +29,8 @@
         <button class="btn btn-outline-success my-2 my-sm-0 button" type="submit">Search</button>
       </form>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07"
-            aria-controls="navbarsExample07"
-            aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" (click)="isCollapsed=!isCollapsed" type="button" aria-controls="navbarsExample07"
+            [attr.aria-expanded]="!isCollapsed" >
       <span class="navbar-toggler-icon"></span>
     </button>
 
