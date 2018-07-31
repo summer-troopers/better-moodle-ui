@@ -1,10 +1,6 @@
 import {ModuleWithProviders} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-<<<<<<< HEAD
 import {DashboardPageComponent} from '@modules/dashboard/containers/dashboard-page/dashboard-page.component';
-=======
-import {LoginPageComponent} from '@modules/authentication/containers/login-page/login-page.component';
->>>>>>> Authentication module
 
 const routes: Routes = [
   {
@@ -13,12 +9,7 @@ const routes: Routes = [
   },
   {
     path: 'auth',
-<<<<<<< HEAD
     loadChildren: './modules/authentication/authentication.module#AuthenticationModule'
-=======
-    component: LoginPageComponent,
-    pathMatch: 'full',
->>>>>>> Authentication module
   },
   {
     path: 'groups',
@@ -37,7 +28,7 @@ const routes: Routes = [
     loadChildren: '@modules/students/students.module#StudentsModule'
   },
   {
-    path: '',
+    path: 'home',
     component: DashboardPageComponent
   }
 ];
