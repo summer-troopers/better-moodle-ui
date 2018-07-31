@@ -1,6 +1,5 @@
 import {ModuleWithProviders} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {DashboardPageComponent} from '@modules/dashboard/containers/dashboard-page/dashboard-page.component';
 import {HomePageComponent} from '@modules/home/home-page/home-page.component';
 
 const routes: Routes = [
@@ -30,7 +29,7 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: DashboardPageComponent
+    loadChildren: '@modules/dashboard/dashboard.module#DashboardModule'
   },
   {
     path: '',

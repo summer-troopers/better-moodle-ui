@@ -34,19 +34,18 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse block" id="navbarsExample07">
+    <div class="navbar-collapse block" id="navbarsExample07">
       <ul class="navbar-nav nvbar-right mr-auto">
-        <li class="nav-item" [class.activated]="currentUrl == '/logout'">
+        <li class="nav-item" [class.activated]="currentUrl == '/logout'"  [routerLinkActive]="'activated'">
           <a class="nav-link" routerLink="auth">Log out</a>
         </li>
       </ul>
 
-      <a class="navbar-brand" routerLink="" [class.activated]="currentUrl == '/dashboard'">
+      <a class="navbar-brand">
         <i class="fa fa-user icon" routerLink="dashboard" ></i>
       </a>
 
     </div>
-
 
   </div>
 </nav>
