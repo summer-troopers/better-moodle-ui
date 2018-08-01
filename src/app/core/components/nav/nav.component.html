@@ -20,12 +20,12 @@
     </form>
 
     <!--small screen-->
-    <div class="btn-group  navbar-toggler" dropdown placement="bottom right">
+    <div class="btn-group  " dropdown #dropdown="bs-dropdown" placement="bottom right">
       <button id="button-basic" dropdownToggle type="button" class="btn btn-secondary dropdown-toggle"
               aria-controls="dropdown-basic">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu bg-dark navbar-nav dropdown-menu-right"
+      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu bg-dark dropdown-menu-right dropfont"
           role="menu" aria-labelledby="button-basic">
         <li class="nav-item" *ngFor="let item of items" [routerLinkActive]="'activated'">
           <a class="nav-link" routerLink="{{item}}">{{item}}</a>
@@ -33,13 +33,13 @@
         <li class="nav-item" [class.activated]="currentUrl == '/logout'" [routerLinkActive]="'activated'">
           <a class="nav-link" routerLink="auth">Log out</a>
         </li>
-        <li>
-          <i class="fa fa-user icon" routerLink="dashboard"></i>
+        <li [routerLinkActive]="'activated'">
+          <a class="nav-link" routerLink="dashboard">My Profile
+            <i class="fa fa-user icon" routerLink="dashboard"></i>
+          </a>
         </li>
       </ul>
     </div>
-
-
 
     <!--
      &lt;!&ndash;<div class="dropdown row" aria-controls="navbarsCollapse">&ndash;&gt;
@@ -64,7 +64,6 @@
           &lt;!&ndash;</div>&ndash;&gt;
         </div>
 -->
-
 
     <!--big screen-->
     <div class="collapse navbar-collapse block">

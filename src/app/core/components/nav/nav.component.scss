@@ -12,17 +12,21 @@
   background-color: #8c8073;
 }
 
-.button:active{
-  background-color: #9f8060!important;
-  border-color: #d98026!important;
+.button:active {
+  background-color: #9f8060 !important;
+  border-color: #d98026 !important;
 }
-.button:active:after{
-  background-color:  #9f8060!important;
-  border-color: #d98026!important;
+
+.button:active:after {
+  background-color: #9f8060 !important;
+  border-color: #d98026 !important;
 }
 
 .mynav {
   padding: 0px 20px 0px 0px;
+}
+a{
+  color: 	#a6a6a6;
 }
 
 img {
@@ -50,7 +54,7 @@ img {
 }
 
 a:first-letter {
-  text-transform:capitalize;
+  text-transform: capitalize;
 }
 
 .form-inline {
@@ -60,4 +64,24 @@ a:first-letter {
 .dropdown-menu {
   width: 80vw;
   padding: 30px;
+}
+
+@media only screen and (max-width: 1000px) {
+  .activated {
+    padding-left: 10px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .mynav {
+    padding: 0px;
+  }
+  .form-inline {
+    display: inline-block !important;
+    position: relative !important;
+  }
+}
+
+.navbar-toggler {
+  padding: 0rem 0rem;
 }
