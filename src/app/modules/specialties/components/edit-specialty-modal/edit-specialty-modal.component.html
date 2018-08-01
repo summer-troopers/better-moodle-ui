@@ -1,0 +1,28 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">Edit specialty {{specialty.name}}</h4>
+  <button type="button"
+          class=" close pull-right"
+          (click)="modalRef.hide()"></button>
+</div>
+<div class="modal-body">
+  <app-local-alert [alerts]="alerts"></app-local-alert>
+  <form [formGroup]="specialtyForm"
+        (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text"
+             id="name"
+             class="form-control"
+             placeholder="Name"
+             formControlName="name"
+             [ngClass]="{ 'is-invalid': isSubmitted && specialtyName.errors }"
+             value="{{specialty.name}}">
+      <div *ngIf="isSubmitted && specialtyName.errors"
+           class="invalid-feedback">The name of specialty is required
+      </div>
+    </div>
+    <input type="submit"
+           class="btn btn-primary">
+  </form>
+</div>
+

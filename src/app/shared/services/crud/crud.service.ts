@@ -1,21 +1,22 @@
 import { Injectable } from '@angular/core';
-import { BackendApiService } from '@core/services/api/backend-api.service';
 import { first, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+
+import { BackendApiService } from '@core/services/api/backend-api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CrudService {
 
-  constructor(private api: BackendApiService) { }
+  constructor(private api: BackendApiService) {}
 
   getNumberOfItems(pageUrl: string) {
-    return this.api.get(pageUrl)
+    return this.api.get(pageUrl + '?limit=0')
       .pipe(map(result => result.total));
   }
 
-  getItems(pageUrl: string, offset: number, limit: number): Observable<Array<any>> {
+  getItems(pageUrl: string, offset: number = 0, limit: number = 50): Observable<Array<any>> {
     return this.api.get(`${pageUrl}?offset=${offset}&limit=${limit}`)
       .pipe(map(result => result.data));
   }
