@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StudentsService } from '@modules/students/students.service';
+import Student from '../../../../shared/models/student';
 
 @Component({
   selector: 'app-student-details-page',
@@ -9,22 +10,25 @@ import { StudentsService } from '@modules/students/students.service';
 })
 export class StudentDetailsPageComponent implements OnInit, OnDestroy {
   id: number;
-  student: any;
+  student: Student;
   private subscription: any;
-
 
   constructor(private route: ActivatedRoute, private studentsService: StudentsService) { }
 
   ngOnInit() {
-    this.route.params.subscribe( params => {
+    this.route.params.subscribe(params => {
       this.id = +params['id'];
       this.studentsService.getStudent(this.id).subscribe((element) => {
         this.student = element;
+        this.studentsService.getStudentsGroup(this.student.idGroup).subscribe((groupName) => {
+          this.student.groupName = groupName;
+        })
       })
+
     });
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
