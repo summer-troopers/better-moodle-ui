@@ -20,13 +20,11 @@
     </form>
 
     <!--small screen-->
-    <div class="btn-group  " dropdown #dropdown="bs-dropdown" placement="bottom right">
-      <button id="button-basic" dropdownToggle type="button" class="btn btn-secondary dropdown-toggle"
-              aria-controls="dropdown-basic">
+    <div class="btn-group navbar-toggler">
+      <button  type="button" class="btn btn-secondary" (click)="changeCollapse()">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu bg-dark dropdown-menu-right dropfont"
-          role="menu" aria-labelledby="button-basic">
+      <ul class="collapse bg-dark dropdown-menu-right dropfont"   [collapse]="isCollapsed">
         <li class="nav-item" *ngFor="let item of items" [routerLinkActive]="'activated'">
           <a class="nav-link" routerLink="{{item}}">{{item}}</a>
         </li>
@@ -40,30 +38,6 @@
         </li>
       </ul>
     </div>
-
-    <!--
-     &lt;!&ndash;<div class="dropdown row" aria-controls="navbarsCollapse">&ndash;&gt;
-          <button class="navbar-toggler btn btn-secondary dropdown-toggle col-sm" type="button"
-                  (click)="changeCollapse()"
-                  [attr.aria-expanded]="!isCollapsed" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse block" id="navbarsCollapse">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item" *ngFor="let item of items" [routerLinkActive]="'activated'">
-                <a class="nav-link" routerLink="{{item}}">{{item}}</a>
-              </li>
-              <li class="nav-item" [class.activated]="currentUrl == '/logout'" [routerLinkActive]="'activated'">
-                <a class="nav-link" routerLink="auth">Log out</a>
-              </li>
-            </ul>
-            <a class="navbar-brand">
-              <i class="fa fa-user icon" routerLink="dashboard"></i>
-            </a>
-          &lt;!&ndash;</div>&ndash;&gt;
-        </div>
--->
 
     <!--big screen-->
     <div class="collapse navbar-collapse block">
