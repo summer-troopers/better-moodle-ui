@@ -1,13 +1,29 @@
 <div class="container">
-  <div class="pageTitle">
-    <h1>List of all teachers
+  <div *ngIf="teachers.length > 0; else nnoTeacherss">
+    <div class="pageTitle">
+      <h1>List of all teachers
         <app-add-teacher class="pull-right"></app-add-teacher>
-    </h1>
-    <br>
+      </h1>
+      <br>
+    </div>
+    <div *ngFor="let teacher of teachers; intex as i ">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item list-group-item-dark">
+          <a routerLink='/teachers/{{teacher.id}}' class="list-group-item list-group-item-action">{{teacher.firstName}} {{teacher.lastName}}</a>
+        </li>
+      </ul>
+    </div>
   </div>
-  <div>
-    <a routerLink='/teachers/testId' class="btn btn-danger btn-block">Teacher Name</a>
-    <br>
-  </div>
-</div>
 
+  <ng-template #nnoTeacherss>
+    <h1>Empty list of teachers !!!</h1>
+    <div class="text-center">
+      <h2>Want to add a new teacher ? </h2>
+    </div>
+    <div class="text-center">
+      <app-add-teacher></app-add-teacher>
+    </div>
+  </ng-template>
+
+
+</div>

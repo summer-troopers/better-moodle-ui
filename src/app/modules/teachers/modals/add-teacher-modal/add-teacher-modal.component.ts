@@ -24,7 +24,8 @@ export class AddTeacherModalComponent implements OnInit {
     this.contactForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email]],
+      phoneNumber:['',[Validators.required]]
     });
   }
 

@@ -31,16 +31,21 @@
         <label for="email">Email address</label>
         <input type="email" class="form-control" id="email" autocomplete='email' aria-describedby="emailHelp" placeholder="Enter email"
           formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else. 🤥</small>
         <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
           <div *ngIf="f.email.errors.required">Email is required</div>
           <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
         </div>
       </div>
 
-      <input placeholder="Phone Number" />
-      <input placeholder="FirstName" />
-      
+      <div class="form-group">
+        <label for="phoneNumber">Your last name</label>
+        <input formControlName="phoneNumber" type="tel" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }"
+          id="phoneNumber" autocomplete='phoneNumber' aria-describedby="nameHelp" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+        <div *ngIf="submitted && f.phoneNumber.errors" class="invalid-feedback">
+          <div *ngIf="f.phoneNumber.errors.required">Phone number is required</div>
+        </div>
+      </div>
+
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
