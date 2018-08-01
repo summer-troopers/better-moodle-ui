@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: 'http://10.177.106.10:80/api/v1'
+}
 /*
  * In development mode, to ignore zone related error stack frames such as
  * `zone.run`, `zoneDelegate.invokeTask` for easier debugging, you can
