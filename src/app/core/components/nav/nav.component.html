@@ -20,33 +20,54 @@
     </form>
 
     <!--small screen-->
-    <div class="dropdown col-sm" id="navbarExample07" [collapse]="isCollapsed">
-      <button class="navbar-toggler btn btn-secondary dropdown-toggle" type="button"
-              (click)="isCollapsed = !isCollapsed" aria-controls="navbarsExample07"
-              [attr.aria-expanded]="!isCollapsed" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">
+    <div class="btn-group  navbar-toggler" dropdown placement="bottom right">
+      <button id="button-basic" dropdownToggle type="button" class="btn btn-secondary dropdown-toggle"
+              aria-controls="dropdown-basic">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <ul class="navbar-nav mr-auto">
+      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu bg-dark navbar-nav dropdown-menu-right"
+          role="menu" aria-labelledby="button-basic">
         <li class="nav-item" *ngFor="let item of items" [routerLinkActive]="'activated'">
           <a class="nav-link" routerLink="{{item}}">{{item}}</a>
         </li>
         <li class="nav-item" [class.activated]="currentUrl == '/logout'" [routerLinkActive]="'activated'">
           <a class="nav-link" routerLink="auth">Log out</a>
         </li>
+        <li>
+          <i class="fa fa-user icon" routerLink="dashboard"></i>
+        </li>
       </ul>
-      <a class="navbar-brand">
-        <i class="fa fa-user icon" routerLink="dashboard"></i>
-      </a>
     </div>
 
-    <button class="navbar-toggler" type="button" aria-controls="navbarsExample07"
-             (click)="isCollapsed = !isCollapsed">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+
+
+    <!--
+     &lt;!&ndash;<div class="dropdown row" aria-controls="navbarsCollapse">&ndash;&gt;
+          <button class="navbar-toggler btn btn-secondary dropdown-toggle col-sm" type="button"
+                  (click)="changeCollapse()"
+                  [attr.aria-expanded]="!isCollapsed" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse block" id="navbarsCollapse">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item" *ngFor="let item of items" [routerLinkActive]="'activated'">
+                <a class="nav-link" routerLink="{{item}}">{{item}}</a>
+              </li>
+              <li class="nav-item" [class.activated]="currentUrl == '/logout'" [routerLinkActive]="'activated'">
+                <a class="nav-link" routerLink="auth">Log out</a>
+              </li>
+            </ul>
+            <a class="navbar-brand">
+              <i class="fa fa-user icon" routerLink="dashboard"></i>
+            </a>
+          &lt;!&ndash;</div>&ndash;&gt;
+        </div>
+-->
+
 
     <!--big screen-->
-    <div class="collapse navbar-collapse block" >
+    <div class="collapse navbar-collapse block">
       <ul class="navbar-nav nvbar-right mr-auto">
         <li class="nav-item" [class.activated]="currentUrl == '/logout'" [routerLinkActive]="'activated'">
           <a class="nav-link" routerLink="auth">Log out</a>
