@@ -1,0 +1,46 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">Edit group {{group.name}}</h4>
+  <button class="close pull-right"
+          (click)="modalRef.hide()"></button>
+</div>
+<div class="modal-body">
+  <app-local-alert [alerts]="alerts"></app-local-alert>
+  <form [formGroup]="groupForm"
+        (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text"
+             id="name"
+             class="form-control"
+             placeholder="Name"
+             formControlName="name"
+             [ngClass]="{ 'is-invalid': isSubmitted && groupName.errors }"
+             value="{{group.name}}">
+      <div *ngIf="isSubmitted && groupName.errors"
+           class="invalid-feedback">The name of group is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="specialty">Specialty</label>
+      <input type="text"
+             id="specialty"
+             class="form-control"
+             placeholder="Specialty Name"
+             formControlName="specialty"
+             [typeahead]="specialties"
+             [typeaheadOptionsLimit]="7"
+             [typeaheadMinLength]="0"
+             [ngClass]="{ 'is-invalid': isSubmitted && specialtyName.errors }"
+             typeaheadOptionField="name"
+             (typeaheadNoResults)="handleNoResults($event)"
+             value="{{specialty.name}}">
+      <div *ngIf="isSubmitted && specialtyName.errors"
+           class="invalid-feedback">The name of specialty is required
+      </div>
+    </div>
+    <input type="submit"
+           class="btn btn-primary">
+  </form>
+</div>
+
+
