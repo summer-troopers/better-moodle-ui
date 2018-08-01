@@ -1,0 +1,47 @@
+<button type="button" class="btn btn-primary" (click)="openModal(template)">Add new teacher</button>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Add a new teacher</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="contactForm" (submit)="onSubmit()">
+      <div class="form-group">
+        <label for="firstName">Your first name</label>
+        <input formControlName="firstName" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"
+          id="firstName" autocomplete='firstName' aria-describedby="nameHelp" placeholder="Enter First Name">
+        <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+          <div *ngIf="f.firstName.errors.required">Name is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Your last name</label>
+        <input formControlName="lastName" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
+          id="lastName" autocomplete='lastName' aria-describedby="nameHelp" placeholder="Enter Last Name">
+        <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+          <div *ngIf="f.lastName.errors.required">Name is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="email" class="form-control" id="email" autocomplete='email' aria-describedby="emailHelp" placeholder="Enter email"
+          formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else. 🤥</small>
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+          <div *ngIf="f.email.errors.required">Email is required</div>
+          <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+        </div>
+      </div>
+
+      <input placeholder="Phone Number" />
+      <input placeholder="FirstName" />
+      
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</ng-template>
