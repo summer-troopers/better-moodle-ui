@@ -46,8 +46,6 @@ export class LoginPageComponent implements OnInit {
       this.authenticationService.setUser(data);
       this.router.navigateByUrl('home')
         .catch(console.error);
-      console.log(this.authenticationService.getUser());
-
     }, error => {
       this.error = true;
       console.log(error);
