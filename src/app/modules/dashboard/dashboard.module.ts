@@ -11,7 +11,6 @@ const COMPONENTS = [
   StudentDashboardComponent,
   TeacherDashboardComponent
 ];
-
 @NgModule({
   imports: [
     CommonModule

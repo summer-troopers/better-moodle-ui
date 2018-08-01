@@ -10,8 +10,7 @@ export class BackendApiService {
 
   protected URL: string = environment.apiUrl;
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {  }
 
   /**
    * GET resource from backend
