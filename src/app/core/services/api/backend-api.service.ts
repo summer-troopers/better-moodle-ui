@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
 
-/* tslint:disable */
+/* tslint:disable max-line-length */
 
 @Injectable({
   providedIn: 'root'
