@@ -1,0 +1,34 @@
+<button type="button" class="btn btn-primary" (click)="openModal(template)">Edit</button>
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Edit group {{group.name}}</h4>
+    <button type="button" class=" close pull-right" aria-label="Close"
+            (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;
+    </span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="groupForm" (submit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" class="form-control" placeholder="Name" formControlName="name"
+               [ngClass]="{ 'is-invalid': submitted && fields.name.errors }" value="{{group.name}}">
+        <div *ngIf="submitted && fields.name.errors" class="invalid-feedback">
+          <div *ngIf="fields.name.errors.required">The name of group is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="specialty">Specialty</label>
+        <input type="text" id="specialty" class="form-control" placeholder="Specialty Name" formControlName="specialty"
+               [ngClass]="{ 'is-invalid': submitted && fields.name.errors }" value="{{specialty.name}}"
+               list="specialties">
+        <datalist id="specialties">
+          <option *ngFor="let specialty of specialties" value="{{specialty.name}}">{{specialty.id}}</option>
+        </datalist>
+      </div>
+      <input type="submit" class="btn btn-primary">
+    </form>
+  </div>
+</ng-template>
+

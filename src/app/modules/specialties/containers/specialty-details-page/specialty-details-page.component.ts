@@ -1,15 +1,43 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { SpecialtiesService } from '@modules/specialties/specialties.service';
+import { Subscription } from 'rxjs';
+import { Specialty } from '@shared/models/specialty';
 
 @Component({
   selector: 'app-specialty-details-page',
   templateUrl: './specialty-details-page.component.html',
   styleUrls: ['./specialty-details-page.component.scss']
 })
-export class SpecialtyDetailsPageComponent implements OnInit {
+export class SpecialtyDetailsPageComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+  id: string;
+  specialty: Specialty;
+  isEditable = false;
 
-  ngOnInit() {
+  subscriptions: Array<Subscription> = [];
+
+  constructor(private route: ActivatedRoute, private specialtyService: SpecialtiesService) {
   }
 
+  ngOnInit() {
+    this.subscriptions.push(this.route.params.subscribe((params) => {
+      this.id = params.id;
+      this.subscriptions.push(this.specialtyService.getSpecialty(this.id).subscribe((element) => {
+        this.specialty = element;
+      }));
+    }));
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach( (sub: Subscription) => sub.unsubscribe());
+  }
+
+  deleteGroup() {
+    this.specialtyService.deleteSpecialty(this.id).toPromise();
+  }
+
+  submitGroup() {
+    this.specialtyService.updateSpecialty(this.id, this.specialty).toPromise();
+  }
 }

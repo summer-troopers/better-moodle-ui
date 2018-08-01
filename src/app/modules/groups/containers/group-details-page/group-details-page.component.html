@@ -1,3 +1,11 @@
-<p>
-  group-details-page works!
-</p>
+<div class="container">
+  <div class="space-30">
+    <input type="text" class="input-group-text" *ngIf="group" [(ngModel)]="group.name"
+           [attr.readOnly]="isEditable ? null : '' "
+           [ngClass]="{ 'is-invalid': submitted && fields.name.errors }" >
+    <input type="text"  class="input-group-text" *ngIf="specialty" [(ngModel)]="specialty.name"
+           [attr.readOnly]="isEditable ? null : ''" [ngModelOptions]="{standalone: true}" required >
+    <button type="button" (click)="deleteGroup()" class="btn btn-danger">Delete</button>
+    <app-edit-group-modal [parent]="this" [group]="group" [specialty]="specialty"></app-edit-group-modal>
+  </div>
+</div>
