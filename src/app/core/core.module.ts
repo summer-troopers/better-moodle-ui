@@ -9,7 +9,6 @@ import {FooterComponent} from './components/footer/footer.component';
 import {HeaderComponent} from './components/header/header.component';
 import {LayoutComponent} from './components/layout/layout.component';
 import {CollapseModule} from 'ngx-bootstrap/collapse';
-import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 
 const COMPONENTS = [
   NavComponent,
@@ -32,7 +31,6 @@ export function initAppFactory(initService: InitService) {
     CommonModule,
     ...MODULES,
     CollapseModule.forRoot(),
-    BsDropdownModule.forRoot(),
   ],
   declarations: [
     ...COMPONENTS,

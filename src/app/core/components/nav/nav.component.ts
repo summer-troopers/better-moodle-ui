@@ -18,4 +18,8 @@ export class NavComponent implements OnInit {
   ngOnInit() {
   }
 
+  changeCollapse() {
+    this.isCollapsed = !this.isCollapsed;
+  }
+
 }
