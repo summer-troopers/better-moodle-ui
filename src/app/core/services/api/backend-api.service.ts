@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
+
+/* tslint:disable */
 
 @Injectable({
   providedIn: 'root'
@@ -10,50 +12,62 @@ export class BackendApiService {
 
   protected URL: string = environment.apiUrl;
 
+  protected options: Object = {
+    headers: new HttpHeaders({
+      'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJ1c2VyIjoxLCJpYXQiOjE1MzIwNzM2NzIsImV4cCI6MTUzMjkzNzY3Mn0.9GxxNehMPLffSI3DYm1MmRL5RE4KyyWvpX0k2RVPiC8',
+      'Content-Type': 'aplication/json'
+    })
+  };
+
   constructor(private http: HttpClient) {
   }
 
   /**
    * GET resource from backend
    * @param {string} path -  relative path to resource (ex.: 'courses')
-   * @param {any} options? - optional options to be sent along the request (headers, etc.)
    * @returns {Observable<any>}
    */
-  get(path: string, options?: any): Observable<any> {
-    return this._request('GET', path, null, options);
+  get(path: string): Observable<any> {
+    return this._request('GET', path, null, this.options);
   }
 
   /**
    * POST resource to backend
    * @param {string} path -  relative path to resource (ex.: 'courses')
    * @param {Object} body - object to be sent to the backend
-   * @param {any} options? - optional options to be sent along the request (headers, etc.)
    * @returns {Observable<any>}
    */
-  post(path: string, body: Object, options?: any): Observable<any> {
-    return this._request('POST', path, JSON.stringify(body), options);
+  post(path: string, body: Object): Observable<any> {
+    return this._request('POST', path, JSON.stringify(body), this.options);
   }
 
   /**
    * PUT resource to backend
    * @param {string} path -  relative path to resource (ex.: 'courses')
    * @param {Object} body - object to be sent to the backend
-   * @param {any} options? - optional options to be sent along the request (headers, etc.)
    * @returns {Observable<any>}
    */
-  put(path: string, body: Object, options?: any): Observable<any> {
-    return this._request('PUT', path, JSON.stringify(body), options);
+  put(path: string, body: Object): Observable<any> {
+    return this._request('PUT', path, JSON.stringify(body), this.options);
+  }
+
+  /**
+   * PATCH resource to backend
+   * @param {string} path -  relative path to resource (ex.: 'courses')
+   * @param {Object} body - object to be sent to the backend
+   * @returns {Observable<any>}
+   */
+  patch(path: string, body: Object): Observable<any> {
+    return this._request('PATCH', path, JSON.stringify(body), this.options);
   }
 
   /**
    * DELETE resource from backend
    * @param {string} path -  relative path to resource (ex.: 'courses')
-   * @param {Object} body - optional object to be sent to the backend
-   * @param {any} options? - optional options to be sent along the request (headers, etc.)
    * @returns {Observable<any>}
    */
-  delete(path: string, body?: Object, options?: any): Observable<any> {
-    return this._request('DELETE', path, JSON.stringify(body), options);
+  delete(path: string): Observable<any> {
+    return this._request('DELETE', path, null, this.options);
   }
 
   /**
