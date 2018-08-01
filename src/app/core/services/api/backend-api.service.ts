@@ -15,7 +15,7 @@ export class BackendApiService {
   protected options: Object = {
     headers: new HttpHeaders({
       'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUm9sZSI6ImFkbWluIiwidXNlciI6MSwiaWF0IjoxNTMzMTI0MzExLCJleHAiOjE1MzM5ODgzMTF9.ojGABr4rbfzFYYT_fEPbLksliWcfdRpTI5XyaPGFt2w',
-      'Content-Type': 'aplication/json'
+      'Content-Type': 'application/json'
     })
   };
 
