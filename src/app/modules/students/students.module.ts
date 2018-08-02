@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '../../../../node_modules/@angu
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { AddStudentModalComponent } from './modals/add-student-modal/add-student-modal.component';
 import { ModalModule } from 'ngx-bootstrap';
+import { EditStudentModalComponent } from './modals/edit-student-modal/edit-student-modal.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { ModalModule } from 'ngx-bootstrap';
     StudentDetailsPageComponent,
     StudentsPageComponent,
     AddStudentComponent,
-    AddStudentModalComponent
+    AddStudentModalComponent,
+    EditStudentModalComponent
   ]
 })
 export class StudentsModule { }

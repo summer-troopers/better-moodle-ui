@@ -25,7 +25,7 @@ export class StudentsService {
       .pipe(map(result => result));
   }
 
-  editStudent(editedStudent) {
+  updateStudent(editedStudent) {
     return this.api.put(`students/${editedStudent.id}`, editedStudent)
       .pipe(map(result => result));
   }
