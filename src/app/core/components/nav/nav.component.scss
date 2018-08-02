@@ -51,9 +51,11 @@ ul {
 .dropfont {
   position: absolute;
   width: 80vw;
-  top: 40px;
+  top: 50px;
   padding: 10px;
   font-size: 15px;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
   @media screen and (max-width: 651px) {
     width: 100vw;
   }
