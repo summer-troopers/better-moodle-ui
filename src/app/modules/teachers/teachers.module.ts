@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxMaskModule } from 'ngx-mask'
 
 import { TeacherDetailsPageComponent, TeachersPageComponent } from '@modules/teachers/containers';
 import { AddTeacherComponent } from './components/add-teacher/add-teacher.component';
@@ -12,6 +13,7 @@ import { EditTeacherModalComponent } from './modals/edit-teacher-modal/edit-teac
   imports: [
     CommonModule,
     teacherRoutes,
+    NgxMaskModule.forRoot(),
     FormsModule,
     ReactiveFormsModule
   ],

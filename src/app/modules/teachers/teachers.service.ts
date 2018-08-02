@@ -22,22 +22,22 @@ export class TeachersService {
     private api: BackendApiService) { }
 
   getTeachers(): Observable<Array<Teacher>> {
-    return this.api.get(`teachers`, this.options)
+    return this.api.get(`teachers`, )
       .pipe(map(result => result.data));
   }
 
   getTeacher(id: number): Observable<Teacher> {
-    return this.api.get(`teachers/${id}`, this.options)
+    return this.api.get(`teachers/${id}`)
       .pipe(map(result => result));
   }
 
   deleteTeacher(id: number): Observable<Teacher> {
-    return this.api.delete(`teachers/${id}`, null, this.options);
+    return this.api.delete(`teachers/${id}`);
   }
 
   addTeacher(form): Observable<any> {
     console.log('merge add')
-    return this.api.post(`teachers`, form, this.options)
+    return this.api.post(`teachers`, form)
       .pipe(map(result => result));
   }
 

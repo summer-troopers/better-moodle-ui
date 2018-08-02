@@ -67,6 +67,7 @@
       <div class="form-group">
         <label for="phoneNumber">Your last name</label>
         <input formControlName="phoneNumber"
+               mask="000-000-0000"
                type="tel"
                class="form-control"
                [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }"
