@@ -17,13 +17,14 @@ export class AuthenticationService {
   }
 
   insertLocalStorage(data: any, key: string) {
-    if (typeof  data === 'string') {
-      localStorage.setItem(key, data);
-    } else { localStorage.setItem(key, JSON.stringify(data)); }
+    if (typeof data !== 'string') {
+      data = JSON.stringify(data);
+    }
+    localStorage.setItem(key, data);
   }
 
   getUserLocalStorage() {
-    return localStorage.getItem(USER_STORAGE_KEY);
+    return JSON.parse(localStorage.getItem(USER_STORAGE_KEY));
   }
 
   getTokenLocalStorage() {

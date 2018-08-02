@@ -1,10 +1,10 @@
 class User {
-  public id: number;
-  public firstName: string;
-  public lastName: string;
-  public email: string;
-  public phoneNumber: string;
-  public userRole: string;
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  userRole: string;
 }
 
 export default User;

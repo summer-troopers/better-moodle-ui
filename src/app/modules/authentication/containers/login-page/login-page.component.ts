@@ -14,7 +14,7 @@ export class LoginPageComponent implements OnInit {
 
   loginForm: FormGroup;
   isSubmitted = false;
-  isRequestError: boolean;
+  isRequestError = false;
 
   constructor(
     private formBuilder: FormBuilder,
