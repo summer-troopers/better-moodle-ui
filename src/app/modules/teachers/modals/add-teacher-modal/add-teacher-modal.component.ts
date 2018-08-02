@@ -14,7 +14,7 @@ export class AddTeacherModalComponent implements OnInit {
 
   modalRef: BsModalRef;
 
-  contactForm: FormGroup;
+  userForm: FormGroup;
   submitted = false;
 
   constructor(private modalService: BsModalService,
@@ -22,7 +22,7 @@ export class AddTeacherModalComponent implements OnInit {
     private teacherService: TeachersService) { }
 
   ngOnInit() {
-    this.contactForm = this.formBuilder.group({
+    this.userForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       phoneNumber: ['', [Validators.required]],
@@ -36,18 +36,18 @@ export class AddTeacherModalComponent implements OnInit {
   }
 
   get f() {
-    return this.contactForm.controls;
+    return this.userForm.controls;
   }
 
   onSubmit() {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.contactForm.invalid) {
+    if (this.userForm.invalid) {
       return;
     }
 
-    const formParam = this.contactForm.value;
+    const formParam = this.userForm.value;
     this.teacherService.addTeacher(formParam).toPromise();
     this.teacherService.getTeachers();
 
