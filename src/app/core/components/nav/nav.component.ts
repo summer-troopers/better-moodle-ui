@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {NavBarLink} from '@shared/models';
 
 @Component({
@@ -6,7 +6,7 @@ import {NavBarLink} from '@shared/models';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
-export class NavComponent implements OnInit {
+export class NavComponent{
   public items: Array<NavBarLink> = [
     {
       name: 'Teachers',
@@ -27,7 +27,7 @@ export class NavComponent implements OnInit {
     {
       name: 'Specialties',
       url: '/specialties'
-    }
+    },
   ];
 
   isCollapsed = true;

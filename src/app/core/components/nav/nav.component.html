@@ -13,7 +13,17 @@
         </li>
       </ul>
     </div>
+    <div class="collapse navbar-collapse profile-div">
+      <ul class="navbar-nav nvbar-right ml-auto p-2">
+        <li class="nav-item" routerLinkActive="activated">
+          <a class="nav-link" routerLink="auth">Log out</a>
+        </li>
+      </ul>
 
+      <a class="navbar-brand" routerLinkActive="activated">
+        <i class="fa fa-user icon" routerLink="dashboard"></i>
+      </a>
+    </div>
 
     <!--small screen-->
     <div class="btn-group navbar-toggler toggle-container">
@@ -31,19 +41,6 @@
           <a class="nav-link" routerLink="auth">Log out</a>
         </li>
       </ul>
-    </div>
-
-    <!--big screen-->
-    <div class="collapse navbar-collapse profile-div">
-      <ul class="navbar-nav nvbar-right ml-auto p-2">
-        <li class="nav-item" routerLinkActive="activated">
-          <a class="nav-link" routerLink="auth">Log out</a>
-        </li>
-      </ul>
-
-      <a class="navbar-brand" routerLinkActive="activated">
-        <i class="fa fa-user icon" routerLink="dashboard"></i>
-      </a>
     </div>
 
   </div>
