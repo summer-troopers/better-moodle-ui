@@ -13,14 +13,6 @@ const routes: Routes = [
     loadChildren: '@modules/authentication/authentication.module#AuthenticationModule'
   },
   {
-    path: 'teachers',
-    loadChildren: '@modules/teachers/teachers.module#TeachersModule',
-  },
-  {
-    path: 'auth',
-    loadChildren: '@modules/authentication/authentication.module#AuthenticationModule'
-  },
-  {
     path: 'groups',
     loadChildren: '@modules/groups/groups.module#GroupsModule'
   },
@@ -35,6 +27,10 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: '@modules/dashboard/dashboard.module#DashboardModule'
+  },
+  {
+    path: 'students',
+    loadChildren: '@modules/students/students.module#StudentsModule'
   },
   {
     path: '',
