@@ -41,9 +41,10 @@ export class TeachersService {
       .pipe(map(result => result));
   }
 
-  // editTeacher(form) {
-  //   return this.api.put(`teachers/${form.id}`, form)
-  //     .pipe(map(result => result));
-  // }
+  editTeacher(id, form) {
+    console.log(id)
+    return this.api.put(`teachers/${id}`, form)
+      .pipe(map(result => result));
+  }
 
 }

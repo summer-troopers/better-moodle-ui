@@ -1,10 +1,11 @@
 import { Component, OnInit, TemplateRef } from '@angular/core'
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 import { TeachersService } from '@modules/teachers/teachers.service';
+import Teacher from '../../../../shared/models/teacher';
 
 @Component({
   selector: 'app-edit-teacher-modal',
@@ -18,17 +19,35 @@ export class EditTeacherModalComponent implements OnInit {
   contactForm: FormGroup;
   submitted = false;
 
+  private subscription: any;
+  id: number;
+  teacher: Teacher = {
+    id: null,
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+  };
+
   constructor(private modalService: BsModalService,
+    private route: ActivatedRoute,,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
     private teachersService: TeachersService) { }
 
   ngOnInit() {
     this.contactForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', [Validators.required]]
+      firstName: [''],
+      lastName: [''],
+      phoneNumber: [''],
+      email: [''],
+      password: ['']
+    });
+
+    this.subscription = this.route.params.subscribe(params => {
+      this.id = +params['id'];
+      this.teachersService.getTeacher(this.id).subscribe((data) => {
+        this.teacher = data;
+      })
     });
   }
 
@@ -47,11 +66,13 @@ export class EditTeacherModalComponent implements OnInit {
     if (this.contactForm.invalid) {
       return;
     }
-    console.log(JSON.stringify(this.contactForm.value))
-  }
-  onEdit() {
-    console.log('Modla edit button work ')
-    //this.teachersService.editTeacher();
+
+    const formParam = this.contactForm.value;
+    this.teachersService.editTeacher(this.id, formParam).toPromise();
+    this.teachersService.getTeachers();
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }
