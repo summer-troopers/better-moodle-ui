@@ -34,4 +34,9 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  deleteStudent(id: number) {
+    this.studentsService.deleteStudent(id)
+      .subscribe((result) => console.log(result));
+  }
+
 }
