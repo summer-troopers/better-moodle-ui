@@ -35,14 +35,6 @@ export class EditTeacherModalComponent implements OnInit {
     private teachersService: TeachersService) { }
 
   ngOnInit() {
-    this.userForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      phoneNumber: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      //password: ['', [Validators.required]]
-    });
-
     this.subscription = this.route.params.subscribe(params => {
       this.id = +params['id'];
       this.teachersService.getTeacher(this.id).subscribe((data) => {
@@ -53,6 +45,13 @@ export class EditTeacherModalComponent implements OnInit {
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
+    this.userForm = this.formBuilder.group({
+      firstName: [this.teacher.firstName, Validators.required],
+      lastName: [this.teacher.lastName, Validators.required],
+      phoneNumber: [this.teacher.phoneNumber, [Validators.required]],
+      email: [this.teacher.email, [Validators.required, Validators.email]],
+      //password: ['', [Validators.required]]
+    });
   }
 
   get f() {

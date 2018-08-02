@@ -14,6 +14,7 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
+  <!-- value="{{teacher.firstName}}" -->
   <div class="modal-body">
     <form [formGroup]="userForm"
           (submit)="onSubmit()">
@@ -21,7 +22,6 @@
         <label for="firstName">Your first name</label>
         <input formControlName="firstName"
                type="text"
-               value="{{teacher.firstName}}"
                class="form-control"
                [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"
                id="firstName"
@@ -33,13 +33,12 @@
           <div *ngIf="f.firstName.errors.required">Name is required</div>
         </div>
       </div>
-
+      <!-- value="{{teacher.lastName}}" -->
       <div class="form-group">
         <label for="lastName">Your last name</label>
         <input formControlName="lastName"
                type="text"
                class="form-control"
-               value="{{teacher.lastName}}"
                [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
                id="lastName"
                autocomplete='lastName'
@@ -50,13 +49,12 @@
           <div *ngIf="f.lastName.errors.required">Name is required</div>
         </div>
       </div>
-
+      <!-- value="{{teacher.email}}" -->
       <div class="form-group">
         <label for="email">Email address</label>
         <input type="email"
                class="form-control"
                id="email"
-               value="{{teacher.email}}"
                autocomplete='email'
                aria-describedby="emailHelp"
                placeholder="Enter email"
@@ -69,11 +67,11 @@
         </div>
       </div>
       <!-- mask="000-000-0000" -->
+      <!-- value="{{teacher.phoneNumber}}" -->
       <div class="form-group">
         <label for="phoneNumber">Your last name</label>
         <input formControlName="phoneNumber"
                type="tel"
-               value="{{teacher.phoneNumber}}"
                class="form-control"
                [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }"
                id="phoneNumber"
