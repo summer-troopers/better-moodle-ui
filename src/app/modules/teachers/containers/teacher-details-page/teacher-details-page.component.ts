@@ -13,18 +13,17 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
   private subscription: any;
   id: number;
   teacher: Teacher = {
-    id: '',
+    id: null,
     firstName: '',
     lastName: '',
     email: '',
-    phoneNumber: '',
+    phoneNumber: null,
   };
 
   constructor(private route: ActivatedRoute,
     private teachersService: TeachersService) { }
 
   ngOnInit() {
-
     this.subscription = this.route.params.subscribe(params => {
       this.id = +params['id'];
       this.teachersService.getTeacher(this.id).subscribe((data) => {
@@ -36,8 +35,8 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  onDelete(id) {
-    this.teachersService.deleteTeacher(id);
+  onDelete() {
+    this.teachersService.deleteTeacher(this.id).toPromise();
   }
 
 }

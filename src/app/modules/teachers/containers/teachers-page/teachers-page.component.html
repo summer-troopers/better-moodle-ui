@@ -3,13 +3,15 @@
     <div class="pageTitle">
       <h1>List of all teachers
         <app-add-teacher class="pull-right"></app-add-teacher>
+
       </h1>
       <br>
     </div>
     <div *ngFor="let teacher of teachers; intex as i ">
       <ul class="list-group list-group-flush">
         <li class="list-group-item list-group-item-dark">
-          <a routerLink='/teachers/{{teacher.id}}' class="list-group-item list-group-item-action">{{teacher.firstName}} {{teacher.lastName}}</a>
+          <a routerLink='/teachers/{{teacher.id}}'
+             class="list-group-item list-group-item-action">{{teacher.firstName}} {{teacher.lastName}}</a>
         </li>
       </ul>
     </div>
@@ -24,6 +26,5 @@
       <app-add-teacher></app-add-teacher>
     </div>
   </ng-template>
-
 
 </div>

@@ -14,7 +14,7 @@ export class TeachersService {
 
   options = {
     headers: new HttpHeaders({
-      'token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUm9sZSI6ImFkbWluIiwidXNlciI6MSwiaWF0IjoxNTMzMTI5NTMxLCJleHAiOjE1MzM5OTM1MzF9.xgOTuxzz40bhs7D5TtN4-qbYvjPQga963qjMGDNQ3V4"
+      'token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUm9sZSI6ImFkbWluIiwidXNlciI6MSwiaWF0IjoxNTMzMTk1ODAzLCJleHAiOjE1MzQwNTk4MDN9.5inxYqamNT4br5rDtjNIEbw-ggWUYo1hV-GSdXUoNG8"
     })
   }
 
@@ -32,8 +32,18 @@ export class TeachersService {
   }
 
   deleteTeacher(id: number): Observable<Teacher> {
-    //debugger;
-    return this.api.delete(`teachers/${id}`, this.options);
-      //.pipe(map(result => result));
+    return this.api.delete(`teachers/${id}`, null, this.options);
   }
+
+  addTeacher(form): Observable<any> {
+    console.log('merge add')
+    return this.api.post(`teachers`, form, this.options)
+      .pipe(map(result => result));
+  }
+
+  // editTeacher(form) {
+  //   return this.api.put(`teachers/${form.id}`, form)
+  //     .pipe(map(result => result));
+  // }
+
 }
