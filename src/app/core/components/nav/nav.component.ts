@@ -10,6 +10,7 @@ import { AuthenticationService } from '@modules/authentication/authentication.se
 })
 export class NavComponent implements OnInit {
   isAuthenticated = false;
+
   public items: Array<NavBarLink> = [
     {
       name: 'Teachers',
@@ -30,7 +31,7 @@ export class NavComponent implements OnInit {
     {
       name: 'Specialties',
       url: '/specialties'
-    }
+    },
   ];
 
   isCollapsed = true;
