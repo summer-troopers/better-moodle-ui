@@ -14,11 +14,11 @@ const routes: Routes = [
   },
   {
     path: 'teachers',
-    loadChildren: './modules/teachers/teachers.module#TeachersModule',
+    loadChildren: '@modules/teachers/teachers.module#TeachersModule',
   },
   {
-    path: 'students',
-    loadChildren: './modules/students/students.module#StudentsModule'
+    path: 'auth',
+    loadChildren: '@modules/authentication/authentication.module#AuthenticationModule'
   },
   {
     path: 'groups',

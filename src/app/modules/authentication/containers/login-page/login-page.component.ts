@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthenticationService } from '@modules/authentication/authentication.service';
+import { TOKEN_STORAGE_KEY, USER_STORAGE_KEY } from '@shared/constants';
 
 @Component({
   selector: 'app-login-page',
@@ -55,8 +56,8 @@ export class LoginPageComponent implements OnInit {
     }
 
     this.authenticationService.login(this.loginForm.value).subscribe(data => {
-      this.authenticationService.insertTokenLocalStorage(data.token);
-      this.authenticationService.insertUserLocalStorage(data.userData);
+      this.authenticationService.insertLocalStorage(data.token, TOKEN_STORAGE_KEY);
+      this.authenticationService.insertLocalStorage(data.userData, USER_STORAGE_KEY);
       this.router.navigateByUrl('home')
         .catch(console.error);
     }, error => {

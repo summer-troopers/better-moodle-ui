@@ -16,12 +16,10 @@ export class AuthenticationService {
     return this.backendApiService.post('login', loginDataUser) as Observable<any>;
   }
 
-  insertTokenLocalStorage(token) {
-    localStorage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(token));
-  }
-
-  insertUserLocalStorage(user: User) {
-    localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user));
+  insertLocalStorage(data: any, key: string) {
+    if (typeof  data === 'string') {
+      localStorage.setItem(key, data);
+    } else { localStorage.setItem(key, JSON.stringify(data)); }
   }
 
   getUserLocalStorage() {
