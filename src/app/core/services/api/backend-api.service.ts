@@ -38,7 +38,7 @@ export class BackendApiService {
    * @returns {Observable<any>}
    */
   post(path: string, body: Object): Observable<any> {
-    return this._request('POST', path, JSON.stringify(body), this.options);
+    return this._request('POST', path, body, this.options);
   }
 
   /**
@@ -48,7 +48,7 @@ export class BackendApiService {
    * @returns {Observable<any>}
    */
   put(path: string, body: Object): Observable<any> {
-    return this._request('PUT', path, JSON.stringify(body), this.options);
+    return this._request('PUT', path, body, this.options);
   }
 
   /**
@@ -58,7 +58,7 @@ export class BackendApiService {
    * @returns {Observable<any>}
    */
   patch(path: string, body: Object): Observable<any> {
-    return this._request('PATCH', path, JSON.stringify(body), this.options);
+    return this._request('PATCH', path, body, this.options);
   }
 
   /**
@@ -87,7 +87,7 @@ export class BackendApiService {
     return paramsToSend;
   }
 
-  private _request(method: string, path: string, body?: string, options?: any): Observable<any> {
+  private _request(method: string, path: string, body?: any, options?: any): Observable<any> {
 
     if (!options) {
       options = {};
@@ -113,8 +113,6 @@ export class BackendApiService {
           if (err.status === 401 || err.status === 403) {
             console.log('Refresh token needed!');
           }
-
-          console.log('err');
 
           observer.error(err);
         });
