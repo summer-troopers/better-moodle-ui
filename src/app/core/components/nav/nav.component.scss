@@ -1,13 +1,14 @@
 .activated {
   background-color: #9f8060;
   border-radius: 10px;
-  @media (max-width: 1000px) {
+  @media screen and (max-width: 1000px) {
     padding-left: 10px;
   }
 }
 
 .app-nav {
   padding: 0;
+  z-index: 1;
   @media screen and (max-width: 651px) {
     padding: 0;
   }
@@ -51,7 +52,7 @@ ul {
 .dropfont {
   position: absolute;
   width: 80vw;
-  top: 50px;
+  top: 100%;
   padding: 10px;
   font-size: 15px;
   border-radius: 0 0 4px 4px;
