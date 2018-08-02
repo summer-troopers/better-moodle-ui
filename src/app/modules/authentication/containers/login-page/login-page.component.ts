@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthenticationService} from '@modules/authentication/authentication.service';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { AuthenticationService } from '@modules/authentication/authentication.service';
 
 @Component({
   selector: 'app-login-page',
@@ -11,8 +12,8 @@ import {Router} from '@angular/router';
 export class LoginPageComponent implements OnInit {
 
   loginForm: FormGroup;
-  submitted = false;
-  error;
+  isSubmitted = false;
+  isRequestError: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -20,34 +21,46 @@ export class LoginPageComponent implements OnInit {
     private router: Router) {
   }
 
-  ngOnInit() {
+  initForm() {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
+  }
+
+  ngOnInit() {
+    this.initForm();
     if (this.authenticationService.isAuthenticated()) {
       return this.router.navigateByUrl('home');
     }
-    this.error = false;
+    this.isRequestError = false;
   }
 
-  get f() {
+  get formErrors() {
     return this.loginForm.controls;
   }
 
+  get emailErrors() {
+    return this.formErrors.email.errors;
+  }
+
+  get passwordErrors() {
+    return this.formErrors.password.errors;
+  }
+
   onSubmit() {
-    this.submitted = true;
+    this.isSubmitted = true;
     if (this.loginForm.invalid) {
       return;
     }
 
-    this.authenticationService.submitLoginDate(this.loginForm.value).subscribe(data => {
-      this.authenticationService.login(data);
-      this.authenticationService.setUser(data);
+    this.authenticationService.login(this.loginForm.value).subscribe(data => {
+      this.authenticationService.insertTokenLocalStorage(data.token);
+      this.authenticationService.insertUserLocalStorage(data.userData);
       this.router.navigateByUrl('home')
         .catch(console.error);
     }, error => {
-      this.error = true;
+      this.isRequestError = true;
       console.log(error);
     });
   }
