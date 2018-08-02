@@ -9,12 +9,12 @@ import {NavBarLink} from '@shared/models';
 export class NavComponent implements OnInit {
   public items: Array<NavBarLink> = [
     {
-      name: 'Teacher',
-      url: '/teacher'
+      name: 'Teachers',
+      url: '/teachers'
     },
     {
-      name: 'Student',
-      url: '/student'
+      name: 'Students',
+      url: '/students'
     },
     {
       name: 'Courses',
@@ -30,7 +30,6 @@ export class NavComponent implements OnInit {
     }
   ];
 
-  currentUrl: string;
   isCollapsed = true;
 
   constructor() {
