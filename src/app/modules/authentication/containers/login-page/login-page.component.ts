@@ -34,7 +34,6 @@ export class LoginPageComponent implements OnInit {
     if (this.authenticationService.isAuthenticated()) {
       return this.router.navigateByUrl('home');
     }
-    this.isRequestError = false;
   }
 
   get formErrors() {
