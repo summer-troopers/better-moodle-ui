@@ -63,11 +63,10 @@
           <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
         </div>
       </div>
-
+      <!-- mask="999-999-9999" -->
       <div class="form-group">
         <label for="phoneNumber">Your last name</label>
         <input formControlName="phoneNumber"
-               mask="000-000-0000"
                type="tel"
                class="form-control"
                [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }"
@@ -79,6 +78,22 @@
         <div *ngIf="submitted && f.phoneNumber.errors"
              class="invalid-feedback">
           <div *ngIf="f.phoneNumber.errors.required">Phone number is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Enter a password</label>
+        <input formControlName="password"
+               type="text"
+               class="form-control"
+               [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+               id="password"
+               autocomplete='password'
+               aria-describedby="nameHelp"
+               placeholder="Enter a password">
+        <div *ngIf="submitted && f.password.errors"
+             class="invalid-feedback">
+          <div *ngIf="f.password.errors.required">Password is required</div>
         </div>
       </div>
 

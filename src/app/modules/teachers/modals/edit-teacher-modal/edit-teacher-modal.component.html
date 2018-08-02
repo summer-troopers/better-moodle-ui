@@ -65,13 +65,10 @@
           <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
         </div>
       </div>
-
+      <!-- mask="000-000-0000" -->
       <div class="form-group">
         <label for="phoneNumber">Your last name</label>
         <input formControlName="phoneNumber"
-               name="phoneNumber"
-               mask="123-456-7890"
-               clean="false"
                type="tel"
                class="form-control"
                [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }"

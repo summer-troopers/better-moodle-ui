@@ -22,7 +22,7 @@ export class TeachersService {
     private api: BackendApiService) { }
 
   getTeachers(): Observable<Array<Teacher>> {
-    return this.api.get(`teachers`, )
+    return this.api.get(`teachers`)
       .pipe(map(result => result.data));
   }
 
@@ -36,7 +36,7 @@ export class TeachersService {
   }
 
   addTeacher(form): Observable<any> {
-    console.log('merge add')
+    console.log(form)
     return this.api.post(`teachers`, form)
       .pipe(map(result => result));
   }

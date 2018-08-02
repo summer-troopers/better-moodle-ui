@@ -17,7 +17,7 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
     firstName: '',
     lastName: '',
     email: '',
-    phoneNumber: null,
+    phoneNumber: '',
   };
 
   constructor(private route: ActivatedRoute,
