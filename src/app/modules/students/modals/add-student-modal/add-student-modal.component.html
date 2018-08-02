@@ -1,0 +1,102 @@
+<button type="button"
+        class="btn btn-primary"
+        (click)="openModal(template)">Add new student</button>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Add a new student</h4>
+    <button type="button"
+            class="close pull-right"
+            aria-label="Close"
+            (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="studentForm"
+          (submit)="onSubmit()">
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text"
+               id="firstName"
+               class="form-control"
+               placeholder="First Name"
+               formControlName="firstName"
+               [ngClass]="{ 'is-invalid': submitted && fields.firstName.errors }">
+        <div *ngIf="submitted && fields.firstName.errors"
+             class="invalid-feedback">
+          <div *ngIf="fields.firstName.errors.required">First Name is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text"
+               id="lastName"
+               class="form-control"
+               placeholder="Last Name"
+               formControlName="lastName"
+               [ngClass]="{ 'is-invalid': submitted && fields.lastName.errors }">
+        <div *ngIf="submitted && fields.lastName.errors"
+             class="invalid-feedback">
+          <div *ngIf="fields.lastName.errors.required">Last Name is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="email"
+               id="email"
+               class="form-control"
+               placeholder="name@example.com"
+               formControlName="email"
+               [ngClass]="{ 'is-invalid': submitted && fields.email.errors }">
+        <div *ngIf="submitted && fields.email.errors"
+             class="invalid-feedback">
+          <div *ngIf="fields.email.errors.required">Email address is required</div>
+          <div *ngIf="fields.email.errors.email">Email must be a valid email address</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password"
+               id="password"
+               class="form-control"
+               placeholder="Password"
+               formControlName="password"
+               [ngClass]="{ 'is-invalid': submitted && fields.password.errors }">
+        <div *ngIf="submitted && fields.password.errors"
+             class="invalid-feedback">
+          <div *ngIf="fields.password.errors.required">Password is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="idGroup">Group ID</label>
+        <input type="number"
+               id="idGroup"
+               class="form-control"
+               placeholder="1"
+               formControlName="idGroup"
+               [ngClass]="{ 'is-invalid': submitted && fields.idGroup.errors }">
+        <div *ngIf="submitted && fields.idGroup.errors"
+             class="invalid-feedback">
+          <div *ngIf="fields.idGroup.errors.required">Phone Number is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber">Phone Number</label>
+        <input type="text"
+               id="phoneNumber"
+               class="form-control"
+               placeholder="123-123-1234"
+               formControlName="phoneNumber"
+               [ngClass]="{ 'is-invalid': submitted && fields.phoneNumber.errors }">
+        <div *ngIf="submitted && fields.phoneNumber.errors"
+             class="invalid-feedback">
+          <div *ngIf="fields.phoneNumber.errors.required">Phone Number is required</div>
+        </div>
+      </div>
+
+      <button type="submit"
+              class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</ng-template>

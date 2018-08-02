@@ -10,7 +10,6 @@ import { appRoutes } from './app.routes';
 import { HomeModule } from '@modules/home/home.module';
 import { SharedModule } from '@shared/shared.module';
 
-
 @NgModule({
   declarations: [
     AppComponent,
