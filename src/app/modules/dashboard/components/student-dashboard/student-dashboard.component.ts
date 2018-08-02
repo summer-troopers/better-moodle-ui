@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from '../../../../../../node_modules/rxjs';
 import {UserService} from '@shared/services/user.service';
-import Student from '@shared/models/students';
+import {Student} from '@shared/models/students';
 
 @Component({
   selector: 'app-student-dashboard',
@@ -27,7 +27,8 @@ export class StudentDashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     localStorage.setItem('user', JSON.stringify(this.Person));
-    this.student =  this.studentsService.getUserLocalStorage('user');
+    this.student =  JSON.parse(this.studentsService.getUserLocalStorage('user'));
+    console.log(this.student);
   }
 
   ngOnDestroy() {

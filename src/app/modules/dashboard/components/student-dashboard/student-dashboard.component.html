@@ -1,24 +1,24 @@
-<p>
-  student-dashboard works!
-</p>
+<div class="container" *ngIf="student">
+  <div class="card">
+    <img src="../../../../../assets/images/user-icon.png" alt="Student profile picture" style="width:100%">
+    <h1>{{student.firstName}} {{student.lastName}}</h1>
+  <div class="card-body">
+    <h6>First Name: {{student.firstName}}</h6>
+    <h6>Last Name: {{student.lastName}}</h6>
+    <h6>Email: {{student.email}}</h6>
+    <h6>Phone Number: {{student.phoneNumber}}</h6>
+    <h6>Group Name: {{student.idGroup}}</h6>
+  </div>
+  </div>
+  <br>
+</div>
+
+<br>
 
 <div class="container">
-  <div class="card" *ngIf="student">
-    <img src="../../../../../assets/images/user-icon.png" alt="Student profile picture" style="width:100%">
-    <div class="card-body">
-      <h5 class="card-title">{{student.firstName}} {{student.lastName}}</h5>
-      <h5 class="card-text">{{student.email}}</h5>
-      <h5 class="card-text">{{student.phoneNumber}}</h5>
-    </div>
-    <div class="space-30"></div>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#">Regular link</a>
+    <a class="dropdown-item active" href="#">Active link</a>
+    <a class="dropdown-item" href="#">Another link</a>
   </div>
-
-  <div class="container">
-    <ul>
-      <li>
-        bla
-      </li>
-    </ul>
-  </div>
-
 </div>
