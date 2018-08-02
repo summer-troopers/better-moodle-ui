@@ -1,15 +1,19 @@
-import { ModuleWithProviders } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { DashboardPageComponent } from '@modules/dashboard/containers/dashboard-page/dashboard-page.component';
+import {ModuleWithProviders} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
+import {HomePageComponent} from '@modules/home/home-page/home-page.component';
 
 const routes: Routes = [
+  {
+    path: 'auth',
+    loadChildren: './modules/authentication/authentication.module#AuthenticationModule'
+  },
   {
     path: 'teachers',
     loadChildren: './modules/teachers/teachers.module#TeachersModule',
   },
   {
-    path: 'auth',
-    loadChildren: './modules/authentication/authentication.module#AuthenticationModule'
+    path: 'students',
+    loadChildren: './modules/students/students.module#StudentsModule'
   },
   {
     path: 'groups',
@@ -24,12 +28,17 @@ const routes: Routes = [
     loadChildren: '@modules/courses/courses.module#CoursesModule'
   },
   {
-    path: 'students',
-    loadChildren: '@modules/students/students.module#StudentsModule'
+    path: 'dashboard',
+    loadChildren: '@modules/dashboard/dashboard.module#DashboardModule'
   },
   {
     path: '',
-    component: DashboardPageComponent
+    component: HomePageComponent
+  },
+  {
+    path: '**',
+    component: HomePageComponent,
+    pathMatch: 'full'
   }
 ];
 

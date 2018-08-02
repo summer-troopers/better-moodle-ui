@@ -4,6 +4,7 @@ import {DashboardPageComponent} from './containers/dashboard-page/dashboard-page
 import {AdminDashboardComponent} from './components/admin-dashboard/admin-dashboard.component';
 import {StudentDashboardComponent} from './components/student-dashboard/student-dashboard.component';
 import {TeacherDashboardComponent} from './components/teacher-dashboard/teacher-dashboard.component';
+import {dashboardRoutes} from '@modules/dashboard/dashboard.routes';
 
 const COMPONENTS = [
   DashboardPageComponent,
@@ -14,14 +15,12 @@ const COMPONENTS = [
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    dashboardRoutes
   ],
   declarations: [
     ...COMPONENTS
-  ],
-  exports: [
-    ...COMPONENTS
-  ],
+  ]
 })
 export class DashboardModule {
 }

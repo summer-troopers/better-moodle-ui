@@ -8,6 +8,7 @@ import {NavComponent} from './components/nav/nav.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {HeaderComponent} from './components/header/header.component';
 import {LayoutComponent} from './components/layout/layout.component';
+import {CollapseModule} from 'ngx-bootstrap/collapse';
 
 const COMPONENTS = [
   NavComponent,
@@ -28,7 +29,8 @@ export function initAppFactory(initService: InitService) {
 @NgModule({
   imports: [
     CommonModule,
-    ...MODULES
+    ...MODULES,
+    CollapseModule.forRoot(),
   ],
   declarations: [
     ...COMPONENTS,

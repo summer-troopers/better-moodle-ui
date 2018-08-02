@@ -1,8 +1,72 @@
 .activated {
-    background-color: #000000;
+  background-color: #9f8060;
+  border-radius: 10px;
 }
 
-img{
-    width: 45px;
-    height: 45px;
+.app-nav {
+  padding: 0px;
+}
+
+a {
+  color: #a6a6a6;
+}
+
+img {
+  width: 45px;
+  height: 45px;
+}
+
+.toggle-container {
+  border: 0px;
+}
+
+.icon {
+  color: #d98026;
+  font-size: 200% !important;
+  padding-left: 2px;
+  &:hover {
+    color: #f0b375;
+  }
+}
+
+.nvbar-right {
+  margin-left: 30%;
+  margin-right: 0% !important;
+}
+
+.dropfont {
+  position: absolute;
+  width: 80vw;
+  top: 40px;
+  padding: 10px;
+  font-size: 15px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.dropdown-menu {
+  width: 80vw;
+  padding: 30px;
+}
+
+@media (max-width: 1000px) {
+  .activated {
+    padding-left: 10px;
+  }
+}
+
+@media screen and (max-width: 651px) {
+  .app-nav {
+    padding: 0px;
+  }
+
+  .dropfont {
+    width: 100vw;
+  }
+}
+
+.navbar-toggler {
+  padding: 0rem 0rem;
 }
