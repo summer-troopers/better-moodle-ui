@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
-import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
+
+import { environment } from '@env/environment';
 
 /* tslint:disable max-line-length */
 

@@ -1,31 +1,34 @@
 import { Injectable } from '@angular/core';
-import {TOKEN_STORAGE_KEY, USER_STORAGE_KEY} from '@shared/constants';
-import {BackendApiService} from '@core/services/api/backend-api.service';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
+
+import { TOKEN_STORAGE_KEY, USER_STORAGE_KEY } from '@shared/constants';
+import { BackendApiService } from '@core/services/api/backend-api.service';
+import User from '@shared/models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  constructor(private backendApiService: BackendApiService) { }
-
-  submitLoginDate(user): Observable<any> {
-    return this.backendApiService.post('login', user) as Observable<any>;
+  constructor(private backendApiService: BackendApiService) {
   }
 
-  login(data) {
-    localStorage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(data.token));
+  login(loginDataUser: User): Observable<any> {
+    return this.backendApiService.post('login', loginDataUser) as Observable<any>;
   }
 
-  setUser(data) {
-    localStorage.setItem(USER_STORAGE_KEY, JSON.stringify((data.userData)));
+  insertTokenLocalStorage(token) {
+    localStorage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(token));
   }
 
-  getUser() {
+  insertUserLocalStorage(user: User) {
+    localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user));
+  }
+
+  getUserLocalStorage() {
     return localStorage.getItem(USER_STORAGE_KEY);
   }
 
-  getToken() {
+  getTokenLocalStorage() {
     return localStorage.getItem(TOKEN_STORAGE_KEY);
   }
 
@@ -33,7 +36,9 @@ export class AuthenticationService {
     const token = localStorage.getItem(TOKEN_STORAGE_KEY);
     const user = localStorage.getItem(USER_STORAGE_KEY);
 
-    if (token && user) { return true; }
+    if (token && user) {
+      return true;
+    }
     return false;
   }
 }

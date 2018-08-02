@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
-import {finalize, tap} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
+import { finalize, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

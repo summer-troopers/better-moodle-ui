@@ -5,8 +5,12 @@ import {HomePageComponent} from '@modules/home/home-page/home-page.component';
 
 const routes: Routes = [
   {
+    path: 'teachers',
+    loadChildren: '@modules/teachers/teachers.module#TeachersModule',
+  },
+  {
     path: 'auth',
-    loadChildren: './modules/authentication/authentication.module#AuthenticationModule'
+    loadChildren: '@modules/authentication/authentication.module#AuthenticationModule'
   },
   {
     path: 'teachers',
