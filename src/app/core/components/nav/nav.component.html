@@ -8,8 +8,8 @@
     <!--big screen-->
     <div class=" collapse navbar-collapse block">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item" *ngFor="let item of items" [routerLinkActive]="'activated'">
-          <a class="nav-link" routerLink="{{item.url}}">{{item.name}}</a>
+        <li class="nav-item" *ngFor="let item of items" routerLinkActive="activated">
+          <a class="nav-link" routerLink={{item.url}}>{{item.name}}</a>
         </li>
       </ul>
     </div>
@@ -24,10 +24,10 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <ul class="collapse bg-dark dropdown-menu-right dropfont" [collapse]="isCollapsed">
-        <li class="nav-item" *ngFor="let item of items" [routerLinkActive]="'activated'">
-          <a class="nav-link" routerLink="{{item.url}}">{{item.name}}</a>
+        <li class="nav-item" *ngFor="let item of items" routerLinkActive="activated">
+          <a class="nav-link" routerLink={{item.url}}>{{item.name}}</a>
         </li>
-        <li class="nav-item" [routerLinkActive]="'activated'">
+        <li class="nav-item" routerLinkActive="activated">
           <a class="nav-link" routerLink="auth">Log out</a>
         </li>
       </ul>
@@ -36,12 +36,12 @@
     <!--big screen-->
     <div class="collapse navbar-collapse profile-div">
       <ul class="navbar-nav nvbar-right ml-auto p-2">
-        <li class="nav-item" [routerLinkActive]="'activated'">
+        <li class="nav-item" routerLinkActive="activated">
           <a class="nav-link" routerLink="auth">Log out</a>
         </li>
       </ul>
 
-      <a class="navbar-brand" [routerLinkActive]="'activated'">
+      <a class="navbar-brand" routerLinkActive="activated">
         <i class="fa fa-user icon" routerLink="dashboard"></i>
       </a>
     </div>

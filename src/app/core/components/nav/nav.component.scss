@@ -1,10 +1,16 @@
 .activated {
   background-color: #9f8060;
   border-radius: 10px;
+  @media (max-width: 1000px) {
+    padding-left: 10px;
+  }
 }
 
 .app-nav {
-  padding: 0px;
+  padding: 0;
+  @media screen and (max-width: 651px) {
+    padding: 0;
+  }
 }
 
 a {
@@ -16,8 +22,8 @@ img {
   height: 45px;
 }
 
-.toggle-container {
-  border: 0px;
+ul {
+  list-style-type: none;
 }
 
 .icon {
@@ -31,7 +37,15 @@ img {
 
 .nvbar-right {
   margin-left: 30%;
-  margin-right: 0% !important;
+  margin-right: 0;
+}
+
+.navbar-toggler {
+  padding: 0;
+}
+
+.toggle-container {
+  border: 0;
 }
 
 .dropfont {
@@ -40,33 +54,12 @@ img {
   top: 40px;
   padding: 10px;
   font-size: 15px;
-}
-
-ul {
-  list-style-type: none;
+  @media screen and (max-width: 651px) {
+    width: 100vw;
+  }
 }
 
 .dropdown-menu {
   width: 80vw;
   padding: 30px;
-}
-
-@media (max-width: 1000px) {
-  .activated {
-    padding-left: 10px;
-  }
-}
-
-@media screen and (max-width: 651px) {
-  .app-nav {
-    padding: 0px;
-  }
-
-  .dropfont {
-    width: 100vw;
-  }
-}
-
-.navbar-toggler {
-  padding: 0rem 0rem;
 }
