@@ -11,9 +11,10 @@
     <h3>Group Name: {{groupName}}</h3>
     <app-edit-student-modal></app-edit-student-modal>
 
-    <button class="w3-button w3-white w3-border w3-border-red w3-round-large">
-      <i class="material-icons"
-         (click)="onDelete(student.id)">delete</i>
+    <button class="w3-button w3-white w3-border w3-border-red w3-round-large"
+            (click)="deleteStudent(student.id)"
+            routerLink='/students'>
+      Delete
     </button>
     <br>
   </div>
