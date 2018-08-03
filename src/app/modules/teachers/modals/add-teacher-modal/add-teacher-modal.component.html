@@ -1,8 +1,4 @@
-<button type="button"
-        class="btn btn-primary"
-        (click)="openModal(template)">Add new teacher</button>
-
-<ng-template #template>
+<ng-template (onModalButtonClick)="receive($event)">
   <div class="modal-header">
     <h4 class="modal-title pull-left">Add a new teacher</h4>
     <button type="button"

@@ -1,9 +1,10 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter, TemplateRef } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { TeachersService } from '../../teachers.service';
+import { Template } from '../../../../../../node_modules/@angular/compiler/src/render3/r3_ast';
 
 @Component({
   selector: 'app-add-teacher-modal',
@@ -16,6 +17,8 @@ export class AddTeacherModalComponent implements OnInit {
 
   userForm: FormGroup;
   submitted = false;
+
+  @Output() selectedModal = new EventEmitter<any>()
 
   constructor(private modalService: BsModalService,
     private formBuilder: FormBuilder,
@@ -31,7 +34,7 @@ export class AddTeacherModalComponent implements OnInit {
     });
   }
 
-  openModal(template: TemplateRef<any>) {
+  onModalButtonClick(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
 

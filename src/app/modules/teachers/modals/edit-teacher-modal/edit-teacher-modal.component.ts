@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core'
+import { Component, OnInit, TemplateRef, Input, OnChanges, SimpleChanges } from '@angular/core'
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -12,7 +12,9 @@ import Teacher from '../../../../shared/models/teacher';
   templateUrl: './edit-teacher-modal.component.html',
   styleUrls: ['./edit-teacher-modal.component.scss']
 })
-export class EditTeacherModalComponent implements OnInit {
+export class EditTeacherModalComponent implements OnInit, OnChanges {
+
+  //@Input('teacher') teacher: Teacher;
 
   modalRef: BsModalRef;
 
@@ -41,10 +43,7 @@ export class EditTeacherModalComponent implements OnInit {
         this.teacher = data;
       })
     });
-  }
 
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
     this.userForm = this.formBuilder.group({
       firstName: [this.teacher.firstName, Validators.required],
       lastName: [this.teacher.lastName, Validators.required],
@@ -52,7 +51,26 @@ export class EditTeacherModalComponent implements OnInit {
       email: [this.teacher.email, [Validators.required, Validators.email]],
       //password: ['', [Validators.required]]
     });
+
+    this.userForm.patchValue({
+
+    });
   }
+
+  ngOnChanges(changes: SimpleChanges) {
+
+  }
+
+  // openModal(template: TemplateRef<any>) {
+  //   this.modalRef = this.modalService.show(template);
+  //   this.userForm = this.formBuilder.group({
+  //     firstName: [this.teacher.firstName, Validators.required],
+  //     lastName: [this.teacher.lastName, Validators.required],
+  //     phoneNumber: [this.teacher.phoneNumber, [Validators.required]],
+  //     email: [this.teacher.email, [Validators.required, Validators.email]],
+  //     //password: ['', [Validators.required]]
+  //   });
+  // }
 
   get f() {
     return this.userForm.controls;

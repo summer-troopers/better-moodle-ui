@@ -14,7 +14,7 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <!-- value="{{teacher.firstName}}" -->
+
   <div class="modal-body">
     <form [formGroup]="userForm"
           (submit)="onSubmit()">
@@ -33,7 +33,7 @@
           <div *ngIf="f.firstName.errors.required">Name is required</div>
         </div>
       </div>
-      <!-- value="{{teacher.lastName}}" -->
+
       <div class="form-group">
         <label for="lastName">Your last name</label>
         <input formControlName="lastName"
@@ -49,7 +49,7 @@
           <div *ngIf="f.lastName.errors.required">Name is required</div>
         </div>
       </div>
-      <!-- value="{{teacher.email}}" -->
+
       <div class="form-group">
         <label for="email">Email address</label>
         <input type="email"
@@ -66,12 +66,13 @@
           <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
         </div>
       </div>
+
       <!-- mask="000-000-0000" -->
-      <!-- value="{{teacher.phoneNumber}}" -->
       <div class="form-group">
         <label for="phoneNumber">Your last name</label>
         <input formControlName="phoneNumber"
                type="tel"
+               value="{{teacher.phoneNumber}}"
                class="form-control"
                [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }"
                id="phoneNumber"
@@ -102,6 +103,7 @@
         </div>
       </div> -->
 
+      <!-- [disabled]="form.invalid" -->
       <button type="submit"
               class="btn btn-primary">Submit</button>
     </form>
