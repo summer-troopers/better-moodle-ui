@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { AuthenticationService } from '@modules/authentication/authentication.service';
 import { TOKEN_STORAGE_KEY, USER_STORAGE_KEY } from '@shared/constants';
+import { LocalStorageService } from '@shared/services/local-storage.service';
 
 @Component({
   selector: 'app-login-page',
@@ -19,7 +20,20 @@ export class LoginPageComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
-    private router: Router) {
+    private router: Router,
+    private localStorageService: LocalStorageService) {
+  }
+
+  get formErrors() {
+    return this.loginForm.controls;
+  }
+
+  get emailErrors() {
+    return this.formErrors.email.errors;
+  }
+
+  get passwordErrors() {
+    return this.formErrors.password.errors;
   }
 
   initForm() {
@@ -36,18 +50,6 @@ export class LoginPageComponent implements OnInit {
     }
   }
 
-  get formErrors() {
-    return this.loginForm.controls;
-  }
-
-  get emailErrors() {
-    return this.formErrors.email.errors;
-  }
-
-  get passwordErrors() {
-    return this.formErrors.password.errors;
-  }
-
   onSubmit() {
     this.isSubmitted = true;
     if (this.loginForm.invalid) {
@@ -55,8 +57,8 @@ export class LoginPageComponent implements OnInit {
     }
 
     this.authenticationService.login(this.loginForm.value).subscribe(data => {
-      this.authenticationService.insertLocalStorage(data.token, TOKEN_STORAGE_KEY);
-      this.authenticationService.insertLocalStorage(data.userData, USER_STORAGE_KEY);
+      this.localStorageService.insertLocalStorage(data.token, TOKEN_STORAGE_KEY);
+      this.localStorageService.insertLocalStorage(data.userData, USER_STORAGE_KEY);
       this.router.navigateByUrl('home')
         .catch(console.error);
     }, error => {

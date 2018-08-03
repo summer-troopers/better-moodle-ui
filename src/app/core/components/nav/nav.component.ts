@@ -1,5 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {NavBarLink} from '@shared/models';
+import { Component, OnInit } from '@angular/core';
+
+import { NavBarLink } from '@shared/models';
+import { TOKEN_STORAGE_KEY, USER_STORAGE_KEY } from '@shared/constants';
+import { LocalStorageService } from '@shared/services/local-storage.service';
+import { AuthenticationService } from '@modules/authentication/authentication.service';
 
 @Component({
   selector: 'app-nav',
@@ -7,6 +11,7 @@ import {NavBarLink} from '@shared/models';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
+  isAuthenticated = false;
   public items: Array<NavBarLink> = [
     {
       name: 'Teachers',
@@ -32,10 +37,23 @@ export class NavComponent implements OnInit {
 
   isCollapsed = true;
 
-  constructor() {
+  constructor(private authenticationService: AuthenticationService,
+              private localStorageService: LocalStorageService) {
   }
 
   ngOnInit() {
+    this.isAuthenticated = this.authenticationService.isAuthenticated();
+  }
+
+  logOut() {
+    if (this.isAuthenticated) {
+      this.localStorageService.deleteLocalStorage(USER_STORAGE_KEY);
+      this.localStorageService.deleteLocalStorage(TOKEN_STORAGE_KEY);
+    }
+  }
+
+  authenticatedVerify() {
+    return this.authenticationService.isAuthenticated();
   }
 
   changeCollapse() {

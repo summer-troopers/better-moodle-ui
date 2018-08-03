@@ -51,6 +51,16 @@ ul {
   padding: 30px;
 }
 
+.navbar-brand .site-name {
+  color: #ffffff;
+  font: normal 36px 'Cookie', cursive;
+  margin: 0;
+}
+
+.navbar-brand .site-name span {
+  color: #5383d3;
+}
+
 @media (max-width: 1000px) {
   .activated {
     padding-left: 10px;
