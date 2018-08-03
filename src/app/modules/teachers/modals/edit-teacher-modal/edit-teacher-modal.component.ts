@@ -1,7 +1,7 @@
-import { Component, OnInit, TemplateRef, Input, OnChanges, SimpleChanges } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import { TeachersService } from '@modules/teachers/teachers.service';
@@ -12,24 +12,17 @@ import Teacher from '../../../../shared/models/teacher';
   templateUrl: './edit-teacher-modal.component.html',
   styleUrls: ['./edit-teacher-modal.component.scss']
 })
-export class EditTeacherModalComponent implements OnInit, OnChanges {
-
-  //@Input('teacher') teacher: Teacher;
+export class EditTeacherModalComponent implements OnInit {
 
   modalRef: BsModalRef;
 
   userForm: FormGroup;
   submitted = false;
-
-  private subscription: any;
-  id: number;
-  teacher: Teacher = {
-    id: null,
-    firstName: '',
-    lastName: '',
-    email: '',
-    phoneNumber: '',
-  };
+  teacher: Teacher;
+  firstName: any;
+  lastName: any;
+  email: any;
+  phoneNumber: any;
 
   constructor(private modalService: BsModalService,
     private route: ActivatedRoute,
@@ -37,59 +30,40 @@ export class EditTeacherModalComponent implements OnInit, OnChanges {
     private teachersService: TeachersService) { }
 
   ngOnInit() {
-    this.subscription = this.route.params.subscribe(params => {
-      this.id = +params['id'];
-      this.teachersService.getTeacher(this.id).subscribe((data) => {
-        this.teacher = data;
-      })
-    });
 
-    this.userForm = this.formBuilder.group({
-      firstName: [this.teacher.firstName, Validators.required],
-      lastName: [this.teacher.lastName, Validators.required],
-      phoneNumber: [this.teacher.phoneNumber, [Validators.required]],
-      email: [this.teacher.email, [Validators.required, Validators.email]],
-      //password: ['', [Validators.required]]
-    });
-
-    this.userForm.patchValue({
+    this.userForm = new FormGroup({
+      data: new FormControl({
+        firstName: this.teacher.firstName,
+        lastName: this.teacher.lastName,
+        email: this.teacher.email,
+        phoneNumber: this.teacher.phoneNumber,
+      }),
 
     });
+
+    // this.firstName = this.userForm.value.data.firstName;
+    // this.lastName = this.userForm.value.data.lastName;
+    // this.email = this.userForm.value.data.email;
+    // this.phoneNumber = this.userForm.value.data.phoneNumber;
+    console.log(this.userForm.value.data)
   }
-
-  ngOnChanges(changes: SimpleChanges) {
-
-  }
-
-  // openModal(template: TemplateRef<any>) {
-  //   this.modalRef = this.modalService.show(template);
-  //   this.userForm = this.formBuilder.group({
-  //     firstName: [this.teacher.firstName, Validators.required],
-  //     lastName: [this.teacher.lastName, Validators.required],
-  //     phoneNumber: [this.teacher.phoneNumber, [Validators.required]],
-  //     email: [this.teacher.email, [Validators.required, Validators.email]],
-  //     //password: ['', [Validators.required]]
-  //   });
-  // }
 
   get f() {
-    return this.userForm.controls;
+
+    return this.userForm.controls.data.value;
   }
 
   onSubmit() {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.userForm.invalid) {
-      return;
-    }
+    // if (this.userForm.invalid) {
+    //   return;
+    // }
+    //const formParam = this.userForm.value.data;
 
-    const formParam = this.userForm.value;
-    this.teachersService.editTeacher(this.id, formParam).toPromise();
-    this.teachersService.getTeachers();
+    // this.teachersService.editTeacher(formParam).toPromise();
+    //this.teachersService.getTeachers();
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
 }

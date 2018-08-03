@@ -39,8 +39,11 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  openModal() {
-    this.modalEditRef = this.modalService.show(EditTeacherModalComponent);
+  openEditModal() {
+    const initialState: any = {
+      teacher: this.teacher
+    };
+    this.modalEditRef = this.modalService.show(EditTeacherModalComponent, { initialState });
   }
 
   ngOnDestroy() {

@@ -1,8 +1,10 @@
-<ng-template #modalEditRef>
+<div #modalEditRef>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Edit teacher</h4>
     <button type="button"
-            class="close pull-right">
+            class="close pull-right"
+            aria-label="Close"
+            (click)="modalEditRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -83,4 +85,4 @@
               class="btn btn-primary">Submit</button>
     </form>
   </div>
-</ng-template>
+</div>
