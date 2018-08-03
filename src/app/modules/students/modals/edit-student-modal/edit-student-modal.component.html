@@ -1,6 +1,8 @@
 <button type="button"
-        class="w3-button w3-white w3-border w3-border-blue w3-round-large"
-        (click)="openModal(template)">Edit</button>
+        class="btn btn-secondary"
+        (click)="openModal(template)">
+  Edit
+</button>
 
 <ng-template #template>
   <div class="modal-header">
@@ -12,53 +14,67 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
+
   <div class="modal-body">
-    <form [formGroup]="editStudentForm"
+    <form [formGroup]="studentForm"
           (submit)="onSubmit()">
       <div class="form-group">
-        <label for="firstName">First Name</label>
-        <input type="text"
-               id="firstName"
+        <label for="firstName">First name</label>
+        <input formControlName="firstName"
+               value="{{student.firstName}}"
+               type="text"
                class="form-control"
-               placeholder={{student.firstName}}
-               formControlName="firstName"
-               [ngClass]="{ 'is-invalid': submitted && fields.firstName.errors }">
+               [ngClass]="{ 'is-invalid': submitted && fields.firstName.errors }"
+               id="firstName"
+               autocomplete='firstName'
+               aria-describedby="nameHelp"
+               placeholder="Enter First Name">
         <div *ngIf="submitted && fields.firstName.errors"
              class="invalid-feedback">
-          <div *ngIf="fields.firstName.errors.required">First Name is required</div>
+          <div *ngIf="fields.firstName.errors.required">Name is required</div>
         </div>
       </div>
+
       <div class="form-group">
-        <label for="lastName">Last Name</label>
-        <input type="text"
-               id="lastName"
+        <label for="lastName">Last name</label>
+        <input formControlName="lastName"
+               value="{{student.lastName}}"
+               type="text"
                class="form-control"
-               placeholder={{student.lastName}}
-               formControlName="lastName"
-               [ngClass]="{ 'is-invalid': submitted && fields.lastName.errors }">
+               [ngClass]="{ 'is-invalid': submitted && fields.lastName.errors }"
+               id="lastName"
+               autocomplete='lastName'
+               aria-describedby="nameHelp"
+               placeholder="Enter Last Name">
         <div *ngIf="submitted && fields.lastName.errors"
              class="invalid-feedback">
-          <div *ngIf="fields.lastName.errors.required">Last Name is required</div>
+          <div *ngIf="fields.lastName.errors.required">Name is required</div>
         </div>
       </div>
+
       <div class="form-group">
         <label for="email">Email address</label>
-        <input type="email"
-               id="email"
+        <input type="text"
+               value="{{student.email}}"
                class="form-control"
-               placeholder={{student.email}}
+               id="email"
+               autocomplete='email'
+               aria-describedby="emailHelp"
+               placeholder="Enter email"
                formControlName="email"
                [ngClass]="{ 'is-invalid': submitted && fields.email.errors }">
         <div *ngIf="submitted && fields.email.errors"
              class="invalid-feedback">
-          <div *ngIf="fields.email.errors.required">Email address is required</div>
+          <div *ngIf="fields.email.errors.required">Email is required</div>
           <div *ngIf="fields.email.errors.email">Email must be a valid email address</div>
         </div>
       </div>
+
       <div class="form-group">
         <label for="idGroup">Group ID</label>
         <input type="number"
                id="idGroup"
+               value="{{student.idGroup}}"
                class="form-control"
                placeholder="1"
                formControlName="idGroup"
@@ -68,17 +84,23 @@
           <div *ngIf="fields.idGroup.errors.required">Phone Number is required</div>
         </div>
       </div>
+
+      <!-- mask="000-000-0000" -->
       <div class="form-group">
         <label for="phoneNumber">Phone Number</label>
-        <input type="text"
-               id="phoneNumber"
+        <input formControlName="phoneNumber"
+               type="text"
+               value="{{student.phoneNumber}}"
                class="form-control"
-               placeholder="123-123-1234"
-               formControlName="phoneNumber"
-               [ngClass]="{ 'is-invalid': submitted && fields.phoneNumber.errors }">
+               [ngClass]="{ 'is-invalid': submitted && fields.phoneNumber.errors }"
+               id="phoneNumber"
+               autocomplete='phoneNumber'
+               aria-describedby="nameHelp"
+               placeholder="123-456-7890"
+               pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
         <div *ngIf="submitted && fields.phoneNumber.errors"
              class="invalid-feedback">
-          <div *ngIf="fields.phoneNumber.errors.required">Phone Number is required</div>
+          <div *ngIf="fields.phoneNumber.errors.required">Phone number is required</div>
         </div>
       </div>
 

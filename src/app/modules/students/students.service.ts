@@ -10,8 +10,13 @@ import { Student } from '../../shared/models/student';
 export class StudentsService {
   constructor(private api: BackendApiService) { }
 
-  getStudents(): Observable<Array<Student>> {
+  getNumberOfStudents() {
     return this.api.get(`students`)
+      .pipe(map(result => result.total));
+  }
+
+  getStudents(offset: number, limit: number): Observable<Array<Student>> {
+    return this.api.get(`students?offset=${offset}&limit=${limit}`)
       .pipe(map(result => result.data));
   }
 
@@ -25,9 +30,9 @@ export class StudentsService {
       .pipe(map(result => result));
   }
 
-  updateStudent(editedStudent) {
-    return this.api.put(`students/${editedStudent.id}`, editedStudent)
-      .pipe(map(result => result));
+  updateStudentData(id: number, editedStudent) {
+    return this.api.put(`students/${id}`, editedStudent)
+      .pipe(map(result => console.log(result)));
   }
 
   deleteStudent(id: number) {

@@ -2,7 +2,7 @@
   <div *ngIf="students.length > 0; else noStudents">
     <div class="pageTitle">
       <h1>List of all students
-        <app-add-student class="pull-right"></app-add-student>
+        <app-add-student-modal class="pull-right"></app-add-student-modal>
       </h1>
       <br>
     </div>
@@ -22,8 +22,17 @@
       <h2>Want to add a new Student? </h2>
     </div>
     <div class="text-center">
-      <app-add-student></app-add-student>
+      <app-add-student-modal></app-add-student-modal>
     </div>
   </ng-template>
+
+  <div class="pagination-container">
+    <ngb-pagination class="d-flex justify-content-center"
+                    [collectionSize]="totalItems"
+                    [pageSize]="limit"
+                    [maxSize]="5"
+                    [(page)]="page"
+                    (pageChange)="pageChanged($event)"></ngb-pagination>
+  </div>
 
 </div>

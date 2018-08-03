@@ -9,9 +9,10 @@
     <h3>Email: {{student.email}}</h3>
     <h3>Phone Number: {{student.phoneNumber}}</h3>
     <h3>Group Name: {{groupName}}</h3>
+
     <app-edit-student-modal></app-edit-student-modal>
 
-    <button class="w3-button w3-white w3-border w3-border-red w3-round-large"
+    <button class="btn btn-danger"
             (click)="deleteStudent(student.id)"
             routerLink='/students'>
       Delete
