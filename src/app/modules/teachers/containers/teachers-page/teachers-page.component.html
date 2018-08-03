@@ -2,10 +2,10 @@
   <div *ngIf="teachers.length > 0; else noTeacherss">
     <div class="pageTitle">
       <h1>List of all teachers
+
         <button type="button"
                 class="btn btn-primary pull-right"
-                (click)="modal.showModal($event)">Add new teacher</button>
-        <app-add-teacher #modal></app-add-teacher>
+                (click)="openModal()">Add new teacher</button>
       </h1>
       <br>
     </div>
@@ -25,7 +25,9 @@
       <h2>Want to add a new teacher ? </h2>
     </div>
     <div class="text-center">
-      <app-add-teacher></app-add-teacher>
+      <button type="button"
+              class="btn btn-primary pull-right"
+              (click)="openModal()">Add new teacher</button>
     </div>
   </ng-template>
 

@@ -1,4 +1,4 @@
-<ng-template (onModalButtonClick)="receive($event)">
+<div #modalRef>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Add a new teacher</h4>
     <button type="button"
@@ -59,7 +59,7 @@
           <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
         </div>
       </div>
-      <!-- mask="999-999-9999" -->
+      <!-- ['^[\+]?[0]{0,2}?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$', 'i'] -->
       <div class="form-group">
         <label for="phoneNumber">Your last name</label>
         <input formControlName="phoneNumber"
@@ -97,4 +97,4 @@
               class="btn btn-primary">Submit</button>
     </form>
   </div>
-</ng-template>
+</div>
