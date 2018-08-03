@@ -1,0 +1,16 @@
+.card {
+  max-width: 300px;
+  margin: auto;
+}
+
+.a {
+  border: solid;
+}
+
+.activated {
+  background-color: #9f8060;
+  border-radius: 10px;
+  @media (max-width: 1000px) {
+    padding-left: 10px;
+  }
+}
