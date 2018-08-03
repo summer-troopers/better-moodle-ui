@@ -1,6 +1,3 @@
 import User from '@shared/models/user';
 
-class Admin extends User {
-}
-
-export default Admin;
+export default class Admin extends User {}

@@ -1,4 +1,4 @@
-class User {
+export default class User {
   id: number;
   firstName: string;
   lastName: string;
@@ -6,5 +6,3 @@ class User {
   phoneNumber: string;
   userRole: string;
 }
-
-export default User;

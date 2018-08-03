@@ -9,7 +9,7 @@
       </a>
 
       <!--big screen-->
-      <div class=" collapse navbar-collapse block">
+      <div class="collapse navbar-collapse block">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item" *ngFor="let item of items" routerLinkActive="activated">
             <a class="nav-link" routerLink={{item.url}}>{{item.name}}</a>
@@ -41,7 +41,7 @@
             <a class="nav-link" routerLink={{item.url}}>{{item.name}}</a>
           </li>
           <li class="nav-item" routerLinkActive="activated">
-            <a class="nav-link" routerLink="auth">Log out</a>
+            <a class="nav-link" (click)="logOut()" routerLink="auth">Log out</a>
           </li>
         </ul>
       </div>

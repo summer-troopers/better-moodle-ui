@@ -4,6 +4,7 @@ import { NavBarLink } from '@shared/models';
 import { TOKEN_STORAGE_KEY, USER_STORAGE_KEY } from '@shared/constants';
 import { LocalStorageService } from '@shared/services/local-storage.service';
 import { AuthenticationService } from '@modules/authentication/authentication.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -38,7 +39,8 @@ export class NavComponent implements OnInit {
   isCollapsed = true;
 
   constructor(private authenticationService: AuthenticationService,
-              private localStorageService: LocalStorageService) {
+              private localStorageService: LocalStorageService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -49,10 +51,13 @@ export class NavComponent implements OnInit {
     if (this.isAuthenticated) {
       this.localStorageService.deleteLocalStorage(USER_STORAGE_KEY);
       this.localStorageService.deleteLocalStorage(TOKEN_STORAGE_KEY);
+      this.isAuthenticated = false;
+      this.router.navigateByUrl('auth');
     }
   }
 
   authenticatedVerify() {
+    console.log(this.authenticationService.isAuthenticated());
     return this.authenticationService.isAuthenticated();
   }
 
