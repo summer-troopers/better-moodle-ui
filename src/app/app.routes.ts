@@ -1,19 +1,16 @@
-import {ModuleWithProviders} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
-import {HomePageComponent} from '@modules/home/home-page/home-page.component';
+import { ModuleWithProviders } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+
+import { HomePageComponent } from '@modules/home/home-page/home-page.component';
 
 const routes: Routes = [
   {
-    path: 'auth',
-    loadChildren: './modules/authentication/authentication.module#AuthenticationModule'
-  },
-  {
     path: 'teachers',
-    loadChildren: './modules/teachers/teachers.module#TeachersModule',
+    loadChildren: '@modules/teachers/teachers.module#TeachersModule',
   },
   {
-    path: 'students',
-    loadChildren: './modules/students/students.module#StudentsModule'
+    path: 'auth',
+    loadChildren: '@modules/authentication/authentication.module#AuthenticationModule'
   },
   {
     path: 'groups',
@@ -30,6 +27,10 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: '@modules/dashboard/dashboard.module#DashboardModule'
+  },
+  {
+    path: 'students',
+    loadChildren: '@modules/students/students.module#StudentsModule'
   },
   {
     path: '',

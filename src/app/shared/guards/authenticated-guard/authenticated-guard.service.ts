@@ -1,26 +1,17 @@
-import {Injectable} from '@angular/core';
-import {CanActivate} from '@angular/router';
+import { Injectable } from '@angular/core';
+import { CanActivate } from '@angular/router';
+
+import { AuthenticationService } from '@modules/authentication/authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticatedGuardService implements CanActivate {
 
-  isLoggedIn = true;
-
-  isAdmin = false;
-  isTeacher = false;
-  isStudent = false;
-
-
-  constructor() {
+  constructor(private authenticationService: AuthenticationService) {
   }
 
   canActivate() {
-    return this.isLoggedIn;
-  }
-
-  canActivateRouteByRole() {
-    // here will be check for user role 
+    return this.authenticationService.isAuthenticated();
   }
 }
