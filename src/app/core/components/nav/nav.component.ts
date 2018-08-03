@@ -11,7 +11,7 @@ import { AuthenticationService } from '@modules/authentication/authentication.se
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
-  isAuthenticated = false;
+  isAuthenticated: boolean;
   public items: Array<NavBarLink> = [
     {
       name: 'Teachers',

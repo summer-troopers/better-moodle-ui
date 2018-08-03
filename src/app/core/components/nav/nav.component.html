@@ -17,7 +17,6 @@
         </ul>
       </div>
 
-
       <!--small screen-->
       <div class="btn-group navbar-toggler toggle-container">
         <a class="navbar-brand" routerLink="dashboard">
@@ -40,7 +39,7 @@
       <div class="collapse navbar-collapse profile-div">
         <ul class="navbar-nav nvbar-right ml-auto p-2">
           <li class="nav-item" [routerLinkActive]="'activated'">
-            <a class="nav-link" routerLink="auth" (click)="logOut()">Log out</a>
+            <a class="nav-link" (click)="logOut()" routerLink="auth">Log out</a>
           </li>
         </ul>
 
