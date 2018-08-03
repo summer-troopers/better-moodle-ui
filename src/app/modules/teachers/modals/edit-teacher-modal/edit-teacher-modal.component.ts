@@ -32,20 +32,13 @@ export class EditTeacherModalComponent implements OnInit {
   ngOnInit() {
 
     this.userForm = new FormGroup({
-      data: new FormControl({
-        firstName: this.teacher.firstName,
-        lastName: this.teacher.lastName,
-        email: this.teacher.email,
-        phoneNumber: this.teacher.phoneNumber,
-      }),
-
+      firstName: new FormControl(this.teacher.firstName, Validators.required),
+      lastName: new FormControl(this.teacher.lastName, Validators.required),
+      email: new FormControl(this.teacher.email, [Validators.required, Validators.email]),
+      phoneNumber: new FormControl(this.teacher.phoneNumber, Validators.required),
     });
 
-    // this.firstName = this.userForm.value.data.firstName;
-    // this.lastName = this.userForm.value.data.lastName;
-    // this.email = this.userForm.value.data.email;
-    // this.phoneNumber = this.userForm.value.data.phoneNumber;
-    console.log(this.userForm.value.data)
+    console.log(this.userForm)
   }
 
   get f() {
@@ -60,7 +53,7 @@ export class EditTeacherModalComponent implements OnInit {
     // if (this.userForm.invalid) {
     //   return;
     // }
-    //const formParam = this.userForm.value.data;
+    const formParam = this.userForm.value.data;
 
     // this.teachersService.editTeacher(formParam).toPromise();
     //this.teachersService.getTeachers();
