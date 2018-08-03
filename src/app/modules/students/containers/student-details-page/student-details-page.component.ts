@@ -24,9 +24,8 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
         this.student = element;
         this.studentsService.getStudentsGroup(this.student.idGroup).subscribe((groupName) => {
           this.groupName = groupName;
-        })
-      })
-
+        });
+      });
     });
   }
 

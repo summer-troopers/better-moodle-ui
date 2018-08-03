@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, OnDestroy } from '@angular/core';
 
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
@@ -7,51 +7,69 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { StudentsService } from '@modules/students/students.service';
 import { Student } from '../../../../shared/models/student';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-edit-student-modal',
   templateUrl: './edit-student-modal.component.html',
   styleUrls: ['./edit-student-modal.component.scss']
 })
-export class EditStudentModalComponent implements OnInit {
+export class EditStudentModalComponent implements OnInit, OnDestroy {
   modalRef: BsModalRef;
 
-  editStudentForm: FormGroup;
+  studentForm: FormGroup;
   submitted = false;
+
+  id: number;
   student: Student;
 
-  constructor(private modalService: BsModalService, private formBuilder: FormBuilder, private api: StudentsService) { }
+  private subscription: any;
+
+  constructor(private modalService: BsModalService,
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private api: StudentsService) { }
 
   ngOnInit() {
-    this.editStudentForm = this.formBuilder.group({
+
+    this.subscription = this.route.params.subscribe(params => {
+      this.id = +params['id'];
+      this.api.getStudent(this.id).subscribe((element) => { this.student = element })
+    });
+
+    this.studentForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
       phoneNumber: ['', Validators.required],
-      idGroup: [1, Validators.required]
+      idGroup: ['', Validators.required]
     });
   }
 
-  openModal(template: TemplateRef<any>, student: Student) {
+  openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
-    this.student = student;
+    this.modalRef
   }
 
   get fields() {
-    return this.editStudentForm.controls;
+    return this.studentForm.controls;
   }
 
   onSubmit() {
     this.submitted = true;
 
-    if (this.editStudentForm.invalid) {
+    if (this.studentForm.invalid) {
       return;
     }
 
-    this.api.updateStudent(this.editStudentForm.value)
+    this.api.updateStudentData(this.student.id, this.studentForm.value)
       .subscribe((response) => console.log(response));
 
+    this.modalRef.hide();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }
