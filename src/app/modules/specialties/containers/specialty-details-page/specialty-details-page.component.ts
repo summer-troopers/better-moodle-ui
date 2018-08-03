@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SpecialtiesService } from '@modules/specialties/specialties.service';
+import { SpecialtiesService } from '../../specialties.service';
 import { Subscription } from 'rxjs';
-import { Specialty } from '@shared/models/specialty';
+import { Specialty } from '../../../../shared/models/specialty';
 
 @Component({
   selector: 'app-specialty-details-page',

@@ -1,12 +1,13 @@
-import { Component, Input, OnDestroy, OnInit, Output, TemplateRef } from '@angular/core';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { Component, Input, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { Subscription } from 'rxjs';
 import { Specialty } from '@shared/models/specialty';
 import { GroupsService } from '@modules/groups/groups.service';
 import { SpecialtiesService } from '@modules/specialties/specialties.service';
 import { Group } from '@shared/models/group';
-import { ActivatedRoute } from '@angular/router';
 import { GroupDetailsPageComponent } from '@modules/groups/containers';
 
 @Component({
@@ -65,7 +66,7 @@ export class EditGroupModalComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.groupsService.updateGroup(this.id, newGroup).subscribe(() => {
       this.modalRef.hide();
       this.parent.group = newGroup;
-      this.parent.specialty = { id, name: specialtyName };
+      this.parent.specialty = {id, name: specialtyName};
     }));
   }
 

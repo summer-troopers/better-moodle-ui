@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { Specialty } from '@shared/models/specialty';
-import { SpecialtiesService } from '@modules/specialties/specialties.service';
+import { Specialty } from '../../../../shared/models/specialty';
+import { SpecialtiesService } from '../../specialties.service';
 
 @Component({
   selector: 'app-specialities-page',
