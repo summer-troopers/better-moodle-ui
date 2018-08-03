@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
 
 import { NavBarLink } from '@shared/models';
 import { TOKEN_STORAGE_KEY, USER_STORAGE_KEY } from '@shared/constants';
 import { LocalStorageService } from '@shared/services/local-storage.service';
 import { AuthenticationService } from '@modules/authentication/authentication.service';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-nav',
