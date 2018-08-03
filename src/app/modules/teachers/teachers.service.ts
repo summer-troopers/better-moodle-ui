@@ -1,28 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
 import { BackendApiService } from '@core/services/api/backend-api.service';
-import { map, first } from 'rxjs/operators';
-import { Observable } from 'rxjs'
+import { first, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { Teacher } from '@shared/models/teacher';
-import { LocalStorageService } from '@shared/services/local-storage.service';
-import { TOKEN_STORAGE_KEY } from '@shared/constants/index';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TeachersService {
   id: number;
-  options = {
-    headers: new HttpHeaders({
-      "token": this.localStorage.getLocalStorage(TOKEN_STORAGE_KEY)
-    })
-  }
 
   constructor(private http: HttpClient,
-    private api: BackendApiService,
-    private localStorage: LocalStorageService) { }
+              private api: BackendApiService) {
+  }
 
   getNumberOfTeachers() {
     return this.api.get(`teachers`)

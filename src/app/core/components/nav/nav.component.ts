@@ -54,4 +54,5 @@ export class NavComponent implements OnInit {
   changeCollapse() {
     this.isCollapsed = !this.isCollapsed;
   }
+
 }

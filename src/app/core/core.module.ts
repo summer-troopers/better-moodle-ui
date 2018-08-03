@@ -1,20 +1,25 @@
-import {APP_INITIALIZER, NgModule, Optional, SkipSelf} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {RouterModule} from '@angular/router';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {InitService} from '@core/services/init/init.service';
-import {LoggerInterceptorService} from './interceptors/logger-interceptor.service';
-import {NavComponent} from './components/nav/nav.component';
-import {FooterComponent} from './components/footer/footer.component';
-import {HeaderComponent} from './components/header/header.component';
-import {LayoutComponent} from './components/layout/layout.component';
-import {CollapseModule} from 'ngx-bootstrap/collapse';
+import { APP_INITIALIZER, NgModule, Optional, SkipSelf } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+
+import { InitService } from '@core/services/init/init.service';
+import { LoggerInterceptorService } from '@core/interceptors/logger-interceptor.service';
+import { NavComponent } from '@core/components/nav/nav.component';
+import { FooterComponent } from '@core/components/footer/footer.component';
+import { HeaderComponent } from '@core/components/header/header.component';
+import { LayoutComponent } from '@core/components/layout/layout.component';
+import { AuthenticationInterceptorService } from '@core/interceptors/authentication-interceptor.service';
+import { AlertComponent } from '@core/components/alert/alert.component';
+import { AlertService } from '@core/services/alert/alert.service';
 
 const COMPONENTS = [
   NavComponent,
   FooterComponent,
   HeaderComponent,
-  LayoutComponent
+  LayoutComponent,
+  AlertComponent,
 ];
 
 const MODULES = [
@@ -50,7 +55,13 @@ export function initAppFactory(initService: InitService) {
       provide: HTTP_INTERCEPTORS,
       useClass: LoggerInterceptorService,
       multi: true
-    }
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthenticationInterceptorService,
+      multi: true
+    },
+    AlertService,
   ]
 })
 export class CoreModule {

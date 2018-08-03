@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '@modules/authentication/authentication.service';
 import { TOKEN_STORAGE_KEY, USER_STORAGE_KEY } from '@shared/constants';
 import { LocalStorageService } from '@shared/services/local-storage.service';
+import { AlertService } from '@core/services/alert/alert.service';
 
 @Component({
   selector: 'app-login-page',
@@ -21,7 +22,12 @@ export class LoginPageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
     private router: Router,
-    private localStorageService: LocalStorageService) {
+    private localStorageService: LocalStorageService,
+    private alertService: AlertService) {
+  }
+
+  showError(message: string) {
+    this.alertService.error(message);
   }
 
   get formErrors() {
@@ -61,6 +67,7 @@ export class LoginPageComponent implements OnInit {
     }, error => {
       this.isRequestError = true;
       console.log(error);
+      this.showError('Email or password incorrect!');
     });
   }
 }
