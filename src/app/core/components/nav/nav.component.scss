@@ -1,17 +1,10 @@
 .activated {
   background-color: #9f8060;
   border-radius: 10px;
-  @media screen and (max-width: 1000px) {
-    padding-left: 10px;
-  }
 }
 
 .app-nav {
-  padding: 0;
-  z-index: 1;
-  @media screen and (max-width: 651px) {
-    padding: 0;
-  }
+  padding: 0px;
 }
 
 a {
@@ -23,8 +16,8 @@ img {
   height: 45px;
 }
 
-ul {
-  list-style-type: none;
+.toggle-container {
+  border: 0px;
 }
 
 .icon {
@@ -38,31 +31,52 @@ ul {
 
 .nvbar-right {
   margin-left: 30%;
-  margin-right: 0;
-}
-
-.navbar-toggler {
-  padding: 0;
-}
-
-.toggle-container {
-  border: 0;
+  margin-right: 0% !important;
 }
 
 .dropfont {
   position: absolute;
   width: 80vw;
-  top: 100%;
+  top: 40px;
   padding: 10px;
   font-size: 15px;
-  border-radius: 0 0 4px 4px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
-  @media screen and (max-width: 651px) {
-    width: 100vw;
-  }
+}
+
+ul {
+  list-style-type: none;
 }
 
 .dropdown-menu {
   width: 80vw;
   padding: 30px;
+}
+
+.navbar-brand .site-name {
+  color: #ffffff;
+  font: normal 36px 'Cookie', cursive;
+  margin: 0;
+}
+
+.navbar-brand .site-name span {
+  color: #5383d3;
+}
+
+@media (max-width: 1000px) {
+  .activated {
+    padding-left: 10px;
+  }
+}
+
+@media screen and (max-width: 651px) {
+  .app-nav {
+    padding: 0px;
+  }
+
+  .dropfont {
+    width: 100vw;
+  }
+}
+
+.navbar-toggler {
+  padding: 0rem 0rem;
 }
