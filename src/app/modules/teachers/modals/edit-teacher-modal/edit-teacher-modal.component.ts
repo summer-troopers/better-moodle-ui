@@ -19,19 +19,12 @@ export class EditTeacherModalComponent implements OnInit {
   userForm: FormGroup;
   submitted = false;
   teacher: Teacher;
-  firstName: any;
-  lastName: any;
-  email: any;
-  phoneNumber: any;
 
-  constructor(private modalService: BsModalService,
-    private route: ActivatedRoute,
-    private formBuilder: FormBuilder,
-    private teachersService: TeachersService) { }
+  constructor(private teachersService: TeachersService) { }
 
   ngOnInit() {
-
     this.userForm = new FormGroup({
+      id: new FormControl(this.teacher.id),
       firstName: new FormControl(this.teacher.firstName, Validators.required),
       lastName: new FormControl(this.teacher.lastName, Validators.required),
       email: new FormControl(this.teacher.email, [Validators.required, Validators.email]),
@@ -42,21 +35,23 @@ export class EditTeacherModalComponent implements OnInit {
   }
 
   get f() {
-
-    return this.userForm.controls.data.value;
+    return this.userForm.controls;
   }
 
   onSubmit() {
     this.submitted = true;
 
     // stop here if form is invalid
-    // if (this.userForm.invalid) {
-    //   return;
-    // }
-    const formParam = this.userForm.value.data;
+    if (this.userForm.invalid) {
+      return;
+    }
 
-    // this.teachersService.editTeacher(formParam).toPromise();
-    //this.teachersService.getTeachers();
+    const formParam = this.userForm.value;
+    this.teachersService.editTeacher(formParam).toPromise();
+  }
+
+  getTeacher() {
+    this.teachersService.getTeacher(this.userForm.value.id).toPromise();;
   }
 
 }
