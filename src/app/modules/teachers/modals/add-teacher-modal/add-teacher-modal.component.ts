@@ -36,9 +36,11 @@ export class AddTeacherModalComponent implements OnInit {
     if (this.userForm.invalid) {
       return;
     }
-    console.log('gasgasgas')
+
     const formParam = this.userForm.value;
     this.teacherService.addTeacher(formParam).toPromise();
+
+    //console.log(this.teacherService.getTeachers().toPromise());
   }
 
 }

@@ -18,7 +18,14 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
   modalEditRef: BsModalRef;
 
   id: number;
-  teacher: Teacher;
+  teacher: Teacher = {
+    id: null,
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+    userRole: 'teacher'
+  };
 
   constructor(private route: ActivatedRoute,
     private teachersService: TeachersService,

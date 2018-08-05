@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { HttpHeaders } from '@angular/common/http';
 import { BackendApiService } from '@core/services/api/backend-api.service';
-import { map } from 'rxjs/operators';
+import { map, first } from 'rxjs/operators';
 import Teacher from '../../shared/models/teacher';
 import { Observable } from 'rxjs'
 
@@ -28,23 +28,21 @@ export class TeachersService {
 
   getTeacher(id: number): Observable<Teacher> {
     return this.api.get(`teachers/${id}`)
-      .pipe(map(result => result));
+      .pipe(first());
   }
 
-  deleteTeacher(id: number): Observable<Teacher> {
-    return this.api.delete(`teachers/${id}`);
+  deleteTeacher(id: number): Observable<any> {
+    return this.api.delete(`teachers/${id}`).pipe(first());
   }
 
-  addTeacher(form): Observable<any> {
-    console.log(form)
+  addTeacher(form: Teacher): Observable<any> {
     return this.api.post(`teachers`, form)
-      .pipe(map(result => result));
+      .pipe(first());
   }
 
-  editTeacher(form) {
-    console.log(form)
+  editTeacher(form: Teacher): Observable<any> {
     return this.api.put(`teachers/${form.id}`, form)
-      .pipe(map(result => result));
+      .pipe(first());
   }
 
 }

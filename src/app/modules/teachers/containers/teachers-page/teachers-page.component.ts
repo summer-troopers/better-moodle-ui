@@ -24,7 +24,7 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.teacherService.getTeachers()
-      .subscribe(data => this.teachers = data);
+      .subscribe(data => this.teachers = data.reverse());
   }
 
   openModal() {

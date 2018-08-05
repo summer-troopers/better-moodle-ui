@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core'
-import { BsModalService } from 'ngx-bootstrap/modal';
+import { Component, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { TeachersService } from '@modules/teachers/teachers.service';
 import Teacher from '../../../../shared/models/teacher';

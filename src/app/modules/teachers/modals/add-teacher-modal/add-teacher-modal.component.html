@@ -80,7 +80,7 @@
       <div class="form-group">
         <label for="password">Enter a password</label>
         <input formControlName="password"
-               type="text"
+               type="password"
                class="form-control"
                [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
                id="password"
@@ -93,7 +93,8 @@
         </div>
       </div>
 
-      <button type="submit"
+      <button [disabled]="userForm.invalid"
+              type="submit"
               class="btn btn-primary">Submit</button>
     </form>
   </div>

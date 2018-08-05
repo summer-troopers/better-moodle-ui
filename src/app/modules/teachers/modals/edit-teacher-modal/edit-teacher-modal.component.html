@@ -80,7 +80,8 @@
       </div>
 
       <!-- [disabled]="form.invalid" -->
-      <button type="submit"
+      <button [disabled]="userForm.invalid"
+              type="submit"
               class="btn btn-primary"
               (click)="getTeacher()">Submit</button>
     </form>
