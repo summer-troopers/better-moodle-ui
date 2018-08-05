@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 import { NavBarLink } from '@shared/models';
 import { TOKEN_STORAGE_KEY, USER_STORAGE_KEY } from '@shared/constants';
@@ -39,8 +39,8 @@ export class NavComponent implements OnInit {
   isCollapsed = true;
 
   constructor(private authenticationService: AuthenticationService,
-              private localStorageService: LocalStorageService,
-              private router: Router) {
+    private localStorageService: LocalStorageService,
+    private router: Router) {
   }
 
   ngOnInit() {
@@ -57,7 +57,6 @@ export class NavComponent implements OnInit {
   }
 
   authenticatedVerify() {
-    console.log(this.authenticationService.isAuthenticated());
     return this.authenticationService.isAuthenticated();
   }
 
