@@ -31,4 +31,13 @@
     </div>
   </ng-template>
 
+  <div class="pagination-container">
+    <pagination class="d-flex justify-content-center"
+                [totalItems]="totalItems"
+                [maxSize]="limit"
+                [maxSize]="5"
+                [(ngModel)]="currentPage"
+                (pageChanged)="pageChanged($event)"></pagination>
+  </div>
+
 </div>

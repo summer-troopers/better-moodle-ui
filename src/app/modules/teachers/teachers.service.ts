@@ -24,8 +24,13 @@ export class TeachersService {
     private api: BackendApiService,
     private localStorage: LocalStorageService) { }
 
-  getTeachers(): Observable<Array<Teacher>> {
+  getNumberOfTeachers() {
     return this.api.get(`teachers`)
+      .pipe(map(result => result.total));
+  }
+
+  getTeachers(offset: number, limit: number): Observable<Array<Teacher>> {
+    return this.api.get(`teachers?offset=${offset}&limit=${limit}`)
       .pipe(map(result => result.data));
   }
 

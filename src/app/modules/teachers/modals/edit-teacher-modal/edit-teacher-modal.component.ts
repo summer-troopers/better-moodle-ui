@@ -47,10 +47,6 @@ export class EditTeacherModalComponent implements OnInit, OnDestroy {
     this.teachersService.editTeacher(formParam).subscribe();
   }
 
-  showTeacher() {
-    this.teachersService.getTeacher(this.userForm.value.id).subscribe();
-  }
-
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
