@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { dashboardRoutes } from '@modules/dashboard/dashboard.routes';
 import { TabsModule } from 'ngx-bootstrap';
 
+import { dashboardRoutes } from '@modules/dashboard/dashboard.routes';
 import { DashboardPageComponent } from './containers/dashboard-page/dashboard-page.component';
 import { AdminDashboardComponent } from './containers/admin-dashboard/admin-dashboard.component';
 import { StudentDashboardComponent } from './containers/student-dashboard/student-dashboard.component';
