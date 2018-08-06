@@ -7,8 +7,8 @@ import { takeUntil } from 'rxjs/operators';
 
 import { TeachersService } from '@modules/teachers/teachers.service';
 import Teacher from '@shared/models/teacher';
-import { EditTeacherModalComponent } from '../../modals/edit-teacher-modal/edit-teacher-modal.component';
-import { DeleteTeacherModalComponent } from '../../modals/delete-teacher-modal/delete-teacher-modal.component';
+import { EditTeacherModalComponent } from '@teacherModals/edit-teacher-modal/edit-teacher-modal.component';
+import { DeleteTeacherModalComponent } from '@teacherModals/delete-teacher-modal/delete-teacher-modal.component';
 
 @Component({
   selector: 'app-teacher-details-page',
