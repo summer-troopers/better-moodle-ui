@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxMaskModule } from 'ngx-mask'
 import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { TeacherDetailsPageComponent, TeachersPageComponent } from '@modules/teachers/containers';
@@ -14,7 +13,6 @@ import { DeleteTeacherModalComponent } from './modals/delete-teacher-modal/delet
   imports: [
     CommonModule,
     teacherRoutes,
-    NgxMaskModule.forRoot(),
     ModalModule.forRoot(),
     FormsModule,
     ReactiveFormsModule

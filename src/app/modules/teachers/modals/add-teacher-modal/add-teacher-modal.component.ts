@@ -14,8 +14,6 @@ export class AddTeacherModalComponent implements OnInit {
   userForm: FormGroup;
   submitted = false;
 
-  closeBtnName: string;
-
   constructor(private formBuilder: FormBuilder,
     private teacherService: TeachersService,
     public bsModalRef: BsModalRef) { }
@@ -65,8 +63,6 @@ export class AddTeacherModalComponent implements OnInit {
 
     const formParam = this.userForm.value;
     this.teacherService.addTeacher(formParam).subscribe();
-
-    //console.log(this.teacherService.getTeachers().toPromise());
   }
 
 }

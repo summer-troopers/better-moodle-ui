@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
 import { HttpHeaders } from '@angular/common/http';
 import { BackendApiService } from '@core/services/api/backend-api.service';
 import { map, first } from 'rxjs/operators';
-import Teacher from '../../shared/models/teacher';
 import { Observable } from 'rxjs'
+
+import Teacher from '../../shared/models/teacher';
 
 @Injectable({
   providedIn: 'root'

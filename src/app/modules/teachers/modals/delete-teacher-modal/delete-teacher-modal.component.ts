@@ -10,7 +10,7 @@ import { Router } from '../../../../../../node_modules/@angular/router';
   styleUrls: ['./delete-teacher-modal.component.scss']
 })
 export class DeleteTeacherModalComponent implements OnInit {
-  modalRef: BsModalRef;
+
   submitted = false;
 
   constructor(public bsModalRef: BsModalRef,
