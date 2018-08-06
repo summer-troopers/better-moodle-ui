@@ -11,6 +11,7 @@
       "@modules/*":["app/modules/*"],
       "@env/*":["environments/*"],
       "@teacherModals/*":["app/modules/teachers/modals/*"],
+      "@teacherService/*":["app/modules/teachers/*"],
     }
   },
   "exclude": [
