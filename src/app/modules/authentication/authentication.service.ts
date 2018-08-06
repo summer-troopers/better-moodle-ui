@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { TOKEN_STORAGE_KEY, USER_STORAGE_KEY } from '@shared/constants';
 import { BackendApiService } from '@core/services/api/backend-api.service';
-import User from '@shared/models/user';
+import { User } from '@shared/models/user';
 import { LocalStorageService } from '@shared/services/local-storage.service';
 
 @Injectable({

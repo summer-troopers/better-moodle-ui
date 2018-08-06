@@ -1,11 +1,13 @@
 import { UserType } from '@shared/models/user-type';
 
-export default class User {
+export class User {
   id: number;
   firstName: string;
   lastName: string;
   email: string;
   phoneNumber: string;
+  idGroup?: number;
+  idSpecialty?: number;
   userRole: any;
 
   constructor(userFromStorage: any) {

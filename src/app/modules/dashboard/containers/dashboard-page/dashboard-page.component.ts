@@ -25,6 +25,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
       }
     ));*/
     const userFromStorage = JSON.parse(this.userService.getUserLocalStorage('user'));
+    console.log (userFromStorage);
     const loggedUser = CreateUser(userFromStorage);
     this.user = loggedUser;
   }
