@@ -6,9 +6,9 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 import { TeacherDetailsPageComponent, TeachersPageComponent } from '@modules/teachers/containers';
 import { teacherRoutes } from './teachers.routes';
-import { AddTeacherModalComponent } from './modals/add-teacher-modal/add-teacher-modal.component';
-import { EditTeacherModalComponent } from './modals/edit-teacher-modal/edit-teacher-modal.component';
-import { DeleteTeacherModalComponent } from './modals/delete-teacher-modal/delete-teacher-modal.component';
+import { AddTeacherModalComponent } from '@teacherModals/add-teacher-modal/add-teacher-modal.component';
+import { EditTeacherModalComponent } from '@teacherModals/edit-teacher-modal/edit-teacher-modal.component';
+import { DeleteTeacherModalComponent } from '@teacherModals/delete-teacher-modal/delete-teacher-modal.component';
 
 const COMPONENTS = [
   AddTeacherModalComponent,
