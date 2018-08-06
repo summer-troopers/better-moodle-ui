@@ -14,6 +14,15 @@
         </li>
       </ul>
     </div>
+
+    <div class="pagination-container">
+      <ngb-pagination class="d-flex justify-content-center"
+                      [collectionSize]="totalItems"
+                      [pageSize]="limit"
+                      [maxSize]="5"
+                      [(page)]="page"
+                      (pageChange)="pageChanged($event)"></ngb-pagination>
+    </div>
   </div>
 
   <ng-template #noStudents>
@@ -25,14 +34,5 @@
       <app-add-student-modal></app-add-student-modal>
     </div>
   </ng-template>
-
-  <div class="pagination-container">
-    <ngb-pagination class="d-flex justify-content-center"
-                    [collectionSize]="totalItems"
-                    [pageSize]="limit"
-                    [maxSize]="5"
-                    [(page)]="page"
-                    (pageChange)="pageChanged($event)"></ngb-pagination>
-  </div>
 
 </div>
