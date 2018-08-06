@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { SpecialtiesService } from '../../specialties.service';
-import { Subscription } from 'rxjs';
+import { SpecialtiesService } from '@modules/specialties/specialties.service';
 import { Specialty } from '@shared/models/specialty';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-specialty-details-page',
@@ -12,33 +13,30 @@ import { Specialty } from '@shared/models/specialty';
 })
 export class SpecialtyDetailsPageComponent implements OnInit, OnDestroy {
 
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
   id: string;
-  specialty: Specialty;
   isEditable = false;
+  specialty: Specialty;
 
-  subscriptions: Array<Subscription> = [];
-
-  constructor(private route: ActivatedRoute, private specialtyService: SpecialtiesService) {
+  constructor(private route: ActivatedRoute, private specialtiesService: SpecialtiesService) {
   }
 
   ngOnInit() {
-    this.subscriptions.push(this.route.params.subscribe((params) => {
+   this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
       this.id = params.id;
-      this.subscriptions.push(this.specialtyService.getSpecialty(this.id).subscribe((element) => {
+      this.specialtiesService.getSpecialty(this.id).pipe(takeUntil(this.destroy$)).subscribe((element) => {
         this.specialty = element;
-      }));
-    }));
+      });
+    });
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
-  deleteGroup() {
-    this.specialtyService.deleteSpecialty(this.id).toPromise();
-  }
-
-  submitGroup() {
-    this.specialtyService.updateSpecialty(this.id, this.specialty).toPromise();
+  deleteSpecialty() {
+    this.specialtiesService.deleteSpecialty(this.id).toPromise();
   }
 }

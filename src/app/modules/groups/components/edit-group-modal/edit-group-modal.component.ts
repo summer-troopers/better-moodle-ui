@@ -37,9 +37,9 @@ export class EditGroupModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.route.params.subscribe((params) => {
+    this.subscriptions.push(this.route.params.subscribe((params) => {
       this.id = params.id;
-    });
+    }));
     this.groupForm = this.fromBuilder.group({
       name: ['', [Validators.required]],
       specialty: ['', [Validators.required]]

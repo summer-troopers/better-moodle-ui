@@ -1,3 +1,24 @@
-<p>
-  edit-specialty-modal works!
-</p>
+<button type="button" class="btn btn-primary" (click)="openModal(template)">Edit</button>
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Edit specialty {{specialty.name}}</h4>
+    <button type="button" class=" close pull-right" aria-label="Close"
+            (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;
+    </span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="specialtyForm" (submit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" class="form-control" placeholder="Name" formControlName="name"
+               [ngClass]="{ 'is-invalid': submitted && fields.name.errors }" value="{{specialty.name}}">
+        <div *ngIf="submitted && fields.name.errors" class="invalid-feedback">
+          <div *ngIf="fields.name.errors.required">The name of specialty is required</div>
+        </div>
+      </div>
+      <input type="submit" class="btn btn-primary">
+    </form>
+  </div>
+</ng-template>

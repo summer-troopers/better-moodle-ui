@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
 import { Specialty } from '@shared/models/specialty';
@@ -12,35 +11,18 @@ import { SpecialtiesService } from '@modules/specialties/specialties.service';
 })
 export class SpecialtiesPageComponent implements OnInit, OnDestroy {
 
-  specialtyForm: FormGroup;
-  submitted = false;
-  subscriptions: Array<Subscription> = [];
+  subscription: Subscription;
   specialties: Array<Specialty> = [];
 
-  constructor(private fromBuilder: FormBuilder, private specialtiesService: SpecialtiesService) {
+  constructor(private specialtiesService: SpecialtiesService) {
   }
 
   ngOnInit() {
-    this.specialtyForm = this.fromBuilder.group({
-      name: ['', [Validators.required]],
-    });
-    this.subscriptions.push(this.specialtiesService.getSpecialties().subscribe(specialties => this.specialties = specialties));
-  }
-
-  get fields() {
-    return this.specialtyForm.controls;
-  }
-
-  onSubmit() {
-    this.submitted = true;
-    const newSpecialty = {
-      name: this.specialtyForm.value.name,
-    };
-    this.specialtiesService.addSpecialty(newSpecialty).toPromise();
+    this.subscription = this.specialtiesService.getSpecialties().subscribe((specialties: Array<Specialty>) => this.specialties = specialties);
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
+    this.subscription.unsubscribe();
   }
 
 }

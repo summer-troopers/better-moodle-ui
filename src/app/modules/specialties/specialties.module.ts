@@ -7,12 +7,15 @@ import { AddSpecialtyModalComponent } from './components/add-specialty-modal/add
 import { EditSpecialtyModalComponent } from './components/edit-specialty-modal/edit-specialty-modal.component';
 import { specialitiesRoutes } from '@modules/specialties/specialties.routes';
 import { ModalModule } from 'ngx-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     ModalModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
     specialitiesRoutes
   ],
   declarations: [SpecialtyDetailsPageComponent, SpecialtiesPageComponent, AddSpecialtyModalComponent, EditSpecialtyModalComponent]

@@ -32,10 +32,10 @@ export class SpecialtiesService {
   }
 
   updateSpecialty(id: string, newSpecialty: Specialty): Observable<any> {
-    return this.api.put(`groups/${id}`, newSpecialty);
+    return this.api.put(`specialties/${id}`, newSpecialty);
   }
 
   deleteSpecialty(id: string): Observable<any> {
-    return this.api.delete(`groups/${id}`);
+    return this.api.delete(`specialties/${id}`);
   }
 }

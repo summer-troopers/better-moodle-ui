@@ -1,14 +1,9 @@
 <div class="container">
   <div class="space-30">
-    <form  method="post">
       <input type="text" class="input-group-text" *ngIf="specialty" [(ngModel)]="specialty.name"
-             [attr.readOnly]="isEditable ? null : '' "
-             [ngModelOptions]="{standalone: true}" required >
-      <input type="text"  class="input-group-text" *ngIf="group" [(ngModel)]="group.idSpecialty"
-             [attr.readOnly]="isEditable ? null : ''" [ngModelOptions]="{standalone: true}" required >
-      <button type="button" (click)="deleteGroup()" class="btn btn-danger">Delete</button>
-      <button type="button" *ngIf="!isEditable" (click)="isEditable = !isEditable" class="btn btn-primary">Edit</button>
-      <button type="button" *ngIf="isEditable" (click)="submitGroup()" class="btn btn-primary">Submit</button>
-    </form>
+             [attr.readOnly]="isEditable ? null : '' " [ngClass]="{ 'is-invalid': submitted && fields.name.errors }"
+             [ngClass]="{ 'is-invalid': submitted && fields.name.errors }" >
+      <button type="button" (click)="deleteSpecialty()" class="btn btn-danger">Delete</button>
+    <app-edit-specialty-modal [parent]="this" [specialty]="specialty"></app-edit-specialty-modal>
   </div>
 </div>

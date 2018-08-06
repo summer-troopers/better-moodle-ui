@@ -11,8 +11,8 @@ import { Subscription } from 'rxjs';
 })
 export class GroupsPageComponent implements OnInit, OnDestroy {
 
-  groups: Array<Group> = [];
   subscription: Subscription;
+  groups: Array<Group> = [];
 
   constructor(private groupsService: GroupsService) {
   }
