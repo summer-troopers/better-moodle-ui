@@ -3,6 +3,9 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
 
+import { LocalStorageService } from '@shared/services/local-storage.service';
+import { TOKEN_STORAGE_KEY } from '@shared/constants';
+
 /* tslint:disable max-line-length */
 
 @Injectable({
@@ -14,12 +17,12 @@ export class BackendApiService {
 
   protected options: Object = {
     headers: new HttpHeaders({
-      'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUm9sZSI6ImFkbWluIiwidXNlciI6MSwiaWF0IjoxNTMzMTI0MzExLCJleHAiOjE1MzM5ODgzMTF9.ojGABr4rbfzFYYT_fEPbLksliWcfdRpTI5XyaPGFt2w',
+      'token': this.localStorageServices.getLocalStorage(TOKEN_STORAGE_KEY),
       'Content-Type': 'application/json'
     })
   };
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private localStorageServices: LocalStorageService) {
   }
 
   /**

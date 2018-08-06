@@ -11,7 +11,6 @@ export class AuthenticatedGuardService implements CanActivate {
   constructor(private authenticationService: AuthenticationService, private router: Router) {
   }
 
-
   canActivate(): boolean {
     const isAuthenticated = this.authenticationService.isAuthenticated();
     if (!isAuthenticated) {
