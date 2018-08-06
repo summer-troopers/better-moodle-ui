@@ -7,7 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import { TeachersService } from '../../teachers.service';
 import Teacher from '@shared/models/teacher';
-import { AddTeacherModalComponent } from '../../modals/add-teacher-modal/add-teacher-modal.component';
+import { AddTeacherModalComponent } from '@teacherModals/add-teacher-modal/add-teacher-modal.component';
 
 @Component({
   selector: 'app-teachers-page',
