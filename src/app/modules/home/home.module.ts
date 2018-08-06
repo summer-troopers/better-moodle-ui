@@ -8,4 +8,5 @@ import { HomePageComponent } from './home-page/home-page.component';
   ],
   declarations: [HomePageComponent]
 })
-export class HomeModule { }
+export class HomeModule {
+}

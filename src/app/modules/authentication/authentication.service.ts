@@ -5,12 +5,15 @@ import { TOKEN_STORAGE_KEY, USER_STORAGE_KEY } from '@shared/constants';
 import { BackendApiService } from '@core/services/api/backend-api.service';
 import User from '@shared/models/user';
 import { LocalStorageService } from '@shared/services/local-storage.service';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  constructor(private backendApiService: BackendApiService, private localStorageService: LocalStorageService) {
+  constructor(private backendApiService: BackendApiService,
+              private localStorageService: LocalStorageService,
+              private router: Router) {
   }
 
   login(loginDataUser: User): Observable<any> {
@@ -25,5 +28,11 @@ export class AuthenticationService {
       return true;
     }
     return false;
+  }
+
+  logOut() {
+    this.localStorageService.deleteLocalStorage(USER_STORAGE_KEY);
+    this.localStorageService.deleteLocalStorage(TOKEN_STORAGE_KEY);
+    this.router.navigateByUrl('auth');
   }
 }
