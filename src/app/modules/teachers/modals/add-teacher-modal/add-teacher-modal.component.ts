@@ -4,7 +4,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { TeachersService } from '../../teachers.service';
+import { TeachersService } from '@teacherService/teachers.service';
 
 @Component({
   selector: 'app-add-teacher-modal',
