@@ -1,8 +1,7 @@
 <div class="container">
-  <div class="text-center">
+  <div class="text-center" *ngIf="teacher; else noTeacher">
     <h1>{{teacher.firstName}} {{teacher.lastName}}</h1>
-  </div>
-  <div>
+    <br>
 
     <h3>First Name : {{teacher.firstName}}</h3>
     <h3>Last Name : {{teacher.lastName}}</h3>
@@ -16,6 +15,14 @@
             (click)="openDeleteModal()">Delete</button>
     <br>
   </div>
-
+  
+ <ng-template #noTeacher>
+    <h1>Error on getting this teacher !!!</h1>
+    <div class="text-center">
+      <button type="button"
+              class="btn btn-primary "
+              routerLink="/teachers">Go back</button>
+    </div>
+  </ng-template>
   <br>
 </div>
