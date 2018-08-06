@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from '@shared/services/user.service';
-import { User } from '@shared/models/users';
+import { CreateUser } from '@shared/models/user-factory';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -8,30 +8,30 @@ import { User } from '@shared/models/users';
   styleUrls: ['./dashboard-page.component.scss']
 })
 export class DashboardPageComponent implements OnInit, OnDestroy {
-
-  public user =
-    {
-      id: 1,
-      firstName: 'Che',
-      lastName: 'Guevara',
-      email: 'lalala@gmail.com',
-      phoneNumber: '069383481',
-      idSpecialty: 3,
-      role: 'student'
-    };
-
+  user: any;
 
   constructor(private userService: UserService) {
   }
 
   ngOnInit() {
-    localStorage.setItem('user', JSON.stringify(this.user));
+    localStorage.setItem('user', JSON.stringify({
+        id: 1,
+        firstName: 'Che',
+        lastName: 'Guevara',
+        email: 'lalala@gmail.com',
+        phoneNumber: '069383481',
+        idGroup: 3,
+        role: 'teacher'
+      }
+    ));
     const userFromStorage = JSON.parse(this.userService.getUserLocalStorage('user'));
     console.log(userFromStorage);
-    const user = new User(userFromStorage);
-    console.log(user.isAdmin());
+    const createdUser = CreateUser(userFromStorage);
+    this.user = createdUser;
+    console.log(CreateUser(userFromStorage), createdUser.isAdmin());
   }
 
   ngOnDestroy() {
   }
 }
+

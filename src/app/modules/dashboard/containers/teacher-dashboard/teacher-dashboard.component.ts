@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { NavBarLink } from '@shared/models';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-teacher-dashboard',
@@ -8,24 +7,7 @@ import { NavBarLink } from '@shared/models';
 })
 export class TeacherDashboardComponent implements OnInit {
 
-  public items: Array<NavBarLink> = [
-    {
-      name: 'My Teachers',
-      url: '/teachers'
-    },
-    {
-      name: 'My Courses',
-      url: '/courses'
-    },
-    {
-      name: 'My Groups',
-      url: '/groups'
-    },
-    {
-      name: 'My Specialties',
-      url: '/specialties'
-    },
-  ];
+  @Input() user;
 
   ngOnInit() {
   }

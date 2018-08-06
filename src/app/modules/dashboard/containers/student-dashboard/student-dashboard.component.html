@@ -1,24 +1,27 @@
 <div class="container">  <!--*ngIf="student"-->
   <div class="card">
-    <img src="../../../../../assets/images/user-icon.png" alt="Student profile picture" style="width:100%">
     <h1>{{user.firstName}} {{user.lastName}}</h1>
     <div class="card-body">
       <h6>First Name: {{user.firstName}}</h6>
       <h6>Last Name: {{user.lastName}}</h6>
       <h6>Email: {{user.email}}</h6>
       <h6>Phone Number: {{user.phoneNumber}}</h6>
+      <h6>Status: {{user.role}}</h6>
       <!--<h6>Group Name: {{user.idGroup}}</h6>-->
     </div>
   </div>
-
   <br>
 </div>
-<hr/>
+<hr>
 
 <div>
-   <tabset #staticTabs>
-    <tab heading="My Courses"><app-my-courses></app-my-courses></tab>
-    <tab heading="My Teachers"><app-my-teachers></app-my-teachers></tab>
+  <tabset #staticTabs>
+    <tab heading="My Courses">
+      <app-my-courses></app-my-courses>
+    </tab>
+    <tab heading="My Teachers">
+      <app-my-teachers></app-my-teachers>
+    </tab>
   </tabset>
 </div>
 <br><br>

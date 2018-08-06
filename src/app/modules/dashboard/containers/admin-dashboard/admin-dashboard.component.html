@@ -1,20 +1,14 @@
-<p>
-  admin-dashboard works!
-</p>
 <div class="container">
-  <ul>
-    <li>
-      bla
-    </li>
-  </ul>
-  <!--  <div class="space-30"></div>
-    <div class="card" *ngIf="admin">
-      <img src="../../../../../assets/images/user-icon.png" alt="Student profile picture" style="width:100%">
-      <div class="card-body">
-        <h5 class="card-title">{{admin.firstName}} {{admin.lastName}}</h5>
-        <h5 class="card-text">{{admin.email}}</h5>
-        <h5 class="card-text">{{admin.phoneNumber}}</h5>
-      </div>
-      <div class="space-30"></div>
-    </div>-->
+  <div class="card">
+    <h1>{{user.firstName}} {{user.lastName}}</h1>
+    <div class="card-body">
+      <h6>First Name: {{user.firstName}}</h6>
+      <h6>Last Name: {{user.lastName}}</h6>
+      <h6>Email: {{user.email}}</h6>
+      <h6>Phone Number: {{user.phoneNumber}}</h6>
+      <h6>Status: {{user.role}}</h6>
+    </div>
+  </div>
+  <br>
 </div>
+<hr>
