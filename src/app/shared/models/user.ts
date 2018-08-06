@@ -6,7 +6,7 @@ export class User {
   lastName: string;
   email: string;
   phoneNumber: string;
-  role: any;
+  userRole: any;
 
   constructor(userFromStorage: any) {
     this.id = userFromStorage.id;
@@ -14,29 +14,29 @@ export class User {
     this.lastName = userFromStorage.lastName;
     this.email = userFromStorage.email;
     this.phoneNumber = userFromStorage.phoneNumber;
-    this.role = userFromStorage.role;
+    this.userRole = userFromStorage.userRole;
 
-    if (userFromStorage.role === 'admin') {
-      this.role = UserType.Admin;
+    if (userFromStorage.userRole === 'admin') {
+      this.userRole = UserType.Admin;
     }
-    if (userFromStorage.role === 'student') {
-      this.role = UserType.Student;
+    if (userFromStorage.userRole === 'student') {
+      this.userRole = UserType.Student;
     }
-    if (userFromStorage.role === 'teacher') {
-      this.role = UserType.Teacher;
+    if (userFromStorage.userRole === 'teacher') {
+      this.userRole = UserType.Teacher;
     }
   }
 
   isAdmin(): boolean {
-    return this.role === UserType.Admin;
+    return this.userRole === UserType.Admin;
   }
 
   isTeacher(): boolean {
-    return this.role === UserType.Teacher;
+    return this.userRole === UserType.Teacher;
   }
 
   isStudent(): boolean {
-    return this.role === UserType.Student;
+    return this.userRole === UserType.Student;
   }
 
 }

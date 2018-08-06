@@ -4,15 +4,15 @@ import { Admin } from '@shared/models/admins';
 import { UserType } from '@shared/models/user-type';
 
 export function CreateUser(user): any {
-  if (user.role === UserType.Student) {
+  if (user.userRole === UserType.Student) {
     return new Student(user);
   }
 
-  if (user.role === UserType.Teacher) {
+  if (user.userRole === UserType.Teacher) {
     return new Teacher(user);
   }
 
-  if (user.role === UserType.Admin) {
+  if (user.userRole === UserType.Admin) {
     return new Admin(user);
   }
   return null;
