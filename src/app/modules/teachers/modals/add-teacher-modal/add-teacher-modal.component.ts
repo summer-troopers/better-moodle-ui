@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { TeachersService } from '../../teachers.service';
-import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-add-teacher-modal',
@@ -11,12 +12,12 @@ import { Subscription } from 'rxjs/internal/Subscription';
   styleUrls: ['./add-teacher-modal.component.scss']
 })
 export class AddTeacherModalComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
   userForm: FormGroup;
 
-  submitted = false;
+  isSubmitted = false;
   message: String;
-
-  private subscription: Subscription;
 
   constructor(private formBuilder: FormBuilder,
     private teacherService: TeachersService,
@@ -36,7 +37,7 @@ export class AddTeacherModalComponent implements OnInit, OnDestroy {
     return this.userForm.controls[inputName].errors;
   }
   onSubmit() {
-    this.submitted = true;
+    this.isSubmitted = true;
 
     // stop here if form is invalid
     if (this.userForm.invalid) {
@@ -45,7 +46,7 @@ export class AddTeacherModalComponent implements OnInit, OnDestroy {
 
     const formParam = this.userForm.value;
 
-    this.subscription = this.teacherService.addTeacher(formParam).subscribe(
+    this.teacherService.addTeacher(formParam).pipe(takeUntil(this.destroy$)).subscribe(
       suc => { },
       err => {
         this.message = "Error on adding a new user !!!";
@@ -54,7 +55,8 @@ export class AddTeacherModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
 }

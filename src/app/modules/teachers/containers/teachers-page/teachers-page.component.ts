@@ -2,11 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { TeachersService } from '../../teachers.service';
 import Teacher from '@shared/models/teacher';
 import { AddTeacherModalComponent } from '../../modals/add-teacher-modal/add-teacher-modal.component';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-teachers-page',
@@ -15,7 +16,7 @@ import { Subscription } from 'rxjs';
 })
 export class TeachersPageComponent implements OnInit, OnDestroy {
 
-  private subscription: Subscription;
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   modalRef: BsModalRef;
 
@@ -33,7 +34,7 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
     private router: Router) { }
 
   ngOnInit() {
-    this.subscription = this.route.queryParams.subscribe((params) => {
+    this.route.queryParams.pipe(takeUntil(this.destroy$)).subscribe((params) => {
       this.pageParam = +params.page;
       if (this.pageParam != null || this.pageParam != NaN) {
         if (this.pageParam > 0) {
@@ -45,9 +46,9 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
         this.setPage(1)
       }
     });
-    this.subscription = this.teacherService.getTeachers(this.offset, this.limit)
+    this.teacherService.getTeachers(this.offset, this.limit).pipe(takeUntil(this.destroy$))
       .subscribe(teachers => this.teachers = teachers);
-    this.subscription = this.teacherService.getNumberOfTeachers()
+    this.teacherService.getNumberOfTeachers().pipe(takeUntil(this.destroy$))
       .subscribe(teachers => this.totalItems = teachers);
   }
 
@@ -56,7 +57,8 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
   setPage(pageNumber: number) {

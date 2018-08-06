@@ -2,12 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { TeachersService } from '@modules/teachers/teachers.service';
 import Teacher from '@shared/models/teacher';
 import { EditTeacherModalComponent } from '../../modals/edit-teacher-modal/edit-teacher-modal.component';
 import { DeleteTeacherModalComponent } from '../../modals/delete-teacher-modal/delete-teacher-modal.component';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-teacher-details-page',
@@ -15,7 +16,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./teacher-details-page.component.scss']
 })
 export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
-  private subscription: Subscription;
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
   modalEditRef: BsModalRef;
 
   id: number;
@@ -33,10 +35,10 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
     private modalService: BsModalService) { }
 
   ngOnInit() {
-    this.subscription = this.route.params.subscribe(params => {
+    this.route.params.pipe(takeUntil(this.destroy$)).subscribe(params => {
       this.id = +params['id'];
       this.teachersService.id = this.id;
-      this.teachersService.getTeacher(this.id).subscribe((data) => {
+      this.teachersService.getTeacher(this.id).pipe(takeUntil(this.destroy$)).subscribe((data) => {
         this.teacher = data;
       })
     });
@@ -54,7 +56,7 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
-
 }

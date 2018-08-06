@@ -15,12 +15,12 @@
         <input formControlName="firstName"
                type="text"
                class="form-control"
-               [ngClass]="{ 'is-invalid': submitted && formErrors('firstName') }"
+               [ngClass]="{ 'is-invalid': isSubmitted && formErrors('firstName') }"
                id="firstName"
                autocomplete='firstName'
                aria-describedby="nameHelp"
                placeholder="Enter First Name">
-        <div *ngIf="submitted && formErrors('firstName')"
+        <div *ngIf="isSubmitted && formErrors('firstName')"
              class="invalid-feedback">
           <div *ngIf="formErrors('firstName').required">Name is required</div>
         </div>
@@ -31,12 +31,12 @@
         <input formControlName="lastName"
                type="text"
                class="form-control"
-               [ngClass]="{ 'is-invalid': submitted && formErrors('lastName') }"
+               [ngClass]="{ 'is-invalid': isSubmitted && formErrors('lastName') }"
                id="lastName"
                autocomplete='lastName'
                aria-describedby="nameHelp"
                placeholder="Enter Last Name">
-        <div *ngIf="submitted && formErrors('lastName')"
+        <div *ngIf="isSubmitted && formErrors('lastName')"
              class="invalid-feedback">
           <div *ngIf="formErrors('lastName').required">Name is required</div>
         </div>
@@ -51,8 +51,8 @@
                aria-describedby="emailHelp"
                placeholder="Enter email"
                formControlName="email"
-               [ngClass]="{ 'is-invalid': submitted && formErrors('email') }">
-        <div *ngIf="submitted && formErrors('email')"
+               [ngClass]="{ 'is-invalid': isSubmitted && formErrors('email') }">
+        <div *ngIf="isSubmitted && formErrors('email')"
              class="invalid-feedback">
           <div *ngIf="formErrors('email').required">Email is required</div>
           <div *ngIf="formErrors('email').email">Email must be a valid email address</div>
@@ -64,13 +64,13 @@
         <input formControlName="phoneNumber"
                type="tel"
                class="form-control"
-               [ngClass]="{ 'is-invalid': submitted && formErrors('phoneNumber') }"
+               [ngClass]="{ 'is-invalid': isSubmitted && formErrors('phoneNumber') }"
                id="phoneNumber"
                autocomplete='phoneNumber'
                aria-describedby="nameHelp"
                placeholder="123-456-7890"
                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
-        <div *ngIf="submitted && formErrors('phoneNumber')"
+        <div *ngIf="isSubmitted && formErrors('phoneNumber')"
              class="invalid-feedback">
           <div *ngIf="formErrors('phoneNumber').required">Phone number is required</div>
         </div>
@@ -81,12 +81,12 @@
         <input formControlName="password"
                type="password"
                class="form-control"
-               [ngClass]="{ 'is-invalid': submitted && formErrors('password') }"
+               [ngClass]="{ 'is-invalid': isSubmitted && formErrors('password') }"
                id="password"
                autocomplete='password'
                aria-describedby="nameHelp"
                placeholder="Enter a password">
-        <div *ngIf="submitted && formErrors('password')"
+        <div *ngIf="isSubmitted && formErrors('password')"
              class="invalid-feedback">
           <div *ngIf="formErrors('password').required">Password is required</div>
         </div>

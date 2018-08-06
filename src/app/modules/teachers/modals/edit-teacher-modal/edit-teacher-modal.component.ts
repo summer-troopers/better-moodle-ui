@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { TeachersService } from '@modules/teachers/teachers.service';
 import Teacher from '@shared/models/teacher';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-edit-teacher-modal',
@@ -13,9 +14,10 @@ import { Subscription } from 'rxjs';
 })
 export class EditTeacherModalComponent implements OnInit, OnDestroy {
 
-  private subscription: Subscription;
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
   userForm: FormGroup;
-  submitted = false;
+  isSubmitted = false;
   teacher: Teacher;
 
   constructor(private teachersService: TeachersService,
@@ -36,7 +38,7 @@ export class EditTeacherModalComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.submitted = true;
+    this.isSubmitted = true;
 
     // stop here if form is invalid
     if (this.userForm.invalid) {
@@ -44,10 +46,11 @@ export class EditTeacherModalComponent implements OnInit, OnDestroy {
     }
 
     const formParam = this.userForm.value;
-    this.teachersService.editTeacher(formParam).subscribe();
+    this.teachersService.editTeacher(formParam).pipe(takeUntil(this.destroy$)).subscribe();
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

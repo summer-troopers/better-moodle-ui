@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { TeachersService } from '@modules/teachers/teachers.service';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-delete-teacher-modal',
@@ -11,11 +12,9 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./delete-teacher-modal.component.scss']
 })
 export class DeleteTeacherModalComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   message: String;
-  submitted = false;
-
-  private subscription: Subscription;
 
   constructor(public bsModalRef: BsModalRef,
     private teachersService: TeachersService,
@@ -27,7 +26,7 @@ export class DeleteTeacherModalComponent implements OnInit, OnDestroy {
 
   confirm(): void {
 
-    this.subscription = this.teachersService.deleteTeacher(this.teachersService.id).subscribe(
+    this.teachersService.deleteTeacher(this.teachersService.id).pipe(takeUntil(this.destroy$)).subscribe(
       suc => {
         this.message = "Successfully deleted";
         setTimeout(() => {
@@ -45,6 +44,7 @@ export class DeleteTeacherModalComponent implements OnInit, OnDestroy {
     this.bsModalRef.hide();
   }
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }
