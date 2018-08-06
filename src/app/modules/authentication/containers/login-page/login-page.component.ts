@@ -45,9 +45,6 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    if (this.authenticationService.isAuthenticated()) {
-      return this.router.navigateByUrl('home');
-    }
   }
 
   onSubmit() {

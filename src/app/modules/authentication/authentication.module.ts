@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {authenticationRoutes} from '@modules/authentication/authentication.routes';
-import {AuthenticationService} from '@modules/authentication/authentication.service';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { RecoverPasswordPageComponent, LoginPageComponent } from './containers/';
+import { authenticationRoutes } from '@modules/authentication/authentication.routes';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginPageComponent, RecoverPasswordPageComponent } from './containers/';
 
 @NgModule({
   imports: [
@@ -13,6 +12,7 @@ import { RecoverPasswordPageComponent, LoginPageComponent } from './containers/'
     authenticationRoutes
   ],
   declarations: [LoginPageComponent, RecoverPasswordPageComponent],
-  providers: [AuthenticationService],
+  providers: [],
 })
-export class AuthenticationModule { }
+export class AuthenticationModule {
+}

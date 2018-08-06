@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { NavBarLink } from '@shared/models';
-import { TOKEN_STORAGE_KEY, USER_STORAGE_KEY } from '@shared/constants';
-import { LocalStorageService } from '@shared/services/local-storage.service';
 import { AuthenticationService } from '@modules/authentication/authentication.service';
 
 @Component({
@@ -12,7 +9,7 @@ import { AuthenticationService } from '@modules/authentication/authentication.se
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
-  isAuthenticated: boolean;
+  isAuthenticated = false;
   public items: Array<NavBarLink> = [
     {
       name: 'Teachers',
@@ -38,9 +35,7 @@ export class NavComponent implements OnInit {
 
   isCollapsed = true;
 
-  constructor(private authenticationService: AuthenticationService,
-    private localStorageService: LocalStorageService,
-    private router: Router) {
+  constructor(private authenticationService: AuthenticationService) {
   }
 
   ngOnInit() {
@@ -48,12 +43,7 @@ export class NavComponent implements OnInit {
   }
 
   logOut() {
-    if (this.isAuthenticated) {
-      this.localStorageService.deleteLocalStorage(USER_STORAGE_KEY);
-      this.localStorageService.deleteLocalStorage(TOKEN_STORAGE_KEY);
-      this.isAuthenticated = false;
-      this.router.navigateByUrl('auth');
-    }
+    this.authenticationService.logOut();
   }
 
   authenticatedVerify() {
