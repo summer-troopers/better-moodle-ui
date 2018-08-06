@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {authenticationRoutes} from '@modules/authentication/authentication.routes';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { authenticationRoutes } from '@modules/authentication/authentication.routes';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RecoverPasswordPageComponent, LoginPageComponent } from './containers/';
 
 @NgModule({
@@ -14,4 +14,5 @@ import { RecoverPasswordPageComponent, LoginPageComponent } from './containers/'
   declarations: [LoginPageComponent, RecoverPasswordPageComponent],
   providers: [],
 })
-export class AuthenticationModule { }
+export class AuthenticationModule {
+}

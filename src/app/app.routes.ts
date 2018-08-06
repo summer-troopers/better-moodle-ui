@@ -1,8 +1,8 @@
-import {ModuleWithProviders} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
-import {HomePageComponent} from '@modules/home/home-page/home-page.component';
-import {AuthenticatedGuardService} from '@shared/guards/authenticated-guard/authenticated-guard.service';
-import {DeauthenticatedGuardService} from '@shared/guards/deauthenticated-guard/deauthenticated-guard.service';
+import { ModuleWithProviders } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { HomePageComponent } from '@modules/home/home-page/home-page.component';
+import { AuthenticatedGuardService } from '@shared/guards/authenticated-guard/authenticated-guard.service';
+import { DeauthenticatedGuardService } from '@shared/guards/deauthenticated-guard/deauthenticated-guard.service';
 
 const routes: Routes = [
   {
@@ -51,10 +51,10 @@ const routes: Routes = [
     canActivate: [AuthenticatedGuardService]
   },
   {
-      path: '**',
-      component: HomePageComponent,
-      pathMatch: 'full',
-      canActivate: [AuthenticatedGuardService]
+    path: '**',
+    component: HomePageComponent,
+    pathMatch: 'full',
+    canActivate: [AuthenticatedGuardService]
   }
 ];
 
