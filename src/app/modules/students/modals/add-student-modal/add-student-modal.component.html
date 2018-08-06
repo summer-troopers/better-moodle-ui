@@ -1,14 +1,8 @@
-<button type="button"
-        class="btn btn-primary"
-        (click)="openModal(template)">Add new student</button>
-
-<ng-template #template>
+<div>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Add a new student</h4>
-    <button type="button"
-            class="close pull-right"
-            aria-label="Close"
-            (click)="modalRef.hide()">
+    <button class="close pull-right"
+            (click)="bsModalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -16,37 +10,45 @@
     <form [formGroup]="studentForm"
           (submit)="onSubmit()">
       <div class="form-group">
-        <label for="firstName">First Name</label>
-        <input type="text"
-               id="firstName"
+        <label for="firstName">First name</label>
+        <input formControlName="firstName"
+               type="text"
                class="form-control"
-               placeholder="First Name"
-               formControlName="firstName"
-               [ngClass]="{ 'is-invalid': submitted && fields.firstName.errors }">
+               [ngClass]="{ 'is-invalid': submitted && fields.firstName.errors }"
+               id="firstName"
+               autocomplete='firstName'
+               aria-describedby="nameHelp"
+               placeholder="Enter First Name">
         <div *ngIf="submitted && fields.firstName.errors"
              class="invalid-feedback">
           <div *ngIf="fields.firstName.errors.required">First Name is required</div>
         </div>
       </div>
+
       <div class="form-group">
-        <label for="lastName">Last Name</label>
-        <input type="text"
-               id="lastName"
+        <label for="lastName">Last name</label>
+        <input formControlName="lastName"
+               type="text"
                class="form-control"
-               placeholder="Last Name"
-               formControlName="lastName"
-               [ngClass]="{ 'is-invalid': submitted && fields.lastName.errors }">
+               [ngClass]="{ 'is-invalid': submitted && fields.lastName.errors }"
+               id="lastName"
+               autocomplete='lastName'
+               aria-describedby="nameHelp"
+               placeholder="Enter Last Name">
         <div *ngIf="submitted && fields.lastName.errors"
              class="invalid-feedback">
           <div *ngIf="fields.lastName.errors.required">Last Name is required</div>
         </div>
       </div>
+
       <div class="form-group">
         <label for="email">Email address</label>
         <input type="email"
-               id="email"
                class="form-control"
-               placeholder="name@example.com"
+               id="email"
+               autocomplete='email'
+               aria-describedby="emailHelp"
+               placeholder="Enter email"
                formControlName="email"
                [ngClass]="{ 'is-invalid': submitted && fields.email.errors }">
         <div *ngIf="submitted && fields.email.errors"
@@ -55,48 +57,61 @@
           <div *ngIf="fields.email.errors.email">Email must be a valid email address</div>
         </div>
       </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password"
-               id="password"
-               class="form-control"
-               placeholder="Password"
-               formControlName="password"
-               [ngClass]="{ 'is-invalid': submitted && fields.password.errors }">
-        <div *ngIf="submitted && fields.password.errors"
-             class="invalid-feedback">
-          <div *ngIf="fields.password.errors.required">Password is required</div>
-        </div>
-      </div>
+
       <div class="form-group">
         <label for="idGroup">Group ID</label>
-        <input type="number"
-               id="idGroup"
+        <input formControlName="idGroup"
+               type="number"
                class="form-control"
-               placeholder="1"
-               formControlName="idGroup"
-               [ngClass]="{ 'is-invalid': submitted && fields.idGroup.errors }">
+               [ngClass]="{ 'is-invalid': submitted && fields.idGroup.errors }"
+               id="idGroup"
+               autocomplete='idGroup'
+               aria-describedby="idGroupHelp"
+               placeholder="Select idGroup">
         <div *ngIf="submitted && fields.idGroup.errors"
              class="invalid-feedback">
           <div *ngIf="fields.idGroup.errors.required">Phone Number is required</div>
         </div>
       </div>
+
+      <!-- ['^[\+]?[0]{0,2}?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$', 'i'] -->
       <div class="form-group">
         <label for="phoneNumber">Phone Number</label>
-        <input type="text"
-               id="phoneNumber"
+        <input formControlName="phoneNumber"
+               type="tel"
                class="form-control"
-               placeholder="123-123-1234"
-               formControlName="phoneNumber"
-               [ngClass]="{ 'is-invalid': submitted && fields.phoneNumber.errors }">
+               [ngClass]="{ 'is-invalid': submitted && fields.phoneNumber.errors }"
+               id="phoneNumber"
+               autocomplete='phoneNumber'
+               aria-describedby="nameHelp"
+               placeholder="123-456-7890"
+               pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
         <div *ngIf="submitted && fields.phoneNumber.errors"
              class="invalid-feedback">
           <div *ngIf="fields.phoneNumber.errors.required">Phone Number is required</div>
         </div>
       </div>
 
-      <button type="submit"
-              class="btn btn-primary">Submit</button>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input formControlName="password"
+               type="password"
+               class="form-control"
+               [ngClass]="{ 'is-invalid': submitted && fields.password.errors }"
+               id="password"
+               autocomplete='password'
+               aria-describedby="nameHelp"
+               placeholder="Enter a password">
+        <div *ngIf="submitted && fields.password.errors"
+             class="invalid-feedback">
+          <div *ngIf="fields.password.errors.required">Password is required</div>
+        </div>
+      </div>
+
+      <button [disabled]="studentForm.invalid"
+              type="submit"
+              class="btn btn-primary"
+              (click)="modalRef.hide()">Submit</button>
     </form>
   </div>
-</ng-template>
+</div>

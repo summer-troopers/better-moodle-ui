@@ -2,7 +2,8 @@
   <div *ngIf="students.length > 0; else noStudents">
     <div class="pageTitle">
       <h1>List of all students
-        <app-add-student-modal class="pull-right"></app-add-student-modal>
+        <button class="btn btn-primary pull-right"
+                (click)="openModal()">Add new student</button>
       </h1>
       <br>
     </div>
@@ -31,8 +32,9 @@
       <h2>Want to add a new Student? </h2>
     </div>
     <div class="text-center">
-      <app-add-student-modal></app-add-student-modal>
+      <button type="button"
+              class="btn btn-primary pull-right"
+              (click)="openModal()">Add new student</button>
     </div>
   </ng-template>
-
 </div>
