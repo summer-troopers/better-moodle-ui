@@ -1,5 +1,5 @@
 <div class="container">
-  <div *ngIf="teachers.length > 0; else noTeacherss">
+  <div *ngIf="teachers.length > 0; else noTeachers">
     <div class="pageTitle">
       <h1>List of all teachers
 
@@ -19,7 +19,7 @@
     </div>
   </div>
 
-  <ng-template #noTeacherss>
+  <ng-template #noTeachers>
     <h1>Empty list of teachers !!!</h1>
     <div class="text-center">
       <h2>Want to add a new teacher ? </h2>
