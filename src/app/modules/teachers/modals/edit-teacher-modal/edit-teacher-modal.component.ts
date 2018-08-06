@@ -31,24 +31,8 @@ export class EditTeacherModalComponent implements OnInit, OnDestroy {
     });
   }
 
-  get formErrors() {
-    return this.userForm.controls;
-  }
-
-  get firstNameErrors() {
-    return this.formErrors.firstName.errors;
-  }
-
-  get lastNameErrors() {
-    return this.formErrors.lastName.errors;
-  }
-
-  get emailErrors() {
-    return this.formErrors.email.errors;
-  }
-
-  get phoneNumberErrors() {
-    return this.formErrors.phoneNumber.errors;
+  formErrors(inputName: string) {
+    return this.userForm.controls[inputName].errors;
   }
 
   onSubmit() {

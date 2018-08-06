@@ -12,7 +12,10 @@ import { Subscription } from 'rxjs/internal/Subscription';
 })
 export class AddTeacherModalComponent implements OnInit, OnDestroy {
   userForm: FormGroup;
+
   submitted = false;
+  message: String;
+
   private subscription: Subscription;
 
   constructor(private formBuilder: FormBuilder,
@@ -29,31 +32,9 @@ export class AddTeacherModalComponent implements OnInit, OnDestroy {
     });
   }
 
-
-  get formErrors() {
-    return this.userForm.controls;
+  formErrors(inputName: string) {
+    return this.userForm.controls[inputName].errors;
   }
-
-  get firstNameErrors() {
-    return this.formErrors.firstName.errors;
-  }
-
-  get lastNameErrors() {
-    return this.formErrors.lastName.errors;
-  }
-
-  get emailErrors() {
-    return this.formErrors.email.errors;
-  }
-
-  get phoneNumberErrors() {
-    return this.formErrors.phoneNumber.errors;
-  }
-
-  get passwordErrors() {
-    return this.formErrors.password.errors;
-  }
-
   onSubmit() {
     this.submitted = true;
 
@@ -63,8 +44,15 @@ export class AddTeacherModalComponent implements OnInit, OnDestroy {
     }
 
     const formParam = this.userForm.value;
-    this.subscription = this.teacherService.addTeacher(formParam).subscribe();
+
+    this.subscription = this.teacherService.addTeacher(formParam).subscribe(
+      suc => { },
+      err => {
+        this.message = "Error on adding a new user !!!";
+      }
+    );
   }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }

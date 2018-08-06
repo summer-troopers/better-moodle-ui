@@ -11,8 +11,11 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./delete-teacher-modal.component.scss']
 })
 export class DeleteTeacherModalComponent implements OnInit, OnDestroy {
-  private subscription: Subscription;
+
+  message: String;
   submitted = false;
+
+  private subscription: Subscription;
 
   constructor(public bsModalRef: BsModalRef,
     private teachersService: TeachersService,
@@ -23,9 +26,19 @@ export class DeleteTeacherModalComponent implements OnInit, OnDestroy {
   }
 
   confirm(): void {
-    this.subscription = this.teachersService.deleteTeacher(this.teachersService.id).subscribe();
-    this.bsModalRef.hide();
-    this.router.navigate(['teachers']);
+
+    this.subscription = this.teachersService.deleteTeacher(this.teachersService.id).subscribe(
+      suc => {
+        this.message = "Successfully deleted";
+        setTimeout(() => {
+          this.bsModalRef.hide();
+          this.router.navigate(['teachers']);
+        }, 1500);
+      },
+      err => {
+        this.message = "Error on delete !!!";
+      }
+    );
   }
 
   decline(): void {

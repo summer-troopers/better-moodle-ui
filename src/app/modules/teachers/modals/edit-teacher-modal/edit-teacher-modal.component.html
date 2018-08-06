@@ -16,14 +16,14 @@
         <input formControlName="firstName"
                type="text"
                class="form-control"
-               [ngClass]="{ 'is-invalid': submitted && firstNameErrors}"
+               [ngClass]="{ 'is-invalid': submitted && formErrors('firstName')}"
                id="firstName"
                autocomplete='firstName'
                aria-describedby="nameHelp"
                placeholder="Enter First Name">
-        <div *ngIf="submitted && firstNameErrors"
+        <div *ngIf="submitted && formErrors('firstName')"
              class="invalid-feedback">
-          <div *ngIf="firstNameErrors.required">Name is required</div>
+          <div *ngIf="formErrors('firstName').required">Name is required</div>
         </div>
       </div>
 
@@ -32,14 +32,14 @@
         <input formControlName="lastName"
                type="text"
                class="form-control"
-               [ngClass]="{ 'is-invalid': submitted && lastNameErrors }"
+               [ngClass]="{ 'is-invalid': submitted && formErrors('lastName') }"
                id="lastName"
                autocomplete='lastName'
                aria-describedby="nameHelp"
                placeholder="Enter Last Name">
-        <div *ngIf="submitted && lastNameErrors"
+        <div *ngIf="submitted && formErrors('lastName')"
              class="invalid-feedback">
-          <div *ngIf="lastNameErrors.required">Name is required</div>
+          <div *ngIf="formErrors('lastName').required">Name is required</div>
         </div>
       </div>
 
@@ -52,11 +52,11 @@
                aria-describedby="emailHelp"
                placeholder="Enter email"
                formControlName="email"
-               [ngClass]="{ 'is-invalid': submitted && emailErrors }">
-        <div *ngIf="submitted && emailErrors"
+               [ngClass]="{ 'is-invalid': submitted && formErrors('email') }">
+        <div *ngIf="submitted && formErrors('email')"
              class="invalid-feedback">
-          <div *ngIf="emailErrors.required">Email is required</div>
-          <div *ngIf="emailErrors.email">Email must be a valid email address</div>
+          <div *ngIf="formErrors('email').required">Email is required</div>
+          <div *ngIf="formErrors('email').email">Email must be a valid email address</div>
         </div>
       </div>
 
@@ -66,15 +66,15 @@
         <input formControlName="phoneNumber"
                type="tel"
                class="form-control"
-               [ngClass]="{ 'is-invalid': submitted && phoneNumberErrors }"
+               [ngClass]="{ 'is-invalid': submitted && formErrors('phoneNumber') }"
                id="phoneNumber"
                autocomplete='phoneNumber'
                aria-describedby="nameHelp"
                placeholder="123-456-7890"
                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
-        <div *ngIf="submitted && phoneNumberErrors"
+        <div *ngIf="submitted && formErrors('phoneNumber')"
              class="invalid-feedback">
-          <div *ngIf="phoneNumberErrors.required">Phone number is required</div>
+          <div *ngIf="formErrors('phoneNumber').required">Phone number is required</div>
         </div>
       </div>
 
