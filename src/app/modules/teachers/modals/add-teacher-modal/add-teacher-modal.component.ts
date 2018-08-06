@@ -1,18 +1,19 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 import { TeachersService } from '../../teachers.service';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-add-teacher-modal',
   templateUrl: './add-teacher-modal.component.html',
   styleUrls: ['./add-teacher-modal.component.scss']
 })
-export class AddTeacherModalComponent implements OnInit {
+export class AddTeacherModalComponent implements OnInit, OnDestroy {
   userForm: FormGroup;
   submitted = false;
+  private subscription: Subscription;
 
   constructor(private formBuilder: FormBuilder,
     private teacherService: TeachersService,
@@ -62,7 +63,10 @@ export class AddTeacherModalComponent implements OnInit {
     }
 
     const formParam = this.userForm.value;
-    this.teacherService.addTeacher(formParam).subscribe();
+    this.subscription = this.teacherService.addTeacher(formParam).subscribe();
+  }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

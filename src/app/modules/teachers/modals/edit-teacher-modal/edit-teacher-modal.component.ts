@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { TeachersService } from '@modules/teachers/teachers.service';
-import Teacher from '../../../../shared/models/teacher';
+import Teacher from '@shared/models/teacher';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-edit-teacher-modal',
   templateUrl: './edit-teacher-modal.component.html',
   styleUrls: ['./edit-teacher-modal.component.scss']
 })
-export class EditTeacherModalComponent implements OnInit {
+export class EditTeacherModalComponent implements OnInit, OnDestroy {
 
+  private subscription: Subscription;
   userForm: FormGroup;
   submitted = false;
   teacher: Teacher;
@@ -63,5 +65,9 @@ export class EditTeacherModalComponent implements OnInit {
 
   showTeacher() {
     this.teachersService.getTeacher(this.userForm.value.id).subscribe();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

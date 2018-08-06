@@ -4,9 +4,10 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 import { TeachersService } from '@modules/teachers/teachers.service';
-import Teacher from '../../../../shared/models/teacher';
+import Teacher from '@shared/models/teacher';
 import { EditTeacherModalComponent } from '../../modals/edit-teacher-modal/edit-teacher-modal.component';
 import { DeleteTeacherModalComponent } from '../../modals/delete-teacher-modal/delete-teacher-modal.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-teacher-details-page',
@@ -14,7 +15,7 @@ import { DeleteTeacherModalComponent } from '../../modals/delete-teacher-modal/d
   styleUrls: ['./teacher-details-page.component.scss']
 })
 export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
-  private subscription: any;
+  private subscription: Subscription;
   modalEditRef: BsModalRef;
 
   id: number;

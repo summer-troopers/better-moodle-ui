@@ -3,8 +3,9 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 import { TeachersService } from '../../teachers.service';
-import Teacher from '../../../../shared/models/teacher';
+import Teacher from '@shared/models/teacher';
 import { AddTeacherModalComponent } from '../../modals/add-teacher-modal/add-teacher-modal.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-teachers-page',
@@ -13,7 +14,7 @@ import { AddTeacherModalComponent } from '../../modals/add-teacher-modal/add-tea
 })
 export class TeachersPageComponent implements OnInit, OnDestroy {
 
-  private subscription: any;
+  private subscription: Subscription;
 
   modalRef: BsModalRef;
 
