@@ -8,6 +8,7 @@ import { TeacherDetailsPageComponent, TeachersPageComponent } from '@modules/tea
 import { teacherRoutes } from './teachers.routes';
 import { AddTeacherModalComponent } from './modals/add-teacher-modal/add-teacher-modal.component';
 import { EditTeacherModalComponent } from './modals/edit-teacher-modal/edit-teacher-modal.component';
+import { DeleteTeacherModalComponent } from './modals/delete-teacher-modal/delete-teacher-modal.component';
 
 @NgModule({
   imports: [
@@ -18,8 +19,8 @@ import { EditTeacherModalComponent } from './modals/edit-teacher-modal/edit-teac
     FormsModule,
     ReactiveFormsModule
   ],
-  entryComponents: [AddTeacherModalComponent, EditTeacherModalComponent],
+  entryComponents: [AddTeacherModalComponent, EditTeacherModalComponent, DeleteTeacherModalComponent],
   providers: [],
-  declarations: [TeacherDetailsPageComponent, TeachersPageComponent, AddTeacherModalComponent, EditTeacherModalComponent]
+  declarations: [TeacherDetailsPageComponent, TeachersPageComponent, AddTeacherModalComponent, EditTeacherModalComponent, DeleteTeacherModalComponent]
 })
 export class TeachersModule { }

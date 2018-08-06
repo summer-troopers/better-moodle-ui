@@ -11,7 +11,7 @@ import { Observable } from 'rxjs'
   providedIn: 'root'
 })
 export class TeachersService {
-
+  id: number;
   options = {
     headers: new HttpHeaders({
       'token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUm9sZSI6ImFkbWluIiwidXNlciI6MSwiaWF0IjoxNTMzMTk1ODAzLCJleHAiOjE1MzQwNTk4MDN9.5inxYqamNT4br5rDtjNIEbw-ggWUYo1hV-GSdXUoNG8"
@@ -32,6 +32,7 @@ export class TeachersService {
   }
 
   deleteTeacher(id: number): Observable<any> {
+    this.id = id;
     return this.api.delete(`teachers/${id}`).pipe(first());
   }
 

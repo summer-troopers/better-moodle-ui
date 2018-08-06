@@ -6,6 +6,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { TeachersService } from '@modules/teachers/teachers.service';
 import Teacher from '../../../../shared/models/teacher';
 import { EditTeacherModalComponent } from '../../modals/edit-teacher-modal/edit-teacher-modal.component';
+import { DeleteTeacherModalComponent } from '../../modals/delete-teacher-modal/delete-teacher-modal.component';
 
 @Component({
   selector: 'app-teacher-details-page',
@@ -13,7 +14,6 @@ import { EditTeacherModalComponent } from '../../modals/edit-teacher-modal/edit-
   styleUrls: ['./teacher-details-page.component.scss']
 })
 export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
-
   private subscription: any;
   modalEditRef: BsModalRef;
 
@@ -34,6 +34,7 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.route.params.subscribe(params => {
       this.id = +params['id'];
+      this.teachersService.id = this.id;
       this.teachersService.getTeacher(this.id).subscribe((data) => {
         this.teacher = data;
       })
@@ -47,12 +48,12 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
     this.modalEditRef = this.modalService.show(EditTeacherModalComponent, { initialState });
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
+  openDeleteModal() {
+    this.modalEditRef = this.modalService.show(DeleteTeacherModalComponent);
   }
 
-  onDelete() {
-    this.teachersService.deleteTeacher(this.id).toPromise();
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 
@@ -11,10 +11,6 @@ import Teacher from '../../../../shared/models/teacher';
   styleUrls: ['./edit-teacher-modal.component.scss']
 })
 export class EditTeacherModalComponent implements OnInit {
-
-  @Output() closeModalEvent = new EventEmitter<boolean>();
-
-  modalRef: BsModalRef;
 
   userForm: FormGroup;
   submitted = false;
@@ -65,12 +61,7 @@ export class EditTeacherModalComponent implements OnInit {
     this.teachersService.editTeacher(formParam).subscribe();
   }
 
-  getTeacher() {
+  showTeacher() {
     this.teachersService.getTeacher(this.userForm.value.id).subscribe();
   }
-
-  onCloseModal(event: any) {
-    this.closeModalEvent.emit(false);
-  }
-
 }
