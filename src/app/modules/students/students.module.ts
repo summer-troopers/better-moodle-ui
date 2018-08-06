@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { studentsRoutes } from './students.routes';
-import { StudentDetailsPageComponent, StudentsPageComponent } from '@modules/students/containers';
-import { FormsModule, ReactiveFormsModule } from '../../../../node_modules/@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { AddStudentModalComponent } from './modals/add-student-modal/add-student-modal.component';
 import { ModalModule } from 'ngx-bootstrap';
+
 import { EditStudentModalComponent } from './modals/edit-student-modal/edit-student-modal.component';
+import { AddStudentModalComponent } from './modals/add-student-modal/add-student-modal.component';
+import { StudentDetailsPageComponent, StudentsPageComponent } from '@modules/students/containers';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -19,6 +21,10 @@ import { EditStudentModalComponent } from './modals/edit-student-modal/edit-stud
   declarations: [
     StudentDetailsPageComponent,
     StudentsPageComponent,
+    AddStudentModalComponent,
+    EditStudentModalComponent
+  ],
+  entryComponents: [
     AddStudentModalComponent,
     EditStudentModalComponent
   ]

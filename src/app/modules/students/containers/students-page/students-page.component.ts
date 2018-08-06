@@ -4,6 +4,11 @@ import { Student } from '../../../../shared/models/student';
 import { Subscription } from '../../../../../../node_modules/rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+
+import { AddStudentModalComponent } from '../../modals/add-student-modal/add-student-modal.component';
+
 
 @Component({
   selector: 'app-students-page',
@@ -20,7 +25,12 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
   students: Array<Student> = [];
   private subscription: Subscription;
 
-  constructor(private api: StudentsService, private route: ActivatedRoute, private router: Router) { }
+  modalRef: BsModalRef;
+
+  constructor(private api: StudentsService,
+    private route: ActivatedRoute,
+    private modalService: BsModalService,
+    private router: Router) { }
 
   ngOnInit() {
     this.subscription = this.route.queryParams.subscribe((params) => {
@@ -39,6 +49,10 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
       .subscribe(students => this.students = students);
     this.subscription = this.api.getNumberOfStudents()
       .subscribe(students => this.totalItems = students);
+  }
+
+  openModal() {
+    this.modalRef = this.modalService.show(AddStudentModalComponent);
   }
 
   ngOnDestroy() {

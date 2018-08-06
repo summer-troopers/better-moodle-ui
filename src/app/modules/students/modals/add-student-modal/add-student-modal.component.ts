@@ -18,7 +18,9 @@ export class AddStudentModalComponent implements OnInit {
   studentForm: FormGroup;
   submitted = false;
 
-  constructor(private modalService: BsModalService, private formBuilder: FormBuilder, private api: StudentsService) { }
+  constructor(private formBuilder: FormBuilder,
+    private api: StudentsService,
+    public bsModalRef: BsModalRef) { }
 
   ngOnInit() {
     this.studentForm = this.formBuilder.group({
@@ -29,10 +31,6 @@ export class AddStudentModalComponent implements OnInit {
       phoneNumber: ['', Validators.required],
       idGroup: [1, Validators.required]
     });
-  }
-
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
   }
 
   get fields() {
