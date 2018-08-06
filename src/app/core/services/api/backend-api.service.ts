@@ -17,7 +17,7 @@ export class BackendApiService {
 
   protected options: Object = {
     headers: new HttpHeaders({
-      'token': this.localStorageServices.getLocalStorage(TOKEN_STORAGE_KEY),
+      'token': this.localStorageServices.getLocalStorage(TOKEN_STORAGE_KEY) || '',
       'Content-Type': 'application/json'
     })
   };

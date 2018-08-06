@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { dashboardRoutes } from '@modules/dashboard/dashboard.routes';
+
 import { DashboardPageComponent } from './containers/dashboard-page/dashboard-page.component';
 import { AdminDashboardComponent } from './containers/admin-dashboard/admin-dashboard.component';
 import { StudentDashboardComponent } from './containers/student-dashboard/student-dashboard.component';
 import { TeacherDashboardComponent } from './containers/teacher-dashboard/teacher-dashboard.component';
-import { dashboardRoutes } from '@modules/dashboard/dashboard.routes';
-import { RouterModule } from '@angular/router';
 import { TabsModule } from 'ngx-bootstrap';
 import { MyTeachersComponent } from './components/my-teachers/my-teachers.component';
 import { MyCoursesComponent } from './components/my-courses/my-courses.component';
@@ -17,7 +18,12 @@ const COMPONENTS = [
   DashboardPageComponent,
   AdminDashboardComponent,
   StudentDashboardComponent,
-  TeacherDashboardComponent
+  TeacherDashboardComponent,
+  MyTeachersComponent,
+  MyCoursesComponent,
+  MySpecialtiesComponent,
+  MyGroupsComponent,
+  MyStudentsComponent
 ];
 
 @NgModule({
@@ -28,12 +34,7 @@ const COMPONENTS = [
     TabsModule.forRoot(),
   ],
   declarations: [
-    ...COMPONENTS,
-    MyTeachersComponent,
-    MyCoursesComponent,
-    MySpecialtiesComponent,
-    MyGroupsComponent,
-    MyStudentsComponent
+    ...COMPONENTS
   ]
 })
 export class DashboardModule {

@@ -33,7 +33,7 @@ const routes: Routes = [
   {
     path: 'courses',
     loadChildren: '@modules/courses/courses.module#CoursesModule',
-    canActivate: [AuthenticatedGuardService]
+    canActivate: [AuthenticatedGuardService] 
   },
   {
     path: 'dashboard',
