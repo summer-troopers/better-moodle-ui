@@ -24,10 +24,17 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.route.queryParams.subscribe((params) => {
-      this.pageParam = params.page;
-      this.pageChanged(this.pageParam)
+      this.pageParam = +params.page;
+      if (this.pageParam != null || this.pageParam != NaN) {
+        if (this.pageParam > 0) {
+          this.pageChanged(this.pageParam);
+        } else {
+          this.pageChanged(1)
+        }
+      } else {
+        this.pageChanged(1)
+      }
     });
-
     this.subscription = this.api.getStudents(this.offset, this.limit)
       .subscribe(students => this.students = students);
     this.subscription = this.api.getNumberOfStudents()
@@ -39,6 +46,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
   }
 
   pageChanged(selectedPage) {
+    this.page = selectedPage;
     this.offset = this.limit * (selectedPage - 1);
     this.subscription = this.api.getStudents(this.offset, this.limit)
       .subscribe(students => this.students = students);
