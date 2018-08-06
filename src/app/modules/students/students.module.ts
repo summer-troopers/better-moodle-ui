@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { studentsRoutes } from './students.routes';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ModalModule } from 'ngx-bootstrap';
 
 import { EditStudentModalComponent } from './modals/edit-student-modal/edit-student-modal.component';
@@ -14,7 +14,7 @@ import { StudentDetailsPageComponent, StudentsPageComponent } from '@modules/stu
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbPaginationModule.forRoot(),
+    PaginationModule.forRoot(),
     ModalModule.forRoot(),
     studentsRoutes
   ],

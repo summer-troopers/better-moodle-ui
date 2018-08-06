@@ -6,7 +6,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { AppComponent } from './app.component';
 import { appRoutes } from './app.routes';
-
 import { HomeModule } from '@modules/home/home.module';
 import { SharedModule } from '@shared/shared.module';
 

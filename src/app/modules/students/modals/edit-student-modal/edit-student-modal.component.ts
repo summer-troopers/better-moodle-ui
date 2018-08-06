@@ -1,13 +1,14 @@
-import { Component, OnInit, TemplateRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, TemplateRef, OnDestroy, Input } from '@angular/core';
 
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { mergeMap } from 'rxjs/operators';
 
 import { StudentsService } from '@modules/students/students.service';
-import { Student } from '../../../../shared/models/student';
-import { ActivatedRoute } from '@angular/router';
+import { StudentDetailsPageComponent } from '@modules/students/containers';
+import Student from '@shared/models/student';
 
 @Component({
   selector: 'app-edit-student-modal',
@@ -15,28 +16,24 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./edit-student-modal.component.scss']
 })
 export class EditStudentModalComponent implements OnInit, OnDestroy {
+  @Input()
+  student: Student;
+
+  @Input()
+  parent: StudentDetailsPageComponent;
+
   modalRef: BsModalRef;
 
   studentForm: FormGroup;
   submitted = false;
 
-  id: number;
-  student: Student;
-
   private subscription: any;
 
   constructor(private modalService: BsModalService,
-    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private api: StudentsService) { }
+    private studentsService: StudentsService) { }
 
   ngOnInit() {
-
-    this.subscription = this.route.params.subscribe(params => {
-      this.id = +params['id'];
-      this.api.getStudent(this.id).subscribe((element) => { this.student = element })
-    });
-
     this.studentForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -48,7 +45,6 @@ export class EditStudentModalComponent implements OnInit, OnDestroy {
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
-    this.modalRef
   }
 
   get fields() {
@@ -62,8 +58,10 @@ export class EditStudentModalComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.api.updateStudentData(this.student.id, this.studentForm.value)
-      .subscribe((response) => console.log(response));
+    this.studentsService.updateStudentData(this.student.id, this.studentForm.value)
+      .subscribe();
+
+    this.parent.student = this.studentForm.value;
 
     this.modalRef.hide();
   }

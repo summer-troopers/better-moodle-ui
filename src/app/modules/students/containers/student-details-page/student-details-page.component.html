@@ -10,7 +10,8 @@
     <h3>Phone Number: {{student.phoneNumber}}</h3>
     <h3>Group Name: {{groupName}}</h3>
 
-    <app-edit-student-modal></app-edit-student-modal>
+    <app-edit-student-modal [student]="student"
+                            [parent]="this"></app-edit-student-modal>
 
     <button class="btn btn-danger"
             (click)="deleteStudent(student.id)"

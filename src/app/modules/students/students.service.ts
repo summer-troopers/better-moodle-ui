@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BackendApiService } from '@core/services/api/backend-api.service';
-import { map } from '../../../../node_modules/rxjs/operators';
-import { Observable } from '../../../../node_modules/rxjs';
-import { Student } from '../../shared/models/student';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
+import Student from '@shared/models/student';
 
 @Injectable({
   providedIn: 'root'
