@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 
@@ -12,13 +12,16 @@ import Teacher from '../../../../shared/models/teacher';
 })
 export class EditTeacherModalComponent implements OnInit {
 
+  @Output() closeModalEvent = new EventEmitter<boolean>();
+
   modalRef: BsModalRef;
 
   userForm: FormGroup;
   submitted = false;
   teacher: Teacher;
 
-  constructor(private teachersService: TeachersService) { }
+  constructor(private teachersService: TeachersService,
+    public bsModalRef: BsModalRef) { }
 
   ngOnInit() {
     this.userForm = new FormGroup({
@@ -28,12 +31,26 @@ export class EditTeacherModalComponent implements OnInit {
       email: new FormControl(this.teacher.email, [Validators.required, Validators.email]),
       phoneNumber: new FormControl(this.teacher.phoneNumber, Validators.required),
     });
-
-    console.log(this.userForm)
   }
 
-  get f() {
+  get formErrors() {
     return this.userForm.controls;
+  }
+
+  get firstNameErrors() {
+    return this.formErrors.firstName.errors;
+  }
+
+  get lastNameErrors() {
+    return this.formErrors.lastName.errors;
+  }
+
+  get emailErrors() {
+    return this.formErrors.email.errors;
+  }
+
+  get phoneNumberErrors() {
+    return this.formErrors.phoneNumber.errors;
   }
 
   onSubmit() {
@@ -45,11 +62,15 @@ export class EditTeacherModalComponent implements OnInit {
     }
 
     const formParam = this.userForm.value;
-    this.teachersService.editTeacher(formParam).toPromise();
+    this.teachersService.editTeacher(formParam).subscribe();
   }
 
   getTeacher() {
-    this.teachersService.getTeacher(this.userForm.value.id).toPromise();;
+    this.teachersService.getTeacher(this.userForm.value.id).subscribe();
+  }
+
+  onCloseModal(event: any) {
+    this.closeModalEvent.emit(false);
   }
 
 }

@@ -3,8 +3,7 @@
     <h4 class="modal-title pull-left">Edit teacher</h4>
     <button type="button"
             class="close pull-right"
-            aria-label="Close"
-            (click)="modalEditRef.hide()">
+            (click)="bsModalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -17,14 +16,14 @@
         <input formControlName="firstName"
                type="text"
                class="form-control"
-               [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"
+               [ngClass]="{ 'is-invalid': submitted && firstNameErrors}"
                id="firstName"
                autocomplete='firstName'
                aria-describedby="nameHelp"
                placeholder="Enter First Name">
-        <div *ngIf="submitted && f.firstName.errors"
+        <div *ngIf="submitted && firstNameErrors"
              class="invalid-feedback">
-          <div *ngIf="f.firstName.errors.required">Name is required</div>
+          <div *ngIf="firstNameErrors.required">Name is required</div>
         </div>
       </div>
 
@@ -33,14 +32,14 @@
         <input formControlName="lastName"
                type="text"
                class="form-control"
-               [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
+               [ngClass]="{ 'is-invalid': submitted && lastNameErrors }"
                id="lastName"
                autocomplete='lastName'
                aria-describedby="nameHelp"
                placeholder="Enter Last Name">
-        <div *ngIf="submitted && f.lastName.errors"
+        <div *ngIf="submitted && lastNameErrors"
              class="invalid-feedback">
-          <div *ngIf="f.lastName.errors.required">Name is required</div>
+          <div *ngIf="lastNameErrors.required">Name is required</div>
         </div>
       </div>
 
@@ -53,11 +52,11 @@
                aria-describedby="emailHelp"
                placeholder="Enter email"
                formControlName="email"
-               [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
-        <div *ngIf="submitted && f.email.errors"
+               [ngClass]="{ 'is-invalid': submitted && emailErrors }">
+        <div *ngIf="submitted && emailErrors"
              class="invalid-feedback">
-          <div *ngIf="f.email.errors.required">Email is required</div>
-          <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+          <div *ngIf="emailErrors.required">Email is required</div>
+          <div *ngIf="emailErrors.email">Email must be a valid email address</div>
         </div>
       </div>
 
@@ -67,15 +66,15 @@
         <input formControlName="phoneNumber"
                type="tel"
                class="form-control"
-               [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }"
+               [ngClass]="{ 'is-invalid': submitted && phoneNumberErrors }"
                id="phoneNumber"
                autocomplete='phoneNumber'
                aria-describedby="nameHelp"
                placeholder="123-456-7890"
                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
-        <div *ngIf="submitted && f.phoneNumber.errors"
+        <div *ngIf="submitted && phoneNumberErrors"
              class="invalid-feedback">
-          <div *ngIf="f.phoneNumber.errors.required">Phone number is required</div>
+          <div *ngIf="phoneNumberErrors.required">Phone number is required</div>
         </div>
       </div>
 
@@ -83,7 +82,7 @@
       <button [disabled]="userForm.invalid"
               type="submit"
               class="btn btn-primary"
-              (click)="getTeacher()">Submit</button>
+              (click)="bsModalRef.hide()">Submit</button>
     </form>
   </div>
 </div>

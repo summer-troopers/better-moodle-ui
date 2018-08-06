@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 import { TeachersService } from '../../teachers.service';
 
@@ -9,12 +11,14 @@ import { TeachersService } from '../../teachers.service';
   styleUrls: ['./add-teacher-modal.component.scss']
 })
 export class AddTeacherModalComponent implements OnInit {
-
   userForm: FormGroup;
   submitted = false;
 
+  closeBtnName: string;
+
   constructor(private formBuilder: FormBuilder,
-    private teacherService: TeachersService) { }
+    private teacherService: TeachersService,
+    public bsModalRef: BsModalRef) { }
 
   ngOnInit() {
     this.userForm = this.formBuilder.group({
@@ -26,9 +30,31 @@ export class AddTeacherModalComponent implements OnInit {
     });
   }
 
-  get f() {
+
+  get formErrors() {
     return this.userForm.controls;
   }
+
+  get firstNameErrors() {
+    return this.formErrors.firstName.errors;
+  }
+
+  get lastNameErrors() {
+    return this.formErrors.lastName.errors;
+  }
+
+  get emailErrors() {
+    return this.formErrors.email.errors;
+  }
+
+  get phoneNumberErrors() {
+    return this.formErrors.phoneNumber.errors;
+  }
+
+  get passwordErrors() {
+    return this.formErrors.password.errors;
+  }
+
   onSubmit() {
     this.submitted = true;
 
@@ -38,7 +64,7 @@ export class AddTeacherModalComponent implements OnInit {
     }
 
     const formParam = this.userForm.value;
-    this.teacherService.addTeacher(formParam).toPromise();
+    this.teacherService.addTeacher(formParam).subscribe();
 
     //console.log(this.teacherService.getTeachers().toPromise());
   }
