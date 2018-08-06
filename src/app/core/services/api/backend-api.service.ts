@@ -4,7 +4,7 @@ import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
 
 import { LocalStorageService } from '@shared/services/local-storage.service';
-import { TOKEN_STORAGE_KEY } from '@shared/constants/index';
+import { TOKEN_STORAGE_KEY } from '@shared/constants';
 
 /* tslint:disable max-line-length */
 
