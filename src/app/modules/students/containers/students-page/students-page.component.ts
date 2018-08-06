@@ -1,14 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { StudentsService } from '@modules/students/students.service';
-import { Student } from '../../../../shared/models/student';
+import Student from '@shared/models/student';
 import { Subscription } from '../../../../../../node_modules/rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
-import { AddStudentModalComponent } from '../../modals/add-student-modal/add-student-modal.component';
-
+import { AddStudentModalComponent } from '@modules/students/modals/add-student-modal/add-student-modal.component';
 
 @Component({
   selector: 'app-students-page',
@@ -19,7 +18,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
   offset: number = 0;
   limit: number = 10;
   totalItems: number;
-  page: number = 1;
+  currentPage: number = 1;
   pageParam: number;
 
   students: Array<Student> = [];
@@ -37,12 +36,12 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
       this.pageParam = +params.page;
       if (this.pageParam != null || this.pageParam != NaN) {
         if (this.pageParam > 0) {
-          this.pageChanged(this.pageParam);
+          this.setPage(this.pageParam);
         } else {
-          this.pageChanged(1)
+          this.setPage(1)
         }
       } else {
-        this.pageChanged(1)
+        this.setPage(1)
       }
     });
     this.subscription = this.api.getStudents(this.offset, this.limit)
@@ -59,11 +58,15 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  pageChanged(selectedPage) {
-    this.page = selectedPage;
-    this.offset = this.limit * (selectedPage - 1);
+  setPage(pageNumber: number) {
+    this.currentPage = pageNumber;
+  }
+
+  pageChanged(event: any) {
+    this.currentPage = event.page;
+    this.offset = this.limit * (event.page - 1);
     this.subscription = this.api.getStudents(this.offset, this.limit)
       .subscribe(students => this.students = students);
-    this.router.navigate(['students'], { queryParams: { page: selectedPage } });
+    this.router.navigate(['students'], { queryParams: { page: event.page } });
   }
 }

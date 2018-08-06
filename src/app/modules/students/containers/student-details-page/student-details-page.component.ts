@@ -1,8 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StudentsService } from '@modules/students/students.service';
-import { Student } from '../../../../shared/models/student';
-import { Subscription } from '../../../../../../node_modules/rxjs';
+import { Subscription } from 'rxjs';
+
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+
+import Student from '@shared/models/student';
+
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-student-details-page',
@@ -15,18 +20,22 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
   groupName: string;
   private subscription: Subscription;
 
-  constructor(private route: ActivatedRoute, private studentsService: StudentsService) { }
+  modalRef: BsModalRef;
+
+  constructor(private route: ActivatedRoute,
+    private studentsService: StudentsService) { }
 
   ngOnInit() {
     this.subscription = this.route.params.subscribe(params => {
       this.id = +params['id'];
-      this.studentsService.getStudent(this.id).subscribe((element) => {
-        this.student = element;
-        this.studentsService.getStudentsGroup(this.student.idGroup).subscribe((groupName) => {
-          this.groupName = groupName;
-        });
-      });
-    });
+      this.studentsService.getStudent(this.id)
+        .pipe(
+          mergeMap((student: Student) => {
+            this.student = student;
+            return this.studentsService.getStudentsGroup(student.idGroup);
+          }))
+        .subscribe((groupName) => this.groupName = groupName);
+    })
   }
 
   ngOnDestroy() {
@@ -35,7 +44,7 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
 
   deleteStudent(id: number) {
     this.studentsService.deleteStudent(id)
-      .subscribe((result) => console.log(result));
+      .subscribe();
   }
 
 }

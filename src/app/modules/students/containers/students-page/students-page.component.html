@@ -17,12 +17,12 @@
     </div>
 
     <div class="pagination-container">
-      <ngb-pagination class="d-flex justify-content-center"
-                      [collectionSize]="totalItems"
-                      [pageSize]="limit"
-                      [maxSize]="5"
-                      [(page)]="page"
-                      (pageChange)="pageChanged($event)"></ngb-pagination>
+      <pagination class="d-flex justify-content-center"
+                  [totalItems]="totalItems"
+                  [maxSize]="limit"
+                  [maxSize]="5"
+                  [(ngModel)]="currentPage"
+                  (pageChanged)="pageChanged($event)"></pagination>
     </div>
   </div>
 
