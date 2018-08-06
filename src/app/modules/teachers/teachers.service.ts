@@ -41,7 +41,7 @@ export class TeachersService {
 
   addTeacher(form: Teacher): Observable<any> {
     return this.api.post(`teachers`, form)
-      .pipe(first());
+      .pipe(map(result => result));
   }
 
   editTeacher(form: Teacher): Observable<any> {

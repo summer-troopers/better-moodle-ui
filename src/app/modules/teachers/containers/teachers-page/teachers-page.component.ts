@@ -28,7 +28,7 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
       .subscribe(data => this.teachers = data.reverse());
   }
 
-  openModal() {
+  openAddTeacherModal() {
     this.modalRef = this.modalService.show(AddTeacherModalComponent);
   }
 

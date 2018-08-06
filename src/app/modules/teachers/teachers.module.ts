@@ -9,6 +9,12 @@ import { AddTeacherModalComponent } from './modals/add-teacher-modal/add-teacher
 import { EditTeacherModalComponent } from './modals/edit-teacher-modal/edit-teacher-modal.component';
 import { DeleteTeacherModalComponent } from './modals/delete-teacher-modal/delete-teacher-modal.component';
 
+const COMPONENTS = [
+  AddTeacherModalComponent,
+  EditTeacherModalComponent,
+  DeleteTeacherModalComponent
+];
+
 @NgModule({
   imports: [
     CommonModule,
@@ -17,8 +23,8 @@ import { DeleteTeacherModalComponent } from './modals/delete-teacher-modal/delet
     FormsModule,
     ReactiveFormsModule
   ],
-  entryComponents: [AddTeacherModalComponent, EditTeacherModalComponent, DeleteTeacherModalComponent],
+  entryComponents: [...COMPONENTS],
   providers: [],
-  declarations: [TeacherDetailsPageComponent, TeachersPageComponent, AddTeacherModalComponent, EditTeacherModalComponent, DeleteTeacherModalComponent]
+  declarations: [TeacherDetailsPageComponent, TeachersPageComponent, ...COMPONENTS]
 })
 export class TeachersModule { }
