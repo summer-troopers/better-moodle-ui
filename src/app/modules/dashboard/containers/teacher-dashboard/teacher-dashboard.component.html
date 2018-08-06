@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="card" *ngIf="user && user.isTeacher()">
+    <h1>{{user.firstName}} {{user.lastName}}</h1>
+    <div class="card-body">
+      <h6>First Name: {{user.firstName}}</h6>
+      <h6>Last Name: {{user.lastName}}</h6>
+      <h6>Email: {{user.email}}</h6>
+      <h6>Phone Number: {{user.phoneNumber}}</h6>
+      <h6>Role: {{user.userRole}}</h6>
+    </div>
+  </div>
+</div>
+<hr>
+
+<div>
+  <tabset #staticTabs>
+    <tab heading="My Courses">
+      <app-my-courses></app-my-courses>
+    </tab>
+    <tab heading="My Groups">
+      <app-my-groups></app-my-groups>
+    </tab>
+    <tab heading="My Students">
+      <app-my-students></app-my-students>
+    </tab>
+  </tabset>
+</div>
+<br><br>

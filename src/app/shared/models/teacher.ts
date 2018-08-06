@@ -1,3 +1,11 @@
-import User from '@shared/models/user';
+import { User } from '@shared/models/user';
 
-export default class Teacher extends User {}
+export class Teacher extends User {
+  idSpecialty: number;
+
+  constructor(teacherFromStorage: any) {
+    super(teacherFromStorage);
+    this.idSpecialty = teacherFromStorage.idSpecialty;
+
+  }
+}

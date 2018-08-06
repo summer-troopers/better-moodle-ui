@@ -1,3 +1,8 @@
-import User from '@shared/models/user';
+import { User } from '@shared/models/user';
 
-export default class Admin extends User {}
+export class Admin extends User {
+
+  constructor(adminFromStorage: any) {
+    super(adminFromStorage);
+  }
+}
