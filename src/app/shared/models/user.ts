@@ -1,6 +1,6 @@
 import { UserType } from '@shared/models/user-type';
 
-export class User {
+export default class User {
   id: number;
   firstName: string;
   lastName: string;

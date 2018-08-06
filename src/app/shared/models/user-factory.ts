@@ -1,6 +1,6 @@
 import { Student } from '@shared/models/student';
 import { Teacher } from '@shared/models/teacher';
-import { Admin } from '@shared/models/admins';
+import { Admin } from '@shared/models/admin';
 import { UserType } from '@shared/models/user-type';
 
 export function CreateUser(user): any {
