@@ -14,7 +14,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    localStorage.setItem('user', JSON.stringify({
+/*    localStorage.setItem('user', JSON.stringify({
         id: 1,
         firstName: 'Che',
         lastName: 'Guevara',
@@ -23,7 +23,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
         idSpecialty: 3,
         userRole: 'teacher'
       }
-    ));
+    ));*/
     const userFromStorage = JSON.parse(this.userService.getUserLocalStorage('user'));
     const loggedUser = CreateUser(userFromStorage);
     this.user = loggedUser;
