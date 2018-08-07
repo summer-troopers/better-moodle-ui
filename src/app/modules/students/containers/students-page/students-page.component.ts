@@ -1,17 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { StudentsService } from '@modules/students/students.service';
-import Student from '@shared/models/student';
-import { Subscription } from '../../../../../../node_modules/rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { Observable, Subscription } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 import 'rxjs/add/operator/catch';
-
-import { Observable } from 'rxjs';
+import 'rxjs/add/observable/throw';
 
 import { AddStudentModalComponent } from '@modules/students/modals/add-student-modal/add-student-modal.component';
-import { mergeMap } from 'rxjs/operators';
+import { StudentsService } from '@modules/students/students.service';
+import { Student } from '@shared/models/student';
 
 @Component({
   selector: 'app-students-page',
@@ -25,14 +23,14 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
   currentPage: number = 1;
   pageParam: number;
 
-  errors: Array<any> = [];
+  alerts: Array<object> = [];
 
   students: Array<Student> = [];
   private subscription: Subscription;
 
   modalRef: BsModalRef;
 
-  constructor(private api: StudentsService,
+  constructor(private studentsService: StudentsService,
     private route: ActivatedRoute,
     private modalService: BsModalService,
     private router: Router) { }
@@ -51,14 +49,18 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.subscription = this.api.getNumberOfStudents()
+    this.subscription = this.studentsService.getNumberOfStudents()
       .pipe(
         mergeMap((studentsNumber) => {
           this.totalItems = +studentsNumber;
           this.offset = this.totalItems - 10;
-          return this.api.getStudents(this.offset, this.limit);
+          return this.studentsService.getStudents(this.offset, this.limit);
         })
       )
+      .catch(error => {
+        this.alerts.push({ type: "danger", msg: error.message });
+        return Observable.throw(error.message);
+      })
       .subscribe((students) => {
         this.students = students;
         this.students.reverse();
@@ -88,9 +90,9 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
       this.offset = this.totalItems - (this.limit * event.page);
     }
 
-    this.subscription = this.api.getStudents(this.offset, this.limit)
+    this.subscription = this.studentsService.getStudents(this.offset, this.limit)
       .catch(error => {
-        this.errors.push(error.message);
+        this.alerts.push({ type: "danger", msg: error.message });
         return Observable.throw(error.message);
       })
       .subscribe((students) => {
@@ -102,7 +104,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
   }
 
   onClosed(dismissedError: any) {
-    this.errors = this.errors.filter(error => error !== dismissedError);
+    this.alerts = this.alerts.filter(error => error !== dismissedError);
   }
 
 

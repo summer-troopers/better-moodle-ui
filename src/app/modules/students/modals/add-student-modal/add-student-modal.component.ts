@@ -1,29 +1,26 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
-
-import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { Observable } from 'rxjs';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 
 import { StudentsService } from '@modules/students/students.service';
 
-import 'rxjs/add/operator/catch';
-
-import { Observable } from 'rxjs';
 @Component({
   selector: 'app-add-student-modal',
   templateUrl: './add-student-modal.component.html',
   styleUrls: ['./add-student-modal.component.scss']
 })
 export class AddStudentModalComponent implements OnInit {
-  modalRef: BsModalRef;
 
   studentForm: FormGroup;
   submitted = false;
 
-  errors: Array<any> = [];
+  alerts: Array<object> = [];
 
   constructor(private formBuilder: FormBuilder,
-    private api: StudentsService,
+    private studentsService: StudentsService,
     public bsModalRef: BsModalRef) { }
 
   ngOnInit() {
@@ -37,8 +34,8 @@ export class AddStudentModalComponent implements OnInit {
     });
   }
 
-  get fields() {
-    return this.studentForm.controls;
+  formErrors(inputName: string) {
+    return this.studentForm.controls[inputName].errors;
   }
 
   onSubmit() {
@@ -48,16 +45,16 @@ export class AddStudentModalComponent implements OnInit {
       return;
     }
 
-    this.api.addStudent(this.studentForm.value)
+    this.studentsService.addStudent(this.studentForm.value)
       .catch(error => {
-        this.errors.push(error.message);
+        this.alerts.push({ type: "danger", msg: error.message });
         return Observable.throw(error.message);
       })
       .subscribe();
   }
 
   onClosed(dismissedError: any) {
-    this.errors = this.errors.filter(error => error !== dismissedError);
+    this.alerts = this.alerts.filter(error => error !== dismissedError);
   }
 
 }

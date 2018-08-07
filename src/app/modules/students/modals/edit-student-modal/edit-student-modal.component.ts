@@ -1,25 +1,22 @@
 import { Component, OnInit, TemplateRef, OnDestroy, Input } from '@angular/core';
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { mergeMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 
 import { StudentsService } from '@modules/students/students.service';
 import { StudentDetailsPageComponent } from '@modules/students/containers';
-import Student from '@shared/models/student';
+import { Student } from '@shared/models/student';
 
-import 'rxjs/add/operator/catch';
-
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-edit-student-modal',
   templateUrl: './edit-student-modal.component.html',
   styleUrls: ['./edit-student-modal.component.scss']
 })
-export class EditStudentModalComponent implements OnInit, OnDestroy {
+export class EditStudentModalComponent implements OnInit {
   @Input()
   student: Student;
 
@@ -31,9 +28,7 @@ export class EditStudentModalComponent implements OnInit, OnDestroy {
   studentForm: FormGroup;
   submitted = false;
 
-  private subscription: any;
-
-  errors: Array<any> = [];
+  alerts: Array<object> = [];
 
   constructor(private modalService: BsModalService,
     private formBuilder: FormBuilder,
@@ -53,8 +48,8 @@ export class EditStudentModalComponent implements OnInit, OnDestroy {
     this.modalRef = this.modalService.show(template);
   }
 
-  get fields() {
-    return this.studentForm.controls;
+  formErrors(inputName: string) {
+    return this.studentForm.controls[inputName].errors;
   }
 
   onSubmit() {
@@ -66,7 +61,7 @@ export class EditStudentModalComponent implements OnInit, OnDestroy {
 
     this.studentsService.updateStudentData(this.student.id, this.studentForm.value)
       .catch(error => {
-        this.errors.push(error.message);
+        this.alerts.push({ type: "danger", msg: error.message });
         return Observable.throw(error.message);
       })
       .subscribe();
@@ -76,12 +71,7 @@ export class EditStudentModalComponent implements OnInit, OnDestroy {
     this.modalRef.hide();
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
   onClosed(dismissedError: any) {
-    this.errors = this.errors.filter(error => error !== dismissedError);
+    this.alerts = this.alerts.filter(error => error !== dismissedError);
   }
-
 }

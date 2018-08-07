@@ -1,9 +1,9 @@
 <div>
-  <div *ngIf="errors.length > 0">
-    <div *ngFor="let error of errors">
-      <alert [type]="danger"
+  <div class="container">
+    <div *ngFor="let alert of alerts">
+      <alert [type]="alert.type"
              [dismissible]="dismissible"
-             (onClosed)="onClosed(error)">{{ error }}</alert>
+             (onClosed)="onClosed(alert)">{{ alert.msg }}</alert>
     </div>
   </div>
   <div class="modal-header">
@@ -21,14 +21,14 @@
         <input formControlName="firstName"
                type="text"
                class="form-control"
-               [ngClass]="{ 'is-invalid': submitted && fields.firstName.errors }"
+               [ngClass]="{ 'is-invalid': isSubmitted && formErrors('firstName') }"
                id="firstName"
                autocomplete='firstName'
                aria-describedby="nameHelp"
                placeholder="Enter First Name">
-        <div *ngIf="submitted && fields.firstName.errors"
+        <div *ngIf="isSubmitted && formErrors('firstName')"
              class="invalid-feedback">
-          <div *ngIf="fields.firstName.errors.required">First Name is required</div>
+          <div *ngIf="formErrors('firstName').required">First Name is required</div>
         </div>
       </div>
 
@@ -37,14 +37,14 @@
         <input formControlName="lastName"
                type="text"
                class="form-control"
-               [ngClass]="{ 'is-invalid': submitted && fields.lastName.errors }"
+               [ngClass]="{ 'is-invalid': isSubmitted && formErrors('lastName') }"
                id="lastName"
                autocomplete='lastName'
                aria-describedby="nameHelp"
                placeholder="Enter Last Name">
-        <div *ngIf="submitted && fields.lastName.errors"
+        <div *ngIf="isSubmitted && formErrors('lastName')"
              class="invalid-feedback">
-          <div *ngIf="fields.lastName.errors.required">Last Name is required</div>
+          <div *ngIf="formErrors('lastName').required">Last Name is required</div>
         </div>
       </div>
 
@@ -57,11 +57,11 @@
                aria-describedby="emailHelp"
                placeholder="Enter email"
                formControlName="email"
-               [ngClass]="{ 'is-invalid': submitted && fields.email.errors }">
-        <div *ngIf="submitted && fields.email.errors"
+               [ngClass]="{ 'is-invalid': isSubmitted && formErrors('email') }">
+        <div *ngIf="isSubmitted && formErrors('email')"
              class="invalid-feedback">
-          <div *ngIf="fields.email.errors.required">Email address is required</div>
-          <div *ngIf="fields.email.errors.email">Email must be a valid email address</div>
+          <div *ngIf="formErrors('email').required">Email is required</div>
+          <div *ngIf="formErrors('email').email">Email must be a valid email address</div>
         </div>
       </div>
 
@@ -70,14 +70,14 @@
         <input formControlName="idGroup"
                type="number"
                class="form-control"
-               [ngClass]="{ 'is-invalid': submitted && fields.idGroup.errors }"
+               [ngClass]="{ 'is-invalid': isSubmitted && formErrors('idGroup') }"
                id="idGroup"
                autocomplete='idGroup'
                aria-describedby="idGroupHelp"
                placeholder="Select idGroup">
-        <div *ngIf="submitted && fields.idGroup.errors"
+        <div *ngIf="isSubmitted && formErrors('idGroup')"
              class="invalid-feedback">
-          <div *ngIf="fields.idGroup.errors.required">Phone Number is required</div>
+          <div *ngIf="formErrors('idGroup').required">Group ID is required</div>
         </div>
       </div>
 
@@ -86,15 +86,15 @@
         <input formControlName="phoneNumber"
                type="tel"
                class="form-control"
-               [ngClass]="{ 'is-invalid': submitted && fields.phoneNumber.errors }"
+               [ngClass]="{ 'is-invalid': isSubmitted && formErrors('phoneNumber') }"
                id="phoneNumber"
                autocomplete='phoneNumber'
                aria-describedby="nameHelp"
                placeholder="123-456-7890"
                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
-        <div *ngIf="submitted && fields.phoneNumber.errors"
+        <div *ngIf="isSubmitted && formErrors('phoneNumber')"
              class="invalid-feedback">
-          <div *ngIf="fields.phoneNumber.errors.required">Phone Number is required</div>
+          <div *ngIf="formErrors('phoneNumber').required">Phone number is required</div>
         </div>
       </div>
 
@@ -103,14 +103,14 @@
         <input formControlName="password"
                type="password"
                class="form-control"
-               [ngClass]="{ 'is-invalid': submitted && fields.password.errors }"
+               [ngClass]="{ 'is-invalid': isSubmitted && formErrors('password') }"
                id="password"
                autocomplete='password'
                aria-describedby="nameHelp"
                placeholder="Enter a password">
-        <div *ngIf="submitted && fields.password.errors"
+        <div *ngIf="isSubmitted && formErrors('password')"
              class="invalid-feedback">
-          <div *ngIf="fields.password.errors.required">Password is required</div>
+          <div *ngIf="formErrors('password').required">Password is required</div>
         </div>
       </div>
 
