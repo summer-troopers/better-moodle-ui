@@ -6,6 +6,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { StudentsService } from '@modules/students/students.service';
 
+import 'rxjs/add/operator/catch';
+
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-add-student-modal',
   templateUrl: './add-student-modal.component.html',
@@ -16,6 +19,8 @@ export class AddStudentModalComponent implements OnInit {
 
   studentForm: FormGroup;
   submitted = false;
+
+  errors: Array<any> = [];
 
   constructor(private formBuilder: FormBuilder,
     private api: StudentsService,
@@ -44,8 +49,15 @@ export class AddStudentModalComponent implements OnInit {
     }
 
     this.api.addStudent(this.studentForm.value)
+      .catch(error => {
+        this.errors.push(error.message);
+        return Observable.throw(error.message);
+      })
       .subscribe();
+  }
 
+  onClosed(dismissedError: any) {
+    this.errors = this.errors.filter(error => error !== dismissedError);
   }
 
 }

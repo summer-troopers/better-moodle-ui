@@ -29,11 +29,10 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
     this.subscription = this.route.params.subscribe(params => {
       this.id = +params['id'];
       this.studentsService.getStudent(this.id)
-        .pipe(
-          mergeMap((student: Student) => {
-            this.student = student;
-            return this.studentsService.getStudentsGroup(student.idGroup);
-          }))
+        .pipe(mergeMap((student: Student) => {
+          this.student = student;
+          return this.studentsService.getStudentsGroup(student.idGroup);
+        }))
         .subscribe((groupName) => this.groupName = groupName);
     })
   }
