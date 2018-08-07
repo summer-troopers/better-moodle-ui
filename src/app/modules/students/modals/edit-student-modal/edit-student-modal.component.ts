@@ -28,7 +28,7 @@ export class EditStudentModalComponent implements OnInit {
   studentForm: FormGroup;
   submitted = false;
 
-  alerts: Array<object> = [];
+  alerts: Array<any> = [];
 
   constructor(private modalService: BsModalService,
     private formBuilder: FormBuilder,
@@ -44,7 +44,7 @@ export class EditStudentModalComponent implements OnInit {
     });
   }
 
-  openModal(template: TemplateRef<any>) {
+  openEditStudentModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
 
@@ -69,9 +69,5 @@ export class EditStudentModalComponent implements OnInit {
     this.parent.student = this.studentForm.value;
 
     this.modalRef.hide();
-  }
-
-  onClosed(dismissedError: any) {
-    this.alerts = this.alerts.filter(error => error !== dismissedError);
   }
 }
