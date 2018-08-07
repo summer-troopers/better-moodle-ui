@@ -16,7 +16,8 @@ import { TEACHERS_URL } from '@shared/constants';
 @Component({
   selector: 'app-teachers-page',
   templateUrl: './teachers-page.component.html',
-  styleUrls: ['./teachers-page.component.scss']
+  styleUrls: ['./teachers-page.component.scss'],
+  providers: [PagePreloaderSpinnerComponent],
 })
 export class TeachersPageComponent implements OnInit, OnDestroy {
 
