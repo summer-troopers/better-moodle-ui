@@ -16,6 +16,10 @@ import { SharedModule } from '@shared/shared.module';
     BrowserModule,
     ModalModule.forRoot(),
     CoreModule,
+<<<<<<< HEAD
+=======
+    SharedModule,
+>>>>>>> preloader fix
     HomeModule,
     appRoutes,
     SharedModule
