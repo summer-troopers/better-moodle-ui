@@ -1,13 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { StudentsService } from '@modules/students/students.service';
 import { Subscription } from 'rxjs';
-
-import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-
-import Student from '@shared/models/student';
-
 import { mergeMap } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
+
+import { StudentsService } from '@modules/students/students.service';
+import { Student } from '@shared/models/student';
+
 
 @Component({
   selector: 'app-student-details-page',
@@ -20,7 +21,7 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
   groupName: string;
   private subscription: Subscription;
 
-  modalRef: BsModalRef;
+  alerts: Array<object> = [];
 
   constructor(private route: ActivatedRoute,
     private studentsService: StudentsService) { }
@@ -33,6 +34,10 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
           this.student = student;
           return this.studentsService.getStudentsGroup(student.idGroup);
         }))
+        .catch(error => {
+          this.alerts.push({ type: "danger", msg: error.message });
+          return Observable.throw(error.message);
+        })
         .subscribe((groupName) => this.groupName = groupName);
     })
   }
