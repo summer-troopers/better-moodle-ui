@@ -23,7 +23,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
   currentPage: number = 1;
   pageParam: number;
 
-  alerts: Array<object> = [];
+  alerts: Array<any> = [];
 
   students: Array<Student> = [];
   private subscription: Subscription;
@@ -67,7 +67,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  openModal() {
+  openAddStudentModal() {
     this.modalRef = this.modalService.show(AddStudentModalComponent);
   }
 
@@ -102,10 +102,5 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
 
     this.router.navigate(['students'], { queryParams: { page: event.page } });
   }
-
-  onClosed(dismissedError: any) {
-    this.alerts = this.alerts.filter(error => error !== dismissedError);
-  }
-
 
 }

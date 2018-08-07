@@ -17,7 +17,7 @@ export class AddStudentModalComponent implements OnInit {
   studentForm: FormGroup;
   submitted = false;
 
-  alerts: Array<object> = [];
+  alerts: Array<any> = [];
 
   constructor(private formBuilder: FormBuilder,
     private studentsService: StudentsService,
@@ -51,10 +51,6 @@ export class AddStudentModalComponent implements OnInit {
         return Observable.throw(error.message);
       })
       .subscribe();
-  }
-
-  onClosed(dismissedError: any) {
-    this.alerts = this.alerts.filter(error => error !== dismissedError);
   }
 
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Subscription } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
@@ -21,7 +23,7 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
   groupName: string;
   private subscription: Subscription;
 
-  alerts: Array<object> = [];
+  alerts: Array<any> = [];
 
   constructor(private route: ActivatedRoute,
     private studentsService: StudentsService) { }
@@ -44,11 +46,6 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-  }
-
-  deleteStudent(id: number) {
-    this.studentsService.deleteStudent(id)
-      .subscribe();
   }
 
 }

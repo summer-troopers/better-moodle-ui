@@ -9,6 +9,7 @@ import { ModalModule } from 'ngx-bootstrap';
 import { EditStudentModalComponent } from './modals/edit-student-modal/edit-student-modal.component';
 import { AddStudentModalComponent } from './modals/add-student-modal/add-student-modal.component';
 import { StudentDetailsPageComponent, StudentsPageComponent } from '@modules/students/containers';
+import { DeleteStudentModalComponent } from './modals/delete-student-modal/delete-student-modal.component';
 
 @NgModule({
   imports: [
@@ -24,11 +25,13 @@ import { StudentDetailsPageComponent, StudentsPageComponent } from '@modules/stu
     StudentDetailsPageComponent,
     StudentsPageComponent,
     AddStudentModalComponent,
-    EditStudentModalComponent
+    EditStudentModalComponent,
+    DeleteStudentModalComponent
   ],
   entryComponents: [
     AddStudentModalComponent,
-    EditStudentModalComponent
+    EditStudentModalComponent,
+    DeleteStudentModalComponent
   ]
 })
 export class StudentsModule { }
