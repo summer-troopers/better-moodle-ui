@@ -1,14 +1,32 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TeacherDetailsPageComponent, TeachersPageComponent } from '@modules/teachers/containers';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
+import { TeacherDetailsPageComponent, TeachersPageComponent } from '@modules/teachers/containers';
 import { teacherRoutes } from './teachers.routes';
+import { AddTeacherModalComponent } from '@teacherModals/add-teacher-modal/add-teacher-modal.component';
+import { EditTeacherModalComponent } from '@teacherModals/edit-teacher-modal/edit-teacher-modal.component';
+import { DeleteTeacherModalComponent } from '@teacherModals/delete-teacher-modal/delete-teacher-modal.component';
+
+const COMPONENTS = [
+  AddTeacherModalComponent,
+  EditTeacherModalComponent,
+  DeleteTeacherModalComponent
+];
 
 @NgModule({
   imports: [
     CommonModule,
-    teacherRoutes
+    teacherRoutes,
+    ModalModule.forRoot(),
+    PaginationModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule
   ],
-  declarations: [TeacherDetailsPageComponent, TeachersPageComponent]
+  entryComponents: [...COMPONENTS],
+  providers: [],
+  declarations: [TeacherDetailsPageComponent, TeachersPageComponent, ...COMPONENTS]
 })
 export class TeachersModule { }

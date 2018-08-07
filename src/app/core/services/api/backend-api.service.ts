@@ -6,8 +6,6 @@ import { Observable } from 'rxjs';
 import { LocalStorageService } from '@shared/services/local-storage.service';
 import { TOKEN_STORAGE_KEY } from '@shared/constants';
 
-/* tslint:disable max-line-length */
-
 @Injectable({
   providedIn: 'root'
 })
@@ -22,7 +20,8 @@ export class BackendApiService {
     })
   };
 
-  constructor(private http: HttpClient, private localStorageServices: LocalStorageService) {
+  constructor(private http: HttpClient,
+    private localStorageServices: LocalStorageService) {
   }
 
   /**
