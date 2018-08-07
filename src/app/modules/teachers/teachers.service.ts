@@ -5,7 +5,7 @@ import { BackendApiService } from '@core/services/api/backend-api.service';
 import { map, first } from 'rxjs/operators';
 import { Observable } from 'rxjs'
 
-import Teacher from '@shared/models/teacher';
+import { Teacher } from '@shared/models/teacher';
 import { LocalStorageService } from '@shared/services/local-storage.service';
 import { TOKEN_STORAGE_KEY } from '@shared/constants/index';
 

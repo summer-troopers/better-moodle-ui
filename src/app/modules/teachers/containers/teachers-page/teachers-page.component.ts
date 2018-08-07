@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { TeachersService } from '@teacherService/teachers.service';
-import Teacher from '@shared/models/teacher';
+import { Teacher } from '@shared/models/teacher';
 import { AddTeacherModalComponent } from '@teacherModals/add-teacher-modal/add-teacher-modal.component';
 
 @Component({
@@ -68,7 +68,8 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
   pageChanged(event: any) {
     this.currentPage = event.page;
     this.offset = this.limit * (event.page - 1);
-    this.subscription = this.teacherService.getTeachers(this.offset, this.limit)
+    this.teacherService.getTeachers(this.offset, this.limit)
+      .pipe(takeUntil(this.destroy$))
       .subscribe(teachers => this.teachers = teachers);
     this.router.navigate(['teachers'], { queryParams: { page: event.page } });
   }

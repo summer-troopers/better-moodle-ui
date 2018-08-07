@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { TeachersService } from '@modules/teachers/teachers.service';
-import Teacher from '@shared/models/teacher';
+import { Teacher } from '@shared/models/teacher';
 import { EditTeacherModalComponent } from '@teacherModals/edit-teacher-modal/edit-teacher-modal.component';
 import { DeleteTeacherModalComponent } from '@teacherModals/delete-teacher-modal/delete-teacher-modal.component';
 
@@ -21,14 +21,7 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
   modalEditRef: BsModalRef;
 
   id: number;
-  teacher: Teacher = {
-    id: null,
-    firstName: '',
-    lastName: '',
-    email: '',
-    phoneNumber: '',
-    userRole: 'teacher'
-  };
+  teacher: Teacher;
 
   constructor(private route: ActivatedRoute,
     private teachersService: TeachersService,

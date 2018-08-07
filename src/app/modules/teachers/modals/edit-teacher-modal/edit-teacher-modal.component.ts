@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { TeachersService } from '@modules/teachers/teachers.service';
-import Teacher from '@shared/models/teacher';
+import { Teacher } from '@shared/models/teacher';
 
 @Component({
   selector: 'app-edit-teacher-modal',
