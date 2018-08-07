@@ -3,7 +3,13 @@
         (click)="openModal(template)">
   Edit
 </button>
-
+<div *ngIf="errors.length > 0">
+  <div *ngFor="let error of errors">
+    <alert [type]="danger"
+           [dismissible]="dismissible"
+           (onClosed)="onClosed(error)">{{ error }}</alert>
+  </div>
+</div>
 <ng-template #template>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Edit student</h4>

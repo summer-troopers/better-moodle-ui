@@ -1,4 +1,12 @@
 <div class="container">
+  <div *ngIf="errors.length > 0">
+    <div *ngFor="let error of errors">
+      <alert [type]="danger"
+             [dismissible]="dismissible"
+             (onClosed)="onClosed(error)">{{ error }}</alert>
+    </div>
+  </div>
+
   <div *ngIf="students.length > 0; else noStudents">
     <div class="pageTitle">
       <h1>List of all students

@@ -10,6 +10,10 @@ import { StudentsService } from '@modules/students/students.service';
 import { StudentDetailsPageComponent } from '@modules/students/containers';
 import Student from '@shared/models/student';
 
+import 'rxjs/add/operator/catch';
+
+import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-edit-student-modal',
   templateUrl: './edit-student-modal.component.html',
@@ -28,6 +32,8 @@ export class EditStudentModalComponent implements OnInit, OnDestroy {
   submitted = false;
 
   private subscription: any;
+
+  errors: Array<any> = [];
 
   constructor(private modalService: BsModalService,
     private formBuilder: FormBuilder,
@@ -59,6 +65,10 @@ export class EditStudentModalComponent implements OnInit, OnDestroy {
     }
 
     this.studentsService.updateStudentData(this.student.id, this.studentForm.value)
+      .catch(error => {
+        this.errors.push(error.message);
+        return Observable.throw(error.message);
+      })
       .subscribe();
 
     this.parent.student = this.studentForm.value;
@@ -68,6 +78,10 @@ export class EditStudentModalComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  onClosed(dismissedError: any) {
+    this.errors = this.errors.filter(error => error !== dismissedError);
   }
 
 }

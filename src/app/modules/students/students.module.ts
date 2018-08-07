@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { studentsRoutes } from './students.routes';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { AlertModule } from 'ngx-bootstrap/alert';
 import { ModalModule } from 'ngx-bootstrap';
 
 import { EditStudentModalComponent } from './modals/edit-student-modal/edit-student-modal.component';
@@ -14,6 +15,7 @@ import { StudentDetailsPageComponent, StudentsPageComponent } from '@modules/stu
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    AlertModule.forRoot(),
     PaginationModule.forRoot(),
     ModalModule.forRoot(),
     studentsRoutes
