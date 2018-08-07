@@ -9,16 +9,16 @@
     </button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="specialtyForm" (submit)="onSubmit()">
+    <form [formGroup]="specialtyForm">
       <div class="form-group">
         <label for="name">Name</label>
         <input type="text" id="name" class="form-control" placeholder="Name" formControlName="name"
-               [ngClass]="{ 'is-invalid': submitted && fields.name.errors }" value="{{specialty.name}}">
-        <div *ngIf="submitted && fields.name.errors" class="invalid-feedback">
+               [ngClass]="{ 'is-invalid': isSubmitted && fields.name.errors }" value="{{specialty.name}}">
+        <div *ngIf="isSubmitted && fields.name.errors" class="invalid-feedback">
           <div *ngIf="fields.name.errors.required">The name of specialty is required</div>
         </div>
       </div>
-      <input type="submit" class="btn btn-primary">
+      <input type="button" (click)="onSubmit()" class="btn btn-primary">
     </form>
   </div>
 </ng-template>

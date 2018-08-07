@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { GroupsService } from '@modules/groups/groups.service';
 import { SpecialtiesService } from '@modules/specialties/specialties.service';
 import { Group } from '@shared/models/group';
 import { Specialty } from '@shared/models/specialty';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-group-details-page',
@@ -22,8 +22,9 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
   group: Group;
   specialty: Specialty;
 
-  constructor(private route: ActivatedRoute, private groupsService: GroupsService, private specialtiesService: SpecialtiesService) {
-  }
+  constructor(private route: ActivatedRoute,
+              private groupsService: GroupsService,
+              private specialtiesService: SpecialtiesService) {}
 
   ngOnInit() {
     this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
@@ -35,6 +36,11 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
         });
       });
     });
+  }
+
+  updateGroup(event: any) {
+    this.group.name = event.groupName;
+    this.specialty = event.specialty;
   }
 
   ngOnDestroy() {

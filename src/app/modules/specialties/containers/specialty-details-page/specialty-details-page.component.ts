@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { SpecialtiesService } from '@modules/specialties/specialties.service';
 import { Specialty } from '@shared/models/specialty';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-specialty-details-page',
@@ -19,8 +19,7 @@ export class SpecialtyDetailsPageComponent implements OnInit, OnDestroy {
   isEditable = false;
   specialty: Specialty;
 
-  constructor(private route: ActivatedRoute, private specialtiesService: SpecialtiesService) {
-  }
+  constructor(private route: ActivatedRoute, private specialtiesService: SpecialtiesService) {}
 
   ngOnInit() {
    this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {

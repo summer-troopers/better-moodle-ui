@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
-import { GroupsService } from '@modules/groups/groups.service';
 import { Group } from '@shared/models/group';
-import { Subscription } from 'rxjs';
+import { GroupsService } from '@modules/groups/groups.service';
 
 @Component({
   selector: 'app-groups-page',
@@ -11,18 +12,19 @@ import { Subscription } from 'rxjs';
 })
 export class GroupsPageComponent implements OnInit, OnDestroy {
 
-  subscription: Subscription;
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
   groups: Array<Group> = [];
 
-  constructor(private groupsService: GroupsService) {
-  }
+  constructor(private groupsService: GroupsService) {}
 
   ngOnInit() {
-    this.subscription = this.groupsService.getGroups().subscribe((groups: Array<Group>) => this.groups = groups);
+    this.groupsService.getGroups().pipe(takeUntil(this.destroy$)).subscribe((groups: Array<Group>) => this.groups = groups);
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
 }

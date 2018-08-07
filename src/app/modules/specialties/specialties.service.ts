@@ -1,20 +1,19 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { BackendApiService } from '@core/services/api/backend-api.service';
 import { Specialty } from '@shared/models/specialty';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpecialtiesService {
 
-  constructor(private api: BackendApiService) {
-  }
+  constructor(private api: BackendApiService) {}
 
   getSpecialties(filter: string = ''): Observable<Array<Specialty>> {
-    return this.api.get(`specialties?contains=${filter}`)
+    return this.api.get(`specialties?contains=${filter || ''}`)
       .pipe(map(result => {
         console.log(result);
         return result.data;

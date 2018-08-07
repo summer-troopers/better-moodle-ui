@@ -1,28 +1,31 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
-import { Subscription } from 'rxjs';
 import { Specialty } from '@shared/models/specialty';
 import { SpecialtiesService } from '@modules/specialties/specialties.service';
 
 @Component({
-  selector: 'app-specialities-page',
+  selector: 'app-specialties-page',
   templateUrl: './specialties-page.component.html',
   styleUrls: ['./specialties-page.component.scss']
 })
 export class SpecialtiesPageComponent implements OnInit, OnDestroy {
 
-  subscription: Subscription;
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
   specialties: Array<Specialty> = [];
 
   constructor(private specialtiesService: SpecialtiesService) {
   }
 
   ngOnInit() {
-    this.subscription = this.specialtiesService.getSpecialties().subscribe((specialties: Array<Specialty>) => this.specialties = specialties);
+ this.specialtiesService.getSpecialties().pipe(takeUntil(this.destroy$)).subscribe((specialties: Array<Specialty>) => this.specialties = specialties);
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
 }

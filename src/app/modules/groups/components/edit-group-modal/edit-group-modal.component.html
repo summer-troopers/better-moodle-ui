@@ -13,15 +13,15 @@
       <div class="form-group">
         <label for="name">Name</label>
         <input type="text" id="name" class="form-control" placeholder="Name" formControlName="name"
-               [ngClass]="{ 'is-invalid': submitted && fields.name.errors }" value="{{group.name}}">
-        <div *ngIf="submitted && fields.name.errors" class="invalid-feedback">
+               [ngClass]="{ 'is-invalid': isSubmitted && fields.name.errors }" value="{{group.name}}">
+        <div *ngIf="isSubmitted && fields.name.errors" class="invalid-feedback">
           <div *ngIf="fields.name.errors.required">The name of group is required</div>
         </div>
       </div>
       <div class="form-group">
         <label for="specialty">Specialty</label>
         <input type="text" id="specialty" class="form-control" placeholder="Specialty Name" formControlName="specialty"
-               [ngClass]="{ 'is-invalid': submitted && fields.name.errors }" value="{{specialty.name}}"
+               [ngClass]="{ 'is-invalid': isSubmitted && fields.name.errors }" value="{{specialty.name}}"
                list="specialties">
         <datalist id="specialties">
           <option *ngFor="let specialty of specialties" value="{{specialty.name}}">{{specialty.id}}</option>

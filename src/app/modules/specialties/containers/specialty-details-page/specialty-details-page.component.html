@@ -1,8 +1,8 @@
 <div class="container">
   <div class="space-30">
       <input type="text" class="input-group-text" *ngIf="specialty" [(ngModel)]="specialty.name"
-             [attr.readOnly]="isEditable ? null : '' " [ngClass]="{ 'is-invalid': submitted && fields.name.errors }"
-             [ngClass]="{ 'is-invalid': submitted && fields.name.errors }" >
+             [attr.readOnly]="isEditable ? null : '' " [ngClass]="{ 'is-invalid': isSubmitted && fields.name.errors }"
+             [ngClass]="{ 'is-invalid': isSubmitted && fields.name.errors }" >
       <button type="button" (click)="deleteSpecialty()" class="btn btn-danger">Delete</button>
     <app-edit-specialty-modal [parent]="this" [specialty]="specialty"></app-edit-specialty-modal>
   </div>

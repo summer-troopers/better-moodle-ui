@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { BackendApiService } from '@core/services/api/backend-api.service';
 import { Group } from '@shared/models/group';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GroupsService {
 
-  constructor(private api: BackendApiService) {
-  }
+  constructor(private api: BackendApiService) {}
 
   getGroups(): Observable<Array<Group>> {
     return this.api.get(`groups`)

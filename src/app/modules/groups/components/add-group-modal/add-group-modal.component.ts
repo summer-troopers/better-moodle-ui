@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
-import { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+
 import { Specialty } from '@shared/models/specialty';
 import { GroupsService } from '@modules/groups/groups.service';
 import { SpecialtiesService } from '@modules/specialties/specialties.service';
@@ -14,21 +16,28 @@ import { SpecialtiesService } from '@modules/specialties/specialties.service';
 })
 export class AddGroupModalComponent implements OnInit, OnDestroy {
 
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
   modalRef: BsModalRef;
   groupForm: FormGroup;
-  submitted = false;
-  subscriptions: Array<Subscription> = [];
+  isSubmitted = false;
   specialties: Array<Specialty> = [];
 
-  constructor(private modalService: BsModalService, private fromBuilder: FormBuilder, private groupsService: GroupsService, private specialtiesService: SpecialtiesService) {
-  }
+  constructor(private modalService: BsModalService,
+              private fromBuilder: FormBuilder,
+              private groupsService: GroupsService,
+              private specialtiesService: SpecialtiesService) {}
 
   ngOnInit() {
+    this.initForm();
+    this.specialtiesService.getSpecialties().pipe(takeUntil(this.destroy$)).subscribe(specialties => this.specialties = specialties);
+  }
+
+  initForm() {
     this.groupForm = this.fromBuilder.group({
-      name: ['', [Validators.required]],
-      specialty: ['', [Validators.required]]
+      name: ['', Validators.required],
+      specialty: ['', Validators.required]
     });
-    this.subscriptions.push(this.specialtiesService.getSpecialties().subscribe(specialties => this.specialties = specialties));
   }
 
   get fields() {
@@ -40,19 +49,26 @@ export class AddGroupModalComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.submitted = true;
-    const specialtyName: string = this.groupForm.value.specialty;
+    this.isSubmitted = true;
+
+    if (this.groupForm.invalid) {
+      console.error('Form is invalid');
+      return;
+    }
+
+    const specialtyName: string = this.groupForm.value.idSpecialty;
     const {id} = this.specialties.find((specialty) => specialty.name === specialtyName);
     const newGroup = {
       name: this.groupForm.value.name,
       idSpecialty: id
     };
-    this.subscriptions.push(this.groupsService.addGroup(newGroup).subscribe(() => {
+    this.groupsService.addGroup(newGroup).pipe(takeUntil(this.destroy$)).subscribe(() => {
       this.modalRef.hide();
-    }));
+    });
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

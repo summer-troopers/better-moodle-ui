@@ -1,10 +1,11 @@
 import { Component, Input, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 import { Specialty } from '@shared/models/specialty';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap';
-import { Subscription } from 'rxjs';
 import { SpecialtiesService } from '@modules/specialties/specialties.service';
 import { SpecialtyDetailsPageComponent } from '@modules/specialties/containers';
 
@@ -21,24 +22,31 @@ export class EditSpecialtyModalComponent implements OnInit, OnDestroy {
   @Input('parent')
   parent: SpecialtyDetailsPageComponent;
 
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
   id: string;
   modalRef: BsModalRef;
   specialtyForm: FormGroup;
-  submitted = false;
-  subscriptions: Array<Subscription> = [];
+  isSubmitted = false;
   specialties: Array<Specialty> = [];
 
-  constructor(private route: ActivatedRoute, private modalService: BsModalService, private fromBuilder: FormBuilder, private specialtiesService: SpecialtiesService) {
-  }
+  constructor(private route: ActivatedRoute,
+              private modalService: BsModalService,
+              private fromBuilder: FormBuilder,
+              private specialtiesService: SpecialtiesService) {}
 
   ngOnInit() {
-    this.subscriptions.push(this.route.params.subscribe((params) => {
+    this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
       this.id = params.id;
-    }));
-    this.specialtyForm = this.fromBuilder.group({
-      name: ['', [Validators.required]],
     });
-    this.subscriptions.push(this.specialtiesService.getSpecialties().subscribe(specialties => this.specialties = specialties));
+    this.initForm();
+    this.specialtiesService.getSpecialties().pipe(takeUntil(this.destroy$)).subscribe(specialties => this.specialties = specialties);
+  }
+
+  initForm() {
+    this.specialtyForm = this.fromBuilder.group({
+      name: ['', Validators.required]
+    });
   }
 
   get fields() {
@@ -50,19 +58,25 @@ export class EditSpecialtyModalComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.submitted = true;
+    this.isSubmitted = true;
+
+    if (this.specialtyForm.invalid) {
+      console.error('Form is invalid');
+      return;
+    }
+
     const newSpecialty = {
       id: this.id,
       name: this.specialtyForm.value.name
     };
-    this.subscriptions.push(this.specialtiesService.updateSpecialty(this.id, newSpecialty).subscribe(() => {
+    this.specialtiesService.updateSpecialty(this.id, newSpecialty).pipe(takeUntil(this.destroy$)).subscribe(() => {
       this.modalRef.hide();
       this.parent.specialty = newSpecialty;
-    }));
+    });
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
-
 }
