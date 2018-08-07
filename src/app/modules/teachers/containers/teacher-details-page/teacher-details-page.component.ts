@@ -51,6 +51,14 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
       });
   }
 
+  saveSpinner(spinner) {
+    this.spinner = spinner;
+  }
+
+  hideSpinner() {
+    this.spinner.hide();
+  }
+
   openEditModal() {
     const initialState: any = {
       teacher: this.teacher
