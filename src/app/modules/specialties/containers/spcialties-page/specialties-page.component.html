@@ -1,3 +1,11 @@
-<p>
-  spcialities-page works!
-</p>
+<div class="container">
+  <div class="text-center">
+    <app-add-specialty-modal></app-add-specialty-modal>
+    <h1>List of all Specialties</h1>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let specialty of specialties" routerLink="{{specialty.id}}">
+        {{specialty.name}}
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,6 +1,7 @@
-import {RouterModule, Routes} from '@angular/router';
-import {ModuleWithProviders} from '@angular/core';
-import {GroupDetailsPageComponent, GroupsPageComponent} from '@modules/groups/containers';
+import { RouterModule, Routes } from '@angular/router';
+import { ModuleWithProviders } from '@angular/core';
+
+import { GroupDetailsPageComponent, GroupsPageComponent } from '@modules/groups/containers';
 
 const routes: Routes = [
   {

@@ -1,6 +1,6 @@
-import {RouterModule, Routes} from '@angular/router';
-import {ModuleWithProviders} from '@angular/core';
-import {SpecialtyDetailsPageComponent, SpecialtiesPageComponent} from '@modules/specialties/containers';
+import { RouterModule, Routes } from '@angular/router';
+import { ModuleWithProviders } from '@angular/core';
+import { SpecialtyDetailsPageComponent, SpecialtiesPageComponent } from '@modules/specialties/containers';
 
 const routes: Routes = [
   {
