@@ -17,6 +17,7 @@ export class EditTeacherModalComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   userForm: FormGroup;
+
   isSubmitted = false;
   teacher: Teacher;
 

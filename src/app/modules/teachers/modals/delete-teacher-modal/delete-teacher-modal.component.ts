@@ -2,9 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 import { TeachersService } from '@modules/teachers/teachers.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-delete-teacher-modal',
@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./delete-teacher-modal.component.scss']
 })
 export class DeleteTeacherModalComponent implements OnInit, OnDestroy {
+
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   message: String;

@@ -12,6 +12,7 @@ import { TeachersService } from '@teacherService/teachers.service';
   styleUrls: ['./add-teacher-modal.component.scss']
 })
 export class AddTeacherModalComponent implements OnInit, OnDestroy {
+
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   userForm: FormGroup;

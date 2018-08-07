@@ -21,7 +21,6 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
   modalRef: BsModalRef;
 
   teachers: Array<Teacher> = [];
-
   offset: number = 0;
   limit: number = 10;
   totalItems: any;

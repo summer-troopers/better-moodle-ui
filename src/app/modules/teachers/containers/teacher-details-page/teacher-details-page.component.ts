@@ -16,6 +16,7 @@ import { DeleteTeacherModalComponent } from '@teacherModals/delete-teacher-modal
   styleUrls: ['./teacher-details-page.component.scss']
 })
 export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
+
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   modalEditRef: BsModalRef;
