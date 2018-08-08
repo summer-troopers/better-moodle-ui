@@ -28,7 +28,7 @@ export class AlertComponent implements OnInit {
   }
 
   removeAlert(alert: Alert) {
-    this.alerts = this.alerts.filter(x => x !== alert);
+    this.alerts = this.alerts.filter(alertElement => alertElement !== alert);
   }
 
   generateAlertCssClass(alert: Alert): string {
