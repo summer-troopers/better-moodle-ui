@@ -8,7 +8,7 @@ import { takeUntil } from 'rxjs/operators';
 import { CrudService } from '@shared/services/crud/crud.service';
 import { Teacher } from '@shared/models/teacher';
 import { EditTeacherModalComponent } from '@teacherModals/edit-teacher-modal/edit-teacher-modal.component';
-import { DeleteModalComponent } from '@shared/components/delete-modal/delete-modal.component';
+import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-teacher-details-page',
@@ -55,7 +55,7 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
       pageUrl: this.pageUrl
     };
 
-    this.modal = this.modalService.show(DeleteModalComponent, { initialState });
+    this.modal = this.modalService.show(ConfirmModalComponent, { initialState });
   }
 
   ngOnDestroy() {
