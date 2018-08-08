@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { AuthenticationService } from '@modules/authentication/authentication.service';
-import { AlertService } from '@core/services/alert/alert.service';
+import { AlertService } from '@shared/services/alert/alert.service';
 
 @Injectable({
   providedIn: 'root'
