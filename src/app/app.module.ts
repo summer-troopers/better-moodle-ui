@@ -12,7 +12,6 @@ import { DeleteModalComponent } from './shared/components/delete-modal/delete-mo
 @NgModule({
   declarations: [
     AppComponent,
-    DeleteModalComponent,
   ],
   imports: [
     BrowserModule,
