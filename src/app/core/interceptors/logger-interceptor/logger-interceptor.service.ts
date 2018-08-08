@@ -13,7 +13,6 @@ export class LoggerInterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     const startTime = Date.now();
     let status: string;
-    debugger;
 
     return next.handle(req).pipe(
       tap(
