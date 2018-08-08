@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
@@ -18,6 +19,8 @@ export class AddStudentModalComponent implements OnInit {
   submitted = false;
 
   alerts: Array<any> = [];
+
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(private formBuilder: FormBuilder,
     private studentsService: StudentsService,
@@ -46,6 +49,7 @@ export class AddStudentModalComponent implements OnInit {
     }
 
     this.studentsService.addStudent(this.studentForm.value)
+      .pipe(takeUntil(this.destroy$))
       .catch(error => {
         this.alerts.push({ type: "danger", msg: error.message });
         return Observable.throw(error.message);

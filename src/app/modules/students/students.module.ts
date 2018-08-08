@@ -11,6 +11,10 @@ import { AddStudentModalComponent } from './modals/add-student-modal/add-student
 import { StudentDetailsPageComponent, StudentsPageComponent } from '@modules/students/containers';
 import { DeleteStudentModalComponent } from './modals/delete-student-modal/delete-student-modal.component';
 
+const COMPONENTS = [
+  AddStudentModalComponent,
+  EditStudentModalComponent,
+  DeleteStudentModalComponent];
 @NgModule({
   imports: [
     CommonModule,
@@ -24,14 +28,10 @@ import { DeleteStudentModalComponent } from './modals/delete-student-modal/delet
   declarations: [
     StudentDetailsPageComponent,
     StudentsPageComponent,
-    AddStudentModalComponent,
-    EditStudentModalComponent,
-    DeleteStudentModalComponent
+    ...COMPONENTS
   ],
   entryComponents: [
-    AddStudentModalComponent,
-    EditStudentModalComponent,
-    DeleteStudentModalComponent
+    ...COMPONENTS
   ]
 })
 export class StudentsModule { }

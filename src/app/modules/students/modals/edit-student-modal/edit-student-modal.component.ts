@@ -1,8 +1,9 @@
-import { Component, OnInit, TemplateRef, OnDestroy, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
@@ -17,30 +18,24 @@ import { Student } from '@shared/models/student';
   styleUrls: ['./edit-student-modal.component.scss']
 })
 export class EditStudentModalComponent implements OnInit {
-  @Input()
-  student: Student;
-
-  @Input()
-  parent: StudentDetailsPageComponent;
-
-  modalRef: BsModalRef;
-
   studentForm: FormGroup;
   submitted = false;
+  student: Student;
 
   alerts: Array<any> = [];
 
   constructor(private modalService: BsModalService,
-    private formBuilder: FormBuilder,
+    private bsmodalRef: BsModalRef,
     private studentsService: StudentsService) { }
 
   ngOnInit() {
-    this.studentForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', Validators.required],
-      idGroup: ['', Validators.required]
+    this.studentForm = new FormGroup({
+      id: new FormControl(this.student.id),
+      firstName: new FormControl(this.student.firstName, Validators.required),
+      lastName: new FormControl(this.student.lastName, Validators.required),
+      email: new FormControl(this.student.email, [Validators.required, Validators.email]),
+      phoneNumber: new FormControl(this.student.phoneNumber, Validators.required),
+      idGroup: new FormControl(this.student.idGroup, Validators.required),
     });
   }
 
@@ -54,7 +49,6 @@ export class EditStudentModalComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
     if (this.studentForm.invalid) {
       return;
     }
@@ -64,10 +58,9 @@ export class EditStudentModalComponent implements OnInit {
         this.alerts.push({ type: "danger", msg: error.message });
         return Observable.throw(error.message);
       })
-      .subscribe();
-
-    this.parent.student = this.studentForm.value;
-
-    this.modalRef.hide();
+      .subscribe(() => {
+        this.event.emit(this.studentForm.value);
+        this.bsModalRef.hide();
+      });
   }
 }

@@ -1,7 +1,8 @@
-import { Component, OnInit, TemplateRef, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs/Observable';
+import { takeUntil } from 'rxjs/operators';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
@@ -22,6 +23,7 @@ export class DeleteStudentModalComponent implements OnInit {
   parent: StudentDetailsPageComponent;
 
   modalRef: BsModalRef;
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   alerts: Array<any> = [];
 
@@ -34,6 +36,8 @@ export class DeleteStudentModalComponent implements OnInit {
 
   confirm() {
     this.studentsService.deleteStudent(this.studentId)
+    this.studentsService.deleteStudent(this.studentsService.id)
+      .pipe(takeUntil(this.destroy$))
       .catch(error => {
         this.alerts.push({ type: "danger", msg: error.message });
         return Observable.throw(error.message);
@@ -50,4 +54,8 @@ export class DeleteStudentModalComponent implements OnInit {
     this.modalRef.hide();
   }
 
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 }

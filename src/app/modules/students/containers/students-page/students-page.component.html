@@ -13,10 +13,10 @@
       </h1>
       <br>
     </div>
-    <div *ngFor="let student of students; intex as i ">
+    <div *ngFor="let student of students">
       <ul class="list-group list-group-flush">
         <li class="list-group-item list-group-item-dark">
-          <a routerLink='/students/{{student.id}}'
+          <a [routerLink]="['/students', student.id]"
              class="list-group-item list-group-item-action">{{student.firstName}} {{student.lastName}}</a>
         </li>
       </ul>
@@ -34,9 +34,7 @@
 
   <ng-template #noStudents>
     <h1>No students to show...</h1>
-    <div class="text-center">
-      <h2>Want to add a new Student? </h2>
-    </div>
+    <h2 class="text-center">Want to add a new Student? </h2>
     <div class="text-center">
       <button type="button"
               class="btn btn-primary pull-right"
