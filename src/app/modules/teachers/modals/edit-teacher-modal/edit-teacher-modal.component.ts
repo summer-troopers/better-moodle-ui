@@ -4,7 +4,7 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { CrudService } from '../../../../shared/services/crud/crud.service';
+import { CrudService } from '@shared/services/crud/crud.service';
 import { Teacher } from '@shared/models/teacher';
 
 @Component({

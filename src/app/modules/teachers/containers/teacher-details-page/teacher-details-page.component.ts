@@ -5,7 +5,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { CrudService } from '../../../../shared/services/crud/crud.service';
+import { CrudService } from '@shared/services/crud/crud.service';
 import { Teacher } from '@shared/models/teacher';
 import { EditTeacherModalComponent } from '@teacherModals/edit-teacher-modal/edit-teacher-modal.component';
 import { DeleteModalComponent } from '@shared/components/delete-modal/delete-modal.component';
