@@ -42,6 +42,7 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
     const initialState: any = {
       teacher: this.teacher
     };
+
     this.modal = this.modalService.show(EditTeacherModalComponent, { initialState });
   }
 
@@ -49,7 +50,8 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
     const initialState = {
       service: this.teachersService,
       id: this.id
-    }
+    };
+
     this.modal = this.modalService.show(DeleteModalComponent, { initialState });
   }
 
