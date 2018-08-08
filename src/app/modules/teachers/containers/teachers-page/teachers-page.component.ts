@@ -23,7 +23,6 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   modalRef: BsModalRef;
-  spinner: any;
 
   alerts: Alert[] = [];
   defaultItemsNumber = 10;

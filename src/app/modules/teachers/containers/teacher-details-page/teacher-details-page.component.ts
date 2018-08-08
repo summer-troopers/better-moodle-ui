@@ -24,7 +24,6 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
   alerts: Alert[] = [];
   id: string;
   teacher: Teacher;
-  message: string;
 
   constructor(private route: ActivatedRoute,
     private crudService: CrudService,
@@ -49,14 +48,6 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
             this.teacher = data;
           });
       });
-  }
-
-  saveSpinner(spinner) {
-    this.spinner = spinner;
-  }
-
-  hideSpinner() {
-    this.spinner.hide();
   }
 
   openEditModal() {

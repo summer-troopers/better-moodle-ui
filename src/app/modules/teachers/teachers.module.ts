@@ -21,7 +21,6 @@ const COMPONENTS = [
     teacherRoutes,
     ModalModule.forRoot(),
     PaginationModule.forRoot(),
-    SharedModule,
     FormsModule,
     SharedModule,
     ReactiveFormsModule
