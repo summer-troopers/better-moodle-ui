@@ -4,7 +4,7 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { TeachersService } from '@modules/teachers/teachers.service';
+import { CrudService } from '../../../../shared/services/crud/crud.service';
 import { Teacher } from '@shared/models/teacher';
 
 @Component({
@@ -21,7 +21,9 @@ export class EditTeacherModalComponent implements OnInit, OnDestroy {
   isSubmitted = false;
   teacher: Teacher;
 
-  constructor(private teachersService: TeachersService,
+  pageUrl: string = 'teachers';
+
+  constructor(private crudService: CrudService,
     public bsModalRef: BsModalRef) { }
 
   ngOnInit() {
@@ -47,7 +49,7 @@ export class EditTeacherModalComponent implements OnInit, OnDestroy {
     }
 
     const formParam = this.userForm.value;
-    this.teachersService.editTeacher(formParam).pipe(takeUntil(this.destroy$)).subscribe();
+    this.crudService.editItem(formParam, this.pageUrl).pipe(takeUntil(this.destroy$)).subscribe();
   }
 
   ngOnDestroy() {

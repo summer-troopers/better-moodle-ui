@@ -5,7 +5,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { TeachersService } from '@modules/teachers/teachers.service';
+import { CrudService } from '../../../../shared/services/crud/crud.service';
 import { Teacher } from '@shared/models/teacher';
 import { EditTeacherModalComponent } from '@teacherModals/edit-teacher-modal/edit-teacher-modal.component';
 import { DeleteModalComponent } from '@shared/components/delete-modal/delete-modal.component';
@@ -24,15 +24,17 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
   id: string;
   teacher: Teacher;
 
+  pageUrl: string = 'teachers';
+
   constructor(private route: ActivatedRoute,
-    private teachersService: TeachersService,
+    private crudService: CrudService,
     private modalService: BsModalService) { }
 
   ngOnInit() {
+
     this.route.params.pipe(takeUntil(this.destroy$)).subscribe(params => {
       this.id = params['id'];
-      this.teachersService.id = this.id;
-      this.teachersService.getTeacher(this.id).pipe(takeUntil(this.destroy$)).subscribe((data) => {
+      this.crudService.getItem(this.id, this.pageUrl).pipe(takeUntil(this.destroy$)).subscribe((data) => {
         this.teacher = data;
       })
     });
@@ -48,7 +50,7 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
 
   openDeleteModal() {
     const initialState = {
-      service: this.teachersService,
+      service: this.crudService,
       id: this.id
     };
 

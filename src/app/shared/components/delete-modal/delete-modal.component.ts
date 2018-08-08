@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-delete-modal',
@@ -17,26 +17,30 @@ export class DeleteModalComponent implements OnInit {
   itemName: String;
   service: any;
   id: string;
+  test: any;
 
   constructor(public bsModalRef: BsModalRef,
+    private route: ActivatedRoute,
     private router: Router) { }
 
   ngOnInit() {
   }
 
   confirm(): void {
-    this.service.delete(this.service.id).pipe(takeUntil(this.destroy$)).subscribe(
-      suc => {
-        this.message = "Successfully deleted";
-        setTimeout(() => {
-          this.bsModalRef.hide();
-          this.router.navigate([`${this.service.pageUrl}`]);
-        }, 1500);
-      },
-      err => {
-        this.message = "Error on delete !!!";
-      }
-    );
+    console.log(this.service)
+    // this.service.deleteItem(this.id).pipe(takeUntil(this.destroy$)).subscribe(
+    //   suc => {
+    //     this.message = "Successfully deleted";
+    //     setTimeout(() => {
+    //       this.bsModalRef.hide();
+    //       this.router.navigate([`${this.service.pageUrl}`]);
+    //     }, 1500);
+    //   },
+    //   err => {
+    //     this.message = "Error on delete !!!";
+    //   }
+    // );
+
   }
 
   decline(): void {
