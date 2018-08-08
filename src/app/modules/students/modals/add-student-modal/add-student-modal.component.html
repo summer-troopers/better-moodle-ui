@@ -20,13 +20,13 @@
         <input formControlName="firstName"
                type="text"
                class="form-control"
-               [ngClass]="{ 'is-invalid': isSubmitted && formErrors('firstName') }"
+               [ngClass]="{ 'is-invalid': isSubmitted && firstName.errors }"
                id="firstName"
                autocomplete='on'
                placeholder="Enter First Name">
-        <div *ngIf="isSubmitted && formErrors('firstName')"
+        <div *ngIf="isSubmitted && firstName.errors"
              class="invalid-feedback">
-          <div *ngIf="formErrors('firstName').required">First Name is required</div>
+          <div *ngIf="firstName.errors.required">First Name is required</div>
         </div>
       </div>
 
@@ -35,13 +35,13 @@
         <input formControlName="lastName"
                type="text"
                class="form-control"
-               [ngClass]="{ 'is-invalid': isSubmitted && formErrors('lastName') }"
+               [ngClass]="{ 'is-invalid': isSubmitted && lastName.errors }"
                id="lastName"
                autocomplete='on'
                placeholder="Enter Last Name">
-        <div *ngIf="isSubmitted && formErrors('lastName')"
+        <div *ngIf="isSubmitted && lastName.errors"
              class="invalid-feedback">
-          <div *ngIf="formErrors('lastName').required">Last Name is required</div>
+          <div *ngIf="lastName.errors.required">Last Name is required</div>
         </div>
       </div>
 
@@ -53,11 +53,11 @@
                autocomplete='on'
                placeholder="Enter email"
                formControlName="email"
-               [ngClass]="{ 'is-invalid': isSubmitted && formErrors('email') }">
-        <div *ngIf="isSubmitted && formErrors('email')"
+               [ngClass]="{ 'is-invalid': isSubmitted && email.errors }">
+        <div *ngIf="isSubmitted && email.errors"
              class="invalid-feedback">
-          <div *ngIf="formErrors('email').required">Email is required</div>
-          <div *ngIf="formErrors('email').email">Email must be a valid email address</div>
+          <div *ngIf="email.errors.required">Email is required</div>
+          <div *ngIf="email.errors.email">Email must be a valid email address</div>
         </div>
       </div>
 
@@ -66,13 +66,13 @@
         <input formControlName="idGroup"
                type="number"
                class="form-control"
-               [ngClass]="{ 'is-invalid': isSubmitted && formErrors('idGroup') }"
+               [ngClass]="{ 'is-invalid': isSubmitted && idGroup.errors }"
                id="idGroup"
                autocomplete='on'
                placeholder="Select idGroup">
-        <div *ngIf="isSubmitted && formErrors('idGroup')"
+        <div *ngIf="isSubmitted && idGroup.errors"
              class="invalid-feedback">
-          <div *ngIf="formErrors('idGroup').required">Group ID is required</div>
+          <div *ngIf="idGroup.errors.required">Group ID is required</div>
         </div>
       </div>
 
@@ -81,14 +81,14 @@
         <input formControlName="phoneNumber"
                type="tel"
                class="form-control"
-               [ngClass]="{ 'is-invalid': isSubmitted && formErrors('phoneNumber') }"
+               [ngClass]="{ 'is-invalid': isSubmitted && phoneNumber.errors }"
                id="phoneNumber"
                autocomplete='on'
                placeholder="123-456-7890"
                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
-        <div *ngIf="isSubmitted && formErrors('phoneNumber')"
+        <div *ngIf="isSubmitted && phoneNumber.errors"
              class="invalid-feedback">
-          <div *ngIf="formErrors('phoneNumber').required">Phone number is required</div>
+          <div *ngIf="phoneNumber.errors.required">Phone number is required</div>
         </div>
       </div>
 
@@ -97,20 +97,19 @@
         <input formControlName="password"
                type="password"
                class="form-control"
-               [ngClass]="{ 'is-invalid': isSubmitted && formErrors('password') }"
+               [ngClass]="{ 'is-invalid': isSubmitted && password.errors }"
                id="password"
                autocomplete='on'
                placeholder="Enter a password">
-        <div *ngIf="isSubmitted && formErrors('password')"
+        <div *ngIf="isSubmitted && password.errors"
              class="invalid-feedback">
-          <div *ngIf="formErrors('password').required">Password is required</div>
+          <div *ngIf="password.errors.required">Password is required</div>
         </div>
       </div>
 
       <button [disabled]="studentForm.invalid"
               type="submit"
-              class="btn btn-primary"
-              (click)="bsModalRef.hide()">Submit</button>
+              class="btn btn-primary">Submit</button>
     </form>
   </div>
 </div>
