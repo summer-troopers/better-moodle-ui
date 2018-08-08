@@ -13,15 +13,8 @@ export class BackendApiService {
 
   protected URL: string = environment.apiUrl;
 
-  // protected options: Object = {
-  //   headers: new HttpHeaders({
-  //     'token': this.localStorageServices.getLocalStorage(TOKEN_STORAGE_KEY) || '',
-  //     'Content-Type': 'application/json'
-  //   })
-  // };
-
   constructor(private http: HttpClient,
-    private localStorageServices: LocalStorageService) {
+              private localStorageServices: LocalStorageService) {
   }
 
   getHeaders() {
