@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Subject } from 'rxjs';
@@ -48,7 +48,8 @@ export class AddTeacherModalComponent implements OnInit, OnDestroy {
     const formParam = this.userForm.value;
 
     this.teacherService.addTeacher(formParam).pipe(takeUntil(this.destroy$)).subscribe(
-      suc => { },
+      suc => {
+      },
       err => {
         this.message = "Error on adding a new user !!!";
       }

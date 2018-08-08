@@ -11,15 +11,13 @@ import { FooterComponent } from '@core/components/footer/footer.component';
 import { HeaderComponent } from '@core/components/header/header.component';
 import { LayoutComponent } from '@core/components/layout/layout.component';
 import { AuthenticationInterceptorService } from '@core/interceptors/authentication-interceptor.service';
-import { AlertComponent } from '@core/components/alert/alert.component';
-import { AlertService } from '@core/services/alert/alert.service';
+import { AlertService } from '@core/../shared/services/alert/alert.service';
 
 const COMPONENTS = [
   NavComponent,
   FooterComponent,
   HeaderComponent,
   LayoutComponent,
-  AlertComponent,
 ];
 
 const MODULES = [
