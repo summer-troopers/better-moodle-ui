@@ -8,6 +8,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
 import { AddStudentModalComponent } from '@modules/students/modals/add-student-modal/add-student-modal.component';
+import { PaginatorHelperService } from '@core/services/paginator-helper/paginator-helper.service';
 import { StudentsService } from '@modules/students/students.service';
 import { Student } from '@shared/models/student';
 @Component({
@@ -33,7 +34,8 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
   constructor(private studentsService: StudentsService,
     private route: ActivatedRoute,
     private modalService: BsModalService,
-    private router: Router) { }
+    private router: Router,
+    private paginatorHelper: PaginatorHelperService) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
@@ -85,13 +87,16 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
   pageChanged(event: any) {
     this.currentPage = event.page;
 
-    if (this.totalItems - (this.limit * event.page) < 0) {
-      this.limit = -(this.totalItems - (this.limit * event.page));
-      this.offset = 0;
-    } else {
-      this.limit = this.defaultItemsNumber;
-      this.offset = this.totalItems - (this.limit * event.page);
-    }
+    this.paginatorHelper.getPaginationParams(this.totalItems, this.currentPage)
+      .pipe(takeUntil(this.destroy$))
+      .catch(error => {
+        this.alerts.push({ type: "danger", msg: error.message });
+        return Observable.throw(error.message);
+      })
+      .subscribe(([limit, offset]) => {
+        this.limit = limit;
+        this.offset = offset;
+      });
 
     this.studentsService.getStudents(this.offset, this.limit)
       .pipe(takeUntil(this.destroy$))
