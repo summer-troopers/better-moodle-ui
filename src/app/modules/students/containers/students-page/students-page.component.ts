@@ -17,8 +17,10 @@ import { Student } from '@shared/models/student';
   styleUrls: ['./students-page.component.scss']
 })
 export class StudentsPageComponent implements OnInit, OnDestroy {
+  defaultItemsNumber: number = 10;
+
   offset: number = 0;
-  limit: number = 10;
+  limit: number = this.defaultItemsNumber;
   totalItems: number;
   currentPage: number = 1;
   pageParam: number;
@@ -48,7 +50,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
       .pipe(
         mergeMap((studentsNumber) => {
           this.totalItems = +studentsNumber;
-          this.offset = studentsNumber - 10;
+          this.offset = this.totalItems - this.defaultItemsNumber;
           return this.studentsService.getStudents(this.offset, this.limit).pipe(takeUntil(this.destroy$));
         })
       )
@@ -79,10 +81,10 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
     this.currentPage = event.page;
 
     if (this.totalItems - (this.limit * event.page) < 0) {
-      this.limit = (this.totalItems - (this.limit * event.page)) * -1;
+      this.limit = -(this.totalItems - (this.limit * event.page));
       this.offset = 0;
     } else {
-      this.limit = 10;
+      this.limit = this.defaultItemsNumber;
       this.offset = this.totalItems - (this.limit * event.page);
     }
 
