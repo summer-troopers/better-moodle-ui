@@ -4,7 +4,11 @@
 
 export const environment = {
   production: false,
+<<<<<<< HEAD
   apiUrl: 'http://localhost:80/api/v1'
+=======
+  apiUrl: 'http://10.177.106.10:80/api/v1'
+>>>>>>> update env
 };
 
 /*
