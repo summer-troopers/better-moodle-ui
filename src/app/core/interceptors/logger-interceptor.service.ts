@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
-import {finalize, tap} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
+import { finalize, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,7 @@ export class LoggerInterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     const startTime = Date.now();
     let status: string;
+    debugger;
 
     return next.handle(req).pipe(
       tap(
