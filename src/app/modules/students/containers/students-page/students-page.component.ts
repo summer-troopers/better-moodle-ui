@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { Observable, Subscription } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { mergeMap, takeUntil } from 'rxjs/operators';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
@@ -23,11 +23,10 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
   pageParam: number;
 
   alerts: Array<any> = [];
-
   students: Array<Student> = [];
-  private subscription: Subscription;
-
   modalRef: BsModalRef;
+
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(private studentsService: StudentsService,
     private route: ActivatedRoute,
@@ -35,25 +34,21 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
     private router: Router) { }
 
   ngOnInit() {
-    this.subscription = this.route.queryParams.subscribe((params) => {
+    this.route.queryParams.subscribe((params) => {
       this.pageParam = +params.page;
-      if (this.pageParam != NaN || this.pageParam != null) {
-        if (this.pageParam > 0) {
-          this.setPage(this.pageParam);
-        } else {
-          this.setPage(1)
-        }
+      if (this.pageParam) {
+        this.setPage(this.pageParam);
       } else {
         this.setPage(1)
       }
     });
 
-    this.subscription = this.studentsService.getNumberOfStudents()
+    this.studentsService.getNumberOfStudents()
       .pipe(
         mergeMap((studentsNumber) => {
           this.totalItems = +studentsNumber;
-          this.offset = this.totalItems - 10;
-          return this.studentsService.getStudents(this.offset, this.limit);
+          this.offset = studentsNumber - 10;
+          return this.studentsService.getStudents(this.offset, this.limit).pipe(takeUntil(this.destroy$));
         })
       )
       .catch(error => {
@@ -71,7 +66,8 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
   setPage(pageNumber: number) {
@@ -89,7 +85,8 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
       this.offset = this.totalItems - (this.limit * event.page);
     }
 
-    this.subscription = this.studentsService.getStudents(this.offset, this.limit)
+    this.studentsService.getStudents(this.offset, this.limit)
+      .pipe(takeUntil(this.destroy$))
       .catch(error => {
         this.alerts.push({ type: "danger", msg: error.message });
         return Observable.throw(error.message);
@@ -101,5 +98,4 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
 
     this.router.navigate(['students'], { queryParams: { page: event.page } });
   }
-
 }
