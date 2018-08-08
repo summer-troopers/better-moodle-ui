@@ -14,6 +14,7 @@ export class DeleteModalComponent implements OnInit {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   message: String;
+  itemName: String;
   service: any;
   id: string;
 
@@ -29,7 +30,7 @@ export class DeleteModalComponent implements OnInit {
         this.message = "Successfully deleted";
         setTimeout(() => {
           this.bsModalRef.hide();
-          this.router.navigate(['teachers']);
+          this.router.navigate([`${this.service.pageUrl}`]);
         }, 1500);
       },
       err => {
