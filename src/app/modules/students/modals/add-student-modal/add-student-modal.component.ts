@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Observable, Subject } from 'rxjs';
@@ -13,13 +13,15 @@ import { StudentsService } from '@modules/students/students.service';
   templateUrl: './add-student-modal.component.html',
   styleUrls: ['./add-student-modal.component.scss']
 })
-export class AddStudentModalComponent implements OnInit {
+export class AddStudentModalComponent implements OnInit, OnDestroy {
   studentForm: FormGroup;
   submitted = false;
 
   alerts: Array<any> = [];
 
   destroy$: Subject<boolean> = new Subject<boolean>();
+
+  public event: EventEmitter<any> = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder,
     private studentsService: StudentsService,
@@ -36,8 +38,28 @@ export class AddStudentModalComponent implements OnInit {
     });
   }
 
-  formErrors(inputName: string) {
-    return this.studentForm.controls[inputName].errors;
+  get firstName() {
+    return this.studentForm.controls['firstName'].errors;
+  }
+
+  get lastName() {
+    return this.studentForm.controls['lastName'].errors;
+  }
+
+  get email() {
+    return this.studentForm.controls['email'].errors;
+  }
+
+  get password() {
+    return this.studentForm.controls['password'].errors;
+  }
+
+  get phoneNumber() {
+    return this.studentForm.controls['phoneNumber'].errors;
+  }
+
+  get idGroup() {
+    return this.studentForm.controls['idGroup'].errors;
   }
 
   onSubmit() {
@@ -53,7 +75,14 @@ export class AddStudentModalComponent implements OnInit {
         this.alerts.push({ type: "danger", msg: error.message });
         return Observable.throw(error.message);
       })
-      .subscribe();
+      .subscribe((newStudent) => {
+        this.event.emit(newStudent);
+        this.bsModalRef.hide();
+      });
   }
 
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 }

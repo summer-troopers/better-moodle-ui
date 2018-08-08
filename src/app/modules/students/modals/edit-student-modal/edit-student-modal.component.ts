@@ -39,8 +39,28 @@ export class EditStudentModalComponent implements OnInit, OnDestroy {
     });
   }
 
-  formErrors(inputName: string) {
-    return this.studentForm.controls[inputName].errors;
+  get firstName() {
+    return this.studentForm.controls['firstName'].errors;
+  }
+
+  get lastName() {
+    return this.studentForm.controls['lastName'].errors;
+  }
+
+  get email() {
+    return this.studentForm.controls['email'].errors;
+  }
+
+  get password() {
+    return this.studentForm.controls['password'].errors;
+  }
+
+  get phoneNumber() {
+    return this.studentForm.controls['phoneNumber'].errors;
+  }
+
+  get idGroup() {
+    return this.studentForm.controls['idGroup'].errors;
   }
 
   onSubmit() {

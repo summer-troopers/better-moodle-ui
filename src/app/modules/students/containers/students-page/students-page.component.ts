@@ -65,6 +65,12 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
 
   openAddStudentModal() {
     this.modalRef = this.modalService.show(AddStudentModalComponent);
+
+    this.modalRef.content.event
+      .subscribe((newStudent) => {
+        this.students.unshift(newStudent)
+        console.log(`New Student! ${newStudent}`)
+      })
   }
 
   ngOnDestroy() {
