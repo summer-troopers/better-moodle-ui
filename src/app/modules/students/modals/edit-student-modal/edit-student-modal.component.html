@@ -1,25 +1,17 @@
-<button type="button"
-        class="btn btn-secondary"
-        (click)="openEditStudentModal(template)">
-  Edit
-</button>
-<div class="container">
-  <div *ngFor="let alert of alerts">
-    <alert [type]="alert.type"
-           (onClosed)="onClosed(alert)">{{ alert.msg }}</alert>
+<div>
+  <div class="container">
+    <div *ngFor="let alert of alerts">
+      <alert [type]="alert.type">{{ alert.msg }}</alert>
+    </div>
   </div>
-</div>
-<ng-template #template>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Edit student</h4>
+    <h4 class="modal-title pull-left">Add a new teacher</h4>
     <button type="button"
             class="close pull-right"
-            aria-label="Close"
-            (click)="modalRef.hide()">
+            (click)="bsModalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-
   <div class="modal-body">
     <form [formGroup]="studentForm"
           (submit)="onSubmit()">
@@ -108,8 +100,10 @@
         </div>
       </div>
 
-      <button type="submit"
-              class="btn btn-primary">Submit</button>
+      <button [disabled]="studentForm.invalid"
+              type="submit"
+              class="btn btn-primary"
+              (click)="bsModalRef.hide()">Submit</button>
     </form>
   </div>
-</ng-template>
+</div>

@@ -13,7 +13,6 @@ import { StudentsService } from '@modules/students/students.service';
   styleUrls: ['./add-student-modal.component.scss']
 })
 export class AddStudentModalComponent implements OnInit {
-
   studentForm: FormGroup;
   submitted = false;
 

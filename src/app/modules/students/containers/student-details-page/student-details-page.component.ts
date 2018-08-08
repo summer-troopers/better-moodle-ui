@@ -9,8 +9,9 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
 import { StudentsService } from '@modules/students/students.service';
+import { DeleteStudentModalComponent } from '../../modals/delete-student-modal/delete-student-modal.component';
+import { EditStudentModalComponent } from '../../modals/edit-student-modal/edit-student-modal.component';
 import { Student } from '@shared/models/student';
-
 
 @Component({
   selector: 'app-student-details-page',
@@ -25,12 +26,16 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
 
   alerts: Array<any> = [];
 
+  modalRef: BsModalRef;
+
   constructor(private route: ActivatedRoute,
-    private studentsService: StudentsService) { }
+    private studentsService: StudentsService,
+    private modalService: BsModalService) { }
 
   ngOnInit() {
     this.subscription = this.route.params.subscribe(params => {
       this.id = +params['id'];
+      this.studentsService.id = this.id;
       this.studentsService.getStudent(this.id)
         .pipe(mergeMap((student: Student) => {
           this.student = student;
@@ -46,6 +51,28 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  openEditModal() {
+    const initialState: any = {
+      student: this.student
+    };
+    this.modalRef = this.modalService.show(EditStudentModalComponent, { initialState });
+
+    this.modalRef.content.event
+      .pipe(mergeMap((updatedStudentData: Student) => {
+        this.student = updatedStudentData;
+        return this.studentsService.getStudentsGroup(updatedStudentData.idGroup);
+      }))
+      .catch(error => {
+        this.alerts.push({ type: "danger", msg: error.message });
+        return Observable.throw(error.message);
+      })
+      .subscribe((groupName) => this.groupName = groupName);
+  }
+
+  openDeleteModal() {
+    this.modalRef = this.modalService.show(DeleteStudentModalComponent);
   }
 
 }

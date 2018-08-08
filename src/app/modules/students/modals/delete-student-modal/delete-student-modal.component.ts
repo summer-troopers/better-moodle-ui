@@ -1,13 +1,10 @@
 import { Component, OnInit, TemplateRef, OnDestroy, Input } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
 import { StudentsService } from '@modules/students/students.service';
-import { StudentDetailsPageComponent } from '@modules/students/containers';
-
 
 @Component({
   selector: 'app-delete-student-modal',
@@ -15,17 +12,9 @@ import { StudentDetailsPageComponent } from '@modules/students/containers';
   styleUrls: ['./delete-student-modal.component.scss']
 })
 export class DeleteStudentModalComponent implements OnInit {
-  @Input()
-  studentId: number;
-
-  @Input()
-  parent: StudentDetailsPageComponent;
-
-  modalRef: BsModalRef;
-
   alerts: Array<any> = [];
 
-  constructor(private modalService: BsModalService,
+  constructor(public bsModalRef: BsModalRef,
     private studentsService: StudentsService) { }
 
   ngOnInit() {
@@ -33,21 +22,17 @@ export class DeleteStudentModalComponent implements OnInit {
   }
 
   confirm() {
-    this.studentsService.deleteStudent(this.studentId)
+    this.studentsService.deleteStudent(this.studentsService.id)
       .catch(error => {
         this.alerts.push({ type: "danger", msg: error.message });
         return Observable.throw(error.message);
       })
       .subscribe();
-    this.modalRef.hide();
-  }
-
-  openDeleteStudentModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
+    this.bsModalRef.hide();
   }
 
   decline() {
-    this.modalRef.hide();
+    this.bsModalRef.hide();
   }
 
 }

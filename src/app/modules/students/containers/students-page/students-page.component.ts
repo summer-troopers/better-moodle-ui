@@ -10,7 +10,6 @@ import 'rxjs/add/observable/throw';
 import { AddStudentModalComponent } from '@modules/students/modals/add-student-modal/add-student-modal.component';
 import { StudentsService } from '@modules/students/students.service';
 import { Student } from '@shared/models/student';
-
 @Component({
   selector: 'app-students-page',
   templateUrl: './students-page.component.html',

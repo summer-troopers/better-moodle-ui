@@ -1,7 +1,6 @@
 <div class="container">
   <div *ngFor="let alert of alerts">
-    <alert [type]="alert.type"
-           (onClosed)="onClosed(alert)">{{ alert.msg }}</alert>
+    <alert [type]="alert.type">{{ alert.msg }}</alert>
   </div>
 </div>
 <div class="container"
@@ -16,11 +15,12 @@
     <h3>Phone Number: {{student.phoneNumber}}</h3>
     <h3>Group Name: {{groupName}}</h3>
 
-    <app-edit-student-modal [student]="student"
-                            [parent]="this"></app-edit-student-modal>
+    <button class="btn btn-danger"
+            (click)="openDeleteModal()">Delete</button>
 
-    <app-delete-student-modal [studentId]="student.id"
-                              [parent]="this"></app-delete-student-modal>
+    <button class="btn btn-default"
+            (click)="openEditModal()">Edit</button>
+    <br>
     <br>
   </div>
   <br>

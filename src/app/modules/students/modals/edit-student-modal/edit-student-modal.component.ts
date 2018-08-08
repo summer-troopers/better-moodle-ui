@@ -1,15 +1,11 @@
-import { Component, OnInit, TemplateRef, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
 import { StudentsService } from '@modules/students/students.service';
-import { StudentDetailsPageComponent } from '@modules/students/containers';
-import { Student } from '@shared/models/student';
-
 
 @Component({
   selector: 'app-edit-student-modal',
@@ -17,20 +13,15 @@ import { Student } from '@shared/models/student';
   styleUrls: ['./edit-student-modal.component.scss']
 })
 export class EditStudentModalComponent implements OnInit {
-  @Input()
-  student: Student;
-
-  @Input()
-  parent: StudentDetailsPageComponent;
-
-  modalRef: BsModalRef;
 
   studentForm: FormGroup;
   submitted = false;
 
   alerts: Array<any> = [];
 
-  constructor(private modalService: BsModalService,
+  public event: EventEmitter<any> = new EventEmitter();
+
+  constructor(public bsModalRef: BsModalRef,
     private formBuilder: FormBuilder,
     private studentsService: StudentsService) { }
 
@@ -44,10 +35,6 @@ export class EditStudentModalComponent implements OnInit {
     });
   }
 
-  openEditStudentModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
-  }
-
   formErrors(inputName: string) {
     return this.studentForm.controls[inputName].errors;
   }
@@ -59,15 +46,14 @@ export class EditStudentModalComponent implements OnInit {
       return;
     }
 
-    this.studentsService.updateStudentData(this.student.id, this.studentForm.value)
+    this.studentsService.updateStudentData(this.studentsService.id, this.studentForm.value)
       .catch(error => {
         this.alerts.push({ type: "danger", msg: error.message });
         return Observable.throw(error.message);
       })
       .subscribe();
 
-    this.parent.student = this.studentForm.value;
-
-    this.modalRef.hide();
+    this.event.emit(this.studentForm.value);
+    this.bsModalRef.hide();
   }
 }

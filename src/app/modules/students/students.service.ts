@@ -9,6 +9,7 @@ import { Student } from '@shared/models/student';
   providedIn: 'root'
 })
 export class StudentsService {
+  id: number;
   constructor(private api: BackendApiService) { }
 
   getNumberOfStudents() {
