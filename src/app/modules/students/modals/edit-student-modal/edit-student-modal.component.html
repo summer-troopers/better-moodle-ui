@@ -14,7 +14,7 @@
   </div>
   <div class="modal-body">
     <form [formGroup]="studentForm"
-          (submit)="onSubmit()">
+          (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="firstName">First name</label>
         <input formControlName="firstName"
@@ -23,8 +23,7 @@
                class="form-control"
                [ngClass]="{ 'is-invalid': isSubmitted && formErrors('firstName') }"
                id="firstName"
-               autocomplete='firstName'
-               aria-describedby="nameHelp"
+               autocomplete='on'
                placeholder="Enter First Name">
         <div *ngIf="isSubmitted && formErrors('firstName')"
              class="invalid-feedback">
@@ -40,8 +39,7 @@
                class="form-control"
                [ngClass]="{ 'is-invalid': isSubmitted && formErrors('lastName') }"
                id="lastName"
-               autocomplete='lastName'
-               aria-describedby="nameHelp"
+               autocomplete='on'
                placeholder="Enter Last Name">
         <div *ngIf="isSubmitted && formErrors('lastName')"
              class="invalid-feedback">
@@ -55,8 +53,7 @@
                value="{{student.email}}"
                class="form-control"
                id="email"
-               autocomplete='email'
-               aria-describedby="emailHelp"
+               autocomplete='on'
                placeholder="Enter email"
                formControlName="email"
                [ngClass]="{ 'is-invalid': isSubmitted && formErrors('email') }">
@@ -90,8 +87,7 @@
                class="form-control"
                [ngClass]="{ 'is-invalid': isSubmitted && formErrors('phoneNumber') }"
                id="phoneNumber"
-               autocomplete='phoneNumber'
-               aria-describedby="nameHelp"
+               autocomplete='on'
                placeholder="123-456-7890"
                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
         <div *ngIf="isSubmitted && formErrors('phoneNumber')"
