@@ -7,10 +7,12 @@ import { AppComponent } from './app.component';
 import { appRoutes } from './app.routes';
 import { HomeModule } from '@modules/home/home.module';
 import { SharedModule } from '@shared/shared.module';
+import { DeleteModalComponent } from './shared/components/delete-modal/delete-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    DeleteModalComponent,
   ],
   imports: [
     BrowserModule,
