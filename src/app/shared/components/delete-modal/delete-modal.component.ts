@@ -14,32 +14,30 @@ export class DeleteModalComponent implements OnInit {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   message: String;
-  itemName: String;
+
   service: any;
   id: string;
-  test: any;
+  pageUrl: string;
 
   constructor(public bsModalRef: BsModalRef,
-    private route: ActivatedRoute,
     private router: Router) { }
 
   ngOnInit() {
   }
 
   confirm(): void {
-    console.log(this.service)
-    // this.service.deleteItem(this.id).pipe(takeUntil(this.destroy$)).subscribe(
-    //   suc => {
-    //     this.message = "Successfully deleted";
-    //     setTimeout(() => {
-    //       this.bsModalRef.hide();
-    //       this.router.navigate([`${this.service.pageUrl}`]);
-    //     }, 1500);
-    //   },
-    //   err => {
-    //     this.message = "Error on delete !!!";
-    //   }
-    // );
+    this.service.deleteItem(this.id, this.pageUrl).pipe(takeUntil(this.destroy$)).subscribe(
+      suc => {
+        this.message = "Successfully deleted";
+        setTimeout(() => {
+          this.bsModalRef.hide();
+          this.router.navigate([`${this.pageUrl}`]);
+        }, 1500);
+      },
+      err => {
+        this.message = "Error on delete !!!";
+      }
+    );
 
   }
 

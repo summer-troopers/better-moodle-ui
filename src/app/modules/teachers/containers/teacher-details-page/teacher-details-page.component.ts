@@ -51,7 +51,8 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
   openDeleteModal() {
     const initialState = {
       service: this.crudService,
-      id: this.id
+      id: this.id,
+      pageUrl: this.pageUrl
     };
 
     this.modal = this.modalService.show(DeleteModalComponent, { initialState });

@@ -28,7 +28,6 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
   pageParam: number;
 
   pageUrl: string = 'teachers';
-  model: Teacher;
 
   constructor(private crudService: CrudService,
     private modalService: BsModalService,
@@ -48,7 +47,7 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
         this.setPage(1);
       }
     });
-    this.crudService.getItems(this.offset, this.limit, this.model, this.pageUrl).pipe(takeUntil(this.destroy$))
+    this.crudService.getItems(this.offset, this.limit, this.pageUrl).pipe(takeUntil(this.destroy$))
       .subscribe(teachers => this.teachers = teachers);
     this.crudService.getNumberOfItems(this.pageUrl).pipe(takeUntil(this.destroy$))
       .subscribe(teachers => this.totalItems = teachers);
@@ -70,7 +69,7 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
   pageChanged(event: any) {
     this.currentPage = event.page;
     this.offset = this.limit * (event.page - 1);
-    this.crudService.getItems(this.offset, this.limit, this.model, this.pageUrl)
+    this.crudService.getItems(this.offset, this.limit, this.pageUrl)
       .pipe(takeUntil(this.destroy$))
       .subscribe(teachers => this.teachers = teachers);
     this.router.navigate(['teachers'], { queryParams: { page: event.page } });

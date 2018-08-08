@@ -8,8 +8,6 @@ import { Observable } from 'rxjs'
 })
 export class CrudService {
 
-  itemName: string;
-
   constructor(private api: BackendApiService) { }
 
   getNumberOfItems(pageUrl) {
@@ -17,7 +15,7 @@ export class CrudService {
       .pipe(map(result => result.total));
   }
 
-  getItems(offset: number, limit: number, model: any, pageUrl: string): Observable<Array<any>> {
+  getItems(offset: number, limit: number, pageUrl: string): Observable<Array<any>> {
     return this.api.get(`${pageUrl}?offset=${offset}&limit=${limit}`)
       .pipe(map(result => result.data));
   }
