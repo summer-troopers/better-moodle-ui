@@ -8,8 +8,7 @@ import { takeUntil } from 'rxjs/operators';
 import { TeachersService } from '@modules/teachers/teachers.service';
 import { Teacher } from '@shared/models/teacher';
 import { EditTeacherModalComponent } from '@teacherModals/edit-teacher-modal/edit-teacher-modal.component';
-// import { DeleteTeacherModalComponent } from '@teacherModals/delete-teacher-modal/delete-teacher-modal.component';
-import { DeleteModalComponent } from '../../../../shared/components/delete-modal/delete-modal.component';
+import { DeleteModalComponent } from '@shared/components/delete-modal/delete-modal.component';
 
 @Component({
   selector: 'app-teacher-details-page',
@@ -20,9 +19,9 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  modalEditRef: BsModalRef;
+  modal: BsModalRef;
 
-  id: number;
+  id: string;
   teacher: Teacher;
 
   constructor(private route: ActivatedRoute,
@@ -31,7 +30,7 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.route.params.pipe(takeUntil(this.destroy$)).subscribe(params => {
-      this.id = +params['id'];
+      this.id = params['id'];
       this.teachersService.id = this.id;
       this.teachersService.getTeacher(this.id).pipe(takeUntil(this.destroy$)).subscribe((data) => {
         this.teacher = data;
@@ -43,11 +42,15 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
     const initialState: any = {
       teacher: this.teacher
     };
-    this.modalEditRef = this.modalService.show(EditTeacherModalComponent, { initialState });
+    this.modal = this.modalService.show(EditTeacherModalComponent, { initialState });
   }
 
   openDeleteModal() {
-    this.modalEditRef = this.modalService.show(DeleteModalComponent);
+    const initialState = {
+      service: this.teachersService,
+      id: this.id
+    }
+    this.modal = this.modalService.show(DeleteModalComponent, { initialState });
   }
 
   ngOnDestroy() {
