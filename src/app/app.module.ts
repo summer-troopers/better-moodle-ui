@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CoreModule } from '@core/core.module';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppComponent } from './app.component';
 import { appRoutes } from './app.routes';
@@ -17,6 +18,7 @@ import { SharedModule } from '@shared/shared.module'
     ModalModule.forRoot(),
     CoreModule,
     SharedModule,
+    NgxSpinnerModule,
     HomeModule,
     appRoutes
   ],
