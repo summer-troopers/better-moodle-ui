@@ -6,14 +6,16 @@ import { AlertComponent } from '@shared/componets/alert/alert.component';
 import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
 
 const COMPONENTS = [
-  ConfirmModalComponent
+  ConfirmModalComponent,
+  AlertComponent,
+  LocalAlertComponent
 ]
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  entryComponents: [...COMPONENTS],
-  declarations: [...COMPONENTS]
+  declarations: [...COMPONENTS],
+  exports: [LocalAlertComponent, AlertComponent]
 })
 export class SharedModule { }
