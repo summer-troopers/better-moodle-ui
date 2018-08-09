@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -35,14 +35,14 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.queryParams.pipe(takeUntil(this.destroy$)).subscribe((params) => {
       this.pageParam = +params.page;
-      if (this.pageParam != null || this.pageParam != NaN) {
+      if (this.pageParam != null || this.pageParam !== NaN) {
         if (this.pageParam > 0) {
           this.setPage(this.pageParam);
         } else {
-          this.setPage(1)
+          this.setPage(1);
         }
       } else {
-        this.setPage(1)
+        this.setPage(1);
       }
     });
     this.teacherService.getTeachers(this.offset, this.limit).pipe(takeUntil(this.destroy$))

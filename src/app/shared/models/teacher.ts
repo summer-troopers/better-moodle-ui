@@ -1,11 +1,11 @@
 import { User } from '@shared/models/user';
 
 export class Teacher extends User {
-  idSpecialty: number;
+  specialtyId: number;
 
-  constructor(teacherFromStorage: any) {
-    super(teacherFromStorage);
-    this.idSpecialty = teacherFromStorage.idSpecialty;
+  constructor(teacher: any) {
+    super(teacher);
+    this.specialtyId = teacher.specialtyId;
 
   }
 }

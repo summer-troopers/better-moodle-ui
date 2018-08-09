@@ -1,3 +1,4 @@
+<app-local-alert [alerts]="alert"></app-local-alert>
 <form class="form-signin text-center" [formGroup]="loginForm" (submit)="onSubmit()">
   <div class="form-group">
     <img class="mb-4" src="../../../../../assets/images/bootstrap-solid.svg" alt="login" width="72" height="72">
@@ -16,7 +17,6 @@
     <input type="password" id="password" class="form-control" placeholder="Password" formControlName="password"
            [ngClass]="{ 'is-invalid': isSubmitted && passwordErrors || isRequestError }"
            required>
-    <div *ngIf="isRequestError && isSubmitted" class="text-danger">The data is incorrect</div>
     <div *ngIf="passwordErrors && isSubmitted" class="invalid-feedback">
       <div *ngIf="passwordErrors.required" class="text-danger">Password is required</div>
       <div *ngIf="passwordErrors.minlength" class="text-danger">Password must be at least 6 characters long</div>

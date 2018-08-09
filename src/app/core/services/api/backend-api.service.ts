@@ -13,15 +13,17 @@ export class BackendApiService {
 
   protected URL: string = environment.apiUrl;
 
-  protected options: Object = {
-    headers: new HttpHeaders({
-      'token': this.localStorageServices.getLocalStorage(TOKEN_STORAGE_KEY) || '',
-      'Content-Type': 'application/json'
-    })
-  };
-
   constructor(private http: HttpClient,
-    private localStorageServices: LocalStorageService) {
+              private localStorageServices: LocalStorageService) {
+  }
+
+  getHeaders(token) {
+    return {
+      headers: new HttpHeaders({
+        'token': token,
+        'Content-Type': 'application/json'
+      })
+    };
   }
 
   /**
@@ -30,7 +32,8 @@ export class BackendApiService {
    * @returns {Observable<any>}
    */
   get(path: string): Observable<any> {
-    return this._request('GET', path, null, this.options);
+    return this._request('GET', path, null,
+      this.getHeaders(this.localStorageServices.getLocalStorage(TOKEN_STORAGE_KEY)));
   }
 
   /**
@@ -40,7 +43,7 @@ export class BackendApiService {
    * @returns {Observable<any>}
    */
   post(path: string, body: Object): Observable<any> {
-    return this._request('POST', path, body, this.options);
+    return this._request('POST', path, body, this.getHeaders(''));
   }
 
   /**
@@ -50,7 +53,8 @@ export class BackendApiService {
    * @returns {Observable<any>}
    */
   put(path: string, body: Object): Observable<any> {
-    return this._request('PUT', path, body, this.options);
+    return this._request('PUT', path, body,
+      this.getHeaders(this.localStorageServices.getLocalStorage(TOKEN_STORAGE_KEY)));
   }
 
   /**
@@ -60,7 +64,8 @@ export class BackendApiService {
    * @returns {Observable<any>}
    */
   patch(path: string, body: Object): Observable<any> {
-    return this._request('PATCH', path, body, this.options);
+    return this._request('PATCH', path, body,
+      this.getHeaders(this.localStorageServices.getLocalStorage(TOKEN_STORAGE_KEY)));
   }
 
   /**
@@ -69,7 +74,8 @@ export class BackendApiService {
    * @returns {Observable<any>}
    */
   delete(path: string): Observable<any> {
-    return this._request('DELETE', path, null, this.options);
+    return this._request('DELETE', path, null,
+      this.getHeaders(this.localStorageServices.getLocalStorage(TOKEN_STORAGE_KEY)));
   }
 
   /**
