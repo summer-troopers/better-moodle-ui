@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { SpinnerService } from '../../services/spinner/spinner.service'
 
 @Component({
   selector: 'app--spinner',
@@ -9,15 +8,16 @@ import { SpinnerService } from '../../services/spinner/spinner.service'
 })
 export class PagePreloaderSpinnerComponent implements OnInit {
 
-  constructor(private spinner: NgxSpinnerService,
-    //public handleSpinner: SpinnerService
-  ) { }
+  constructor(private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
-    //this.handleSpinner.handleEvents();
-    this.spinner.show();
-    this.hideSpinner();
+
   }
+
+  showSpinner() {
+    this.spinner.show();
+  }
+
   hideSpinner() {
     setTimeout(() => {
       this.spinner.hide();
