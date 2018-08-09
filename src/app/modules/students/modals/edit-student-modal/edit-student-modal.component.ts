@@ -10,6 +10,7 @@ import 'rxjs/add/observable/throw';
 import { StudentsService } from '@modules/students/students.service';
 import { StudentDetailsPageComponent } from '@modules/students/containers';
 import { Student } from '@shared/models/student';
+import { Alert, AlertType } from '@shared/models/alert';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class EditStudentModalComponent implements OnInit {
   submitted = false;
   student: Student;
 
-  alerts: Array<any> = [];
+  alerts: Alert[] = [];
 
   constructor(private modalService: BsModalService,
     private bsmodalRef: BsModalRef,
@@ -71,8 +72,8 @@ export class EditStudentModalComponent implements OnInit {
 
     this.studentsService.updateStudentData(this.student.id, this.studentForm.value)
       .catch(error => {
-        this.alerts.push({ type: "danger", msg: error.message });
-        return Observable.throw(error.message);
+        this.alerts.push({ type: AlertType.Error, message: error });
+        return Observable.throw(error);
       })
       .subscribe(() => {
         this.event.emit(this.studentForm.value);

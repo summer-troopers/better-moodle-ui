@@ -8,10 +8,10 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
 import { AddStudentModalComponent } from '@modules/students/modals/add-student-modal/add-student-modal.component';
-import { PaginatorHelperService } from '@core/services/paginator-helper/paginator-helper.service';
+import { PaginatorHelperService } from '@shared/services/paginator-helper/paginator-helper.service';
 import { StudentsService } from '@modules/students/students.service';
 import { Student } from '@shared/models/student';
-
+import { Alert, AlertType } from '@shared/models/alert';
 @Component({
   selector: 'app-students-page',
   templateUrl: './students-page.component.html',
@@ -26,7 +26,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
   currentPage: number = 1;
   pageParam: number;
 
-  alerts: Array<any> = [];
+  alerts: Alert[] = [];
   students: Array<Student> = [];
   modalRef: BsModalRef;
 
@@ -57,8 +57,8 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
         })
       )
       .catch(error => {
-        this.alerts.push({ type: "danger", msg: error.message });
-        return Observable.throw(error.message);
+        this.alerts.push({ type: AlertType.Error, message: error });
+        return Observable.throw(error);
       })
       .subscribe((students) => {
         this.students = students;
@@ -72,7 +72,6 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
     this.modalRef.content.event
       .subscribe((newStudent) => {
         this.students.unshift(newStudent)
-        console.log(`New Student! ${newStudent}`)
       })
   }
 
@@ -91,8 +90,8 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
     this.paginatorHelper.getPaginationParams(this.totalItems, this.currentPage)
       .pipe(takeUntil(this.destroy$))
       .catch(error => {
-        this.alerts.push({ type: "danger", msg: error.message });
-        return Observable.throw(error.message);
+        this.alerts.push({ type: AlertType.Error, message: error });
+        return Observable.throw(error);
       })
       .subscribe(([limit, offset]) => {
         this.limit = limit;
@@ -102,8 +101,8 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
     this.studentsService.getStudents(this.offset, this.limit)
       .pipe(takeUntil(this.destroy$))
       .catch(error => {
-        this.alerts.push({ type: "danger", msg: error.message });
-        return Observable.throw(error.message);
+        this.alerts.push({ type: AlertType.Error, message: error });
+        return Observable.throw(error);
       })
       .subscribe((students) => {
         this.students = students;

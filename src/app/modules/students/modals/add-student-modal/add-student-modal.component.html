@@ -1,9 +1,6 @@
 <div>
   <div class="container">
-    <div *ngFor="let alert of alerts">
-      <alert [type]="alert.type"
-             (onClosed)="onClosed(alert)">{{ alert.msg }}</alert>
-    </div>
+    <app-local-alert [alerts]="alerts"></app-local-alert>
   </div>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Add a new student</h4>

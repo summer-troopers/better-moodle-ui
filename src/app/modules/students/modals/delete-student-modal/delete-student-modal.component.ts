@@ -7,8 +7,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
 import { StudentsService } from '@modules/students/students.service';
-import { StudentDetailsPageComponent } from '@modules/students/containers';
-
+import { Alert, AlertType } from '@shared/models/alert';
 
 @Component({
   selector: 'app-delete-student-modal',
@@ -25,7 +24,7 @@ export class DeleteStudentModalComponent implements OnInit {
   modalRef: BsModalRef;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  alerts: Array<any> = [];
+  alerts: Alert[] = [];
 
   constructor(private modalService: BsModalService,
     private studentsService: StudentsService) { }
@@ -39,8 +38,8 @@ export class DeleteStudentModalComponent implements OnInit {
     this.studentsService.deleteStudent(this.studentsService.id)
       .pipe(takeUntil(this.destroy$))
       .catch(error => {
-        this.alerts.push({ type: "danger", msg: error.message });
-        return Observable.throw(error.message);
+        this.alerts.push({ type: AlertType.Error, message: error });
+        return Observable.throw(error);
       })
       .subscribe();
     this.modalRef.hide();
