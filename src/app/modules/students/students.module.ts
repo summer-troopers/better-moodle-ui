@@ -9,7 +9,7 @@ import { EditStudentModalComponent } from './modals/edit-student-modal/edit-stud
 import { AddStudentModalComponent } from './modals/add-student-modal/add-student-modal.component';
 import { StudentDetailsPageComponent, StudentsPageComponent } from '@modules/students/containers';
 import { DeleteStudentModalComponent } from './modals/delete-student-modal/delete-student-modal.component';
-import { SharedModule } from '../../shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 
 
 const COMPONENTS = [

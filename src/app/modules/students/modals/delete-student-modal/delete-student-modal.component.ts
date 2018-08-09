@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs/Observable';
@@ -41,12 +42,19 @@ export class DeleteStudentModalComponent implements OnInit {
         this.alerts.push({ type: AlertType.Error, message: error });
         return Observable.throw(error);
       })
+<<<<<<< HEAD
       .subscribe();
     this.modalRef.hide();
   }
 
   openDeleteStudentModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
+=======
+      .subscribe(() => {
+        this.bsModalRef.hide();
+        this.router.navigate(['students']);
+      });
+>>>>>>> fixed delete student
   }
 
   decline() {
