@@ -42,7 +42,6 @@ export function initAppFactory(initService: InitService) {
     ...COMPONENTS,
     ...MODULES
   ],
-  //entryComponents: [PagePreloaderSpinnerComponent],
   providers: [
     {
       provide: APP_INITIALIZER,
