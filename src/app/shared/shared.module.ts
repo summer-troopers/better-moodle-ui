@@ -16,6 +16,6 @@ const COMPONENTS = [
     CommonModule
   ],
   declarations: [...COMPONENTS],
-  exports: [LocalAlertComponent, AlertComponent]
+  exports: [...COMPONENTS]
 })
 export class SharedModule { }
