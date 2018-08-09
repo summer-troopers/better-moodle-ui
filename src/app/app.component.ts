@@ -1,56 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, NavigationStart } from '@angular/router';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { LoggerInterceptorService } from './core/interceptors/logger-interceptor.service';
-import { PagePreloaderSpinnerComponent } from './core/components/page-preloader-spinner/page-preloader-spinner.component';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [PagePreloaderSpinnerComponent]
+  encapsulation: ViewEncapsulation.None
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
 
-  destroy$: Subject<boolean> = new Subject<boolean>();
-
-  currentUrl: String;
-
-  requestMessage: string;
-
-  constructor(private spinner: PagePreloaderSpinnerComponent,
-    private router: Router,
-    private interceptor: LoggerInterceptorService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.spinnerHandle();
   }
-
-  ngOnDestroy() {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
-  }
-  spinnerHandle() {
-    // this.router.events.pipe(takeUntil(this.destroy$)).subscribe(event => {
-    //   if (event instanceof NavigationStart) {
-    //     this.currentUrl = event.url;
-    //     if (this.currentUrl) {
-    //       //this.spinner.showSpinner();
-    //       console.log('sund diferite');
-    //       // this.spinner.hideSpinner();
-    //     }
-
-    //   }
-
-
-    this.interceptor.showMessage(this.requestMessage);
-    setTimeout(() => {
-      console.log('fasgasgas')
-    }, 2000)
-
-  }
-
-}
-
 }
