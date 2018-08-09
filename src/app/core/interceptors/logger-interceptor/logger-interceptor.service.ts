@@ -28,16 +28,11 @@ export class LoggerInterceptorService implements HttpInterceptor {
         const elapsedTime = Date.now() - startTime;
         const message = `${req.method} ${req.urlWithParams} ${status} in ${elapsedTime}ms`;
         this.logDetails(message);
-        this.showMessage(message);
       })
     );
   }
 
   private logDetails(msg: string) {
     console.log(msg);
-  }
-
-  public showMessage(msg: string) {
-    return msg;
   }
 }
