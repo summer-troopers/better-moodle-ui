@@ -12,7 +12,7 @@ import { StudentsService } from '@modules/students/students.service';
 import { DeleteStudentModalComponent } from '@modules/students/modals/delete-student-modal/delete-student-modal.component';
 import { EditStudentModalComponent } from '@modules/students/modals/edit-student-modal/edit-student-modal.component';
 import { Student } from '@shared/models/student';
-
+import { Alert, AlertType } from '@shared/models/alert';
 @Component({
   selector: 'app-student-details-page',
   templateUrl: './student-details-page.component.html',
@@ -25,7 +25,7 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  alerts: Array<any> = [];
+  alerts: Alert[] = [];
 
   modalRef: BsModalRef;
 
@@ -44,8 +44,8 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this.destroy$));
         }))
         .catch(error => {
-          this.alerts.push({ type: "danger", msg: error.message });
-          return Observable.throw(error.message);
+          this.alerts.push({ type: AlertType.Error, message: error });
+          return Observable.throw(error);
         })
         .subscribe((groupName) => this.groupName = groupName);
     })
@@ -69,8 +69,8 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
           .pipe(takeUntil(this.destroy$));
       }))
       .catch(error => {
-        this.alerts.push({ type: "danger", msg: error.message });
-        return Observable.throw(error.message);
+        this.alerts.push({ type: AlertType.Error, message: error });
+        return Observable.throw(error);
       })
       .subscribe((groupName) => this.groupName = groupName);
   }

@@ -42,8 +42,8 @@ export class StudentsService {
       .pipe(map(result => result));
   }
 
-  getStudentsGroup(groupId: number) {
-    return this.api.get(`groups/${groupId}`)
+  getStudentsGroup(idGroup: number) {
+    return this.api.get(`groups/${idGroup}`)
       .pipe(map(result => result.name));
   }
 }

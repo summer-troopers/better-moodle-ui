@@ -8,6 +8,7 @@ import 'rxjs/add/observable/throw';
 
 import { StudentsService } from '@modules/students/students.service';
 import { Student } from '@shared/models/student';
+import { Alert, AlertType } from '@shared/models/alert';
 
 @Component({
   selector: 'app-edit-student-modal',
@@ -21,7 +22,7 @@ export class EditStudentModalComponent implements OnInit, OnDestroy {
   submitted = false;
   student: Student;
 
-  alerts: Array<any> = [];
+  alerts: Alert[] = [];
 
   public event: EventEmitter<any> = new EventEmitter();
 
@@ -71,8 +72,8 @@ export class EditStudentModalComponent implements OnInit, OnDestroy {
     this.studentsService.updateStudentData(this.studentsService.id, this.studentForm.value)
       .pipe(takeUntil(this.destroy$))
       .catch(error => {
-        this.alerts.push({ type: "danger", msg: error.message });
-        return Observable.throw(error.message);
+        this.alerts.push({ type: AlertType.Error, message: error });
+        return Observable.throw(error);
       })
       .subscribe(() => {
         this.event.emit(this.studentForm.value);

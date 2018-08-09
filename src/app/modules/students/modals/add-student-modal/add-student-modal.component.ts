@@ -7,6 +7,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
 import { StudentsService } from '@modules/students/students.service';
+import { Alert, AlertType } from '@shared/models/alert';
 
 @Component({
   selector: 'app-add-student-modal',
@@ -17,7 +18,7 @@ export class AddStudentModalComponent implements OnInit, OnDestroy {
   studentForm: FormGroup;
   submitted = false;
 
-  alerts: Array<any> = [];
+  alerts: Alert[] = [];
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -72,8 +73,8 @@ export class AddStudentModalComponent implements OnInit, OnDestroy {
     this.studentsService.addStudent(this.studentForm.value)
       .pipe(takeUntil(this.destroy$))
       .catch(error => {
-        this.alerts.push({ type: "danger", msg: error.message });
-        return Observable.throw(error.message);
+        this.alerts.push({ type: AlertType.Error, message: error });
+        return Observable.throw(error);
       })
       .subscribe((newStudent) => {
         this.event.emit(newStudent);
