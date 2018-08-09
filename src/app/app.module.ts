@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CoreModule } from '@core/core.module';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { HttpClientModule } from '@angular/common/http';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 
 import { AppComponent } from './app.component';
@@ -19,7 +18,6 @@ import { SharedModule } from '@shared/shared.module'
     ModalModule.forRoot(),
     CoreModule,
     SharedModule,
-    HttpClientModule,
     NgHttpLoaderModule,
     HomeModule,
     appRoutes
