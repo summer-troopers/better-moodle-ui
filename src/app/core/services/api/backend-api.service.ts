@@ -43,7 +43,7 @@ export class BackendApiService {
    * @returns {Observable<any>}
    */
   post(path: string, body: Object): Observable<any> {
-    return this._request('POST', path, body, this.getHeaders(''));
+    return this._request('POST', path, body, this.getHeaders(this.localStorageServices.getLocalStorage(TOKEN_STORAGE_KEY)));
   }
 
   /**
@@ -53,8 +53,7 @@ export class BackendApiService {
    * @returns {Observable<any>}
    */
   put(path: string, body: Object): Observable<any> {
-    return this._request('PUT', path, body,
-      this.getHeaders(this.localStorageServices.getLocalStorage(TOKEN_STORAGE_KEY)));
+    return this._request('PUT', path, body, this.getHeaders(this.localStorageServices.getLocalStorage(TOKEN_STORAGE_KEY)));
   }
 
   /**
