@@ -51,7 +51,7 @@ export class AddTeacherModalComponent implements OnInit, OnDestroy {
       suc => {
       },
       err => {
-        this.message = "Error on adding a new user !!!";
+        this.message = 'Error on adding a new user !!!';
       }
     );
   }
