@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { PaginationParams } from '@shared/models/pagination-params';
-
 @Injectable({
   providedIn: 'root'
 })
 export class PaginatorHelperService {
-
   constructor() { }
 
   getOffset(totalItems: number, defaultItemsNumber: number): number {

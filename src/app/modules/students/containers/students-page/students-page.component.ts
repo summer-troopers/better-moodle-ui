@@ -11,6 +11,7 @@ import { AddStudentModalComponent } from '@modules/students/modals/add-student-m
 import { PaginatorHelperService } from '@shared/services/paginator-helper/paginator-helper.service';
 import { StudentsService } from '@modules/students/students.service';
 import { Student } from '@shared/models/student';
+import { PaginationParams } from '@shared/models/pagination-params';
 import { Alert, AlertType } from '@shared/models/alert';
 @Component({
   selector: 'app-students-page',
@@ -20,8 +21,8 @@ import { Alert, AlertType } from '@shared/models/alert';
 export class StudentsPageComponent implements OnInit, OnDestroy {
   defaultItemsNumber: number = 10;
 
-  offset: number = 0;
-  limit: number = this.defaultItemsNumber;
+  paginationParams = new PaginationParams(0, this.defaultItemsNumber);
+
   totalItems: number;
   currentPage: number = 1;
   pageParam: number;
@@ -39,6 +40,11 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
     private paginatorHelper: PaginatorHelperService) { }
 
   ngOnInit() {
+    this.initPage();
+    this.initNumberOfStudents();
+  }
+
+  initPage() {
     this.route.queryParams.subscribe((params) => {
       this.pageParam = +params.page;
       if (this.pageParam) {
@@ -47,13 +53,15 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
         this.setPage(1)
       }
     });
+  }
 
+  initNumberOfStudents() {
     this.studentsService.getNumberOfStudents()
       .pipe(
         mergeMap((studentsNumber) => {
           this.totalItems = +studentsNumber;
-          this.offset = this.totalItems - this.defaultItemsNumber;
-          return this.studentsService.getStudents(this.offset, this.limit).pipe(takeUntil(this.destroy$));
+          this.paginationParams.offset = this.totalItems - this.defaultItemsNumber;
+          return this.studentsService.getStudents(this.paginationParams.offset, this.paginationParams.limit).pipe(takeUntil(this.destroy$));
         })
       )
       .catch(error => {
@@ -87,18 +95,9 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
   pageChanged(event: any) {
     this.currentPage = event.page;
 
-    this.paginatorHelper.getPaginationParams(this.totalItems, this.currentPage)
-      .pipe(takeUntil(this.destroy$))
-      .catch(error => {
-        this.alerts.push({ type: AlertType.Error, message: error });
-        return Observable.throw(error);
-      })
-      .subscribe(([limit, offset]) => {
-        this.limit = limit;
-        this.offset = offset;
-      });
+    this.paginationParams = this.paginatorHelper.getPaginationParams(this.totalItems, this.currentPage);
 
-    this.studentsService.getStudents(this.offset, this.limit)
+    this.studentsService.getStudents(this.paginationParams.offset, this.paginationParams.limit)
       .pipe(takeUntil(this.destroy$))
       .catch(error => {
         this.alerts.push({ type: AlertType.Error, message: error });

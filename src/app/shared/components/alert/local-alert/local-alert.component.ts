@@ -7,7 +7,7 @@ import { Alert, AlertType } from '@shared/models/alert';
   templateUrl: './local-alert.component.html',
 })
 export class LocalAlertComponent {
-  @Input('alerts') alerts: Alert[] = [];
+  @Input() alerts: Alert[] = [];
 
   constructor() { }
 

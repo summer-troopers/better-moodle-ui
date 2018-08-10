@@ -25,6 +25,8 @@ export class DeleteStudentModalComponent implements OnInit {
   modalRef: BsModalRef;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
+  studentId: number;
+
   alerts: Alert[] = [];
 
   constructor(private modalService: BsModalService,
@@ -36,25 +38,15 @@ export class DeleteStudentModalComponent implements OnInit {
 
   confirm() {
     this.studentsService.deleteStudent(this.studentId)
-    this.studentsService.deleteStudent(this.studentsService.id)
       .pipe(takeUntil(this.destroy$))
       .catch(error => {
         this.alerts.push({ type: AlertType.Error, message: error });
         return Observable.throw(error);
       })
-<<<<<<< HEAD
-      .subscribe();
-    this.modalRef.hide();
-  }
-
-  openDeleteStudentModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
-=======
       .subscribe(() => {
         this.bsModalRef.hide();
         this.router.navigate(['students']);
       });
->>>>>>> fixed delete student
   }
 
   decline() {

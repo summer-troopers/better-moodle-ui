@@ -20,7 +20,7 @@ import { Alert, AlertType } from '@shared/models/alert';
 })
 export class EditStudentModalComponent implements OnInit {
   studentForm: FormGroup;
-  submitted = false;
+  isSubmitted = false;
   student: Student;
 
   alerts: Alert[] = [];
@@ -65,12 +65,12 @@ export class EditStudentModalComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
+    this.isSubmitted = true;
     if (this.studentForm.invalid) {
       return;
     }
-
     this.studentsService.updateStudentData(this.student.id, this.studentForm.value)
+      .pipe(takeUntil(this.destroy$))
       .catch(error => {
         this.alerts.push({ type: AlertType.Error, message: error });
         return Observable.throw(error);
