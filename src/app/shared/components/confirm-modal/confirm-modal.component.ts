@@ -39,7 +39,6 @@ export class ConfirmModalComponent implements OnInit {
         this.message = 'Error on delete !!!';
       }
     );
-
   }
 
   decline(): void {
