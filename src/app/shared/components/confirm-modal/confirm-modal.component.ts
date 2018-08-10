@@ -3,7 +3,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { TeachersService } from '../../../modules/teachers/teachers.service'
+import { TeachersService } from '@modules/teachers/teachers.service'
 
 @Component({
   selector: 'app-confirm-modal',
@@ -20,8 +20,8 @@ export class ConfirmModalComponent implements OnInit {
   pageUrl: string;
 
   constructor(public bsModalRef: BsModalRef,
-    private router: Router,
-    private teachersService: TeachersService) { }
+    private teachersService: TeachersService,
+    private router: Router) { }
 
   ngOnInit() {
   }
