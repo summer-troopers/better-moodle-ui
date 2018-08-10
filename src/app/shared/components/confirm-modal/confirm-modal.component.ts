@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,28 +10,15 @@ import { Router } from '@angular/router';
 export class ConfirmModalComponent {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
+  deleted: EventEmitter<any> = new EventEmitter<any>();
 
-  message: String;
-  service: any;
-  id: string;
-  pageUrl: string;
+  message: string;
 
   constructor(public bsModalRef: BsModalRef,
     private router: Router) { }
 
-  confirm(): void {
-    this.service.deleteTeacher(this.id).pipe(takeUntil(this.destroy$)).subscribe(
-      suc => {
-        this.message = 'Successfully deleted';
-        setTimeout(() => {
-          this.bsModalRef.hide();
-          this.router.navigate([`teachers`]);
-        }, 1500);
-      },
-      err => {
-        this.message = 'Error on delete !!!';
-      }
-    );
+  confirm() {
+    this.deleted.emit();
   }
 
   decline(): void {

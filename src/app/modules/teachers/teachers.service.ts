@@ -13,7 +13,7 @@ export class TeachersService {
   id: number;
 
   constructor(private http: HttpClient,
-              private api: BackendApiService) {
+    private api: BackendApiService) {
   }
 
   getNumberOfTeachers() {
@@ -33,7 +33,8 @@ export class TeachersService {
 
   deleteTeacher(id: number): Observable<any> {
     this.id = id;
-    return this.api.delete(`teachers/${id}`).pipe(first());
+    return this.api.delete(`teachers/${id}`)
+      .pipe(first());
   }
 
   addTeacher(form: Teacher): Observable<any> {
