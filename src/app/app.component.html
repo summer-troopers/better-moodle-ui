@@ -4,12 +4,12 @@
 
 <app-layout>
   <app-alert></app-alert>
-  <ng-http-loader [backgroundColor]="'#c68039'"
-                  [spinner]="spinkit.skWave"
-                  [debounceDelay]="100"
-                  [minDuration]="500">
-  </ng-http-loader>
-  <router-outlet></router-outlet>
+  <router-outlet>
+    <ng-http-loader [backgroundColor]="'#c68039'"
+                    [spinner]="spinkit.skWave"
+                    [debounceDelay]="100"
+                    [minDuration]="500">
+    </ng-http-loader>
+  </router-outlet>
 </app-layout>
-
 <app-footer></app-footer>
