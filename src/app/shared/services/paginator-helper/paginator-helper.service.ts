@@ -6,14 +6,12 @@ import { PaginationParams } from '@shared/models/pagination-params';
 export class PaginatorHelperService {
   constructor() { }
 
-  getPaginationParams(totalItems: number, selectedPage: number) {
+  getPaginationParams(totalItems: number, selectedPage: number): PaginationParams {
     let offset = 0;
     let limit = 10;
     if (totalItems - (limit * selectedPage) < 0) {
       limit = -(totalItems - (limit * selectedPage));
-      offset = 0;
     } else {
-      limit = 10;
       offset = totalItems - (limit * selectedPage);
     }
     return new PaginationParams(limit, offset);
