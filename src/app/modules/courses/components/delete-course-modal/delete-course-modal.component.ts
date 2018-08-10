@@ -1,10 +1,12 @@
 import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap';
 import { Subject } from 'rxjs';
-import { CoursesService } from '@modules/courses/courses.service';
-import { takeUntil } from 'rxjs/operators';
-import Course from '@shared/models/course';
 import { Router } from '@angular/router';
+import { takeUntil } from 'rxjs/operators';
+
+import { CoursesService } from '@modules/courses/courses.service';
+import Course from '@shared/models/course';
+import { Alert, AlertType } from '@shared/models/alert';
 
 @Component({
   selector: 'app-delete-course-modal',
@@ -16,6 +18,8 @@ export class DeleteCourseModalComponent implements OnInit, OnDestroy {
   event: EventEmitter<any> = new EventEmitter();
   course: Course;
   message: string;
+
+  alerts: Alert[] = [];
 
   constructor(public bsModalRef: BsModalRef,
               private coursesService: CoursesService,
@@ -34,6 +38,7 @@ export class DeleteCourseModalComponent implements OnInit, OnDestroy {
         }, 1500);
       }, error => {
         this.message = "Error deleted";
+        this.alerts.push({type: AlertType.Error, message: error});
         return console.error(error);
       });
   }

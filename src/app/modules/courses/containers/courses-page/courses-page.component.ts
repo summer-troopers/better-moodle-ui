@@ -8,6 +8,7 @@ import { CoursesService } from '@modules/courses/courses.service';
 import Course from '@shared/models/course';
 import { PaginatorHelperService } from '@shared/services/paginator-helper/paginator-helper.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Alert, AlertType } from '@shared/models/alert';
 
 @Component({
   selector: 'app-courses-page',
@@ -25,6 +26,8 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
   modalRef: BsModalRef;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
+
+  alerts: Alert[] = [];
 
   constructor(
     private coursesService: CoursesService,
@@ -54,6 +57,7 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
         this.courses = students;
         this.courses.reverse();
       }, error => {
+        this.alerts.push({type: AlertType.Error, message: error});
         return console.error(error);
       });
   }
@@ -80,6 +84,7 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
         this.limit = limit;
         this.offset = offset;
       }, error => {
+        this.alerts.push({type: AlertType.Error, message: error});
         return console.error(error);
       });
 
@@ -89,6 +94,7 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
         this.courses = courses;
         this.courses.reverse();
       }, error => {
+        this.alerts.push({type: AlertType.Error, message: error});
         return console.error(error);
       });
 

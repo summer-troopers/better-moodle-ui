@@ -1,12 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import Course from '@shared/models/course';
-import { CoursesService } from '@modules/courses/courses.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+
+import { CoursesService } from '@modules/courses/courses.service';
 import { EditCourseModalComponent } from '@modules/courses/components';
 import { DeleteCourseModalComponent } from '@modules/courses/components/delete-course-modal/delete-course-modal.component';
+import { Alert, AlertType } from '@shared/models/alert';
+import Course from '@shared/models/course';
 
 @Component({
   selector: 'app-course-details-page',
@@ -19,6 +21,8 @@ export class CourseDetailsPageComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   modalRef: BsModalRef;
+
+  alerts: Alert[] = [];
 
   constructor(
     private coursesService: CoursesService,
@@ -48,7 +52,8 @@ export class CourseDetailsPageComponent implements OnInit, OnDestroy {
 
     this.modalRef.content.event.pipe(takeUntil(this.destroy$))
       .subscribe((course) => this.course = course, error => {
-        return Observable.throw(error);
+        this.alerts.push({type: AlertType.Error, message: error});
+        return console.log(error);
       });
   }
 
@@ -60,7 +65,8 @@ export class CourseDetailsPageComponent implements OnInit, OnDestroy {
 
     this.modalRef.content.event.pipe(takeUntil(this.destroy$))
       .subscribe((course) => this.course = course, error => {
-        return Observable.throw(error);
+        this.alerts.push({type: AlertType.Error, message: error});
+        return console.log(error);
       });
   }
 }

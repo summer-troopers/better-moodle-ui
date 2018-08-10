@@ -1,25 +1,37 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CourseDetailsPageComponent, CoursesPageComponent } from './containers';
-import { AddCourseComponent } from './components/add-course/add-course.component';
 import { RouterModule } from '@angular/router';
-import { coursesRoutes } from '@modules/courses/courses.routes';
-import { AddCourseModalComponent } from './components/add-course-modal/add-course-modal.component';
-import { EditCourseModalComponent } from './components/edit-course-modal/edit-course-modal.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ModalModule } from 'ngx-bootstrap';
-import { DeleteCourseModalComponent } from './components/delete-course-modal/delete-course-modal.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { coursesRoutes } from '@modules/courses/courses.routes';
+import { AddCourseModalComponent } from '@modules/courses/components/add-course-modal/add-course-modal.component';
+import { EditCourseModalComponent } from '@modules/courses/components/edit-course-modal/edit-course-modal.component';
+import { DeleteCourseModalComponent } from '@modules/courses/components/delete-course-modal/delete-course-modal.component';
+import { SharedModule } from '@shared/shared.module';
+import { CourseDetailsPageComponent, CoursesPageComponent } from './containers';
+
+const COMPONENTS = [
+  CoursesPageComponent,
+  CourseDetailsPageComponent,
+  AddCourseModalComponent,
+  EditCourseModalComponent,
+  DeleteCourseModalComponent];
+
+const MODULES = [
+  CommonModule,
+  RouterModule,
+  FormsModule,
+  ReactiveFormsModule,
+  ModalModule.forRoot(),
+  PaginationModule.forRoot(),
+  SharedModule];
 
 @NgModule({
   imports: [
-    CommonModule,
-    RouterModule,
+    ...MODULES,
     coursesRoutes,
-    FormsModule,
-    ReactiveFormsModule,
-    ModalModule.forRoot(),
-    PaginationModule.forRoot()
   ],
   exports: [PaginationModule],
   entryComponents: [
@@ -28,12 +40,7 @@ import { DeleteCourseModalComponent } from './components/delete-course-modal/del
     DeleteCourseModalComponent
   ],
   declarations: [
-    CoursesPageComponent,
-    CourseDetailsPageComponent,
-    AddCourseComponent,
-    AddCourseModalComponent,
-    EditCourseModalComponent,
-    DeleteCourseModalComponent
+    ...COMPONENTS
   ]
 })
 export class CoursesModule { }

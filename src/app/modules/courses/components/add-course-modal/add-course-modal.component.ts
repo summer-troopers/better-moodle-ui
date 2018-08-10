@@ -1,10 +1,11 @@
 import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-import { CoursesService } from '@modules/courses/courses.service';
 import { BsModalRef } from 'ngx-bootstrap';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+
+import { CoursesService } from '@modules/courses/courses.service';
+import { Alert, AlertType } from '@shared/models/alert';
 
 @Component({
   selector: 'app-add-course-modal',
@@ -16,6 +17,8 @@ export class AddCourseModalComponent implements OnInit, OnDestroy {
   courseForm: FormGroup;
 
   isSubmitted = false;
+
+  alerts: Alert[] = [];
 
   event: EventEmitter<any> = new EventEmitter();
   destroy$: Subject<boolean> = new Subject<boolean>();
@@ -59,7 +62,8 @@ export class AddCourseModalComponent implements OnInit, OnDestroy {
           this.event.emit(response);
           this.closeModal();
         }, (error) => {
-          console.error('Course add failed!!!\nMessage: ' + error);
+          this.alerts.push({type: AlertType.Error, message: error});
+          return console.error('Course add failed!!!\nMessage: ' + error);
         }
       );
   }
