@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Subject } from 'rxjs';
 import { Observable } from 'rxjs/Observable';
@@ -20,7 +21,8 @@ export class DeleteStudentModalComponent implements OnInit {
   alerts: Alert[] = [];
 
   constructor(public bsModalRef: BsModalRef,
-    private studentsService: StudentsService) { }
+    private studentsService: StudentsService,
+    private router: Router) { }
 
   ngOnInit() {
 
@@ -33,8 +35,10 @@ export class DeleteStudentModalComponent implements OnInit {
         this.alerts.push({ type: AlertType.Error, message: error });
         return Observable.throw(error);
       })
-      .subscribe();
-    this.bsModalRef.hide();
+      .subscribe(() => {
+        this.bsModalRef.hide();
+        this.router.navigate(['students']);
+      });
   }
 
   decline() {
