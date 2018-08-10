@@ -21,12 +21,12 @@ export class CrudService {
   }
 
   getItem(id: string, pageUrl: string): Observable<any> {
-    return this.api.get(`${pageUrl}/${id}`)
-      .pipe(first());
+    return this.api.get(`${pageUrl}/${id}`);
   }
 
   deleteItem(id: string, pageUrl: string): Observable<any> {
-    return this.api.delete(`${pageUrl}/${id}`).pipe(first());
+    return this.api.delete(`${pageUrl}/${id}`)
+      .pipe(first());
   }
 
   addItem(form: any, pageUrl: string): Observable<any> {
