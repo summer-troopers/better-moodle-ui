@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   selector: 'app-confirm-modal',
   templateUrl: './confirm-modal.component.html'
 })
-export class ConfirmModalComponent implements OnInit {
+export class ConfirmModalComponent {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -19,9 +19,6 @@ export class ConfirmModalComponent implements OnInit {
 
   constructor(public bsModalRef: BsModalRef,
     private router: Router) { }
-
-  ngOnInit() {
-  }
 
   confirm(): void {
     this.service.deleteTeacher(this.id).pipe(takeUntil(this.destroy$)).subscribe(
