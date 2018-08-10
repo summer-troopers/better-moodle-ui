@@ -1,44 +1,45 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
-
-import { TeachersService } from '@modules/teachers/teachers.service';
+import { TeachersService } from '../../../modules/teachers/teachers.service'
 
 @Component({
-  selector: 'app-delete-teacher-modal',
-  templateUrl: './delete-teacher-modal.component.html',
-  styleUrls: ['./delete-teacher-modal.component.scss']
+  selector: 'app-confirm-modal',
+  templateUrl: './confirm-modal.component.html',
+  styleUrls: ['./confirm-modal.component.scss']
 })
-export class DeleteTeacherModalComponent implements OnInit, OnDestroy {
+export class ConfirmModalComponent implements OnInit {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   message: String;
 
+  id: string;
+  pageUrl: string;
+
   constructor(public bsModalRef: BsModalRef,
-    private teachersService: TeachersService,
-    private router: Router) { }
+    private router: Router,
+    private teachersService: TeachersService) { }
 
   ngOnInit() {
-
   }
 
   confirm(): void {
-
     this.teachersService.deleteTeacher(this.teachersService.id).pipe(takeUntil(this.destroy$)).subscribe(
       suc => {
-        this.message = "Successfully deleted";
+        this.message = 'Successfully deleted';
         setTimeout(() => {
           this.bsModalRef.hide();
-          this.router.navigate(['teachers']);
+          this.router.navigate([`teachers`]);
         }, 1500);
       },
       err => {
-        this.message = "Error on delete !!!";
+        this.message = 'Error on delete !!!';
       }
     );
+
   }
 
   decline(): void {
