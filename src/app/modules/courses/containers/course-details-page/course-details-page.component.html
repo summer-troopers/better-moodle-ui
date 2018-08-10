@@ -1,3 +1,16 @@
-<p>
-  course-details-page works!
-</p>
+<div *ngIf="course" class="container">
+  <form class="list-group">
+    <li class="list-group-item">
+      <label for="name" class="font-weight-bold">Name</label>
+      <input
+        id="name"
+        name="name"
+        type="text"
+        value="{{course.name}}"
+        [attr.readOnly]="true"
+        class="input-group-text">
+    </li>
+  </form>
+  <button type="button" (click)="openEditModal()" class="btn btn-success mt-2 mb-2 mr-2">Edit</button>
+  <button type="button" (click)="openDeleteModal()" class="btn btn-danger mt-2 mb-2 mr-2">Delete</button>
+</div>

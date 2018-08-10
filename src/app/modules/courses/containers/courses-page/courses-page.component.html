@@ -1,3 +1,48 @@
-<p>
-  courses-page works!
-</p>
+<div class="container">
+  <div *ngIf="courses && courses.length > 0; else noCourses">
+    <div class="pageTitle">
+      <h1>
+        List of all courses
+        <button
+          type="button"
+          class="btn btn-primary pull-right"
+          (click)="openModal()"
+        >
+          Add new course
+        </button>
+      </h1>
+    </div>
+    <div *ngFor="let course of courses">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item list-group-item-dark">
+          <a routerLink="{{ course.id }}" class="list-group-item list-group-item-action">
+            {{ course.name }}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="pagination-container">
+    <pagination class="d-flex justify-content-center"
+                [totalItems]="totalItems"
+                [maxSize]="5"
+                [(ngModel)]="currentPage"
+                (pageChanged)="pageChanged($event)"></pagination>
+  </div>
+
+  <ng-template #noCourses>
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title pull-left">No courses</h4>
+        <button type="button"
+                class="close pull-right align-content-center"
+                aria-label="Close"
+                (click)="openModal()">
+          <span aria-hidden="true">+</span>
+        </button>
+      </div>
+    </div>
+  </ng-template>
+
+</div>
