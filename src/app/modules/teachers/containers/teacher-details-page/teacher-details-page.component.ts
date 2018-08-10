@@ -5,10 +5,10 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { TeachersService } from '@modules/teachers/teachers.service';
+import { CrudService } from '@shared/services/crud/crud.service';
 import { Teacher } from '@shared/models/teacher';
 import { EditTeacherModalComponent } from '@teacherModals/edit-teacher-modal/edit-teacher-modal.component';
-import { DeleteTeacherModalComponent } from '@teacherModals/delete-teacher-modal/delete-teacher-modal.component';
+import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-teacher-details-page',
@@ -19,20 +19,22 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  modalEditRef: BsModalRef;
+  modal: BsModalRef;
 
-  id: number;
+  id: string;
   teacher: Teacher;
 
+  pageUrl: string = 'teachers';
+
   constructor(private route: ActivatedRoute,
-    private teachersService: TeachersService,
+    private crudService: CrudService,
     private modalService: BsModalService) { }
 
   ngOnInit() {
+
     this.route.params.pipe(takeUntil(this.destroy$)).subscribe(params => {
-      this.id = +params['id'];
-      this.teachersService.id = this.id;
-      this.teachersService.getTeacher(this.id).pipe(takeUntil(this.destroy$)).subscribe((data) => {
+      this.id = params['id'];
+      this.crudService.getItem(this.id, this.pageUrl).pipe(takeUntil(this.destroy$)).subscribe((data) => {
         this.teacher = data;
       })
     });
@@ -42,11 +44,18 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
     const initialState: any = {
       teacher: this.teacher
     };
-    this.modalEditRef = this.modalService.show(EditTeacherModalComponent, { initialState });
+
+    this.modal = this.modalService.show(EditTeacherModalComponent, { initialState });
   }
 
   openDeleteModal() {
-    this.modalEditRef = this.modalService.show(DeleteTeacherModalComponent);
+    const initialState = {
+      service: this.crudService,
+      id: this.id,
+      pageUrl: this.pageUrl
+    };
+
+    this.modal = this.modalService.show(ConfirmModalComponent, { initialState });
   }
 
   ngOnDestroy() {

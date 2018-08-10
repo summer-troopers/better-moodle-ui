@@ -1,6 +1,6 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TeachersPageComponent, TeacherDetailsPageComponent } from './containers/index';
+import { TeachersPageComponent, TeacherDetailsPageComponent } from './containers';
 
 const routes: Routes = [
   {

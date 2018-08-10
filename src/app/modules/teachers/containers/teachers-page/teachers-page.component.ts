@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { TeachersService } from '@teacherService/teachers.service';
+import { CrudService } from '@shared/services/crud/crud.service';
 import { Teacher } from '@shared/models/teacher';
 import { AddTeacherModalComponent } from '@teacherModals/add-teacher-modal/add-teacher-modal.component';
 
@@ -27,7 +27,9 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
   currentPage: number = 1;
   pageParam: number;
 
-  constructor(private teacherService: TeachersService,
+  pageUrl: string = 'teachers';
+
+  constructor(private crudService: CrudService,
     private modalService: BsModalService,
     private route: ActivatedRoute,
     private router: Router) { }
@@ -45,9 +47,9 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
         this.setPage(1);
       }
     });
-    this.teacherService.getTeachers(this.offset, this.limit).pipe(takeUntil(this.destroy$))
+    this.crudService.getItems(this.offset, this.limit, this.pageUrl).pipe(takeUntil(this.destroy$))
       .subscribe(teachers => this.teachers = teachers);
-    this.teacherService.getNumberOfTeachers().pipe(takeUntil(this.destroy$))
+    this.crudService.getNumberOfItems(this.pageUrl).pipe(takeUntil(this.destroy$))
       .subscribe(teachers => this.totalItems = teachers);
   }
 
@@ -67,7 +69,7 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
   pageChanged(event: any) {
     this.currentPage = event.page;
     this.offset = this.limit * (event.page - 1);
-    this.teacherService.getTeachers(this.offset, this.limit)
+    this.crudService.getItems(this.offset, this.limit, this.pageUrl)
       .pipe(takeUntil(this.destroy$))
       .subscribe(teachers => this.teachers = teachers);
     this.router.navigate(['teachers'], { queryParams: { page: event.page } });
