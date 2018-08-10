@@ -23,7 +23,6 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
 
   id: number;
   teacher: Teacher;
-  pageUrl: string = 'teachers';
 
   constructor(private route: ActivatedRoute,
     private teachersService: TeachersService,
