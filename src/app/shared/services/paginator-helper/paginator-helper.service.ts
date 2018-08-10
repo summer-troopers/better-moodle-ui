@@ -1,29 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-
+import { PaginationParams } from '@shared/models/pagination-params';
 @Injectable({
   providedIn: 'root'
 })
 export class PaginatorHelperService {
-  offset = 0;
-  limit = 10;
-
   constructor() { }
 
-  getPaginationParams(totalItems, selectedPage): Observable<any> {
-    return new Observable<any>((observer) => {
-      if (totalItems - (this.limit * selectedPage) < 0) {
-        this.limit = -(totalItems - (this.limit * selectedPage));
-        this.offset = 0;
-      } else {
-        this.limit = 10;
-        this.offset = totalItems - (this.limit * selectedPage);
-      }
-      observer.next([this.limit, this.offset]);
-      observer.complete();
-      return {
-        unsubscribe() { }
-      };
-    });
+  getPaginationParams(totalItems: number, selectedPage: number) {
+    let offset = 0;
+    let limit = 10;
+    if (totalItems - (limit * selectedPage) < 0) {
+      limit = -(totalItems - (limit * selectedPage));
+      offset = 0;
+    } else {
+      limit = 10;
+      offset = totalItems - (limit * selectedPage);
+    }
+    return new PaginationParams(limit, offset);
   }
 }
