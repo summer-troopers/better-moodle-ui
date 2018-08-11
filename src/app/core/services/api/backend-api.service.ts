@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
 
-import { LocalStorageService } from '@shared/services/local-storage.service';
+import { LocalStorageService } from '@shared/services/local-storage/local-storage.service';
 import { TOKEN_STORAGE_KEY } from '@shared/constants';
 
 @Injectable({
