@@ -5,12 +5,10 @@ import { Injectable } from '@angular/core';
 })
 export class UserService {
 
-
   constructor() {
   }
 
   getUserLocalStorage(key: string) {
     return localStorage.getItem(key);
-
   }
 }

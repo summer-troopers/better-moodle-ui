@@ -8,8 +8,7 @@ import { TeachersService } from '@teacherService/teachers.service';
 
 @Component({
   selector: 'app-add-teacher-modal',
-  templateUrl: './add-teacher-modal.component.html',
-  styleUrls: ['./add-teacher-modal.component.scss']
+  templateUrl: './add-teacher-modal.component.html'
 })
 export class AddTeacherModalComponent implements OnInit, OnDestroy {
 
@@ -51,7 +50,7 @@ export class AddTeacherModalComponent implements OnInit, OnDestroy {
       suc => {
       },
       err => {
-        this.message = "Error on adding a new user !!!";
+        this.message = 'Error on adding a new user !!!';
       }
     );
   }

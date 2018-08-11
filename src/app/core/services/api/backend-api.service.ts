@@ -14,7 +14,7 @@ export class BackendApiService {
   protected URL: string = environment.apiUrl;
 
   constructor(private http: HttpClient,
-              private localStorageServices: LocalStorageService) {
+    private localStorageServices: LocalStorageService) {
   }
 
   getHeaders(token) {

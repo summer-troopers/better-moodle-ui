@@ -1,27 +1,52 @@
 <app-local-alert [alerts]="alert"></app-local-alert>
-<form class="form-signin text-center" [formGroup]="loginForm" (submit)="onSubmit()">
+<form class="form-signin text-center"
+      [formGroup]="loginForm"
+      (submit)="onSubmit()">
   <div class="form-group">
-    <img class="mb-4" src="../../../../../assets/images/bootstrap-solid.svg" alt="login" width="72" height="72">
+    <img class="mb-4"
+         src="../../../../../assets/images/bootstrap-solid.svg"
+         alt="login"
+         width="72"
+         height="72">
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="email" class="sr-only">Email address</label>
-    <input type="email" id="email" class="form-control" placeholder="Email address" formControlName="email"
+    <label for="email"
+           class="sr-only">Email address</label>
+    <input type="email"
+           id="email"
+           class="form-control"
+           placeholder="Email address"
+           formControlName="email"
            [ngClass]="{ 'is-invalid': isSubmitted && emailErrors || isRequestError }"
-           required autofocus>
-    <div *ngIf="emailErrors && isSubmitted" class="invalid-feedback">
-      <div *ngIf="emailErrors.required" class="text-danger">Email is required</div>
-      <div *ngIf="emailErrors.email" class="text-danger">Email must be a valid email address</div>
+           required
+           autofocus>
+    <div *ngIf="emailErrors && isSubmitted"
+         class="invalid-feedback">
+      <div *ngIf="emailErrors.required"
+           class="text-danger">Email is required</div>
+      <div *ngIf="emailErrors.email"
+           class="text-danger">Email must be a valid email address</div>
     </div>
   </div>
   <div class="form-group">
-    <label for="password" class="sr-only">Password</label>
-    <input type="password" id="password" class="form-control" placeholder="Password" formControlName="password"
+    <label for="password"
+           class="sr-only">Password</label>
+    <input type="password"
+           id="password"
+           class="form-control"
+           placeholder="Password"
+           formControlName="password"
            [ngClass]="{ 'is-invalid': isSubmitted && passwordErrors || isRequestError }"
            required>
-    <div *ngIf="passwordErrors && isSubmitted" class="invalid-feedback">
-      <div *ngIf="passwordErrors.required" class="text-danger">Password is required</div>
-      <div *ngIf="passwordErrors.minlength" class="text-danger">Password must be at least 6 characters long</div>
+    <div *ngIf="passwordErrors && isSubmitted"
+         class="invalid-feedback">
+      <div *ngIf="passwordErrors.required"
+           class="text-danger">Password is required</div>
+      <div *ngIf="passwordErrors.minlength"
+           class="text-danger">Password must be at least 6 characters long</div>
     </div>
   </div>
-  <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="loginForm.invalid">Sign in</button>
+  <button class="btn btn-lg btn-primary btn-block"
+          type="submit"
+          [disabled]="loginForm.invalid">Sign in</button>
   <p class="mt-5 mb-3 text-muted">&copy; 2018</p>
 </form>

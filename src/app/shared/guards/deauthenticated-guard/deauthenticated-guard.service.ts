@@ -8,7 +8,8 @@ import { AuthenticationService } from '@modules/authentication/authentication.se
 })
 export class DeauthenticatedGuardService implements CanActivate {
 
-  constructor(private authenticationService: AuthenticationService, private router: Router) {
+  constructor(private authenticationService: AuthenticationService,
+    private router: Router) {
   }
 
   canActivate(): boolean {

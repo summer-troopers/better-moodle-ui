@@ -45,7 +45,7 @@ export class AlertService {
 
   alert(type: AlertType, message: string, keepAfterRouteChange = false) {
     this.keepAfterRouteChange = keepAfterRouteChange;
-    this.subject.next(<Alert>{type: type, message: message});
+    this.subject.next(<Alert>{ type: type, message: message });
   }
 
   clear() {

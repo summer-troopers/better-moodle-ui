@@ -25,7 +25,7 @@ export class User {
       case UserType.Student:
         this.userRole = UserType.Student;
         break;
-      case  UserType.Teacher:
+      case UserType.Teacher:
         this.userRole = UserType.Teacher;
         break;
     }

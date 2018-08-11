@@ -63,7 +63,7 @@ export class LoginPageComponent implements OnInit {
     }, error => {
       this.isRequestError = true;
       console.log(error);
-      this.alert.push({type: AlertType.Error, message: 'Email or password incorrect!'});
+      this.alert.push({ type: AlertType.Error, message: 'Email or password incorrect!' });
     });
   }
 }

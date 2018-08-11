@@ -13,7 +13,7 @@ export class TeachersService {
   id: number;
 
   constructor(private http: HttpClient,
-              private api: BackendApiService) {
+    private api: BackendApiService) {
   }
 
   getNumberOfTeachers() {
