@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { Spinkit } from 'ng-http-loader';
 
 @Component({
@@ -7,12 +7,10 @@ import { Spinkit } from 'ng-http-loader';
   styleUrls: ['./app.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
   public spinkit = Spinkit;
 
   constructor() { }
 
-  ngOnInit() {
-  }
 }
