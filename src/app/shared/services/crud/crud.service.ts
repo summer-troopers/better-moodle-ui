@@ -15,26 +15,26 @@ export class CrudService {
       .pipe(map(result => result.total));
   }
 
-  getItems(offset: number, limit: number, pageUrl: string): Observable<Array<any>> {
+  getItems(pageUrl: string, offset: number, limit: number): Observable<Array<any>> {
     return this.api.get(`${pageUrl}?offset=${offset}&limit=${limit}`)
       .pipe(map(result => result.data));
   }
 
-  getItem(id: string, pageUrl: string): Observable<any> {
+  getItem(pageUrl: string, id: string): Observable<any> {
     return this.api.get(`${pageUrl}/${id}`);
   }
 
-  deleteItem(id: string, pageUrl: string): Observable<any> {
+  deleteItem(pageUrl: string, id: string): Observable<any> {
     return this.api.delete(`${pageUrl}/${id}`)
       .pipe(first());
   }
 
-  addItem(form: any, pageUrl: string): Observable<any> {
+  addItem(pageUrl: string, form: any): Observable<any> {
     return this.api.post(`${pageUrl}`, form)
       .pipe(map(result => result));
   }
 
-  editItem(form: any, pageUrl: string): Observable<any> {
+  editItem(pageUrl: string, form: any): Observable<any> {
     return this.api.put(`${pageUrl}/${form.id}`, form)
       .pipe(first());
   }
