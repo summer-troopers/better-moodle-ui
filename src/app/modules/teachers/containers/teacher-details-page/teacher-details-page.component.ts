@@ -46,7 +46,7 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
 
   openDeleteModal() {
     this.modal = this.modalService.show(ConfirmModalComponent);
-    this.modal.content.deleted.pipe(takeUntil(this.destroy$)).subscribe(
+    this.modal.content.onConfirm.pipe(takeUntil(this.destroy$)).subscribe(
       () => this.teachersService.deleteTeacher(this.id)
         .pipe(takeUntil(this.destroy$))
         .subscribe()
