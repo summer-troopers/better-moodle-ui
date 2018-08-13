@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Subject } from 'rxjs';
@@ -9,6 +9,7 @@ import { Teacher } from '@shared/models/teacher';
 import { EditTeacherModalComponent } from '@teacherModals/edit-teacher-modal/edit-teacher-modal.component';
 import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
 import { CrudService } from '@shared/services/crud/crud.service';
+import { TEACHERS_URL } from '@shared/constants/index';
 
 @Component({
   selector: 'app-teacher-details-page',
@@ -24,18 +25,19 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
   teacher: Teacher;
   message: string;
 
-  pageUrl: string = 'teachers';
-
   constructor(private route: ActivatedRoute,
     private crudService: CrudService,
-    private modalService: BsModalService) { }
+    private modalService: BsModalService,
+    private router: Router) { }
 
   ngOnInit() {
     this.route.params.pipe(takeUntil(this.destroy$)).subscribe(params => {
       this.id = params['id'];
-      this.crudService.getItem(this.pageUrl, this.id).pipe(takeUntil(this.destroy$)).subscribe((data) => {
-        this.teacher = data;
-      });
+      this.crudService.getItem(TEACHERS_URL, this.id)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((data) => {
+          this.teacher = data;
+        });
     });
   }
 
@@ -49,9 +51,10 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
   openDeleteModal() {
     this.modal = this.modalService.show(ConfirmModalComponent);
     this.modal.content.onConfirm.pipe(takeUntil(this.destroy$)).subscribe(
-      () => this.crudService.deleteItem(this.pageUrl, this.id)
+      () => this.crudService.deleteItem(TEACHERS_URL, this.id)
         .pipe(takeUntil(this.destroy$))
-        .subscribe()
+        .subscribe(),
+      this.router.navigate([TEACHERS_URL])
     );
   }
 

@@ -8,6 +8,7 @@ import { throwError } from 'rxjs';
 
 import { CrudService } from '@shared/services/crud/crud.service';
 import { Alert, AlertType } from '@shared/models/alert';
+import { TEACHERS_URL } from '@shared/constants/index';
 @Component({
   selector: 'app-add-teacher-modal',
   templateUrl: './add-teacher-modal.component.html'
@@ -20,8 +21,6 @@ export class AddTeacherModalComponent implements OnInit, OnDestroy {
   userForm: FormGroup;
   alerts: Alert[] = [];
   isSubmitted = false;
-
-  pageUrl: string = 'teachers';
 
   constructor(private formBuilder: FormBuilder,
     private crudService: CrudService,
@@ -70,7 +69,7 @@ export class AddTeacherModalComponent implements OnInit, OnDestroy {
 
     const formParam = this.userForm.value;
 
-    this.crudService.addItem(this.pageUrl, formParam)
+    this.crudService.addItem(TEACHERS_URL, formParam)
       .pipe(
         takeUntil(this.destroy$),
         catchError((error) => {
