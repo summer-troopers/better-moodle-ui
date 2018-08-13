@@ -79,7 +79,7 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
 
   openDeleteModal() {
     const initialState: any = {
-      studentId: this.student.id
+      studentId: this.id
     };
     this.modalRef = this.modalService.show(DeleteStudentModalComponent, { initialState });
   }
