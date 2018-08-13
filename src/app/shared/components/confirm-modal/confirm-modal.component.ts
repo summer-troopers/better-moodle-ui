@@ -1,20 +1,18 @@
 import { Component, EventEmitter } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-confirm-modal',
   templateUrl: './confirm-modal.component.html'
 })
 export class ConfirmModalComponent {
-  deleted: EventEmitter<any> = new EventEmitter<any>();
+  onConfirm: EventEmitter<any> = new EventEmitter<any>();
   message: string;
 
-  constructor(public bsModalRef: BsModalRef,
-    private router: Router) { }
+  constructor(public bsModalRef: BsModalRef) { }
 
   confirm() {
-    this.deleted.emit();
+    this.onConfirm.emit();
   }
 
   decline(): void {
