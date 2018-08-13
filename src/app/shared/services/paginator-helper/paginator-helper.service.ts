@@ -40,4 +40,11 @@ export class PaginatorHelperService {
       return 1;
     }
   }
+
+  getOffset(total: number, defaultItems: number) {
+    let totalItems = total;
+    let defaultItemsNumber = defaultItems;
+
+    return totalItems - defaultItemsNumber;
+  }
 }

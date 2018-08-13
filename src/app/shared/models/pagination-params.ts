@@ -6,4 +6,5 @@ export class PaginationParams {
     this.limit = limit;
     this.offset = offset;
   }
+
 }

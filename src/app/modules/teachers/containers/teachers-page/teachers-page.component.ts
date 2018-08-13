@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subject, throwError } from 'rxjs';
+import { Subject, throwError } from 'rxjs';
 import { takeUntil, mergeMap, catchError } from 'rxjs/operators';
 
 import { Teacher } from '@shared/models/teacher';
@@ -64,7 +64,7 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
       .pipe(
         mergeMap((teachersNumber) => {
           this.totalItems = +teachersNumber;
-          this.paginationParams.offset = this.totalItems - this.defaultItemsNumber;
+          this.paginationParams.offset = this.paginatorHelperService.getOffset(this.totalItems, this.defaultItemsNumber);
 
           return this.crudService.getItems(TEACHERS_URL, this.paginationParams.offset, this.paginationParams.limit)
             .pipe(takeUntil(this.destroy$));
@@ -72,7 +72,7 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
         catchError((error) => {
           this.alerts.push({ type: AlertType.Error, message: error });
 
-          return Observable.throw(error);
+          return throwError(error);
         })
       )
       .subscribe((teachers) => {
