@@ -34,7 +34,7 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
       this.studentsService.getStudent(this.id)
         .pipe(mergeMap((student: Student) => {
           this.student = student;
-          return this.studentsService.getStudentsGroup(student.idGroup)
+          return this.studentsService.getStudentsGroup(student.groupId)
             .pipe(takeUntil(this.destroy$));
         }))
         .catch(error => {
@@ -59,7 +59,7 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
     this.modalRef.content.event
       .pipe(mergeMap((updatedStudentData: Student) => {
         this.student = updatedStudentData;
-        return this.studentsService.getStudentsGroup(updatedStudentData.idGroup)
+        return this.studentsService.getStudentsGroup(updatedStudentData.groupId)
           .pipe(takeUntil(this.destroy$));
       }))
       .catch(error => {

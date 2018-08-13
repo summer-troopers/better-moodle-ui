@@ -1,10 +1,10 @@
 import { User } from '@shared/models/user';
 
 export class Student extends User {
-  idGroup: number;
+  groupId: number;
 
   constructor(student: any) {
     super(student);
-    this.idGroup = student.idGroup;
+    this.groupId = student.groupId;
   }
 }

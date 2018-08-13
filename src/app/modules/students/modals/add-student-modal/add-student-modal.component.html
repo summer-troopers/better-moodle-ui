@@ -59,17 +59,17 @@
       </div>
 
       <div class="form-group">
-        <label for="idGroup">Group ID</label>
-        <input formControlName="idGroup"
+        <label for="groupId">Group ID</label>
+        <input formControlName="groupId"
                type="number"
                class="form-control"
-               [ngClass]="{ 'is-invalid': isSubmitted && idGroup.errors }"
-               id="idGroup"
+               [ngClass]="{ 'is-invalid': isSubmitted && groupId.errors }"
+               id="groupId"
                autocomplete="on"
-               placeholder="Select idGroup">
-        <div *ngIf="isSubmitted && idGroup.errors"
+               placeholder="Select groupId">
+        <div *ngIf="isSubmitted && groupId.errors"
              class="invalid-feedback">
-          <div *ngIf="idGroup.errors.required">Group ID is required</div>
+          <div *ngIf="groupId.errors.required">Group ID is required</div>
         </div>
       </div>
 

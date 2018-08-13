@@ -67,17 +67,17 @@
       </div>
 
       <div class="form-group">
-        <label for="idGroup">Group ID</label>
+        <label for="groupId">Group ID</label>
         <input type="number"
-               id="idGroup"
-               value="{{student.idGroup}}"
+               id="groupId"
+               value="{{student.groupId}}"
                class="form-control"
                placeholder="1"
-               formControlName="idGroup"
-               [ngClass]="{ 'is-invalid': isSubmitted && idGroup.errors }">
-        <div *ngIf="isSubmitted && idGroup.errors"
+               formControlName="groupId"
+               [ngClass]="{ 'is-invalid': isSubmitted && groupId.errors }">
+        <div *ngIf="isSubmitted && groupId.errors"
              class="invalid-feedback">
-          <div *ngIf="idGroup.errors.required">Group ID is required</div>
+          <div *ngIf="groupId.errors.required">Group ID is required</div>
         </div>
       </div>
 

@@ -38,7 +38,7 @@ export class AddStudentModalComponent implements OnInit, OnDestroy {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       phoneNumber: ['', Validators.required],
-      idGroup: [, Validators.required]
+      groupId: [, Validators.required]
     });
   }
 
@@ -62,8 +62,8 @@ export class AddStudentModalComponent implements OnInit, OnDestroy {
     return this.studentForm.controls.phoneNumber;
   }
 
-  get idGroup() {
-    return this.studentForm.controls.idGroup;
+  get groupId() {
+    return this.studentForm.controls.groupId;
   }
 
   onSubmit() {
