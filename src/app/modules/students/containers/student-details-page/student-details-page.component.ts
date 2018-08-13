@@ -43,9 +43,15 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
           mergeMap((student: Student) => {
             this.student = student;
             return this.studentsService.getStudentsGroup(student.groupId)
-              .pipe(takeUntil(this.destroy$));
+              .pipe(
+                takeUntil(this.destroy$),
+                catchError(error => {
+                  this.alerts.push({ type: AlertType.Error, message: error });
+                  return Observable.throw(error);
+                })
+              );
           }),
-          catchError((error) => {
+          catchError(error => {
             this.alerts.push({ type: AlertType.Error, message: error });
             return Observable.throw(error);
           })
@@ -84,16 +90,17 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
     this.modalRef = this.modalService.show(ConfirmModalComponent);
     this.modalRef.content.onConfirm.pipe(takeUntil(this.destroy$)).subscribe(
       () => this.studentsService.deleteStudent(this.id)
-        .pipe(takeUntil(this.destroy$))
-        .catch(error => {
-          this.alerts.push({ type: AlertType.Error, message: error });
-          return Observable.throw(error);
-        })
+        .pipe(
+          takeUntil(this.destroy$),
+          catchError(error => {
+            this.alerts.push({ type: AlertType.Error, message: error });
+            return Observable.throw(error);
+          })
+        )
         .subscribe(() => {
           this.modalRef.hide();
           this.router.navigate(['students'])
         })
     );
   }
-
 }
