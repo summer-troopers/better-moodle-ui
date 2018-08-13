@@ -31,7 +31,6 @@ export class EditStudentModalComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.studentForm = new FormGroup({
-      id: new FormControl(this.student.id),
       firstName: new FormControl(this.student.firstName, Validators.required),
       lastName: new FormControl(this.student.lastName, Validators.required),
       email: new FormControl(this.student.email, [Validators.required, Validators.email]),
@@ -41,27 +40,23 @@ export class EditStudentModalComponent implements OnInit, OnDestroy {
   }
 
   get firstName() {
-    return this.studentForm.controls['firstName'].errors;
+    return this.studentForm.controls.firstName;
   }
 
   get lastName() {
-    return this.studentForm.controls['lastName'].errors;
+    return this.studentForm.controls.lastName;
   }
 
   get email() {
-    return this.studentForm.controls['email'].errors;
-  }
-
-  get password() {
-    return this.studentForm.controls['password'].errors;
+    return this.studentForm.controls.email;
   }
 
   get phoneNumber() {
-    return this.studentForm.controls['phoneNumber'].errors;
+    return this.studentForm.controls.phoneNumber;
   }
 
   get groupId() {
-    return this.studentForm.controls['groupId'].errors;
+    return this.studentForm.controls.groupId;
   }
 
   onSubmit() {
@@ -69,6 +64,7 @@ export class EditStudentModalComponent implements OnInit, OnDestroy {
     if (this.studentForm.invalid) {
       return;
     }
+
     this.studentsService.updateStudentData(this.student.id, this.studentForm.value)
       .pipe(takeUntil(this.destroy$))
       .catch(error => {

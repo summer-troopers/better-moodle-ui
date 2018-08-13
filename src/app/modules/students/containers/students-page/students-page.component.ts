@@ -4,7 +4,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Observable, Subject } from 'rxjs';
 import { mergeMap, takeUntil } from 'rxjs/operators';
-import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/gitcatch';
 import 'rxjs/add/observable/throw';
 
 import { AddStudentModalComponent } from '@modules/students/modals/add-student-modal/add-student-modal.component';
