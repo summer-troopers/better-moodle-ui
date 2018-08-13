@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
@@ -16,6 +16,7 @@ import { Alert, AlertType } from '@shared/models/alert';
 export class EditTeacherModalComponent implements OnInit, OnDestroy {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
+  event: EventEmitter<any> = new EventEmitter();
 
   userForm: FormGroup;
   alerts: Alert[] = [];
@@ -66,16 +67,18 @@ export class EditTeacherModalComponent implements OnInit, OnDestroy {
     const formParam = this.userForm.value;
     this.crudService.editItem(TEACHERS_URL, formParam)
       .pipe(takeUntil(this.destroy$))
-      .subscribe((teacher) => {
-        this.teacher = teacher;
-        this.alerts.push({ type: AlertType.Success, message: 'Teacher is edited!' });
-      }, error => {
-        this.alerts.push({ type: AlertType.Error, message: error });
+      .subscribe(() => {
+        this.event.emit(this.userForm.value);
+        this.hideConfirmationModal();
       });
   }
 
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
+  }
+
+  hideConfirmationModal(): void {
+    this.bsModalRef.hide();
   }
 }

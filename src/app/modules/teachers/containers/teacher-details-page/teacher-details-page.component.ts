@@ -47,6 +47,14 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
       teacher: this.teacher
     };
     this.modal = this.modalService.show(EditTeacherModalComponent, { initialState });
+    this.modal.content.event
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((teacher) => {
+        this.teacher = teacher;
+        this.alerts.push({ type: AlertType.Success, message: 'Teacher was edited!' });
+      }, error => {
+        this.alerts.push({ type: AlertType.Error, message: error });
+      });
   }
 
   openDeleteModal() {
