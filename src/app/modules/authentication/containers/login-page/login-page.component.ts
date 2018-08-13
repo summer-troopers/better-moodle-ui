@@ -41,7 +41,7 @@ export class LoginPageComponent implements OnInit {
   initForm() {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(3)]]
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
