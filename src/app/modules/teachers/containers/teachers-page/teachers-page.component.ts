@@ -57,11 +57,7 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
   initPage() {
     this.route.queryParams.subscribe((params) => {
       this.pageParam = +params.page;
-      if (this.pageParam) {
-        this.setPage(this.pageParam);
-      } else {
-        this.setPage(1);
-      }
+      this.paginatorHelperService.getCurrentPage(this.pageParam);
     });
   }
 

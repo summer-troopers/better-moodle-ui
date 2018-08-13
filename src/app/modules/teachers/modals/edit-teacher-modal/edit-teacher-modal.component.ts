@@ -7,6 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Teacher } from '@shared/models/teacher';
 import { CrudService } from '@shared/services/crud/crud.service';
 import { TEACHERS_URL } from '@shared/constants/index';
+import { Alert, AlertType } from '@shared/models/alert';
 
 @Component({
   selector: 'app-edit-teacher-modal',
@@ -17,6 +18,7 @@ export class EditTeacherModalComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   userForm: FormGroup;
+  alerts: Alert[] = [];
 
   isSubmitted = false;
   teacher: Teacher;
@@ -64,7 +66,12 @@ export class EditTeacherModalComponent implements OnInit, OnDestroy {
     const formParam = this.userForm.value;
     this.crudService.editItem(TEACHERS_URL, formParam)
       .pipe(takeUntil(this.destroy$))
-      .subscribe();
+      .subscribe((teacher) => {
+        this.teacher = teacher;
+        this.alerts.push({ type: AlertType.Success, message: 'Teacher is edited!' });
+      }, error => {
+        this.alerts.push({ type: AlertType.Error, message: error });
+      });
   }
 
   ngOnDestroy() {

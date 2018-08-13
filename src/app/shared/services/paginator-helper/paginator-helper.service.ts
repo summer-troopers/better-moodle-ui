@@ -31,4 +31,13 @@ export class PaginatorHelperService {
     }
     return new PaginationParams(limit, offset);
   }
+
+  getCurrentPage(pageParam: number) {
+    pageParam = +pageParam;
+    if (pageParam) {
+      return pageParam;
+    } else {
+      return 1;
+    }
+  }
 }
