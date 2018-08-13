@@ -3,8 +3,7 @@ import { Router } from '@angular/router';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Subject } from 'rxjs';
 import { Observable } from 'rxjs/Observable';
-import { takeUntil } from 'rxjs/operators';
-import 'rxjs/add/operator/catch';
+import { takeUntil, catchError } from 'rxjs/operators';
 import 'rxjs/add/observable/throw';
 
 import { StudentsService } from '@modules/students/students.service';
@@ -32,11 +31,13 @@ export class DeleteStudentModalComponent implements OnInit {
 
   confirm() {
     this.studentsService.deleteStudent(this.studentId)
-      .pipe(takeUntil(this.destroy$))
-      .catch(error => {
-        this.alerts.push({ type: AlertType.Error, message: error });
-        return Observable.throw(error);
-      })
+      .pipe(
+        takeUntil(this.destroy$),
+        catchError((error) => {
+          this.alerts.push({ type: AlertType.Error, message: error });
+          return Observable.throw(error);
+        })
+      )
       .subscribe(() => {
         this.bsModalRef.hide();
         this.router.navigate(['students']);
