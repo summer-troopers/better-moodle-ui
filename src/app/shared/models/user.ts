@@ -6,7 +6,7 @@ export class User {
   lastName: string;
   email: string;
   phoneNumber: string;
-  idGroup?: number;
+  groupId?: number;
   specialtyId?: number;
   userRole: any;
 

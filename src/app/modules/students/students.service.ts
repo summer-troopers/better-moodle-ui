@@ -39,8 +39,8 @@ export class StudentsService {
     return this.api.delete(`students/${id}`);
   }
 
-  getStudentsGroup(idGroup: number) {
-    return this.api.get(`groups/${idGroup}`)
+  getStudentsGroup(groupId: number) {
+    return this.api.get(`groups/${groupId}`)
       .pipe(map(result => result.name));
   }
 }

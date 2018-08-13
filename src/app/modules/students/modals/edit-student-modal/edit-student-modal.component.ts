@@ -36,7 +36,7 @@ export class EditStudentModalComponent implements OnInit, OnDestroy {
       lastName: new FormControl(this.student.lastName, Validators.required),
       email: new FormControl(this.student.email, [Validators.required, Validators.email]),
       phoneNumber: new FormControl(this.student.phoneNumber, Validators.required),
-      idGroup: new FormControl(this.student.idGroup, Validators.required),
+      groupId: new FormControl(this.student.groupId, Validators.required),
     });
   }
 
@@ -60,8 +60,8 @@ export class EditStudentModalComponent implements OnInit, OnDestroy {
     return this.studentForm.controls['phoneNumber'].errors;
   }
 
-  get idGroup() {
-    return this.studentForm.controls['idGroup'].errors;
+  get groupId() {
+    return this.studentForm.controls['groupId'].errors;
   }
 
   onSubmit() {
