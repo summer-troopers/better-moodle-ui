@@ -78,15 +78,8 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
   pageChanged(event: any) {
     this.currentPage = event.page;
 
-    this.paginatorHelperService.getPaginationParams(this.totalItems, this.currentPage)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(([limit, offset]) => {
-        this.limit = limit;
-        this.offset = offset;
-      }, error => {
-        this.alerts.push({type: AlertType.Error, message: error});
-        return console.error(error);
-      });
+    this.offset = this.paginatorHelperService.getPaginationParams(this.totalItems, this.currentPage).offset;
+    this.limit = this.paginatorHelperService.getPaginationParams(this.totalItems, this.currentPage).limit;
 
     this.coursesService.getCourses(this.offset, this.limit)
       .pipe(takeUntil(this.destroy$))
