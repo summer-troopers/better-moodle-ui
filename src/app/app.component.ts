@@ -9,7 +9,7 @@ import { Spinkit } from 'ng-http-loader';
 })
 export class AppComponent {
 
-  public spinkit = Spinkit;
+  spinkit = Spinkit;
 
   constructor() { }
 
