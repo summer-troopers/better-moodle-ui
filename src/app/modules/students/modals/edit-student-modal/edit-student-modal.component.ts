@@ -55,11 +55,7 @@ export class EditStudentModalComponent implements OnInit, OnDestroy {
   }
 
   get groupId() {
-<<<<<<< HEAD
     return this.studentForm.controls.groupId;
-=======
-    return this.studentForm.controls['groupId'].errors;
->>>>>>> finished integrating confirm-modal, changed idGroup to groupId
   }
 
   onSubmit() {
