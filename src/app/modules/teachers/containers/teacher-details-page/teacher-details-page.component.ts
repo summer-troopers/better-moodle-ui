@@ -10,7 +10,7 @@ import { EditTeacherModalComponent } from '@teacherModals/edit-teacher-modal/edi
 import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
 import { CrudService } from '@shared/services/crud/crud.service';
 import { Alert, AlertType } from '@shared/models/alert';
-import { TEACHERS_URL } from '@shared/constants/index';
+import { TEACHERS_URL } from '@shared/constants';
 
 @Component({
   selector: 'app-teacher-details-page',

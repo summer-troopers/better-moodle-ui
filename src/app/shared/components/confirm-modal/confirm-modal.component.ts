@@ -7,7 +7,9 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 })
 export class ConfirmModalComponent {
   onConfirm: EventEmitter<any> = new EventEmitter<any>();
+
   message: string;
+
   constructor(public bsModalRef: BsModalRef) { }
 
   confirm() {
