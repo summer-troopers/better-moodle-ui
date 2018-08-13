@@ -3,8 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Observable, Subject } from 'rxjs';
-import { mergeMap, takeUntil } from 'rxjs/operators';
-import 'rxjs/add/operator/catch';
+import { mergeMap, takeUntil, catchError } from 'rxjs/operators';
 import 'rxjs/add/observable/throw';
 
 import { AddStudentModalComponent } from '@modules/students/modals/add-student-modal/add-student-modal.component';
@@ -62,12 +61,12 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
           this.totalItems = +studentsNumber;
           this.paginationParams.offset = this.totalItems - this.defaultItemsNumber;
           return this.studentsService.getStudents(this.paginationParams.offset, this.paginationParams.limit).pipe(takeUntil(this.destroy$));
+        }),
+        catchError((error) => {
+          this.alerts.push({ type: AlertType.Error, message: error });
+          return Observable.throw(error);
         })
       )
-      .catch(error => {
-        this.alerts.push({ type: AlertType.Error, message: error });
-        return Observable.throw(error);
-      })
       .subscribe((students) => {
         this.students = students;
         this.students.reverse();
@@ -98,11 +97,13 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
     this.paginationParams = this.paginatorHelper.getPaginationParams(this.totalItems, this.currentPage);
 
     this.studentsService.getStudents(this.paginationParams.offset, this.paginationParams.limit)
-      .pipe(takeUntil(this.destroy$))
-      .catch(error => {
-        this.alerts.push({ type: AlertType.Error, message: error });
-        return Observable.throw(error);
-      })
+      .pipe(
+        takeUntil(this.destroy$),
+        catchError((error) => {
+          this.alerts.push({ type: AlertType.Error, message: error });
+          return Observable.throw(error);
+        })
+      )
       .subscribe((students) => {
         this.students = students;
         this.students.reverse();

@@ -2,8 +2,7 @@ import { Component, OnInit, EventEmitter, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import 'rxjs/add/operator/catch';
+import { takeUntil, catchError } from 'rxjs/operators';
 import 'rxjs/add/observable/throw';
 
 import { StudentsService } from '@modules/students/students.service';
@@ -74,11 +73,13 @@ export class AddStudentModalComponent implements OnInit, OnDestroy {
     }
 
     this.studentsService.addStudent(this.studentForm.value)
-      .pipe(takeUntil(this.destroy$))
-      .catch(error => {
-        this.alerts.push({ type: AlertType.Error, message: error });
-        return Observable.throw(error);
-      })
+      .pipe(
+        takeUntil(this.destroy$),
+        catchError((error) => {
+          this.alerts.push({ type: AlertType.Error, message: error });
+          return Observable.throw(error);
+        })
+      )
       .subscribe((newStudent) => {
         this.event.emit(newStudent);
         this.bsModalRef.hide();
