@@ -1,14 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { CoursesService } from '@modules/courses/courses.service';
 import { EditCourseModalComponent } from '@modules/courses/components';
-import { DeleteCourseModalComponent } from '@modules/courses/components/delete-course-modal/delete-course-modal.component';
 import { Alert, AlertType } from '@shared/models/alert';
 import Course from '@shared/models/course';
+import { CrudService } from '@shared/services/crud/crud.service';
+import { COURSES_URL } from '@shared/constants';
+import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-course-details-page',
@@ -17,7 +18,8 @@ import Course from '@shared/models/course';
 })
 export class CourseDetailsPageComponent implements OnInit, OnDestroy {
 
-  course: Course = {id: '', name: ''};
+  course: Course;
+  id: string;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   modalRef: BsModalRef;
@@ -25,15 +27,18 @@ export class CourseDetailsPageComponent implements OnInit, OnDestroy {
   alerts: Alert[] = [];
 
   constructor(
-    private coursesService: CoursesService,
+    private crudService: CrudService,
     private modalService: BsModalService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private router: Router) {
   }
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: ParamMap) => {
-      this.course.id = params.get('id');
-      this.coursesService.getCourse(this.course.id).pipe(takeUntil(this.destroy$)).subscribe((course: Course) => {
+      this.id = params.get('id');
+      this.crudService.getItem(COURSES_URL, this.id)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((course) => {
         this.course = course;
       });
     });
@@ -50,23 +55,32 @@ export class CourseDetailsPageComponent implements OnInit, OnDestroy {
     };
     this.modalRef = this.modalService.show(EditCourseModalComponent, {initialState});
 
-    this.modalRef.content.event.pipe(takeUntil(this.destroy$))
-      .subscribe((course) => this.course = course, error => {
+    this.modalRef.content.event
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((course) => {
+        this.course = course;
+        this.alerts.push({type: AlertType.Success, message: 'Course is edit!'});
+      }, error => {
         this.alerts.push({type: AlertType.Error, message: error});
-        return console.log(error);
       });
   }
 
   openDeleteModal() {
-    const initialState: any = {
-      course: this.course
-    };
-    this.modalRef = this.modalService.show(DeleteCourseModalComponent, {initialState});
-
-    this.modalRef.content.event.pipe(takeUntil(this.destroy$))
-      .subscribe((course) => this.course = course, error => {
-        this.alerts.push({type: AlertType.Error, message: error});
-        return console.log(error);
-      });
+    this.modalRef = this.modalService.show(ConfirmModalComponent);
+    this.modalRef.content.onConfirm
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
+        () => this.crudService.deleteItem(COURSES_URL, this.id)
+          .pipe(takeUntil(this.destroy$))
+          .subscribe(() => {
+            this.modalRef.content.message = 'Delete successfully!';
+            setTimeout(() => {
+              this.router.navigateByUrl(COURSES_URL);
+              this.modalRef.hide();
+            }, 1500);
+          }, (error) => {
+            this.modalRef.content.message = error;
+          })
+      );
   }
 }

@@ -18,8 +18,7 @@
                class="form-control"
                [ngClass]="{ 'is-invalid': submitted && fields.name.errors }"
                id="name"
-               autocomplete='name'
-               aria-describedby="nameHelp"
+               autocomplete='on'
                placeholder="Enter Group name">
         <div *ngIf="submitted && nameError" class="invalid-feedback">
           <div *ngIf="nameError.required">Group name is required</div>

@@ -4,14 +4,13 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { BsModalRef } from 'ngx-bootstrap';
 
-import { CoursesService } from '@modules/courses/courses.service';
 import Course from '@shared/models/course';
-import { Alert, AlertType } from '@shared/models/alert';
+import { CrudService } from '@shared/services/crud/crud.service';
+import { COURSES_URL } from '@shared/constants';
 
 @Component({
   selector: 'app-edit-course-modal',
   templateUrl: './edit-course-modal.component.html',
-  styleUrls: ['./edit-course-modal.component.scss']
 })
 export class EditCourseModalComponent implements OnInit, OnDestroy  {
   destroy$: Subject<boolean> = new Subject<boolean>();
@@ -22,13 +21,11 @@ export class EditCourseModalComponent implements OnInit, OnDestroy  {
 
   isSubmitted = false;
 
-  alerts: Alert[] = [];
-
   event: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private formBuilder: FormBuilder,
-    private coursesService: CoursesService,
+    private crudService: CrudService,
     private modalRef: BsModalRef
   ) { }
 
@@ -51,23 +48,16 @@ export class EditCourseModalComponent implements OnInit, OnDestroy  {
     this.isSubmitted = true;
 
     if (this.courseForm.invalid) {
-      console.error('EditCourse form is invalid');
       return;
     }
 
-    this.coursesService.updateCourse(this.courseForm.value)
+    this.crudService.editItem(COURSES_URL, this.courseForm.value)
       .pipe(takeUntil(this.destroy$))
       .subscribe(
-        (response) => {
-          console.log('Course modified!!!\nMessage: ' + response);
+        () => {
           this.event.emit(this.courseForm.value);
           this.hideConfirmationModal();
-        }, (error) => {
-          console.error('Course modification failed!!!\nMessage: ' + error);
-          this.alerts.push({type: AlertType.Error, message: error});
-          return console.error(error);
-        }
-      );
+        });
   }
 
   ngOnDestroy() {

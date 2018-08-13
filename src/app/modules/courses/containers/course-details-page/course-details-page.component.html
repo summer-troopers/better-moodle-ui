@@ -1,4 +1,5 @@
 <div *ngIf="course" class="container">
+  <app-local-alert [alerts]="alerts"></app-local-alert>
   <form class="list-group">
     <li class="list-group-item">
       <label for="name" class="font-weight-bold">Name</label>
@@ -7,7 +8,7 @@
         name="name"
         type="text"
         value="{{course.name}}"
-        [attr.readOnly]="true"
+        [readOnly]="true"
         class="input-group-text">
     </li>
   </form>

@@ -8,7 +8,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { coursesRoutes } from '@modules/courses/courses.routes';
 import { AddCourseModalComponent } from '@modules/courses/components/add-course-modal/add-course-modal.component';
 import { EditCourseModalComponent } from '@modules/courses/components/edit-course-modal/edit-course-modal.component';
-import { DeleteCourseModalComponent } from '@modules/courses/components/delete-course-modal/delete-course-modal.component';
 import { SharedModule } from '@shared/shared.module';
 import { CourseDetailsPageComponent, CoursesPageComponent } from './containers';
 
@@ -16,8 +15,7 @@ const COMPONENTS = [
   CoursesPageComponent,
   CourseDetailsPageComponent,
   AddCourseModalComponent,
-  EditCourseModalComponent,
-  DeleteCourseModalComponent];
+  EditCourseModalComponent];
 
 const MODULES = [
   CommonModule,
@@ -33,11 +31,10 @@ const MODULES = [
     ...MODULES,
     coursesRoutes,
   ],
-  exports: [PaginationModule],
+  exports: [],
   entryComponents: [
     AddCourseModalComponent,
     EditCourseModalComponent,
-    DeleteCourseModalComponent
   ],
   declarations: [
     ...COMPONENTS

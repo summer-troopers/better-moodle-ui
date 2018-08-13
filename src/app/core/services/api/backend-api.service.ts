@@ -21,7 +21,7 @@ export class BackendApiService {
     if (!token) token = '';
     return {
       headers: new HttpHeaders({
-        'token': token,
+        token,
         'Content-Type': 'application/json'
       })
     };
@@ -45,7 +45,7 @@ export class BackendApiService {
    */
   post(path: string, body: Object): Observable<any> {
     return this._request('POST', path, body,
-      this.getHeaders(this.localStorageServices.getLocalStorage(TOKEN_STORAGE_KEY || '')));
+      this.getHeaders(this.localStorageServices.getLocalStorage(TOKEN_STORAGE_KEY)));
   }
 
   /**

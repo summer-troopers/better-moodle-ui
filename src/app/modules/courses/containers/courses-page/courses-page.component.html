@@ -1,5 +1,6 @@
 <div class="container">
-  <div *ngIf="courses && courses.length > 0; else noCourses">
+  <app-local-alert [alerts]="alerts"></app-local-alert>
+  <div *ngIf="courses && courses.length; else noCourses">
     <div class="pageTitle">
       <h1>
         List of all courses
@@ -26,7 +27,7 @@
   <div class="pagination-container">
     <pagination class="d-flex justify-content-center"
                 [totalItems]="totalItems"
-                [maxSize]="5"
+                [maxSize]="maxSizePagination"
                 [(ngModel)]="currentPage"
                 (pageChanged)="pageChanged($event)"></pagination>
   </div>

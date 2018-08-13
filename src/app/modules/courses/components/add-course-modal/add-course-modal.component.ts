@@ -4,13 +4,12 @@ import { BsModalRef } from 'ngx-bootstrap';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { CoursesService } from '@modules/courses/courses.service';
-import { Alert, AlertType } from '@shared/models/alert';
+import { CrudService } from '@shared/services/crud/crud.service';
+import { COURSES_URL } from '@shared/constants';
 
 @Component({
   selector: 'app-add-course-modal',
   templateUrl: './add-course-modal.component.html',
-  styleUrls: ['./add-course-modal.component.scss']
 })
 export class AddCourseModalComponent implements OnInit, OnDestroy {
 
@@ -18,14 +17,12 @@ export class AddCourseModalComponent implements OnInit, OnDestroy {
 
   isSubmitted = false;
 
-  alerts: Alert[] = [];
-
   event: EventEmitter<any> = new EventEmitter();
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private formBuilder: FormBuilder,
-    private coursesService: CoursesService,
+    private crudService: CrudService,
     private modalRef: BsModalRef
   ) {
   }
@@ -52,20 +49,14 @@ export class AddCourseModalComponent implements OnInit, OnDestroy {
     this.isSubmitted = true;
 
     if (this.courseForm.invalid) {
-      console.error('AddCourse form is invalid');
       return;
     }
-    this.coursesService.addCourse(this.courseForm.value).pipe(takeUntil(this.destroy$))
+    this.crudService.addItem(COURSES_URL, this.courseForm.value).pipe(takeUntil(this.destroy$))
       .subscribe(
         (response) => {
-          console.log('Course added!!!\nMessage: ' + response);
           this.event.emit(response);
           this.closeModal();
-        }, (error) => {
-          this.alerts.push({type: AlertType.Error, message: error});
-          return console.error('Course add failed!!!\nMessage: ' + error);
-        }
-      );
+        });
   }
 
   ngOnDestroy() {

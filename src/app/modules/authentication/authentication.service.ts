@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
-import { TOKEN_STORAGE_KEY, USER_STORAGE_KEY } from '@shared/constants';
+import { AUTHENTICATION_URL, TOKEN_STORAGE_KEY, USER_STORAGE_KEY } from '@shared/constants';
 import { BackendApiService } from '@core/services/api/backend-api.service';
 import { User } from '@shared/models/user';
 import { LocalStorageService } from '@shared/services/local-storage/local-storage.service';
@@ -33,6 +33,6 @@ export class AuthenticationService {
   logOut() {
     this.localStorageService.deleteLocalStorage(USER_STORAGE_KEY);
     this.localStorageService.deleteLocalStorage(TOKEN_STORAGE_KEY);
-    this.router.navigateByUrl('auth');
+    this.router.navigateByUrl(AUTHENTICATION_URL);
   }
 }

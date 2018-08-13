@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Alert, AlertType } from '../../../models/alert';
+import { Alert, AlertType } from '@shared/models/alert';
 
 @Component({
   selector: 'app-local-alert',
