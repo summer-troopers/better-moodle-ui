@@ -23,7 +23,6 @@
                [ngClass]="{ 'is-invalid': isSubmitted && firstName.errors }"
                id="firstName"
                autocomplete='on'
-               aria-describedby="nameHelp"
                placeholder="Enter First Name">
         <div *ngIf="isSubmitted && firstName.errors"
              class="invalid-feedback">
@@ -39,7 +38,6 @@
                [ngClass]="{ 'is-invalid': isSubmitted && lastName.errors }"
                id="lastName"
                autocomplete='on'
-               aria-describedby="nameHelp"
                placeholder="Enter Last Name">
         <div *ngIf="isSubmitted && lastName.errors"
              class="invalid-feedback">
@@ -53,7 +51,6 @@
                class="form-control"
                id="email"
                autocomplete='on'
-               aria-describedby="emailHelp"
                placeholder="Enter email"
                formControlName="email"
                [ngClass]="{ 'is-invalid': isSubmitted && email.errors }">
@@ -72,7 +69,6 @@
                [ngClass]="{ 'is-invalid': isSubmitted && phoneNumber.errors }"
                id="phoneNumber"
                autocomplete='on'
-               aria-describedby="nameHelp"
                placeholder="123-456-7890"
                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
         <div *ngIf="isSubmitted && phoneNumber.errors"
@@ -89,7 +85,6 @@
                [ngClass]="{ 'is-invalid': isSubmitted && password.errors }"
                id="password"
                autocomplete='on'
-               aria-describedby="nameHelp"
                placeholder="Enter a password">
         <div *ngIf="isSubmitted && password.errors"
              class="invalid-feedback">
