@@ -18,7 +18,9 @@ export class BackendApiService {
   }
 
   getHeaders(token) {
-    if (!token) token = '';
+    if (!token) {
+      token = '';
+    }
     return {
       headers: new HttpHeaders({
         token,
