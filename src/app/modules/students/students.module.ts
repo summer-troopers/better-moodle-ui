@@ -17,6 +17,7 @@ const COMPONENTS = [
   EditStudentModalComponent,
   DeleteStudentModalComponent,
 ];
+
 @NgModule({
   imports: [
     CommonModule,

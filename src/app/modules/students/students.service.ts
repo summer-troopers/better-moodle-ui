@@ -9,10 +9,9 @@ import { Student } from '@shared/models/student';
   providedIn: 'root'
 })
 export class StudentsService {
-  id: number;
   constructor(private api: BackendApiService) { }
 
-  getNumberOfStudents() {
+  getNumberOfStudents(): Observable<any> {
     return this.api.get(`students`)
       .pipe(map(result => result.total));
   }
@@ -33,13 +32,11 @@ export class StudentsService {
   }
 
   updateStudentData(id: number, editedStudent) {
-    return this.api.put(`students/${id}`, editedStudent)
-      .pipe(map(result => console.log(result)));
+    return this.api.put(`students/${id}`, editedStudent);
   }
 
   deleteStudent(id: number) {
-    return this.api.delete(`students/${id}`)
-      .pipe(map(result => result));
+    return this.api.delete(`students/${id}`);
   }
 
   getStudentsGroup(idGroup: number) {

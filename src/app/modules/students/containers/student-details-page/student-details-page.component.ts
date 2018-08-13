@@ -36,7 +36,6 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = +params['id'];
-      this.studentsService.id = this.id;
       this.studentsService.getStudent(this.id)
         .pipe(mergeMap((student: Student) => {
           this.student = student;
@@ -72,11 +71,14 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
         this.alerts.push({ type: AlertType.Error, message: error });
         return Observable.throw(error);
       })
-      .subscribe((groupName) => this.groupName = groupName);
+      .subscribe(groupName => this.groupName = groupName);
   }
 
   openDeleteModal() {
-    this.modalRef = this.modalService.show(DeleteStudentModalComponent);
+    const initialState: any = {
+      studentId: this.student.id
+    };
+    this.modalRef = this.modalService.show(DeleteStudentModalComponent, { initialState });
   }
 
 }

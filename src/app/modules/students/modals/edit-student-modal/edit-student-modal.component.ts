@@ -19,7 +19,7 @@ export class EditStudentModalComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   studentForm: FormGroup;
-  submitted = false;
+  isSubmitted = false;
   student: Student;
 
   alerts: Alert[] = [];
@@ -65,11 +65,11 @@ export class EditStudentModalComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.submitted = true;
+    this.isSubmitted = true;
     if (this.studentForm.invalid) {
       return;
     }
-    this.studentsService.updateStudentData(this.studentsService.id, this.studentForm.value)
+    this.studentsService.updateStudentData(this.student.id, this.studentForm.value)
       .pipe(takeUntil(this.destroy$))
       .catch(error => {
         this.alerts.push({ type: AlertType.Error, message: error });

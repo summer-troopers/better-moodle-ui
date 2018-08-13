@@ -11,12 +11,11 @@ import { Alert, AlertType } from '@shared/models/alert';
 
 @Component({
   selector: 'app-add-student-modal',
-  templateUrl: './add-student-modal.component.html',
-  styleUrls: ['./add-student-modal.component.scss']
+  templateUrl: './add-student-modal.component.html'
 })
 export class AddStudentModalComponent implements OnInit, OnDestroy {
   studentForm: FormGroup;
-  submitted = false;
+  isSubmitted = false;
 
   alerts: Alert[] = [];
 
@@ -29,42 +28,46 @@ export class AddStudentModalComponent implements OnInit, OnDestroy {
     public bsModalRef: BsModalRef) { }
 
   ngOnInit() {
+    this.initForm();
+  }
+
+  initForm() {
     this.studentForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       phoneNumber: ['', Validators.required],
-      idGroup: [1, Validators.required]
+      idGroup: [, Validators.required]
     });
   }
 
   get firstName() {
-    return this.studentForm.controls['firstName'].errors;
+    return this.studentForm.controls.firstName;
   }
 
   get lastName() {
-    return this.studentForm.controls['lastName'].errors;
+    return this.studentForm.controls.lastName;
   }
 
   get email() {
-    return this.studentForm.controls['email'].errors;
+    return this.studentForm.controls.email;
   }
 
   get password() {
-    return this.studentForm.controls['password'].errors;
+    return this.studentForm.controls.password;
   }
 
   get phoneNumber() {
-    return this.studentForm.controls['phoneNumber'].errors;
+    return this.studentForm.controls.phoneNumber;
   }
 
   get idGroup() {
-    return this.studentForm.controls['idGroup'].errors;
+    return this.studentForm.controls.idGroup;
   }
 
   onSubmit() {
-    this.submitted = true;
+    this.isSubmitted = true;
 
     if (this.studentForm.invalid) {
       return;

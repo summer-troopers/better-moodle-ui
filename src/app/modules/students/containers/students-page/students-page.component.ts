@@ -40,6 +40,11 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
     private paginatorHelper: PaginatorHelperService) { }
 
   ngOnInit() {
+    this.initPage();
+    this.initNumberOfStudents();
+  }
+
+  initPage() {
     this.route.queryParams.subscribe((params) => {
       this.pageParam = +params.page;
       if (this.pageParam) {
@@ -48,7 +53,9 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
         this.setPage(1)
       }
     });
+  }
 
+  initNumberOfStudents() {
     this.studentsService.getNumberOfStudents()
       .pipe(
         mergeMap((studentsNumber) => {

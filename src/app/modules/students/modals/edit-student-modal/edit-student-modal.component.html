@@ -21,7 +21,7 @@
                class="form-control"
                [ngClass]="{ 'is-invalid': isSubmitted && firstName.errors }"
                id="firstName"
-               autocomplete='on'
+               autocomplete="on"
                placeholder="Enter First Name">
         <div *ngIf="isSubmitted && firstName.errors"
              class="invalid-feedback">
@@ -37,7 +37,7 @@
                class="form-control"
                [ngClass]="{ 'is-invalid': isSubmitted && lastName.errors }"
                id="lastName"
-               autocomplete='on'
+               autocomplete="on"
                placeholder="Enter Last Name">
         <div *ngIf="isSubmitted && lastName.errors"
              class="invalid-feedback">
@@ -51,7 +51,7 @@
                value="{{student.email}}"
                class="form-control"
                id="email"
-               autocomplete='on'
+               autocomplete="on"
                placeholder="Enter email"
                formControlName="email"
                [ngClass]="{ 'is-invalid': isSubmitted && email.errors }">
@@ -85,7 +85,7 @@
                class="form-control"
                [ngClass]="{ 'is-invalid': isSubmitted && phoneNumber.errors }"
                id="phoneNumber"
-               autocomplete='on'
+               autocomplete="on"
                placeholder="123-456-7890"
                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
         <div *ngIf="isSubmitted && phoneNumber.errors"

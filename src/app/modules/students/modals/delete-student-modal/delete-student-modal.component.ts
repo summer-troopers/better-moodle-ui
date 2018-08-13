@@ -18,6 +18,8 @@ import { Alert, AlertType } from '@shared/models/alert';
 export class DeleteStudentModalComponent implements OnInit {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
+  studentId: number;
+
   alerts: Alert[] = [];
 
   constructor(public bsModalRef: BsModalRef,
@@ -29,7 +31,7 @@ export class DeleteStudentModalComponent implements OnInit {
   }
 
   confirm() {
-    this.studentsService.deleteStudent(this.studentsService.id)
+    this.studentsService.deleteStudent(this.studentId)
       .pipe(takeUntil(this.destroy$))
       .catch(error => {
         this.alerts.push({ type: AlertType.Error, message: error });
