@@ -18,5 +18,4 @@ export class ConfirmModalComponent {
   decline(): void {
     this.bsModalRef.hide();
   }
-
 }
