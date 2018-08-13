@@ -57,5 +57,4 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
-
 }

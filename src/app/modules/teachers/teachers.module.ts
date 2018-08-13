@@ -8,6 +8,7 @@ import { TeacherDetailsPageComponent, TeachersPageComponent } from '@modules/tea
 import { teacherRoutes } from './teachers.routes';
 import { AddTeacherModalComponent } from '@teacherModals/add-teacher-modal/add-teacher-modal.component';
 import { EditTeacherModalComponent } from '@teacherModals/edit-teacher-modal/edit-teacher-modal.component';
+import { SharedModule } from '@shared/shared.module';
 
 const COMPONENTS = [
   AddTeacherModalComponent,
@@ -21,6 +22,7 @@ const COMPONENTS = [
     ModalModule.forRoot(),
     PaginationModule.forRoot(),
     FormsModule,
+    SharedModule,
     ReactiveFormsModule
   ],
   entryComponents: [...COMPONENTS],

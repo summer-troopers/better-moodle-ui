@@ -20,15 +20,17 @@ export class AddTeacherModalComponent implements OnInit, OnDestroy {
 
   userForm: FormGroup;
   alerts: Alert[] = [];
-
   isSubmitted = false;
-  message: String;
 
   constructor(private formBuilder: FormBuilder,
     private teacherService: TeachersService,
     public bsModalRef: BsModalRef) { }
 
   ngOnInit() {
+    this.initForm();
+  }
+
+  initForm() {
     this.userForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -38,13 +40,29 @@ export class AddTeacherModalComponent implements OnInit, OnDestroy {
     });
   }
 
-  formErrors(inputName: string) {
-    return this.userForm.controls[inputName].errors;
+  get firstName() {
+    return this.userForm.controls.firstName;
   }
+
+  get lastName() {
+    return this.userForm.controls.lastName;
+  }
+
+  get email() {
+    return this.userForm.controls.email;
+  }
+
+  get password() {
+    return this.userForm.controls.password;
+  }
+
+  get phoneNumber() {
+    return this.userForm.controls.phoneNumber;
+  }
+
   onSubmit() {
     this.isSubmitted = true;
 
-    // stop here if form is invalid
     if (this.userForm.invalid) {
       return;
     }
@@ -52,11 +70,13 @@ export class AddTeacherModalComponent implements OnInit, OnDestroy {
     const formParam = this.userForm.value;
 
     this.teacherService.addTeacher(formParam)
-      .pipe(takeUntil(this.destroy$))
-      .catch(error => {
-        this.alerts.push({ type: AlertType.Error, message: error });
-        return Observable.throw(error);
-      })
+      .pipe(
+        takeUntil(this.destroy$),
+        catchError((error) => {
+          this.alerts.push({ type: AlertType.Error, message: error });
+          return Observable.throw(error);
+        })
+      )
       .subscribe((newTeacher) => {
         this.event.emit(newTeacher);
         this.bsModalRef.hide();
