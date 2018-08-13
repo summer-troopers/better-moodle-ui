@@ -33,10 +33,25 @@ export class EditTeacherModalComponent implements OnInit, OnDestroy {
     });
   }
 
-  formErrors(inputName: string) {
-    return this.userForm.controls[inputName].errors;
+  get firstName() {
+    return this.userForm.controls.firstName;
   }
 
+  get lastName() {
+    return this.userForm.controls.lastName;
+  }
+
+  get email() {
+    return this.userForm.controls.email;
+  }
+
+  get password() {
+    return this.userForm.controls.password;
+  }
+
+  get phoneNumber() {
+    return this.userForm.controls.phoneNumber;
+  }
   onSubmit() {
     this.isSubmitted = true;
 

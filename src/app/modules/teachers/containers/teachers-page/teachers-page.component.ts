@@ -28,6 +28,7 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
   alerts: Alert[] = [];
   defaultItemsNumber: number = 10;
   paginationParams = new PaginationParams(0, this.defaultItemsNumber);
+
   teachers: Array<Teacher> = [];
   totalItems: number;
   currentPage: number = 1;
@@ -44,22 +45,6 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.initPage();
     this.initNumberOfTeachers();
-    this.route.queryParams.pipe(takeUntil(this.destroy$)).subscribe((params) => {
-      this.pageParam = +params.page;
-      if (this.pageParam != null || this.pageParam !== NaN) {
-        if (this.pageParam > 0) {
-          this.setPage(this.pageParam);
-        } else {
-          this.setPage(1);
-        }
-      } else {
-        this.setPage(1);
-      }
-    });
-    this.crudService.getItems(this.pageUrl, this.offset, this.limit).pipe(takeUntil(this.destroy$))
-      .subscribe(teachers => this.teachers = teachers);
-    this.crudService.getNumberOfItems(this.pageUrl).pipe(takeUntil(this.destroy$))
-      .subscribe(teachers => this.totalItems = teachers);
   }
 
   openAddTeacherModal() {
@@ -82,15 +67,18 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
   }
 
   initNumberOfTeachers() {
-    this.crudService.getNumberOfTeachers()
+    this.crudService.getNumberOfItems(this.pageUrl)
       .pipe(
         mergeMap((teachersNumber) => {
           this.totalItems = +teachersNumber;
           this.paginationParams.offset = this.totalItems - this.defaultItemsNumber;
-          return this.crudService.getTeachers(this.paginationParams.offset, this.paginationParams.limit).pipe(takeUntil(this.destroy$));
+
+          return this.crudService.getItems(this.pageUrl, this.paginationParams.offset, this.paginationParams.limit)
+            .pipe(takeUntil(this.destroy$));
         }),
         catchError((error) => {
           this.alerts.push({ type: AlertType.Error, message: error });
+
           return Observable.throw(error);
         })
       )
@@ -109,10 +97,11 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
 
     this.paginationParams = this.paginatorHelperService.getPaginationParams(this.totalItems, this.currentPage);
 
-    this.crudService.getItems(this.paginationParams.offset, this.paginationParams.limit)
+    this.crudService.getItems(this.pageUrl, this.paginationParams.offset, this.paginationParams.limit)
       .pipe(takeUntil(this.destroy$))
       .catch(error => {
         this.alerts.push({ type: AlertType.Error, message: error });
+
         return Observable.throw(error);
       })
       .subscribe((teachers) => {
@@ -120,7 +109,7 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
         this.teachers.reverse();
       });
 
-    this.router.navigate(['teachers'], { queryParams: { page: event.page } });
+    this.router.navigate([`${this.pageUrl}`], { queryParams: { page: event.page } });
   }
 
   ngOnDestroy() {
