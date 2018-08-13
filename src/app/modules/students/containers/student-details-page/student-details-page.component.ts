@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
@@ -8,10 +9,11 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 
 import { StudentsService } from '@modules/students/students.service';
-import { DeleteStudentModalComponent } from '@modules/students/modals/delete-student-modal/delete-student-modal.component';
 import { EditStudentModalComponent } from '@modules/students/modals/edit-student-modal/edit-student-modal.component';
 import { Student } from '@shared/models/student';
 import { Alert, AlertType } from '@shared/models/alert';
+import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
+
 @Component({
   selector: 'app-student-details-page',
   templateUrl: './student-details-page.component.html',
@@ -30,7 +32,8 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
     private studentsService: StudentsService,
-    private modalService: BsModalService) { }
+    private modalService: BsModalService,
+    private router: Router) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -78,10 +81,19 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
   }
 
   openDeleteModal() {
-    const initialState: any = {
-      studentId: this.id
-    };
-    this.modalRef = this.modalService.show(DeleteStudentModalComponent, { initialState });
+    this.modalRef = this.modalService.show(ConfirmModalComponent);
+    this.modalRef.content.onConfirm.pipe(takeUntil(this.destroy$)).subscribe(
+      () => this.studentsService.deleteStudent(this.id)
+        .pipe(takeUntil(this.destroy$))
+        .catch(error => {
+          this.alerts.push({ type: AlertType.Error, message: error });
+          return Observable.throw(error);
+        })
+        .subscribe(() => {
+          this.modalRef.hide();
+          this.router.navigate(['students'])
+        })
+    );
   }
 
 }
