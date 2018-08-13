@@ -2,7 +2,7 @@
   <app-local-alert [alerts]="alerts"></app-local-alert>
 </div>
 <div class="container">
-  <div *ngIf="teachers.length > 0; else noTeachers">
+  <div *ngIf="teachers.length; else noTeachers">
     <div class="pageTitle">
       <h1>List of all teachers
         <button type="button"

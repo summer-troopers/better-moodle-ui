@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, throwError } from 'rxjs';
 import { takeUntil, mergeMap, catchError } from 'rxjs/operators';
 
 import { Teacher } from '@shared/models/teacher';
@@ -95,7 +95,7 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
       .catch(error => {
         this.alerts.push({ type: AlertType.Error, message: error });
 
-        return Observable.throw(error);
+        return throwError(error);
       })
       .subscribe((teachers) => {
         this.teachers = teachers;
