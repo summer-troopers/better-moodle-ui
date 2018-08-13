@@ -71,11 +71,15 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
           this.paginationParams.offset = this.totalItems - this.defaultItemsNumber;
           return this.teacherService.getTeachers(this.paginationParams.offset, this.paginationParams.limit).pipe(takeUntil(this.destroy$));
         }),
-        catchError((error: Error) => {
-          this.alerts.push({ type: AlertType.Error, message: error });
-          return Observable.throw(error);
-        })
-      )
+      // catchError((error: Error) => {
+      //   this.alerts.push({ type: AlertType.Error, message: error });
+      //   return Observable.throw(error);
+      // })
+    )
+      .catch((error) => {
+        this.alerts.push({ type: AlertType.Error, message: error });
+        return Observable.throw(error);
+      })
       .subscribe((teachers) => {
         this.teachers = teachers;
         this.teachers.reverse();
