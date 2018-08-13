@@ -6,9 +6,8 @@ import { takeUntil } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
-import { TeachersService } from '@teacherService/teachers.service';
+import { CrudService } from '@shared/services/crud/crud.service';
 import { Alert, AlertType } from '@shared/models/alert';
-
 @Component({
   selector: 'app-add-teacher-modal',
   templateUrl: './add-teacher-modal.component.html'
@@ -22,8 +21,10 @@ export class AddTeacherModalComponent implements OnInit, OnDestroy {
   alerts: Alert[] = [];
   isSubmitted = false;
 
+  pageUrl: string = 'teachers';
+
   constructor(private formBuilder: FormBuilder,
-    private teacherService: TeachersService,
+    private crudService: CrudService,
     public bsModalRef: BsModalRef) { }
 
   ngOnInit() {
@@ -69,7 +70,7 @@ export class AddTeacherModalComponent implements OnInit, OnDestroy {
 
     const formParam = this.userForm.value;
 
-    this.teacherService.addTeacher(formParam)
+    this.crudService.addItem(this.pageUrl, formParam)
       .pipe(
         takeUntil(this.destroy$),
         catchError((error) => {

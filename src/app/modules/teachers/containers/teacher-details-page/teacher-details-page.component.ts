@@ -5,10 +5,10 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { TeachersService } from '@modules/teachers/teachers.service';
 import { Teacher } from '@shared/models/teacher';
 import { EditTeacherModalComponent } from '@teacherModals/edit-teacher-modal/edit-teacher-modal.component';
 import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
+import { CrudService } from '@shared/services/crud/crud.service';
 
 @Component({
   selector: 'app-teacher-details-page',
@@ -20,18 +20,20 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
 
   modal: BsModalRef;
 
-  id: number;
+  id: string;
   teacher: Teacher;
   message: string;
 
+  pageUrl: string = 'teachers';
+
   constructor(private route: ActivatedRoute,
-    private teachersService: TeachersService,
+    private crudService: CrudService,
     private modalService: BsModalService) { }
 
   ngOnInit() {
     this.route.params.pipe(takeUntil(this.destroy$)).subscribe(params => {
-      this.id = +params['id'];
-      this.teachersService.getTeacher(this.id).pipe(takeUntil(this.destroy$)).subscribe((data) => {
+      this.id = params['id'];
+      this.crudService.getItem(this.pageUrl, this.id).pipe(takeUntil(this.destroy$)).subscribe((data) => {
         this.teacher = data;
       });
     });
@@ -47,7 +49,7 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
   openDeleteModal() {
     this.modal = this.modalService.show(ConfirmModalComponent);
     this.modal.content.onConfirm.pipe(takeUntil(this.destroy$)).subscribe(
-      () => this.teachersService.deleteTeacher(this.id)
+      () => this.crudService.deleteItem(this.pageUrl, this.id)
         .pipe(takeUntil(this.destroy$))
         .subscribe()
     );
