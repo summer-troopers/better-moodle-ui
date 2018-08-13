@@ -12,8 +12,7 @@ import { DeleteTeacherModalComponent } from '@teacherModals/delete-teacher-modal
 
 @Component({
   selector: 'app-teacher-details-page',
-  templateUrl: './teacher-details-page.component.html',
-  styleUrls: ['./teacher-details-page.component.scss']
+  templateUrl: './teacher-details-page.component.html'
 })
 export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
 
@@ -34,7 +33,7 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
       this.teachersService.id = this.id;
       this.teachersService.getTeacher(this.id).pipe(takeUntil(this.destroy$)).subscribe((data) => {
         this.teacher = data;
-      })
+      });
     });
   }
 

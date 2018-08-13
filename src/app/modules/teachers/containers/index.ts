@@ -4,4 +4,4 @@ import { TeachersPageComponent } from '@modules/teachers/containers/teachers-pag
 export {
   TeacherDetailsPageComponent,
   TeachersPageComponent
-}
+};

@@ -29,14 +29,14 @@ export class DeleteTeacherModalComponent implements OnInit, OnDestroy {
 
     this.teachersService.deleteTeacher(this.teachersService.id).pipe(takeUntil(this.destroy$)).subscribe(
       suc => {
-        this.message = "Successfully deleted";
+        this.message = 'Successfully deleted';
         setTimeout(() => {
           this.bsModalRef.hide();
           this.router.navigate(['teachers']);
         }, 1500);
       },
       err => {
-        this.message = "Error on delete !!!";
+        this.message = 'Error on delete !!!';
       }
     );
   }

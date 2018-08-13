@@ -9,8 +9,7 @@ import { Teacher } from '@shared/models/teacher';
 
 @Component({
   selector: 'app-edit-teacher-modal',
-  templateUrl: './edit-teacher-modal.component.html',
-  styleUrls: ['./edit-teacher-modal.component.scss']
+  templateUrl: './edit-teacher-modal.component.html'
 })
 export class EditTeacherModalComponent implements OnInit, OnDestroy {
 

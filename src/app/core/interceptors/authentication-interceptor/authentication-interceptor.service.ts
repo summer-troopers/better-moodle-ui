@@ -12,7 +12,7 @@ import { AlertService } from '@shared/services/alert/alert.service';
 export class AuthenticationInterceptorService implements HttpInterceptor {
 
   constructor(private authenticationService: AuthenticationService,
-              private alertService: AlertService) {
+    private alertService: AlertService) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

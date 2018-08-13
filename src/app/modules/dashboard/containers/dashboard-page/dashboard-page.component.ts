@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UserService } from '@shared/services/user.service';
+import { UserService } from '@shared/services/user/user.service';
 import { CreateUser } from '@shared/models/user-factory';
 
 @Component({
@@ -15,7 +15,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const userFromStorage = JSON.parse(this.userService.getUserLocalStorage('user'));
-    console.log (userFromStorage);
+    console.log(userFromStorage);
     const loggedUser = CreateUser(userFromStorage);
     this.user = loggedUser;
   }

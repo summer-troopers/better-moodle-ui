@@ -5,12 +5,12 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 import { InitService } from '@core/services/init/init.service';
-import { LoggerInterceptorService } from '@core/interceptors/logger-interceptor.service';
+import { LoggerInterceptorService } from '@core/interceptors/logger-interceptor/logger-interceptor.service';
 import { NavComponent } from '@core/components/nav/nav.component';
 import { FooterComponent } from '@core/components/footer/footer.component';
 import { HeaderComponent } from '@core/components/header/header.component';
 import { LayoutComponent } from '@core/components/layout/layout.component';
-import { AuthenticationInterceptorService } from '@core/interceptors/authentication-interceptor.service';
+import { AuthenticationInterceptorService } from '@core/interceptors/authentication-interceptor/authentication-interceptor.service';
 import { AlertService } from '@core/../shared/services/alert/alert.service';
 
 const COMPONENTS = [
