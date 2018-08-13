@@ -1,10 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 import { TeachersService } from '@teacherService/teachers.service';
+import { Alert, AlertType } from '@shared/models/alert';
 
 @Component({
   selector: 'app-add-teacher-modal',
@@ -13,8 +16,10 @@ import { TeachersService } from '@teacherService/teachers.service';
 export class AddTeacherModalComponent implements OnInit, OnDestroy {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
+  public event: EventEmitter<any> = new EventEmitter();
 
   userForm: FormGroup;
+  alerts: Alert[] = [];
 
   isSubmitted = false;
   message: String;
@@ -46,13 +51,16 @@ export class AddTeacherModalComponent implements OnInit, OnDestroy {
 
     const formParam = this.userForm.value;
 
-    this.teacherService.addTeacher(formParam).pipe(takeUntil(this.destroy$)).subscribe(
-      suc => {
-      },
-      err => {
-        this.message = 'Error on adding a new user !!!';
-      }
-    );
+    this.teacherService.addTeacher(formParam)
+      .pipe(takeUntil(this.destroy$))
+      .catch(error => {
+        this.alerts.push({ type: AlertType.Error, message: error });
+        return Observable.throw(error);
+      })
+      .subscribe((newTeacher) => {
+        this.event.emit(newTeacher);
+        this.bsModalRef.hide();
+      });
   }
 
   ngOnDestroy() {

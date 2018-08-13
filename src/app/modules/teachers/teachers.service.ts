@@ -16,7 +16,7 @@ export class TeachersService {
     private api: BackendApiService) {
   }
 
-  getNumberOfTeachers() {
+  getNumberOfTeachers(): Observable<any> {
     return this.api.get(`teachers`)
       .pipe(map(result => result.total));
   }
