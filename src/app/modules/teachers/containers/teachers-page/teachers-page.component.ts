@@ -62,8 +62,8 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
   initNumberOfTeachers() {
     this.crudService.getNumberOfItems(TEACHERS_URL)
       .pipe(
-        mergeMap((teachersNumber) => {
-          this.totalItems = +teachersNumber;
+        mergeMap((teachersNumber: number) => {
+          this.totalItems = teachersNumber;
           this.paginationParams.offset = this.paginatorHelperService.getOffset(this.totalItems, this.defaultItemsNumber);
 
           return this.crudService.getItems(TEACHERS_URL, this.paginationParams.offset, this.paginationParams.limit)
