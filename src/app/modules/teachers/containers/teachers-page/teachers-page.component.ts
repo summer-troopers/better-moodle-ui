@@ -60,22 +60,25 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  initNumberOfTeachers() {
-    this.crudService.getNumberOfItems(TEACHERS_URL)
-      .pipe(
-        mergeMap((teachersNumber: number) => {
-          this.totalItems = teachersNumber;
-          this.paginationParams.offset = this.paginatorHelperService.getOffset(this.totalItems, this.defaultItemsNumber);
-
-          return this.crudService.getItems(TEACHERS_URL, this.paginationParams.offset, this.paginationParams.limit)
-            .pipe(takeUntil(this.destroy$));
-        }),
+  getTeacher() {
+    return this.crudService.getItems(TEACHERS_URL, this.paginationParams.offset, this.paginationParams.limit)
+      .pipe(takeUntil(this.destroy$),
         catchError((error) => {
           this.alerts.push({ type: AlertType.Error, message: error });
 
           return throwError(error);
-        })
-      )
+        }));
+  }
+
+  initNumberOfTeachers() {
+    this.crudService.getNumberOfItems(TEACHERS_URL)
+      .pipe(
+        mergeMap((teachersNumber: number) => {
+          this.totalItems = +teachersNumber;
+          this.paginationParams.offset = this.paginatorHelperService.getOffset(this.totalItems, this.defaultItemsNumber);
+
+          return this.getTeacher();
+        }))
       .subscribe((teachers) => {
         this.teachers = teachers;
         this.teachers.reverse();
@@ -87,19 +90,11 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
 
     this.paginationParams = this.paginatorHelperService.getPaginationParams(this.totalItems, this.currentPage);
 
-    this.crudService.getItems(TEACHERS_URL, this.paginationParams.offset, this.paginationParams.limit)
-      .pipe(takeUntil(this.destroy$),
-        catchError(error => {
-          this.alerts.push({ type: AlertType.Error, message: error });
-
-          return throwError(error);
-        })
-      )
+    this.getTeacher()
       .subscribe((teachers) => {
         this.teachers = teachers;
         this.teachers.reverse();
       });
-
     this.router.navigate([`${TEACHERS_URL}`], { queryParams: { page: event.page } });
   }
 
