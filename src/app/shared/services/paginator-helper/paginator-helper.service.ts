@@ -36,16 +36,13 @@ export class PaginatorHelperService {
   getCurrentPage(pageParam: number) {
     pageParam = +pageParam;
     if (pageParam) {
-
       return pageParam;
     } else {
-
       return 1;
     }
   }
 
   getOffset(total: number, defaultItems: number) {
-
     return total - defaultItems;
   }
 

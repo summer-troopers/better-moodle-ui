@@ -47,6 +47,7 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
   openAddTeacherModal() {
     this.modalRef = this.modalService.show(AddTeacherModalComponent);
     this.modalRef.content.event
+      .pipe(takeUntil(this.destroy$))
       .subscribe((newTeacher) => {
         this.teachers.unshift(newTeacher);
       });

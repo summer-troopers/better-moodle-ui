@@ -14,7 +14,7 @@ import { TEACHERS_URL } from '@shared/constants';
 export class AddTeacherModalComponent implements OnInit, OnDestroy {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
-  public event: EventEmitter<any> = new EventEmitter();
+  event: EventEmitter<any> = new EventEmitter();
 
   userForm: FormGroup;
   alerts: Alert[] = [];
@@ -62,7 +62,6 @@ export class AddTeacherModalComponent implements OnInit, OnDestroy {
     this.isSubmitted = true;
 
     if (this.userForm.invalid) {
-
       return;
     }
 

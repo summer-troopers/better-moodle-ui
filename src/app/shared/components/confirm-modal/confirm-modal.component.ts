@@ -5,6 +5,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
   selector: 'app-confirm-modal',
   templateUrl: './confirm-modal.component.html'
 })
+
 export class ConfirmModalComponent {
   onConfirm: EventEmitter<any> = new EventEmitter<any>();
 

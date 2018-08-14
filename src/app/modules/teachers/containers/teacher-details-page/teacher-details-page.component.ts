@@ -10,7 +10,7 @@ import { EditTeacherModalComponent } from '@teacherModals/edit-teacher-modal/edi
 import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
 import { CrudService } from '@shared/services/crud/crud.service';
 import { Alert, AlertType } from '@shared/models/alert';
-import { TEACHERS_URL, confirmModlaTimeOut } from '@shared/constants';
+import { TEACHERS_URL, CONFIRM_MODAL_TIMEOUT } from '@shared/constants';
 
 @Component({
   selector: 'app-teacher-details-page',
@@ -78,7 +78,7 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
             setTimeout(() => {
               this.modal.hide();
               this.router.navigate([TEACHERS_URL]);
-            }, confirmModlaTimeOut);
+            }, CONFIRM_MODAL_TIMEOUT);
           },
           (err) => {
             this.modal.content.message = 'Error on delete';
