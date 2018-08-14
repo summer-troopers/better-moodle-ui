@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { NgHttpLoaderModule } from 'ng-http-loader';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 import { InitService } from '@core/services/init/init.service';
 import { LoggerInterceptorService } from '@core/interceptors/logger-interceptor/logger-interceptor.service';
@@ -35,6 +36,7 @@ export function initAppFactory(initService: InitService) {
     CommonModule,
     ...MODULES,
     CollapseModule.forRoot(),
+    BsDropdownModule.forRoot(),
   ],
   declarations: [
     ...COMPONENTS,

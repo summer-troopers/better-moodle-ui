@@ -4,7 +4,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark app-nav">
     <div class="container">
 
-      <a class="navbar-brand" routerLink="">
+      <a class="navbar-brand btn btn-secondary bg-dark menubtn" routerLink="">
         <i class="fa fa-home icon"></i>
       </a>
 
@@ -16,32 +16,32 @@
           </li>
         </ul>
       </div>
-      <div class="collapse navbar-collapse profile-div">
-        <ul class="navbar-nav nvbar-right ml-auto p-2">
-          <li class="nav-item" routerLinkActive="activated">
-            <button class="nav-link log-button" (click)="logOut()">Log out</button>
-          </li>
-        </ul>
 
-        <a class="navbar-brand" routerLinkActive="activated">
-          <i class="fa fa-user icon" routerLink="dashboard"></i>
-        </a>
-      </div>
+      <ul class="navbar-nav nvbar-right ml-auto p-2 profile-div">
+        <div class="btn-group" dropdown>
+          <button id="button-basic" dropdownToggle type="button" aria-controls="dropdown-basic"
+                  class="btn btn-secondary dropdown-toggle bg-dark menubtn">
+            <i class="fa fa-user icon" style="padding-left:5px;"></i>
+          </button>
+          <ul *dropdownMenu class="collapse bg-dark dropdown-menu-right dropprofile" aria-labelledby="button-basic">
+            <li class="profile-name">Me</li>
+            <li class="divider dropdown-divider"></li>
+            <li routerLinkActive="activated"><a class="nav-link" routerLink="dashboard">My Profile</a></li>
+            <li routerLinkActive="activated">
+              <button class="log-button nav-link" type="button" (click)="logOut()">Log out</button>
+            </li>
+          </ul>
+        </div>
+      </ul>
 
       <!--small screen-->
       <div class="btn-group navbar-toggler toggle-container">
-        <a class="navbar-brand" routerLink="dashboard">
-          <i class="fa fa-user icon"></i>
-        </a>
-        <button type="button" class="btn btn-secondary" (click)="changeCollapse()">
+        <button type="button" class="btn btn-secondary bg-dark menubtn" (click)="changeCollapse()">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <ul class="collapse bg-dark dropdown-menu-right dropfont" [collapse]="isCollapsed">
-          <li class="nav-item" *ngFor="let item of items" routerLinkActive="activated">
+        <ul class="collapse bg-dark dropdown-menu-right dropfont" role="menu" [collapse]="isCollapsed">
+          <li routerLinkActive="activated" *ngFor="let item of items">
             <a class="nav-link" routerLink={{item.url}}>{{item.name}}</a>
-          </li>
-          <li class="nav-item" routerLinkActive="activated">
-            <button class="nav-link log-button" (click)="logOut()">Log out</button>
           </li>
         </ul>
       </div>
