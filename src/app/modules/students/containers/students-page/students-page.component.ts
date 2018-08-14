@@ -45,8 +45,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
 
   initPage() {
     this.route.queryParams.subscribe((params) => {
-      this.pageParam = +params.page;
-      this.currentPage = this.paginatorHelper.getCurentPage(this.pageParam);
+      this.currentPage = this.paginatorHelper.getCurentPage(params.page);
       this.router.navigate(['students'], { queryParams: { page: this.currentPage } });
     });
   }

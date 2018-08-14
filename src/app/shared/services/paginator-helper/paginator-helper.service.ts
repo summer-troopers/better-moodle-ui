@@ -11,6 +11,18 @@ export class PaginatorHelperService {
     return [totalItems, offset];
   }
 
+<<<<<<< HEAD
+=======
+  getCurentPage(pageParam: any): number {
+    let page = +pageParam;
+    if (page) {
+      return page;
+    } else {
+      return 1;
+    }
+  }
+
+>>>>>>> edited getCurentPage in pagination helper service
   getPaginationParams(totalItems: number, selectedPage: number): PaginationParams {
     let offset = 0;
     let limit = 10;
