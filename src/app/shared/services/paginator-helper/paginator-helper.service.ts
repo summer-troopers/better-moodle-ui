@@ -8,6 +8,19 @@ export class PaginatorHelperService {
 
   constructor() { }
 
+  getOffset(totalItems: number, defaultItemsNumber: number): number {
+    return totalItems - defaultItemsNumber;
+  }
+
+  getCurentPage(pageParam: any): number {
+    let page = +pageParam;
+    if (page) {
+      return page;
+    } else {
+      return 1;
+    }
+  }
+
   getPaginationParams(totalItems: number, selectedPage: number): PaginationParams {
     let offset = 0;
     let limit = 10;
