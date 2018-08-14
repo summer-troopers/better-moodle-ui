@@ -2,15 +2,15 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject, throwError } from 'rxjs';
+import { takeUntil, catchError } from 'rxjs/operators';
 
 import { Teacher } from '@shared/models/teacher';
 import { EditTeacherModalComponent } from '@teacherModals/edit-teacher-modal/edit-teacher-modal.component';
 import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
 import { CrudService } from '@shared/services/crud/crud.service';
 import { Alert, AlertType } from '@shared/models/alert';
-import { TEACHERS_URL, timer } from '@shared/constants';
+import { TEACHERS_URL, confirmModlaTimeOut } from '@shared/constants';
 
 @Component({
   selector: 'app-teacher-details-page',
@@ -32,14 +32,24 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
     private router: Router) { }
 
   ngOnInit() {
-    this.route.params.pipe(takeUntil(this.destroy$)).subscribe(params => {
-      this.id = params['id'];
-      this.crudService.getItem(TEACHERS_URL, this.id)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((data) => {
-          this.teacher = data;
-        });
-    });
+    this.getItems();
+  }
+
+  getItems() {
+    this.route.params.pipe(takeUntil(this.destroy$))
+      .subscribe(params => {
+        this.id = params['id'];
+        this.crudService.getItem(TEACHERS_URL, this.id)
+          .pipe(takeUntil(this.destroy$),
+            catchError((error) => {
+              this.alerts.push({ type: AlertType.Error, message: error });
+
+              return throwError(error);
+            }))
+          .subscribe((data) => {
+            this.teacher = data;
+          });
+      });
   }
 
   openEditModal() {
@@ -68,7 +78,7 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
             setTimeout(() => {
               this.modal.hide();
               this.router.navigate([TEACHERS_URL]);
-            }, timer);
+            }, confirmModlaTimeOut);
           },
           (err) => {
             this.modal.content.message = 'Error on delete';

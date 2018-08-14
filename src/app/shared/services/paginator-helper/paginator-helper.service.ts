@@ -29,14 +29,17 @@ export class PaginatorHelperService {
     } else {
       offset = totalItems - (limit * selectedPage);
     }
+
     return new PaginationParams(limit, offset);
   }
 
   getCurrentPage(pageParam: number) {
     pageParam = +pageParam;
     if (pageParam) {
+
       return pageParam;
     } else {
+
       return 1;
     }
   }

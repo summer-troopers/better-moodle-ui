@@ -59,8 +59,8 @@ export class EditTeacherModalComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.isSubmitted = true;
 
-    // stop here if form is invalid
     if (this.userForm.invalid) {
+
       return;
     }
 

@@ -6,7 +6,7 @@ import { takeUntil, catchError } from 'rxjs/operators';
 
 import { CrudService } from '@shared/services/crud/crud.service';
 import { Alert, AlertType } from '@shared/models/alert';
-import { TEACHERS_URL } from '@shared/constants/index';
+import { TEACHERS_URL } from '@shared/constants';
 @Component({
   selector: 'app-add-teacher-modal',
   templateUrl: './add-teacher-modal.component.html'
@@ -62,6 +62,7 @@ export class AddTeacherModalComponent implements OnInit, OnDestroy {
     this.isSubmitted = true;
 
     if (this.userForm.invalid) {
+
       return;
     }
 
@@ -72,6 +73,7 @@ export class AddTeacherModalComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$),
         catchError((error) => {
           this.alerts.push({ type: AlertType.Error, message: error });
+
           return throwError(error);
         })
       )
@@ -85,5 +87,4 @@ export class AddTeacherModalComponent implements OnInit, OnDestroy {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
-
 }

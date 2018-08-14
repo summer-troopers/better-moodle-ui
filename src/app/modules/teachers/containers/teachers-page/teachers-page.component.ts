@@ -11,7 +11,7 @@ import { PaginationParams } from '@shared/models/pagination-params';
 import { PaginatorHelperService } from '@shared/services/paginator-helper/paginator-helper.service';
 import { Alert, AlertType } from '@shared/models/alert';
 import { CrudService } from '@shared/services/crud/crud.service';
-import { TEACHERS_URL } from '@shared/constants/index';
+import { TEACHERS_URL } from '@shared/constants';
 
 @Component({
   selector: 'app-teachers-page',
@@ -25,12 +25,12 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
   modalRef: BsModalRef;
 
   alerts: Alert[] = [];
-  defaultItemsNumber: number = 10;
+  defaultItemsNumber = 10;
   paginationParams = new PaginationParams(0, this.defaultItemsNumber);
 
   teachers: Array<Teacher> = [];
   totalItems: number;
-  currentPage: number = 1;
+  currentPage = 1;
   pageParam: number;
 
   constructor(private crudService: CrudService,
@@ -81,22 +81,19 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  setPage(pageNumber: number) {
-    this.currentPage = pageNumber;
-  }
-
   pageChanged(event: any) {
     this.currentPage = event.page;
 
     this.paginationParams = this.paginatorHelperService.getPaginationParams(this.totalItems, this.currentPage);
 
     this.crudService.getItems(TEACHERS_URL, this.paginationParams.offset, this.paginationParams.limit)
-      .pipe(takeUntil(this.destroy$))
-      .catch(error => {
-        this.alerts.push({ type: AlertType.Error, message: error });
+      .pipe(takeUntil(this.destroy$),
+        catchError(error => {
+          this.alerts.push({ type: AlertType.Error, message: error });
 
-        return throwError(error);
-      })
+          return throwError(error);
+        })
+      )
       .subscribe((teachers) => {
         this.teachers = teachers;
         this.teachers.reverse();
