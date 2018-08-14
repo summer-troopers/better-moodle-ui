@@ -73,10 +73,10 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
       () => this.crudService.deleteItem(TEACHERS_URL, this.id)
         .pipe(takeUntil(this.destroy$))
         .subscribe(
-          () => {
+          success => {
             this.modal.content.afterConfirmAction(TEACHERS_URL, 'Successfully deleted');
           },
-          () => {
+          error => {
             this.modal.content.message = 'Error on delete';
           }
         ),
