@@ -53,7 +53,7 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
           }),
           catchError(error => {
             this.alerts.push({ type: AlertType.Error, message: error });
-            return Observable.throw(error);
+            return throwError(error);
           })
         )
         .subscribe((group) => this.groupName = group.name);
@@ -101,7 +101,7 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
           takeUntil(this.destroy$),
           catchError(error => {
             this.alerts.push({ type: AlertType.Error, message: error });
-            return Observable.throw(error);
+            return throwError(error);
           })
         )
         .subscribe(() => {

@@ -2,9 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, throwError } from 'rxjs';
 import { mergeMap, takeUntil, catchError } from 'rxjs/operators';
-import 'rxjs/add/observable/throw';
 
 import { AddStudentModalComponent } from '@modules/students/modals/add-student-modal/add-student-modal.component';
 import { PaginatorHelperService } from '@shared/services/paginator-helper/paginator-helper.service';
@@ -47,11 +46,8 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
   initPage() {
     this.route.queryParams.subscribe((params) => {
       this.pageParam = +params.page;
-      if (this.pageParam) {
-        this.setPage(this.pageParam);
-      } else {
-        this.setPage(1)
-      }
+      this.currentPage = this.paginatorHelper.getCurentPage(this.pageParam);
+      this.router.navigate(['students'], { queryParams: { page: this.currentPage } });
     });
   }
 
@@ -59,13 +55,12 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
     this.crudService.getNumberOfItems(STUDENTS_URL)
       .pipe(
         mergeMap((studentsNumber) => {
-          this.totalItems = +studentsNumber;
-          this.paginationParams.offset = this.totalItems - this.defaultItemsNumber;
+          [this.totalItems, this.paginationParams.offset] = this.paginatorHelper.getPaginatorConstants(+studentsNumber, this.defaultItemsNumber)
           return this.crudService.getItems(STUDENTS_URL, this.paginationParams.offset, this.paginationParams.limit).pipe(takeUntil(this.destroy$));
         }),
         catchError((error) => {
           this.alerts.push({ type: AlertType.Error, message: error });
-          return Observable.throw(error);
+          return throwError(error);
         })
       )
       .subscribe((students) => {
@@ -88,10 +83,6 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
     this.destroy$.unsubscribe();
   }
 
-  setPage(pageNumber: number) {
-    this.currentPage = pageNumber;
-  }
-
   pageChanged(event: any) {
     this.currentPage = event.page;
 
@@ -102,7 +93,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$),
         catchError((error) => {
           this.alerts.push({ type: AlertType.Error, message: error });
-          return Observable.throw(error);
+          return throwError(error);
         })
       )
       .subscribe((students) => {

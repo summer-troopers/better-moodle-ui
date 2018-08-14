@@ -1,9 +1,8 @@
 import { Component, OnInit, EventEmitter, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { Observable, Subject } from 'rxjs';
+import { Subject, throwError } from 'rxjs';
 import { takeUntil, catchError } from 'rxjs/operators';
-import 'rxjs/add/observable/throw';
 
 import { CrudService } from '@shared/services/crud/crud.service';
 import { STUDENTS_URL } from '@shared/constants';
@@ -78,7 +77,7 @@ export class AddStudentModalComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$),
         catchError((error) => {
           this.alerts.push({ type: AlertType.Error, message: error });
-          return Observable.throw(error);
+          return throwError(error);
         })
       )
       .subscribe((newStudent) => {

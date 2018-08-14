@@ -2,9 +2,8 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { Observable, Subject } from 'rxjs';
+import { throwError, Subject } from 'rxjs';
 import { takeUntil, catchError } from 'rxjs/operators';
-import 'rxjs/add/observable/throw';
 
 import { CrudService } from '@shared/services/crud/crud.service';
 import { STUDENTS_URL } from '@shared/constants';
@@ -71,7 +70,7 @@ export class EditStudentModalComponent implements OnInit {
         takeUntil(this.destroy$),
         catchError((error) => {
           this.alerts.push({ type: AlertType.Error, message: error });
-          return Observable.throw(error);
+          return throwError(error);
         })
       )
       .subscribe(() => {
