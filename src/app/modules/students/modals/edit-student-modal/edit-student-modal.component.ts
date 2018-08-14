@@ -6,8 +6,8 @@ import { Observable, Subject } from 'rxjs';
 import { takeUntil, catchError } from 'rxjs/operators';
 import 'rxjs/add/observable/throw';
 
-import { StudentsService } from '@modules/students/students.service';
-import { StudentDetailsPageComponent } from '@modules/students/containers';
+import { CrudService } from '@shared/services/crud/crud.service';
+import { STUDENTS_URL } from '@shared/constants';
 import { Student } from '@shared/models/student';
 import { Alert, AlertType } from '@shared/models/alert';
 
@@ -24,9 +24,10 @@ export class EditStudentModalComponent implements OnInit {
 
   alerts: Alert[] = [];
 
-  constructor(private modalService: BsModalService,
-    private bsmodalRef: BsModalRef,
-    private studentsService: StudentsService) { }
+  public event: EventEmitter<any> = new EventEmitter();
+
+  constructor(public bsModalRef: BsModalRef,
+    private crudService: CrudService) { }
 
   ngOnInit() {
     this.studentForm = new FormGroup({
@@ -64,7 +65,7 @@ export class EditStudentModalComponent implements OnInit {
       return;
     }
 
-    this.studentsService.updateStudentData(this.student.id, this.studentForm.value)
+    this.crudService.editItem(STUDENTS_URL, this.student.id, this.studentForm.value)
       .pipe(
         takeUntil(this.destroy$),
         catchError((error) => {

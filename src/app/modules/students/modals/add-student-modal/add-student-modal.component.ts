@@ -5,7 +5,8 @@ import { Observable, Subject } from 'rxjs';
 import { takeUntil, catchError } from 'rxjs/operators';
 import 'rxjs/add/observable/throw';
 
-import { StudentsService } from '@modules/students/students.service';
+import { CrudService } from '@shared/services/crud/crud.service';
+import { STUDENTS_URL } from '@shared/constants';
 import { Alert, AlertType } from '@shared/models/alert';
 
 @Component({
@@ -23,7 +24,7 @@ export class AddStudentModalComponent implements OnInit, OnDestroy {
   public event: EventEmitter<any> = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder,
-    private studentsService: StudentsService,
+    private crudService: CrudService,
     public bsModalRef: BsModalRef) { }
 
   ngOnInit() {
@@ -72,7 +73,7 @@ export class AddStudentModalComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.studentsService.addStudent(this.studentForm.value)
+    this.crudService.addItem(STUDENTS_URL, this.studentForm.value)
       .pipe(
         takeUntil(this.destroy$),
         catchError((error) => {

@@ -1,19 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { takeUntil, mergeMap, catchError } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/throw';
 
-import { StudentsService } from '@modules/students/students.service';
+import { CrudService } from '@shared/services/crud/crud.service';
+import { DeleteStudentModalComponent } from '@modules/students/modals/delete-student-modal/delete-student-modal.component';
 import { EditStudentModalComponent } from '@modules/students/modals/edit-student-modal/edit-student-modal.component';
 import { Student } from '@shared/models/student';
 import { Alert, AlertType } from '@shared/models/alert';
-import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
-
+import { STUDENTS_URL, GROUPS_URL } from '@shared/constants';
 @Component({
   selector: 'app-student-details-page',
   templateUrl: './student-details-page.component.html',
@@ -29,23 +27,40 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
   alerts: Alert[] = [];
 
   constructor(private route: ActivatedRoute,
+<<<<<<< HEAD
     private studentsService: StudentsService,
+=======
+    private crudService: CrudService,
+>>>>>>> sterd integrating crud service
     private modalService: BsModalService,
     private router: Router) { }
 
   ngOnInit() {
+    this.initPageData();
+  }
+
+  initPageData() {
     this.route.params.subscribe(params => {
       this.id = +params['id'];
-      this.studentsService.getStudent(this.id)
+      this.crudService.getItem(STUDENTS_URL, this.id)
         .pipe(
           mergeMap((student: Student) => {
             this.student = student;
+<<<<<<< HEAD
             return this.studentsService.getStudentsGroup(student.groupId)
               .pipe(
                 takeUntil(this.destroy$),
                 catchError(error => {
                   this.alerts.push({ type: AlertType.Error, message: error });
                   return Observable.throw(error);
+=======
+            return this.crudService.getItem(GROUPS_URL, student.groupId)
+              .pipe(
+                takeUntil(this.destroy$),
+                catchError((error) => {
+                  this.alerts.push({ type: AlertType.Error, message: error });
+                  return throwError(error)
+>>>>>>> sterd integrating crud service
                 })
               );
           }),
@@ -73,8 +88,15 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
       .pipe(
         mergeMap((updatedStudentData: Student) => {
           this.student = updatedStudentData;
-          return this.studentsService.getStudentsGroup(updatedStudentData.groupId)
-            .pipe(takeUntil(this.destroy$));
+          this.alerts.push({ type: AlertType.Success, message: 'Student data updated!' });
+          return this.crudService.getItem(GROUPS_URL, updatedStudentData.groupId)
+            .pipe(
+              takeUntil(this.destroy$),
+              catchError((error) => {
+                this.alerts.push({ type: AlertType.Error, message: error });
+                return throwError(error)
+              })
+            );
         }),
         catchError((error) => {
           this.alerts.push({ type: AlertType.Error, message: error });

@@ -8,10 +8,11 @@ import 'rxjs/add/observable/throw';
 
 import { AddStudentModalComponent } from '@modules/students/modals/add-student-modal/add-student-modal.component';
 import { PaginatorHelperService } from '@shared/services/paginator-helper/paginator-helper.service';
-import { StudentsService } from '@modules/students/students.service';
+import { CrudService } from '@shared/services/crud/crud.service';
 import { Student } from '@shared/models/student';
 import { PaginationParams } from '@shared/models/pagination-params';
 import { Alert, AlertType } from '@shared/models/alert';
+import { STUDENTS_URL } from '@shared/constants';
 @Component({
   selector: 'app-students-page',
   templateUrl: './students-page.component.html',
@@ -32,7 +33,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private studentsService: StudentsService,
+  constructor(private crudService: CrudService,
     private route: ActivatedRoute,
     private modalService: BsModalService,
     private router: Router,
@@ -55,12 +56,12 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
   }
 
   initNumberOfStudents() {
-    this.studentsService.getNumberOfStudents()
+    this.crudService.getNumberOfItems(STUDENTS_URL)
       .pipe(
         mergeMap((studentsNumber) => {
           this.totalItems = +studentsNumber;
           this.paginationParams.offset = this.totalItems - this.defaultItemsNumber;
-          return this.studentsService.getStudents(this.paginationParams.offset, this.paginationParams.limit).pipe(takeUntil(this.destroy$));
+          return this.crudService.getItems(STUDENTS_URL, this.paginationParams.offset, this.paginationParams.limit).pipe(takeUntil(this.destroy$));
         }),
         catchError((error) => {
           this.alerts.push({ type: AlertType.Error, message: error });
@@ -96,7 +97,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
 
     this.paginationParams = this.paginatorHelper.getPaginationParams(this.totalItems, this.currentPage);
 
-    this.studentsService.getStudents(this.paginationParams.offset, this.paginationParams.limit)
+    this.crudService.getItems(STUDENTS_URL, this.paginationParams.offset, this.paginationParams.limit)
       .pipe(
         takeUntil(this.destroy$),
         catchError((error) => {
