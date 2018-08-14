@@ -40,7 +40,9 @@ export class CourseDetailsPageComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.destroy$))
         .subscribe((course) => {
         this.course = course;
-      });
+        }, error => {
+          this.alerts.push({type: AlertType.Error, message: error});
+        });
     });
   }
 
@@ -59,7 +61,7 @@ export class CourseDetailsPageComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((course) => {
         this.course = course;
-        this.alerts.push({type: AlertType.Success, message: 'Course is edit!'});
+        this.alerts.push({type: AlertType.Success, message: 'Course was edited!'});
       }, error => {
         this.alerts.push({type: AlertType.Error, message: error});
       });
@@ -73,11 +75,7 @@ export class CourseDetailsPageComponent implements OnInit, OnDestroy {
         () => this.crudService.deleteItem(COURSES_URL, this.id)
           .pipe(takeUntil(this.destroy$))
           .subscribe(() => {
-            this.modalRef.content.message = 'Delete successfully!';
-            setTimeout(() => {
-              this.router.navigateByUrl(COURSES_URL);
-              this.modalRef.hide();
-            }, 1500);
+            this.modalRef.content.afterConfirmAction(COURSES_URL, 'Delete successfully!');
           }, (error) => {
             this.modalRef.content.message = error;
           })
