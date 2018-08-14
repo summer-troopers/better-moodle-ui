@@ -45,8 +45,8 @@ export class PaginatorHelperService {
   }
 
   getOffset(total: number, defaultItems: number) {
-    let totalItems = total;
-    let defaultItemsNumber = defaultItems;
+    const totalItems = total;
+    const defaultItemsNumber = defaultItems;
 
     return totalItems - defaultItemsNumber;
   }

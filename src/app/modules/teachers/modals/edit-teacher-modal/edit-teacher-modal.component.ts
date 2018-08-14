@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject, throwError } from 'rxjs';
+import { takeUntil, catchError } from 'rxjs/operators';
 
 import { Teacher } from '@shared/models/teacher';
 import { CrudService } from '@shared/services/crud/crud.service';
@@ -66,7 +66,13 @@ export class EditTeacherModalComponent implements OnInit, OnDestroy {
 
     const formParam = this.userForm.value;
     this.crudService.editItem(TEACHERS_URL, formParam)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntil(this.destroy$),
+        catchError((error) => {
+          this.alerts.push({ type: AlertType.Error, message: error });
+
+          return throwError(error);
+        })
+      )
       .subscribe(() => {
         this.event.emit(this.userForm.value);
         this.hideConfirmationModal();
