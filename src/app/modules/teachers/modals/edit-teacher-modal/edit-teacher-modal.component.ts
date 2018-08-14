@@ -16,7 +16,7 @@ import { Alert, AlertType } from '@shared/models/alert';
 export class EditTeacherModalComponent implements OnInit, OnDestroy {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
-  event: EventEmitter<any> = new EventEmitter();
+  teacherEdited: EventEmitter<any> = new EventEmitter();
 
   userForm: FormGroup;
   alerts: Alert[] = [];
@@ -75,7 +75,7 @@ export class EditTeacherModalComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe(() => {
-        this.event.emit(formParam);
+        this.teacherEdited.emit(formParam);
         this.hideConfirmationModal();
       });
   }

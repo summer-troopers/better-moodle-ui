@@ -56,7 +56,7 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
       teacher: this.teacher
     };
     this.modal = this.modalService.show(EditTeacherModalComponent, { initialState });
-    this.modal.content.event
+    this.modal.content.teacherEdited
       .pipe(takeUntil(this.destroy$))
       .subscribe((teacher) => {
         this.teacher = teacher;

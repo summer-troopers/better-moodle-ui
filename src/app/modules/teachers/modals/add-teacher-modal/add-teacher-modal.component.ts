@@ -7,6 +7,7 @@ import { takeUntil, catchError } from 'rxjs/operators';
 import { CrudService } from '@shared/services/crud/crud.service';
 import { Alert, AlertType } from '@shared/models/alert';
 import { TEACHERS_URL } from '@shared/constants';
+
 @Component({
   selector: 'app-add-teacher-modal',
   templateUrl: './add-teacher-modal.component.html'
@@ -14,7 +15,7 @@ import { TEACHERS_URL } from '@shared/constants';
 export class AddTeacherModalComponent implements OnInit, OnDestroy {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
-  event: EventEmitter<any> = new EventEmitter();
+  teacherAdded: EventEmitter<any> = new EventEmitter();
 
   userForm: FormGroup;
   alerts: Alert[] = [];
@@ -77,7 +78,7 @@ export class AddTeacherModalComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe((newTeacher) => {
-        this.event.emit(newTeacher);
+        this.teacherAdded.emit(newTeacher);
         this.bsModalRef.hide();
       });
   }
