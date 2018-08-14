@@ -14,7 +14,7 @@ export class ConfirmModalComponent {
 
   message: string;
 
-  constructor(public bsModalRef: BsModalRef,
+  constructor(private bsModalRef: BsModalRef,
     private router: Router) { }
 
   confirm() {
