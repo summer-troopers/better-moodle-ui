@@ -6,7 +6,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { AppComponent } from './app.component';
 import { appRoutes } from './app.routes';
 import { HomeModule } from '@modules/home/home.module';
-import { SharedModule } from '@shared/shared.module';
+import { SharedModule } from '@shared/shared.module'
 
 @NgModule({
   declarations: [
@@ -16,9 +16,9 @@ import { SharedModule } from '@shared/shared.module';
     BrowserModule,
     ModalModule.forRoot(),
     CoreModule,
+    SharedModule,
     HomeModule,
-    appRoutes,
-    SharedModule
+    appRoutes
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -21,7 +21,6 @@ import { TEACHERS_URL } from '@shared/constants';
 export class TeachersPageComponent implements OnInit, OnDestroy {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
-
   modalRef: BsModalRef;
 
   alerts: Alert[] = [];
@@ -60,7 +59,7 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  getTeacher(): Observable<Teacher> {
+  getTeacher(): Observable<Teacher[]> {
     return this.crudService.getItems(TEACHERS_URL, this.paginationParams.offset, this.paginationParams.limit)
       .pipe(takeUntil(this.destroy$),
         catchError((error) => {
