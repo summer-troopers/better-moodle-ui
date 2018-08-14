@@ -21,7 +21,7 @@ import { PaginationParams } from '@shared/models/pagination-params';
 export class CoursesPageComponent implements OnInit, OnDestroy {
   courses: Array<Course>;
   totalItems: number;
-  currentPage: number = 1;
+  currentPage = 1;
   maxSizePagination = MAX_SIZE_PAGINATION;
   pageParam: number;
   paginationParams = new PaginationParams(0, NUMBER_ITEMS_PAGE);
@@ -80,7 +80,7 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
   openModal() {
     this.modalRef = this.modalService.show(AddCourseModalComponent);
 
-    this.modalRef.content.event
+    this.modalRef.content.addItemEvent
       .pipe(takeUntil(this.destroy$))
       .subscribe((course) => {
         this.courses.unshift(course);

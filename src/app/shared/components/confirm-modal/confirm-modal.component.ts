@@ -1,6 +1,7 @@
 import { Component, EventEmitter } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Router } from '@angular/router';
+import { CONFIRM_MODAL_TIMEOUT } from '@shared/constants';
 
 @Component({
   selector: 'app-confirm-modal',

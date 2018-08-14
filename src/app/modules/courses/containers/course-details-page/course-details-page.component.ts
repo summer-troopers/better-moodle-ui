@@ -56,7 +56,7 @@ export class CourseDetailsPageComponent implements OnInit, OnDestroy {
     };
     this.modalRef = this.modalService.show(EditCourseModalComponent, {initialState});
 
-    this.modalRef.content.event
+    this.modalRef.content.editItemEvent
       .pipe(takeUntil(this.destroy$))
       .subscribe((course) => {
         this.course = course;

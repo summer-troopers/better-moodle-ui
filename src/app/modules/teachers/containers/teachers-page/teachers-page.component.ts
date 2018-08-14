@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, throwError, Observable } from 'rxjs';
-import { takeUntil, mergeMap, catchError } from 'rxjs/operators';
+import { Observable, Subject, throwError } from 'rxjs';
+import { catchError, mergeMap, takeUntil } from 'rxjs/operators';
 
 import { Teacher } from '@shared/models/teacher';
 import { AddTeacherModalComponent } from '@teacherModals/add-teacher-modal/add-teacher-modal.component';
@@ -34,10 +34,11 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
   pageParam: number;
 
   constructor(private crudService: CrudService,
-    private modalService: BsModalService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private paginatorHelperService: PaginatorHelperService) { }
+              private modalService: BsModalService,
+              private route: ActivatedRoute,
+              private router: Router,
+              private paginatorHelperService: PaginatorHelperService) {
+  }
 
   ngOnInit() {
     this.initPage();

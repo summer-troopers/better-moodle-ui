@@ -6,6 +6,5 @@ export const MIN_PASSWORD_LENGTH = 5;
 export const COURSES_URL = 'courses';
 export const HOME_URL = 'home';
 export const AUTHENTICATION_URL = 'auth';
-export const CONFIRM_MODAL_CLOSE_TIME = 2000;
 export const NUMBER_ITEMS_PAGE = 10;
 export const MAX_SIZE_PAGINATION = 5;
