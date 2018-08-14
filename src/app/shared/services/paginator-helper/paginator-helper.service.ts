@@ -1,27 +1,17 @@
 import { Injectable } from '@angular/core';
 import { PaginationParams } from '@shared/models/pagination-params';
+
 @Injectable({
   providedIn: 'root'
 })
 export class PaginatorHelperService {
+
   constructor() { }
 
   getOffset(totalItems: number, defaultItemsNumber: number): number {
     return totalItems - defaultItemsNumber;
   }
 
-<<<<<<< HEAD
-=======
-  getCurentPage(pageParam: any): number {
-    const page = +pageParam;
-    if (page) {
-      return page;
-    } else {
-      return 1;
-    }
-  }
-
->>>>>>> edited getCurentPage in pagination helper service
   getPaginationParams(totalItems: number, selectedPage: number): PaginationParams {
     let offset = 0;
     let limit = 10;
@@ -34,7 +24,7 @@ export class PaginatorHelperService {
     return new PaginationParams(limit, offset);
   }
 
-  getCurrentPage(pageParam: number) {
+  getCurrentPage(pageParam: number): number {
     pageParam = +pageParam;
     if (pageParam) {
       return pageParam;

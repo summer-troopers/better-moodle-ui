@@ -23,7 +23,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
   paginationParams = new PaginationParams(0, this.defaultItemsNumber);
 
   totalItems: number;
-  currentPage: 1;
+  currentPage = 1;
   pageParam: number;
 
   alerts: Alert[] = [];
@@ -45,7 +45,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
 
   initPage() {
     this.route.queryParams.subscribe((params) => {
-      this.currentPage = this.paginatorHelper.getCurentPage(params.page);
+      this.currentPage = this.paginatorHelper.getCurrentPage(params.page);
       this.router.navigate([STUDENTS_URL], { queryParams: { page: this.currentPage } });
     });
   }
@@ -56,8 +56,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
         mergeMap((studentsNumber: number) => {
           this.totalItems = studentsNumber;
           this.paginationParams.offset = this.paginatorHelper.getOffset(this.totalItems, this.defaultItemsNumber);
-          return this.crudService.getItems(STUDENTS_URL, this.paginationParams.offset, this.paginationParams.limit)
-            .pipe(takeUntil(this.destroy$));
+          return this.getAllStudents();
         }),
         catchError((error) => {
           this.alerts.push({ type: AlertType.Error, message: error });
@@ -65,8 +64,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe((students) => {
-        this.students = students;
-        this.students.reverse();
+        this.reverseStudents(students);
       });
   }
 
@@ -89,19 +87,28 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
 
     this.paginationParams = this.paginatorHelper.getPaginationParams(this.totalItems, this.currentPage);
 
-    this.crudService.getItems(STUDENTS_URL, this.paginationParams.offset, this.paginationParams.limit)
-      .pipe(
-        takeUntil(this.destroy$),
-        catchError((error) => {
-          this.alerts.push({ type: AlertType.Error, message: error });
-          return throwError(error);
-        })
-      )
+    this.getAllStudents()
       .subscribe((students) => {
-        this.students = students;
-        this.students.reverse();
+        this.reverseStudents(students);
       });
 
     this.router.navigate([STUDENTS_URL], { queryParams: { page: event.page } });
+  }
+
+  getAllStudents(): Observable<Array<Student>> {
+    return this.crudService.getItems(STUDENTS_URL, this.paginationParams.offset, this.paginationParams.limit)
+      .pipe(
+        takeUntil(this.destroy$),
+        catchError(
+          (error) => {
+            this.alerts.push({ type: AlertType.Error, message: error });
+            return throwError(error);
+          })
+      );
+  }
+
+  reverseStudents(students) {
+    this.students = students;
+    this.students.reverse();
   }
 }

@@ -1,6 +1,5 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { BsModalService } from 'ngx-bootstrap/modal';
+import { Component, OnInit, EventEmitter, OnDestroy } from '@angular/core';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { throwError, Subject } from 'rxjs';
 import { takeUntil, catchError } from 'rxjs/operators';
@@ -10,12 +9,13 @@ import { STUDENTS_URL } from '@shared/constants';
 import { Student } from '@shared/models/student';
 import { Alert, AlertType } from '@shared/models/alert';
 
-
 @Component({
   selector: 'app-edit-student-modal',
   templateUrl: './edit-student-modal.component.html'
 })
-export class EditStudentModalComponent implements OnInit {
+export class EditStudentModalComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
   studentForm: FormGroup;
   isSubmitted = false;
   student: Student;
@@ -80,5 +80,10 @@ export class EditStudentModalComponent implements OnInit {
         this.event.emit(this.studentForm.value);
         this.bsModalRef.hide();
       });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

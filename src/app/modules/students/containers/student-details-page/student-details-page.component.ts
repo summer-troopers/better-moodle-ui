@@ -25,6 +25,8 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
 
   alerts: Alert[] = [];
 
+  modalRef: BsModalRef;
+
   constructor(private route: ActivatedRoute,
     private crudService: CrudService,
     private modalService: BsModalService,
