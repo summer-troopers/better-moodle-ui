@@ -10,7 +10,6 @@ import { AddStudentModalComponent } from './modals/add-student-modal/add-student
 import { StudentDetailsPageComponent, StudentsPageComponent } from '@modules/students/containers';
 import { SharedModule } from '@shared/shared.module';
 
-
 const COMPONENTS = [
   AddStudentModalComponent,
   EditStudentModalComponent,

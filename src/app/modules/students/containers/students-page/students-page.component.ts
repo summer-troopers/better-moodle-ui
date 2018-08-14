@@ -46,7 +46,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
   initPage() {
     this.route.queryParams.subscribe((params) => {
       this.currentPage = this.paginatorHelper.getCurentPage(params.page);
-      this.router.navigate(['students'], { queryParams: { page: this.currentPage } });
+      this.router.navigate([STUDENTS_URL], { queryParams: { page: this.currentPage } });
     });
   }
 
@@ -54,7 +54,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
     this.crudService.getNumberOfItems(STUDENTS_URL)
       .pipe(
         mergeMap((studentsNumber) => {
-          [this.totalItems, this.paginationParams.offset] = this.paginatorHelper.getPaginatorConstants(+studentsNumber, this.defaultItemsNumber)
+          [this.totalItems, this.paginationParams.offset] = this.paginatorHelper.getPaginatorConstants(studentsNumber, this.defaultItemsNumber)
           return this.crudService.getItems(STUDENTS_URL, this.paginationParams.offset, this.paginationParams.limit).pipe(takeUntil(this.destroy$));
         }),
         catchError((error) => {
@@ -100,6 +100,6 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
         this.students.reverse();
       });
 
-    this.router.navigate(['students'], { queryParams: { page: event.page } });
+    this.router.navigate([STUDENTS_URL], { queryParams: { page: event.page } });
   }
 }

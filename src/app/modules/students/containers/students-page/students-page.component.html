@@ -1,39 +1,37 @@
 <div class="container">
   <app-local-alert [alerts]="alerts"></app-local-alert>
 </div>
-<div class="container">
-  <div *ngIf="students.length > 0; else noStudents">
-    <div class="pageTitle">
-      <h1>List of all students
-        <button class="btn btn-primary pull-right"
-                (click)="openAddStudentModal()">Add new student</button>
-      </h1>
-      <br>
-    </div>
-    <div *ngFor="let student of students">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item list-group-item-dark">
-          <a [routerLink]="['/students', student.id]"
-             class="list-group-item list-group-item-action">{{student.firstName}} {{student.lastName}}</a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="pagination-container">
-      <pagination class="d-flex justify-content-center"
-                  [totalItems]="totalItems"
-                  [(ngModel)]="currentPage"
-                  (pageChanged)="pageChanged($event)"></pagination>
-    </div>
-  </div>
-
-  <ng-template #noStudents>
-    <h1>No students to show...</h1>
-    <h2 class="text-center">Want to add a new Student? </h2>
-    <div class="text-center">
-      <button type="button"
-              class="btn btn-primary pull-right"
+<div class="container"
+     *ngIf="students.length; else noStudents">
+  <div class="pageTitle">
+    <h1>List of all students
+      <button class="btn btn-primary pull-right"
               (click)="openAddStudentModal()">Add new student</button>
-    </div>
-  </ng-template>
+    </h1>
+    <br>
+  </div>
+  <div *ngFor="let student of students">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item list-group-item-dark">
+        <a [routerLink]="['/students', student.id]"
+           class="list-group-item list-group-item-action">{{student.firstName}} {{student.lastName}}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="pagination-container">
+    <pagination class="d-flex justify-content-center"
+                [totalItems]="totalItems"
+                [(ngModel)]="currentPage"
+                (pageChanged)="pageChanged($event)"></pagination>
+  </div>
 </div>
+
+<ng-template #noStudents>
+  <h1>No students to show...</h1>
+  <h2 class="text-center">Want to add a new Student? </h2>
+  <div class="text-center">
+    <button type="button"
+            class="btn btn-primary pull-right"
+            (click)="openAddStudentModal()">Add new student</button>
+  </div>
+</ng-template>

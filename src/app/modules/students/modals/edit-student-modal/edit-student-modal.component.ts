@@ -13,8 +13,7 @@ import { Alert, AlertType } from '@shared/models/alert';
 
 @Component({
   selector: 'app-edit-student-modal',
-  templateUrl: './edit-student-modal.component.html',
-  styleUrls: ['./edit-student-modal.component.scss']
+  templateUrl: './edit-student-modal.component.html'
 })
 export class EditStudentModalComponent implements OnInit {
   studentForm: FormGroup;
@@ -29,6 +28,10 @@ export class EditStudentModalComponent implements OnInit {
     private crudService: CrudService) { }
 
   ngOnInit() {
+    this.initForm()
+  }
+
+  initForm() {
     this.studentForm = new FormGroup({
       id: new FormControl(this.student.id, Validators.required),
       firstName: new FormControl(this.student.firstName, Validators.required),

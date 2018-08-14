@@ -37,7 +37,7 @@ export class AddStudentModalComponent implements OnInit, OnDestroy {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       phoneNumber: ['', Validators.required],
-      groupId: [, Validators.required]
+      groupId: [Validators.required]
     });
   }
 

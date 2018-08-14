@@ -56,7 +56,7 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
             return throwError(error);
           })
         )
-        .subscribe((group) => this.groupName = group.name);
+        .subscribe(group => this.groupName = group.name);
     })
   }
 
@@ -90,7 +90,7 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
           return Observable.throw(error);
         })
       )
-      .subscribe(groupName => this.groupName = groupName);
+      .subscribe(group => this.groupName = group.name);
   }
 
   openDeleteModal() {
@@ -106,7 +106,7 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
         )
         .subscribe(() => {
           this.modalRef.hide();
-          this.router.navigate(['students'])
+          this.router.navigate([STUDENTS_URL])
         })
     );
   }

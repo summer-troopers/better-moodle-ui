@@ -6,7 +6,8 @@ import { PaginationParams } from '@shared/models/pagination-params';
 export class PaginatorHelperService {
   constructor() { }
 
-  getPaginatorConstants(totalItems: number, defaultItemsNumber: number) {
+  getPaginatorConstants(studentsNumber: number, defaultItemsNumber: number) {
+    let totalItems = +studentsNumber;
     let offset = totalItems - defaultItemsNumber;
     return [totalItems, offset];
   }

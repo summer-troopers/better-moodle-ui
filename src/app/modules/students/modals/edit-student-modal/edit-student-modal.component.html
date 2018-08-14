@@ -23,7 +23,7 @@
                value="{{student.firstName}}"
                type="text"
                class="form-control"
-               [ngClass]="{ 'is-invalid': isSubmitted && firstName.errors }"
+               [class.is-invalid]="isSubmitted && firstName.errors"
                id="firstName"
                autocomplete="on"
                placeholder="Enter First Name">
@@ -39,7 +39,7 @@
                value="{{student.lastName}}"
                type="text"
                class="form-control"
-               [ngClass]="{ 'is-invalid': isSubmitted && lastName.errors }"
+               [class.is-invalid]="isSubmitted && lastName.errors"
                id="lastName"
                autocomplete="on"
                placeholder="Enter Last Name">
@@ -58,7 +58,7 @@
                autocomplete="on"
                placeholder="Enter email"
                formControlName="email"
-               [ngClass]="{ 'is-invalid': isSubmitted && email.errors }">
+               [class.is-invalid]="isSubmitted && email.errors">
         <div *ngIf="isSubmitted && email.errors"
              class="invalid-feedback">
           <div *ngIf="email.errors.required">Email is required</div>
@@ -74,7 +74,7 @@
                class="form-control"
                placeholder="1"
                formControlName="groupId"
-               [ngClass]="{ 'is-invalid': isSubmitted && groupId.errors }">
+               [class.is-invalid]="isSubmitted && groupId.errors">
         <div *ngIf="isSubmitted && groupId.errors"
              class="invalid-feedback">
           <div *ngIf="groupId.errors.required">Group ID is required</div>
@@ -87,7 +87,7 @@
                type="text"
                value="{{student.phoneNumber}}"
                class="form-control"
-               [ngClass]="{ 'is-invalid': isSubmitted && phoneNumber.errors }"
+               [class.is-invalid]="isSubmitted && phoneNumber.errors"
                id="phoneNumber"
                autocomplete="on"
                placeholder="123-456-7890"
