@@ -5,10 +5,8 @@
 <app-layout>
   <app-alert></app-alert>
   <router-outlet>
-    <ng-http-loader [backgroundColor]="'#c68039'"
-                    [spinner]="spinkit.skWave"
-                    [debounceDelay]="100"
-                    [minDuration]="500">
+    <ng-http-loader backgroundColor="#c68039"
+                    [spinner]="spinkit.skWave">
     </ng-http-loader>
   </router-outlet>
 </app-layout>
