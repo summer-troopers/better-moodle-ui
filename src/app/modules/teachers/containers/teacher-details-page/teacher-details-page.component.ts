@@ -31,10 +31,10 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
     private modalService: BsModalService) { }
 
   ngOnInit() {
-    this.getItems();
+    this.getItem();
   }
 
-  getItems() {
+  getItem() {
     this.route.params.pipe(takeUntil(this.destroy$))
       .subscribe(params => {
         this.id = params['id'];
