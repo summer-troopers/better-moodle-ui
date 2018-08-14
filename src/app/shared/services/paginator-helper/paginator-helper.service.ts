@@ -13,7 +13,7 @@ export class PaginatorHelperService {
   }
 
   getCurentPage(pageParam: any): number {
-    let page = +pageParam;
+    const page = +pageParam;
     if (page) {
       return page;
     } else {
