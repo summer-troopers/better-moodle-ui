@@ -65,6 +65,7 @@ export class EditTeacherModalComponent implements OnInit, OnDestroy {
     }
 
     const formParam = this.userForm.value;
+
     this.crudService.editItem(TEACHERS_URL, formParam)
       .pipe(takeUntil(this.destroy$),
         catchError((error) => {
@@ -74,7 +75,8 @@ export class EditTeacherModalComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe(() => {
-        this.event.emit(this.userForm.value);
+
+        this.event.emit(formParam);
         this.hideConfirmationModal();
       });
   }
