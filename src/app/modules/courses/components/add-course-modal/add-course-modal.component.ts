@@ -31,8 +31,12 @@ export class AddCourseModalComponent implements OnInit, OnDestroy {
     this.initForm();
   }
 
-  get nameError() {
-    return this.courseForm.controls['name'].errors;
+  get getError() {
+    return this.courseForm.controls;
+  }
+
+  get errorName() {
+    return this.getError.name.errors;
   }
 
   initForm() {
@@ -56,6 +60,8 @@ export class AddCourseModalComponent implements OnInit, OnDestroy {
         (response) => {
           this.event.emit(response);
           this.closeModal();
+        }, error => {
+          this.event.emit(error);
         });
   }
 

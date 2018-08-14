@@ -6,3 +6,4 @@ export const MIN_PASSWORD_LENGTH = 5;
 export const COURSES_URL = 'courses';
 export const HOME_URL = 'home';
 export const AUTHENTICATION_URL = 'auth';
+export const CONFIRM_MODAL_CLOSE_TIME = 2000;

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject, throwError } from 'rxjs';
+import { catchError, mergeMap, takeUntil } from 'rxjs/operators';
 
 import { AddCourseModalComponent } from '@modules/courses/components';
 import Course from '@shared/models/course';
@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Alert, AlertType } from '@shared/models/alert';
 import { CrudService } from '@shared/services/crud/crud.service';
 import { COURSES_URL } from '@shared/constants';
+import { PaginationParams } from '@shared/models/pagination-params';
 
 @Component({
   selector: 'app-courses-page',
@@ -19,11 +20,12 @@ import { COURSES_URL } from '@shared/constants';
 })
 export class CoursesPageComponent implements OnInit, OnDestroy {
   courses: Array<Course>;
-  offset: number = 0;
-  limit: number = 10;
-  totalItems: any;
+  defaultItemsNumber: number = 10;
+  totalItems: number;
   currentPage: number = 1;
   maxSizePagination = 5;
+  pageParam: number;
+  paginationParams = new PaginationParams(0, this.defaultItemsNumber);
 
   modalRef: BsModalRef;
 
@@ -40,25 +42,38 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.route.queryParams.subscribe((params) => {
-      this.currentPage = this.paginatorHelperService.getCurrentPage(params.page);
-    });
+    this.initPage();
+    this.initNumberOfCourses();
+  }
 
-    this.getNumberOfCourses();
-    this.offset = this.paginatorHelperService.getPaginationParams(this.totalItems, this.currentPage).offset;
-    this.crudService.getItems(COURSES_URL, this.offset, this.limit)
-      .pipe(takeUntil(this.destroy$))
+  initPage() {
+    this.route.queryParams.subscribe((params) => {
+      this.pageParam = +params.page;
+      this.paginatorHelperService.getCurrentPage(this.pageParam);
+    });
+  }
+
+  initNumberOfCourses() {
+    this.crudService.getNumberOfItems(COURSES_URL)
+      .pipe(
+        mergeMap((courseNumber: number) => {
+          this.totalItems = courseNumber;
+          this.paginationParams.offset = this.paginatorHelperService.getOffset(this.totalItems, this.defaultItemsNumber);
+
+          return this.crudService.getItems(COURSES_URL, this.paginationParams.offset, this.paginationParams.limit)
+            .pipe(takeUntil(this.destroy$));
+        }),
+        catchError((error) => {
+          this.alerts.push({type: AlertType.Error, message: error});
+
+          return throwError(error);
+        })
+      )
       .subscribe((courses) => {
         this.courses = courses;
         this.courses.reverse();
-      });
-  }
-
-  getNumberOfCourses() {
-    this.crudService.getNumberOfItems(COURSES_URL)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(coursesNumber => {
-        this.totalItems = +coursesNumber;
+      }, error => {
+        this.alerts.push({type: AlertType.Error, message: error});
       });
   }
 
@@ -78,10 +93,9 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
   pageChanged(event: any) {
     this.currentPage = event.page;
 
-    this.offset = this.paginatorHelperService.getPaginationParams(this.totalItems, this.currentPage).offset;
-    this.limit = this.paginatorHelperService.getPaginationParams(this.totalItems, this.currentPage).limit;
+    this.paginationParams = this.paginatorHelperService.getPaginationParams(this.totalItems, this.currentPage);
 
-    this.crudService.getItems(COURSES_URL, this.offset, this.limit)
+    this.crudService.getItems(COURSES_URL, this.paginationParams.offset, this.paginationParams.limit)
       .pipe(takeUntil(this.destroy$))
       .subscribe((courses) => {
         this.courses = courses;

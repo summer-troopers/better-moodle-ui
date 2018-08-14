@@ -8,10 +8,16 @@
         name="name"
         type="text"
         value="{{course.name}}"
-        [readOnly]="true"
+        readonly
         class="input-group-text">
     </li>
   </form>
-  <button type="button" (click)="openEditModal()" class="btn btn-success mt-2 mb-2 mr-2">Edit</button>
-  <button type="button" (click)="openDeleteModal()" class="btn btn-danger mt-2 mb-2 mr-2">Delete</button>
+  <button type="button"
+          (click)="openEditModal()"
+          class="btn btn-success mt-2 mb-2 mr-2">Edit
+  </button>
+  <button type="button"
+          (click)="openDeleteModal()"
+          class="btn btn-danger mt-2 mb-2 mr-2">Delete
+  </button>
 </div>

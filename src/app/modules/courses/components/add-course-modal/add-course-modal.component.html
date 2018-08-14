@@ -1,5 +1,4 @@
-<div #modalRef>
-  <app-local-alert [alerts]="alerts"></app-local-alert>
+<app-local-alert [alerts]="alerts"></app-local-alert>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Add a new course</h4>
     <button type="button"
@@ -16,15 +15,13 @@
         <input formControlName="name"
                type="text"
                class="form-control"
-               [ngClass]="{ 'is-invalid': submitted && fields.name.errors }"
+               [ngClass]="{ 'is-invalid': isSubmitted && errorName }"
                id="name"
-               autocomplete='on'
                placeholder="Enter Group name">
-        <div *ngIf="submitted && nameError" class="invalid-feedback">
-          <div *ngIf="nameError.required">Group name is required</div>
+        <div *ngIf="isSubmitted && errorName" class="invalid-feedback">
+          <div *ngIf="errorName.required" class="text-danger">Course name is required</div>
         </div>
       </div>
-      <input type="submit" class="btn btn-primary">
+      <button class="btn btn-primary" [disabled]="courseForm.invalid">Add course</button>
     </form>
   </div>
-</div>
