@@ -1,7 +1,6 @@
 <div class="container">
   <app-local-alert [alerts]="alerts"></app-local-alert>
 </div>
-<div #modalRef>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Edit course {{ course.name }}</h4>
     <button type="button"
@@ -26,5 +25,4 @@
       </div>
       <button [disabled]="courseForm.invalid" class="btn btn-primary">Edit course</button>
     </form>
-  </div>
 </div>

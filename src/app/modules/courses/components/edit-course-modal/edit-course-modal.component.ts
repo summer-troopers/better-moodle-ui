@@ -21,7 +21,7 @@ export class EditCourseModalComponent implements OnInit, OnDestroy  {
 
   isSubmitted = false;
 
-  event: EventEmitter<any> = new EventEmitter();
+  editItemEvent: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,12 +33,12 @@ export class EditCourseModalComponent implements OnInit, OnDestroy  {
     this.initForm();
   }
 
-  get getError() {
+  get controls() {
     return this.courseForm.controls;
   }
 
   get errorName() {
-    return this.getError.name.errors;
+    return this.controls.name.errors;
   }
 
   initForm() {
@@ -59,8 +59,10 @@ export class EditCourseModalComponent implements OnInit, OnDestroy  {
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         () => {
-          this.event.emit(this.courseForm.value);
+          this.editItemEvent.emit(this.courseForm.value);
           this.hideConfirmationModal();
+        }, error => {
+          this.editItemEvent.emit(error);
         });
   }
 

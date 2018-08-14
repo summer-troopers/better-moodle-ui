@@ -9,7 +9,7 @@ import { PaginatorHelperService } from '@shared/services/paginator-helper/pagina
 import { ActivatedRoute, Router } from '@angular/router';
 import { Alert, AlertType } from '@shared/models/alert';
 import { CrudService } from '@shared/services/crud/crud.service';
-import { COURSES_URL } from '@shared/constants';
+import { COURSES_URL, MAX_SIZE_PAGINATION, NUMBER_ITEMS_PAGE } from '@shared/constants';
 import { PaginationParams } from '@shared/models/pagination-params';
 
 @Component({
@@ -20,12 +20,11 @@ import { PaginationParams } from '@shared/models/pagination-params';
 })
 export class CoursesPageComponent implements OnInit, OnDestroy {
   courses: Array<Course>;
-  defaultItemsNumber: number = 10;
   totalItems: number;
   currentPage: number = 1;
-  maxSizePagination = 5;
+  maxSizePagination = MAX_SIZE_PAGINATION;
   pageParam: number;
-  paginationParams = new PaginationParams(0, this.defaultItemsNumber);
+  paginationParams = new PaginationParams(0, NUMBER_ITEMS_PAGE);
 
   modalRef: BsModalRef;
 
@@ -53,27 +52,28 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  initNumberOfCourses() {
-    this.crudService.getNumberOfItems(COURSES_URL)
-      .pipe(
-        mergeMap((courseNumber: number) => {
-          this.totalItems = courseNumber;
-          this.paginationParams.offset = this.paginatorHelperService.getOffset(this.totalItems, this.defaultItemsNumber);
-
-          return this.crudService.getItems(COURSES_URL, this.paginationParams.offset, this.paginationParams.limit)
-            .pipe(takeUntil(this.destroy$));
-        }),
+  getCourses() {
+    return this.crudService.getItems(COURSES_URL, this.paginationParams.offset, this.paginationParams.limit)
+      .pipe(takeUntil(this.destroy$),
         catchError((error) => {
           this.alerts.push({type: AlertType.Error, message: error});
 
           return throwError(error);
-        })
-      )
+        }));
+  }
+
+  initNumberOfCourses() {
+    this.crudService.getNumberOfItems(COURSES_URL)
+      .pipe(
+        mergeMap((courseNumber) => {
+          this.totalItems = courseNumber;
+          this.paginationParams.offset = this.paginatorHelperService.getOffset(this.totalItems, NUMBER_ITEMS_PAGE);
+
+          return this.getCourses();
+        }))
       .subscribe((courses) => {
         this.courses = courses;
         this.courses.reverse();
-      }, error => {
-        this.alerts.push({type: AlertType.Error, message: error});
       });
   }
 
@@ -94,14 +94,10 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
     this.currentPage = event.page;
 
     this.paginationParams = this.paginatorHelperService.getPaginationParams(this.totalItems, this.currentPage);
-
-    this.crudService.getItems(COURSES_URL, this.paginationParams.offset, this.paginationParams.limit)
-      .pipe(takeUntil(this.destroy$))
+    this.getCourses()
       .subscribe((courses) => {
         this.courses = courses;
         this.courses.reverse();
-      }, error => {
-        this.alerts.push({type: AlertType.Error, message: error});
       });
 
     this.router.navigate([COURSES_URL], {queryParams: {page: event.page}});

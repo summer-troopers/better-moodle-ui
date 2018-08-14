@@ -17,7 +17,7 @@ export class AddCourseModalComponent implements OnInit, OnDestroy {
 
   isSubmitted = false;
 
-  event: EventEmitter<any> = new EventEmitter();
+  addItemEvent: EventEmitter<any> = new EventEmitter();
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
@@ -31,12 +31,12 @@ export class AddCourseModalComponent implements OnInit, OnDestroy {
     this.initForm();
   }
 
-  get getError() {
+  get controls() {
     return this.courseForm.controls;
   }
 
   get errorName() {
-    return this.getError.name.errors;
+    return this.controls.name.errors;
   }
 
   initForm() {
@@ -58,10 +58,10 @@ export class AddCourseModalComponent implements OnInit, OnDestroy {
     this.crudService.addItem(COURSES_URL, this.courseForm.value).pipe(takeUntil(this.destroy$))
       .subscribe(
         (response) => {
-          this.event.emit(response);
+          this.addItemEvent.emit(response);
           this.closeModal();
         }, error => {
-          this.event.emit(error);
+          this.addItemEvent.emit(error);
         });
   }
 

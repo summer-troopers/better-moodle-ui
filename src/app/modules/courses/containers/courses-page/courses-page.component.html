@@ -1,14 +1,14 @@
 <div class="container">
   <app-local-alert [alerts]="alerts"></app-local-alert>
+</div>
+<div class="container">
   <div *ngIf="courses && courses.length; else noCourses">
     <div class="pageTitle">
       <h1>
         List of all courses
         <button
-          type="button"
           class="btn btn-primary pull-right"
-          (click)="openModal()"
-        >
+          (click)="openModal()">
           Add new course
         </button>
       </h1>
