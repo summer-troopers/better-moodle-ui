@@ -31,6 +31,7 @@ export class EditStudentModalComponent implements OnInit {
 
   ngOnInit() {
     this.studentForm = new FormGroup({
+      id: new FormControl(this.student.id, Validators.required),
       firstName: new FormControl(this.student.firstName, Validators.required),
       lastName: new FormControl(this.student.lastName, Validators.required),
       email: new FormControl(this.student.email, [Validators.required, Validators.email]),
@@ -65,7 +66,7 @@ export class EditStudentModalComponent implements OnInit {
       return;
     }
 
-    this.crudService.editItem(STUDENTS_URL, this.student.id, this.studentForm.value)
+    this.crudService.editItem(STUDENTS_URL, this.studentForm.value)
       .pipe(
         takeUntil(this.destroy$),
         catchError((error) => {

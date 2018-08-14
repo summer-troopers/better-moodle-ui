@@ -3,12 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { takeUntil, mergeMap, catchError } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { Subject, throwError } from 'rxjs';
 import { Observable } from 'rxjs/Observable';
 
 import { CrudService } from '@shared/services/crud/crud.service';
-import { DeleteStudentModalComponent } from '@modules/students/modals/delete-student-modal/delete-student-modal.component';
 import { EditStudentModalComponent } from '@modules/students/modals/edit-student-modal/edit-student-modal.component';
+import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
 import { Student } from '@shared/models/student';
 import { Alert, AlertType } from '@shared/models/alert';
 import { STUDENTS_URL, GROUPS_URL } from '@shared/constants';
@@ -18,7 +18,7 @@ import { STUDENTS_URL, GROUPS_URL } from '@shared/constants';
   styleUrls: ['./student-details-page.component.scss']
 })
 export class StudentDetailsPageComponent implements OnInit, OnDestroy {
-  id: number;
+  id: string;
   student: Student;
   groupName: string;
 
@@ -27,11 +27,7 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
   alerts: Alert[] = [];
 
   constructor(private route: ActivatedRoute,
-<<<<<<< HEAD
-    private studentsService: StudentsService,
-=======
     private crudService: CrudService,
->>>>>>> sterd integrating crud service
     private modalService: BsModalService,
     private router: Router) { }
 
@@ -41,26 +37,17 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
 
   initPageData() {
     this.route.params.subscribe(params => {
-      this.id = +params['id'];
+      this.id = params['id'];
       this.crudService.getItem(STUDENTS_URL, this.id)
         .pipe(
           mergeMap((student: Student) => {
             this.student = student;
-<<<<<<< HEAD
-            return this.studentsService.getStudentsGroup(student.groupId)
-              .pipe(
-                takeUntil(this.destroy$),
-                catchError(error => {
-                  this.alerts.push({ type: AlertType.Error, message: error });
-                  return Observable.throw(error);
-=======
-            return this.crudService.getItem(GROUPS_URL, student.groupId)
+            return this.crudService.getItem(GROUPS_URL, student.groupId.toString())
               .pipe(
                 takeUntil(this.destroy$),
                 catchError((error) => {
                   this.alerts.push({ type: AlertType.Error, message: error });
                   return throwError(error)
->>>>>>> sterd integrating crud service
                 })
               );
           }),
@@ -69,7 +56,7 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
             return Observable.throw(error);
           })
         )
-        .subscribe((groupName) => this.groupName = groupName);
+        .subscribe((group) => this.groupName = group.name);
     })
   }
 
@@ -89,7 +76,7 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
         mergeMap((updatedStudentData: Student) => {
           this.student = updatedStudentData;
           this.alerts.push({ type: AlertType.Success, message: 'Student data updated!' });
-          return this.crudService.getItem(GROUPS_URL, updatedStudentData.groupId)
+          return this.crudService.getItem(GROUPS_URL, updatedStudentData.groupId.toString())
             .pipe(
               takeUntil(this.destroy$),
               catchError((error) => {
@@ -109,7 +96,7 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
   openDeleteModal() {
     this.modalRef = this.modalService.show(ConfirmModalComponent);
     this.modalRef.content.onConfirm.pipe(takeUntil(this.destroy$)).subscribe(
-      () => this.studentsService.deleteStudent(this.id)
+      () => this.crudService.deleteItem(STUDENTS_URL, this.id)
         .pipe(
           takeUntil(this.destroy$),
           catchError(error => {
