@@ -28,7 +28,7 @@ export class EditStudentModalComponent implements OnInit {
     private crudService: CrudService) { }
 
   ngOnInit() {
-    this.initForm()
+    this.initForm();
   }
 
   initForm() {

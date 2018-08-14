@@ -4,7 +4,6 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { takeUntil, mergeMap, catchError } from 'rxjs/operators';
 import { Subject, throwError } from 'rxjs';
-import { Observable } from 'rxjs/Observable';
 
 import { CrudService } from '@shared/services/crud/crud.service';
 import { EditStudentModalComponent } from '@modules/students/modals/edit-student-modal/edit-student-modal.component';
@@ -47,7 +46,7 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
                 takeUntil(this.destroy$),
                 catchError((error) => {
                   this.alerts.push({ type: AlertType.Error, message: error });
-                  return throwError(error)
+                  return throwError(error);
                 })
               );
           }),
@@ -57,7 +56,7 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
           })
         )
         .subscribe(group => this.groupName = group.name);
-    })
+    });
   }
 
   ngOnDestroy() {
@@ -81,13 +80,13 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
               takeUntil(this.destroy$),
               catchError((error) => {
                 this.alerts.push({ type: AlertType.Error, message: error });
-                return throwError(error)
+                return throwError(error);
               })
             );
         }),
         catchError((error) => {
           this.alerts.push({ type: AlertType.Error, message: error });
-          return Observable.throw(error);
+          return throwError(error);
         })
       )
       .subscribe(group => this.groupName = group.name);
@@ -106,7 +105,7 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
         )
         .subscribe(() => {
           this.modalRef.hide();
-          this.router.navigate([STUDENTS_URL])
+          this.router.navigate([STUDENTS_URL]);
         })
     );
   }

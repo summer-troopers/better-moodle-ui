@@ -18,12 +18,12 @@ import { STUDENTS_URL } from '@shared/constants';
   styleUrls: ['./students-page.component.scss']
 })
 export class StudentsPageComponent implements OnInit, OnDestroy {
-  defaultItemsNumber: number = 10;
+  defaultItemsNumber = 10;
 
   paginationParams = new PaginationParams(0, this.defaultItemsNumber);
 
   totalItems: number;
-  currentPage: number = 1;
+  currentPage: 1;
   pageParam: number;
 
   alerts: Alert[] = [];
@@ -53,9 +53,11 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
   initNumberOfStudents() {
     this.crudService.getNumberOfItems(STUDENTS_URL)
       .pipe(
-        mergeMap((studentsNumber) => {
-          [this.totalItems, this.paginationParams.offset] = this.paginatorHelper.getPaginatorConstants(studentsNumber, this.defaultItemsNumber)
-          return this.crudService.getItems(STUDENTS_URL, this.paginationParams.offset, this.paginationParams.limit).pipe(takeUntil(this.destroy$));
+        mergeMap((studentsNumber: number) => {
+          this.totalItems = studentsNumber;
+          this.paginationParams.offset = this.paginatorHelper.getOffset(this.totalItems, this.defaultItemsNumber);
+          return this.crudService.getItems(STUDENTS_URL, this.paginationParams.offset, this.paginationParams.limit)
+            .pipe(takeUntil(this.destroy$));
         }),
         catchError((error) => {
           this.alerts.push({ type: AlertType.Error, message: error });
@@ -73,8 +75,8 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
 
     this.modalRef.content.event
       .subscribe((newStudent) => {
-        this.students.unshift(newStudent)
-      })
+        this.students.unshift(newStudent);
+      });
   }
 
   ngOnDestroy() {

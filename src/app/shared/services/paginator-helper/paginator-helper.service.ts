@@ -6,16 +6,14 @@ import { PaginationParams } from '@shared/models/pagination-params';
 export class PaginatorHelperService {
   constructor() { }
 
-  getPaginatorConstants(studentsNumber: number, defaultItemsNumber: number) {
-    let totalItems = +studentsNumber;
-    let offset = totalItems - defaultItemsNumber;
-    return [totalItems, offset];
+  getOffset(totalItems: number, defaultItemsNumber: number): number {
+    return totalItems - defaultItemsNumber;
   }
 
 <<<<<<< HEAD
 =======
   getCurentPage(pageParam: any): number {
-    let page = +pageParam;
+    const page = +pageParam;
     if (page) {
       return page;
     } else {
