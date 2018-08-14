@@ -1,5 +1,7 @@
 import { Component, EventEmitter } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { Router } from '@angular/router';
+import { CONFIRM_MODAL_TIMEOUT } from '@shared/constants'
 
 @Component({
   selector: 'app-confirm-modal',
@@ -11,7 +13,8 @@ export class ConfirmModalComponent {
 
   message: string;
 
-  constructor(public bsModalRef: BsModalRef) { }
+  constructor(public bsModalRef: BsModalRef,
+    private router: Router) { }
 
   confirm() {
     this.onConfirm.emit();
@@ -19,5 +22,13 @@ export class ConfirmModalComponent {
 
   decline(): void {
     this.bsModalRef.hide();
+  }
+
+  afterConfirmAction(url, message) {
+    this.message = message;
+    setTimeout(() => {
+      this.router.navigateByUrl(url);
+      this.bsModalRef.hide();
+    }, CONFIRM_MODAL_TIMEOUT);
   }
 }
