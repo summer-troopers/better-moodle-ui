@@ -75,7 +75,6 @@ export class EditTeacherModalComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe(() => {
-
         this.event.emit(formParam);
         this.hideConfirmationModal();
       });

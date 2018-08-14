@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Subject, throwError } from 'rxjs';
@@ -28,8 +28,7 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
     private crudService: CrudService,
-    private modalService: BsModalService,
-    private router: Router) { }
+    private modalService: BsModalService) { }
 
   ngOnInit() {
     this.getItems();

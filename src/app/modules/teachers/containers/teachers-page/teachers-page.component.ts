@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, throwError } from 'rxjs';
+import { Subject, throwError, Observable } from 'rxjs';
 import { takeUntil, mergeMap, catchError } from 'rxjs/operators';
 
 import { Teacher } from '@shared/models/teacher';
@@ -60,7 +60,7 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  getTeacher() {
+  getTeacher(): Observable<Teacher> {
     return this.crudService.getItems(TEACHERS_URL, this.paginationParams.offset, this.paginationParams.limit)
       .pipe(takeUntil(this.destroy$),
         catchError((error) => {
