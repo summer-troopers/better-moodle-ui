@@ -1,18 +1,20 @@
 <div class="container">
-  <div *ngIf="teachers.length > 0; else noTeachers">
+  <app-local-alert [alerts]="alerts"></app-local-alert>
+</div>
+<div class="container">
+  <div *ngIf="teachers.length; else noTeachers">
     <div class="pageTitle">
       <h1>List of all teachers
-
         <button type="button"
                 class="btn btn-primary pull-right"
                 (click)="openAddTeacherModal()">Add new teacher</button>
       </h1>
       <br>
     </div>
-    <div *ngFor="let teacher of teachers; intex as i ">
+    <div *ngFor="let teacher of teachers;">
       <ul class="list-group list-group-flush">
         <li class="list-group-item list-group-item-dark">
-          <a routerLink='/teachers/{{teacher.id}}'
+          <a [routerLink]="['/teachers', teacher.id]"
              class="list-group-item list-group-item-action">{{teacher.firstName}} {{teacher.lastName}}</a>
         </li>
       </ul>
@@ -20,7 +22,7 @@
   </div>
 
   <ng-template #noTeachers>
-    <h1>Empty list of teachers !!!</h1>
+    <h1>No teachers to show...</h1>
     <div class="text-center">
       <h2>Want to add a new teacher ? </h2>
     </div>
@@ -34,8 +36,6 @@
   <div class="pagination-container">
     <pagination class="d-flex justify-content-center"
                 [totalItems]="totalItems"
-                [maxSize]="limit"
-                [maxSize]="5"
                 [(ngModel)]="currentPage"
                 (pageChanged)="pageChanged($event)"></pagination>
   </div>

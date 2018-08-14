@@ -2,12 +2,16 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject, throwError, Observable } from 'rxjs';
+import { takeUntil, mergeMap, catchError } from 'rxjs/operators';
 
-import { TeachersService } from '@teacherService/teachers.service';
 import { Teacher } from '@shared/models/teacher';
 import { AddTeacherModalComponent } from '@teacherModals/add-teacher-modal/add-teacher-modal.component';
+import { PaginationParams } from '@shared/models/pagination-params';
+import { PaginatorHelperService } from '@shared/services/paginator-helper/paginator-helper.service';
+import { Alert, AlertType } from '@shared/models/alert';
+import { CrudService } from '@shared/services/crud/crud.service';
+import { TEACHERS_URL } from '@shared/constants';
 
 @Component({
   selector: 'app-teachers-page',
@@ -20,56 +24,82 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
 
   modalRef: BsModalRef;
 
+  alerts: Alert[] = [];
+  defaultItemsNumber = 10;
+  paginationParams = new PaginationParams(0, this.defaultItemsNumber);
+
   teachers: Array<Teacher> = [];
-  offset: number = 0;
-  limit: number = 10;
-  totalItems: any;
-  currentPage: number = 1;
+  totalItems: number;
+  currentPage = 1;
   pageParam: number;
 
-  constructor(private teacherService: TeachersService,
+  constructor(private crudService: CrudService,
     private modalService: BsModalService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private paginatorHelperService: PaginatorHelperService) { }
 
   ngOnInit() {
-    this.route.queryParams.pipe(takeUntil(this.destroy$)).subscribe((params) => {
-      this.pageParam = +params.page;
-      if (this.pageParam != null || this.pageParam !== NaN) {
-        if (this.pageParam > 0) {
-          this.setPage(this.pageParam);
-        } else {
-          this.setPage(1);
-        }
-      } else {
-        this.setPage(1);
-      }
-    });
-    this.teacherService.getTeachers(this.offset, this.limit).pipe(takeUntil(this.destroy$))
-      .subscribe(teachers => this.teachers = teachers);
-    this.teacherService.getNumberOfTeachers().pipe(takeUntil(this.destroy$))
-      .subscribe(teachers => this.totalItems = teachers);
+    this.initPage();
+    this.initNumberOfTeachers();
   }
 
   openAddTeacherModal() {
     this.modalRef = this.modalService.show(AddTeacherModalComponent);
+    this.modalRef.content.teacherAdded
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((newTeacher) => {
+        this.teachers.unshift(newTeacher);
+      });
+  }
+
+  initPage() {
+    this.route.queryParams.subscribe((params) => {
+      this.pageParam = +params.page;
+      this.paginatorHelperService.getCurrentPage(this.pageParam);
+    });
+  }
+
+  getTeacher(): Observable<Teacher> {
+    return this.crudService.getItems(TEACHERS_URL, this.paginationParams.offset, this.paginationParams.limit)
+      .pipe(takeUntil(this.destroy$),
+        catchError((error) => {
+          this.alerts.push({ type: AlertType.Error, message: error });
+
+          return throwError(error);
+        }));
+  }
+
+  initNumberOfTeachers() {
+    this.crudService.getNumberOfItems(TEACHERS_URL)
+      .pipe(
+        mergeMap((teachersNumber: number) => {
+          this.totalItems = +teachersNumber;
+          this.paginationParams.offset = this.paginatorHelperService.getOffset(this.totalItems, this.defaultItemsNumber);
+
+          return this.getTeacher();
+        }))
+      .subscribe((teachers) => {
+        this.teachers = teachers;
+        this.teachers.reverse();
+      });
+  }
+
+  pageChanged(event: any) {
+    this.currentPage = event.page;
+
+    this.paginationParams = this.paginatorHelperService.getPaginationParams(this.totalItems, this.currentPage);
+
+    this.getTeacher()
+      .subscribe((teachers) => {
+        this.teachers = teachers;
+        this.teachers.reverse();
+      });
+    this.router.navigate([`${TEACHERS_URL}`], { queryParams: { page: event.page } });
   }
 
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
-  }
-
-  setPage(pageNumber: number) {
-    this.currentPage = pageNumber;
-  }
-
-  pageChanged(event: any) {
-    this.currentPage = event.page;
-    this.offset = this.limit * (event.page - 1);
-    this.teacherService.getTeachers(this.offset, this.limit)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(teachers => this.teachers = teachers);
-    this.router.navigate(['teachers'], { queryParams: { page: event.page } });
   }
 }
