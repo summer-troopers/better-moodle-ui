@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { COURSES_URL } from '@shared/constants';
 import { CrudService } from '@shared/services/crud/crud.service';
+import { COURSES_URL } from '@shared/constants';
 import Course from '@shared/models/course';
 
 @Component({
@@ -9,7 +9,6 @@ import Course from '@shared/models/course';
   styleUrls: ['./my-courses.component.scss']
 })
 export class MyCoursesComponent implements OnInit {
-
   id: string;
   courses: Course;
   @Input() user;

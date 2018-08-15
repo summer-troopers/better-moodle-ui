@@ -13,5 +13,3 @@ export const HOME_URL = 'home';
 export const AUTHENTICATION_URL = 'auth';
 export const NUMBER_ITEMS_PAGE = 10;
 export const MAX_SIZE_PAGINATION = 5;
-export const STUDENTS_URL = 'students';
-export const GROUPS_URL = 'groups';
