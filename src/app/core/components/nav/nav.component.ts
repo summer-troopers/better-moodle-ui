@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import {NavBarLink} from '@shared/models';
 import {AuthenticationService} from '@modules/authentication/authentication.service';
@@ -48,9 +48,5 @@ export class NavComponent implements OnInit {
 
   changeCollapse() {
     this.isCollapsed = !this.isCollapsed;
-  }
-
-  logOut() {
-    this.authenticationService.logOut();
   }
 }
