@@ -11,14 +11,14 @@ import { CrudService } from '@shared/services/crud/crud.service';
 import { Student } from '@shared/models/student';
 import { PaginationParams } from '@shared/models/pagination-params';
 import { Alert, AlertType } from '@shared/models/alert';
-import { STUDENTS_URL, DEFAULT_ITEMS_NUMBER } from '@shared/constants';
+import { STUDENTS_URL, NUMBER_ITEMS_PAGE } from '@shared/constants';
 @Component({
   selector: 'app-students-page',
   templateUrl: './students-page.component.html',
   styleUrls: ['./students-page.component.scss']
 })
 export class StudentsPageComponent implements OnInit, OnDestroy {
-  paginationParams = new PaginationParams(0, DEFAULT_ITEMS_NUMBER);
+  paginationParams = new PaginationParams(0, NUMBER_ITEMS_PAGE);
 
   totalItems: number;
   currentPage = 1;
@@ -53,7 +53,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
       .pipe(
         mergeMap((studentsNumber: number) => {
           this.totalItems = studentsNumber;
-          this.paginationParams.offset = this.paginatorHelper.getOffset(this.totalItems, DEFAULT_ITEMS_NUMBER);
+          this.paginationParams.offset = this.paginatorHelper.getOffset(this.totalItems, NUMBER_ITEMS_PAGE);
           return this.getAllStudents();
         }),
         catchError((error) => {

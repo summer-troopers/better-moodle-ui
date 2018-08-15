@@ -10,4 +10,3 @@ export const NUMBER_ITEMS_PAGE = 10;
 export const MAX_SIZE_PAGINATION = 5;
 export const STUDENTS_URL = 'students';
 export const GROUPS_URL = 'groups';
-export const DEFAULT_ITEMS_NUMBER = 10;
