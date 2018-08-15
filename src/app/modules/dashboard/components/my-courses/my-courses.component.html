@@ -5,10 +5,18 @@
     <tr  class="table-success">
       <th scope="col">#</th>
       <th scope="col">Name</th>
-      <th scope="col">Details</th>
+      <th scope="col">Laboratory</th>
     </tr>
     </thead>
     <tbody>
+    <tr *ngFor="let course of courses">
+      <th scope="row">1</th>
+      <td>{{course.name}} </td>
+      <td><button>Add Laboratory</button></td>
+    </tr>
+
+
+
     <tr>
       <th scope="row">1</th>
       <td>Math</td>
