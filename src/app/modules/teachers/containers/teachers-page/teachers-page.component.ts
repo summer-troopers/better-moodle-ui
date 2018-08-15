@@ -60,7 +60,7 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  getTeacher(): Observable<Teacher> {
+  getTeachers(): Observable<Teacher[]> {
     return this.crudService.getItems(TEACHERS_URL, this.paginationParams.offset, this.paginationParams.limit)
       .pipe(takeUntil(this.destroy$),
         catchError((error) => {
@@ -77,7 +77,7 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
           this.totalItems = +teachersNumber;
           this.paginationParams.offset = this.paginatorHelperService.getOffset(this.totalItems, this.defaultItemsNumber);
 
-          return this.getTeacher();
+          return this.getTeachers();
         }))
       .subscribe((teachers) => {
         this.teachers = teachers;

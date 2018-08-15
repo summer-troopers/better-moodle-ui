@@ -23,7 +23,7 @@ export class AddTeacherModalComponent implements OnInit, OnDestroy {
 
   constructor(private formBuilder: FormBuilder,
     private crudService: CrudService,
-    private bsModalRef: BsModalRef) { }
+    public bsModalRef: BsModalRef) { }
 
   ngOnInit() {
     this.initForm();
