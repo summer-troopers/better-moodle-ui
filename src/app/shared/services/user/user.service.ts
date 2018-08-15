@@ -14,6 +14,7 @@ export class UserService {
     try {
       parsedItem = JSON.parse(item);
     } catch (err) {
+      alert('USER_UNDEFINED !!!');
     }
 
     return parsedItem;
