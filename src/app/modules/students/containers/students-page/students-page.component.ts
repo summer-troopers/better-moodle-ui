@@ -38,13 +38,12 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initPage();
-    this.initNumberOfStudents();
   }
 
   initPage() {
     this.route.queryParams.subscribe((params) => {
       this.currentPage = this.paginatorHelper.getCurrentPage(params.page);
-      this.router.navigate([STUDENTS_URL], { queryParams: { page: this.currentPage } });
+      this.initNumberOfStudents();
     });
   }
 
@@ -53,7 +52,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
       .pipe(
         mergeMap((studentsNumber: number) => {
           this.totalItems = studentsNumber;
-          this.paginationParams.offset = this.paginatorHelper.getOffset(this.totalItems, NUMBER_ITEMS_PAGE);
+          this.paginationParams = this.paginatorHelper.getPaginationParams(this.totalItems, this.currentPage);
           return this.getAllStudents();
         }),
         catchError((error) => {
@@ -82,13 +81,6 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
 
   pageChanged(event: any) {
     this.currentPage = event.page;
-
-    this.paginationParams = this.paginatorHelper.getPaginationParams(this.totalItems, this.currentPage);
-
-    this.getAllStudents()
-      .subscribe((students) => {
-        this.setStudents(students);
-      });
 
     this.router.navigate([STUDENTS_URL], { queryParams: { page: event.page } });
   }
