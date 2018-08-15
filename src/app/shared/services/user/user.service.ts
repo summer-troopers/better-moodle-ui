@@ -9,7 +9,13 @@ export class UserService {
   }
 
   getUserLocalStorage(key: string) {
-    const a = localStorage.getItem(key);
-    return JSON.parse(a);
+    const item = localStorage.getItem(key);
+    let parsedItem;
+    try {
+      parsedItem = JSON.parse(item);
+    } catch (err) {
+    }
+
+    return parsedItem;
   }
 }
