@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import {NavBarLink} from '@shared/models';
-import {AuthenticationService} from '@modules/authentication/authentication.service';
-import {UserService} from '@shared/services/user/user.service';
-import {CreateUser} from '@shared/models/user-factory';
+import { NavBarLink } from '@shared/models';
+import { AuthenticationService } from '@modules/authentication/authentication.service';
+import { UserService } from '@shared/services/user/user.service';
+import { CreateUser } from '@shared/models/user-factory';
 
 @Component({
   selector: 'app-nav',
@@ -39,7 +39,8 @@ export class NavComponent implements OnInit {
 
   isCollapsed = true;
 
-  constructor(private authenticationService: AuthenticationService, private userService: UserService) {
+  constructor(private authenticationService: AuthenticationService,
+              private userService: UserService) {
   }
 
   ngOnInit() {
