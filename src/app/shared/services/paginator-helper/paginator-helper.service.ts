@@ -24,7 +24,7 @@ export class PaginatorHelperService {
     return new PaginationParams(limit, offset);
   }
 
-  getCurrentPage(pageParam: number) {
+  getCurrentPage(pageParam: number): number {
     pageParam = +pageParam;
     if (pageParam) {
       return pageParam;
