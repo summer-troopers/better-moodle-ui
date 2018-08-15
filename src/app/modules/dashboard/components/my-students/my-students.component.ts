@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { STUDENTS_URL } from '@shared/constants';
+import { Student } from '@shared/models/student';
+import { CrudService } from '@shared/services/crud/crud.service';
 
 @Component({
   selector: 'app-my-students',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyStudentsComponent implements OnInit {
 
-  constructor() { }
+  id: string;
+  students: Student;
+  @Input() user;
+
+  constructor(private crudService: CrudService) { }
 
   ngOnInit() {
+    const teacherId = this.user.id;
+    this.crudService.getItemsofTeacher(STUDENTS_URL, teacherId);
   }
-
 }

@@ -1,9 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {LABTASKS, GROUPS_URL, TEACHERS_URL, COURSES_URL} from '@shared/constants';
-import {mergeMap} from 'rxjs/operators';
-
-import {CrudService} from '@shared/services/crud/crud.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { COURSES_URL } from '@shared/constants';
+import { CrudService } from '@shared/services/crud/crud.service';
 import Course from '@shared/models/course';
 
 @Component({
@@ -14,24 +11,13 @@ import Course from '@shared/models/course';
 export class MyCoursesComponent implements OnInit {
 
   id: string;
-  course: Course;
+  courses: Course;
+  @Input() user;
 
-  constructor(private crudService: CrudService,
-              private route: ActivatedRoute,
-              private router: Router) {
-  }
+  constructor(private crudService: CrudService) {}
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.teacherId = params['teacherId'];
-      this.crudService.getItem(COURSES_URL, this.teacherId)
-        .pipe(
-          mergeMap((course: Course) => {
-            this.course = course;
-            return this.crudService.getItem(TEACHERS_URL, course.teacherId.toString()),
-          }),
-        )
-        .subscribe(teacher => this.firstName = teacher.firstName);
-    });
+    const teacherId = this.user.id;
+    this.crudService.getItemsofTeacher(COURSES_URL, teacherId);
   }
 }

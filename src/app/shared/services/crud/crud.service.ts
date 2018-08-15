@@ -15,6 +15,16 @@ export class CrudService {
       .pipe(map(result => result.total));
   }
 
+  getItemsofTeacher(pageUrl: string, teacherId: number): Observable<Array<any>> {
+    return this.api.get(`${pageUrl}?teacherId=${teacherId}`)
+      .pipe(map(result => result.data));
+  }
+
+  getItemsofStudent(pageUrl: string, studentId: number): Observable<Array<any>> {
+    return this.api.get(`${pageUrl}?studentId=${studentId}`)
+      .pipe(map(result => result.data));
+  }
+
   getItems(pageUrl: string, offset: number, limit: number): Observable<Array<any>> {
     return this.api.get(`${pageUrl}?offset=${offset}&limit=${limit}`)
       .pipe(map(result => result.data));

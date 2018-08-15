@@ -9,10 +9,10 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>IA161</td>
-      <td>Aplied Informatics</td>
+    <tr *ngFor="let group of groups">
+      <th scope="row">{{group.id}}</th>
+      <td>{{group.name}}</td>
+      <td>{{group.specialty_id}}</td>
     </tr>
     <tr>
       <th scope="row">2</th>

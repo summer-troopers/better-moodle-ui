@@ -13,15 +13,15 @@
 <hr>
 
 <div>
-  <tabset #staticTabs>
+  <tabset #staticTabs *ngIf="user && user.isTeacher()">
     <tab heading="My Courses">
-      <app-my-courses></app-my-courses>
+      <app-my-courses [user]="user"></app-my-courses>
     </tab>
     <tab heading="My Groups">
-      <app-my-groups></app-my-groups>
+      <app-my-groups [user]="user"></app-my-groups>
     </tab>
     <tab heading="My Students">
-      <app-my-students></app-my-students>
+      <app-my-students [user]="user"></app-my-students>
     </tab>
   </tabset>
 </div>
