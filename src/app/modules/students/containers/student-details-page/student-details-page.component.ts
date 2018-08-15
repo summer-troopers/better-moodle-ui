@@ -74,11 +74,11 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
 
     this.modalRef.content.studentEdited
       .pipe(
+        takeUntil(this.destroy$),
         mergeMap((updatedStudentData: Student) => {
           this.student = updatedStudentData;
           return this.crudService.getItem(GROUPS_URL, updatedStudentData.groupId.toString())
             .pipe(
-              takeUntil(this.destroy$),
               catchError((error) => {
                 this.alerts.push({ type: AlertType.Error, message: error });
                 return throwError(error);

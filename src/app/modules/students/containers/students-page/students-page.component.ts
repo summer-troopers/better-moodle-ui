@@ -50,6 +50,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
   initNumberOfStudents() {
     this.crudService.getNumberOfItems(STUDENTS_URL)
       .pipe(
+        takeUntil(this.destroy$),
         mergeMap((studentsNumber: number) => {
           this.totalItems = studentsNumber;
           this.paginationParams = this.paginatorHelper.getPaginationParams(this.totalItems, this.currentPage);
