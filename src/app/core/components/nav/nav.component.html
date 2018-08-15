@@ -24,7 +24,7 @@
             <i class="fa fa-user icon" style="padding-left:5px;"></i>
           </button>
           <ul *dropdownMenu class="collapse bg-dark dropdown-menu-right dropprofile" aria-labelledby="button-basic">
-            <li class="profile-name">Me</li>
+            <li class="profile-name">{{user.firstName}} {{user.lastName}}</li>
             <li class="divider dropdown-divider"></li>
             <li routerLinkActive="activated"><a class="nav-link" routerLink="dashboard">My Profile</a></li>
             <li routerLinkActive="activated">

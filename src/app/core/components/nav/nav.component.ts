@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { NavBarLink } from '@shared/models';
-import { AuthenticationService } from '@modules/authentication/authentication.service';
+import {NavBarLink} from '@shared/models';
+import {AuthenticationService} from '@modules/authentication/authentication.service';
+import {UserService} from '@shared/services/user/user.service';
+import {CreateUser} from '@shared/models/user-factory';
 
 @Component({
   selector: 'app-nav',
@@ -10,6 +12,7 @@ import { AuthenticationService } from '@modules/authentication/authentication.se
 })
 export class NavComponent implements OnInit {
   isAuthenticated = false;
+  user: any;
 
   public items: Array<NavBarLink> = [
     {
@@ -36,11 +39,14 @@ export class NavComponent implements OnInit {
 
   isCollapsed = true;
 
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(private authenticationService: AuthenticationService, private userService: UserService) {
   }
 
   ngOnInit() {
     this.isAuthenticated = this.authenticationService.isAuthenticated();
+
+    const userFromStorage = JSON.parse(this.userService.getUserLocalStorage('user'));
+    this.user = CreateUser(userFromStorage);
   }
 
   logOut() {
