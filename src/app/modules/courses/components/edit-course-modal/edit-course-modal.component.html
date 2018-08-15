@@ -16,11 +16,11 @@
         <input formControlName="name"
                type="text"
                class="form-control"
-               [ngClass]="{ 'is-invalid': isSubmitted && errorName }"
+               [ngClass]="{ 'is-invalid': isSubmitted && nameError }"
                id="name"
                placeholder="Enter Group name">
-        <div *ngIf="isSubmitted && errorName" class="invalid-feedback">
-          <div *ngIf="errorName.required">Course name is required</div>
+        <div *ngIf="isSubmitted && nameError" class="invalid-feedback">
+          <div *ngIf="nameError.required">Course name is required</div>
         </div>
       </div>
       <button [disabled]="courseForm.invalid" class="btn btn-primary">Edit course</button>

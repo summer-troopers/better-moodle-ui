@@ -33,12 +33,8 @@ export class EditCourseModalComponent implements OnInit, OnDestroy  {
     this.initForm();
   }
 
-  get controls() {
-    return this.courseForm.controls;
-  }
-
-  get errorName() {
-    return this.controls.name.errors;
+  get nameError() {
+    return this.courseForm.controls.name.errors;
   }
 
   initForm() {
