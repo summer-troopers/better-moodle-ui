@@ -1,0 +1,28 @@
+<ul class="navbar-nav p-2 profile-div">
+  <div class="btn-group"
+       dropdown>
+    <button id="button-basic"
+            dropdownToggle
+            type="button"
+            aria-controls="dropdown-basic"
+            class="btn btn-secondary dropdown-toggle bg-dark menubtn"
+            (click)="isCollapsed = true">
+      <i class="fa fa-user icon"></i>
+    </button>
+    <ul *dropdownMenu
+        class="collapse bg-dark dropdown-menu-right dropprofile"
+        aria-labelledby="button-basic"
+        (click)="isCollapsed = true">
+      <li class="profile-name">{{user.firstName}} {{user.lastName}}</li>
+      <li class="divider dropdown-divider"></li>
+      <li routerLinkActive="activated"><a class="nav-link"
+                                          routerLink="dashboard">My Profile</a></li>
+      <li routerLinkActive="activated">
+        <button class="log-button nav-link"
+                type="button"
+                (click)="logOut()">Log out
+        </button>
+      </li>
+    </ul>
+  </div>
+</ul>

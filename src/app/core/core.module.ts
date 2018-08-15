@@ -14,6 +14,7 @@ import { HeaderComponent } from '@core/components/header/header.component';
 import { LayoutComponent } from '@core/components/layout/layout.component';
 import { AuthenticationInterceptorService } from '@core/interceptors/authentication-interceptor/authentication-interceptor.service';
 import { AlertService } from '@core/../shared/services/alert/alert.service';
+import { UserDropdownComponent } from './components/nav/user-dropdown/user-dropdown/user-dropdown.component';
 
 const COMPONENTS = [
   NavComponent,
@@ -40,6 +41,7 @@ export function initAppFactory(initService: InitService) {
   ],
   declarations: [
     ...COMPONENTS,
+    UserDropdownComponent,
   ],
   exports: [
     ...COMPONENTS,
