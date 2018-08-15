@@ -4,7 +4,10 @@
 
 <app-layout>
   <app-alert></app-alert>
-  <router-outlet></router-outlet>
+  <router-outlet>
+    <ng-http-loader backgroundColor="#c68039"
+                    [spinner]="spinkit.skWave">
+    </ng-http-loader>
+  </router-outlet>
 </app-layout>
-
 <app-footer></app-footer>
