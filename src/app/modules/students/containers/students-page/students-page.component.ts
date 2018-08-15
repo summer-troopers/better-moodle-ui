@@ -11,16 +11,14 @@ import { CrudService } from '@shared/services/crud/crud.service';
 import { Student } from '@shared/models/student';
 import { PaginationParams } from '@shared/models/pagination-params';
 import { Alert, AlertType } from '@shared/models/alert';
-import { STUDENTS_URL } from '@shared/constants';
+import { STUDENTS_URL, DEFAULT_ITEMS_NUMBER } from '@shared/constants';
 @Component({
   selector: 'app-students-page',
   templateUrl: './students-page.component.html',
   styleUrls: ['./students-page.component.scss']
 })
 export class StudentsPageComponent implements OnInit, OnDestroy {
-  defaultItemsNumber = 10;
-
-  paginationParams = new PaginationParams(0, this.defaultItemsNumber);
+  paginationParams = new PaginationParams(0, DEFAULT_ITEMS_NUMBER);
 
   totalItems: number;
   currentPage = 1;
@@ -55,7 +53,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
       .pipe(
         mergeMap((studentsNumber: number) => {
           this.totalItems = studentsNumber;
-          this.paginationParams.offset = this.paginatorHelper.getOffset(this.totalItems, this.defaultItemsNumber);
+          this.paginationParams.offset = this.paginatorHelper.getOffset(this.totalItems, DEFAULT_ITEMS_NUMBER);
           return this.getAllStudents();
         }),
         catchError((error) => {
@@ -64,7 +62,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe((students) => {
-        this.reverseStudents(students);
+        this.setStudents(students);
       });
   }
 
@@ -89,7 +87,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
 
     this.getAllStudents()
       .subscribe((students) => {
-        this.reverseStudents(students);
+        this.setStudents(students);
       });
 
     this.router.navigate([STUDENTS_URL], { queryParams: { page: event.page } });
@@ -107,8 +105,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
       );
   }
 
-  reverseStudents(students) {
-    this.students = students;
-    this.students.reverse();
+  setStudents(students) {
+    this.students = students.reverse();
   }
 }

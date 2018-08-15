@@ -72,11 +72,10 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
     };
     this.modalRef = this.modalService.show(EditStudentModalComponent, { initialState });
 
-    this.modalRef.content.event
+    this.modalRef.content.studentEdited
       .pipe(
         mergeMap((updatedStudentData: Student) => {
           this.student = updatedStudentData;
-          this.alerts.push({ type: AlertType.Success, message: 'Student data updated!' });
           return this.crudService.getItem(GROUPS_URL, updatedStudentData.groupId.toString())
             .pipe(
               takeUntil(this.destroy$),
@@ -91,7 +90,10 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
           return throwError(error);
         })
       )
-      .subscribe(group => this.groupName = group.name);
+      .subscribe(group => {
+        this.groupName = group.name;
+        this.alerts.push({ type: AlertType.Success, message: 'Student data updated!' });
+      });
   }
 
   openDeleteModal() {

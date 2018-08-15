@@ -20,7 +20,7 @@ export class AddStudentModalComponent implements OnInit, OnDestroy {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  public event: EventEmitter<any> = new EventEmitter();
+  studentAdded: EventEmitter<any> = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder,
     private crudService: CrudService,
@@ -81,7 +81,7 @@ export class AddStudentModalComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe((newStudent) => {
-        this.event.emit(newStudent);
+        this.studentAdded.emit(newStudent);
         this.bsModalRef.hide();
       });
   }

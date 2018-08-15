@@ -22,7 +22,7 @@ export class EditStudentModalComponent implements OnInit, OnDestroy {
 
   alerts: Alert[] = [];
 
-  public event: EventEmitter<any> = new EventEmitter();
+  studentEdited: EventEmitter<any> = new EventEmitter();
 
   constructor(public bsModalRef: BsModalRef,
     private crudService: CrudService) { }
@@ -77,7 +77,7 @@ export class EditStudentModalComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe(() => {
-        this.event.emit(this.studentForm.value);
+        this.studentEdited.emit(this.studentForm.value);
         this.bsModalRef.hide();
       });
   }
