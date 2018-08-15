@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BackendApiService } from '@core/services/api/backend-api.service';
-import { map, first } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Injectable({

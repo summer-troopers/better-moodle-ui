@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject, throwError } from 'rxjs';
-import { takeUntil, catchError } from 'rxjs/operators';
+import { catchError, takeUntil } from 'rxjs/operators';
 
 import { Teacher } from '@shared/models/teacher';
 import { CrudService } from '@shared/services/crud/crud.service';

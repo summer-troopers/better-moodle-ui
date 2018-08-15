@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthenticationService } from '@modules/authentication/authentication.service';
-import { TOKEN_STORAGE_KEY, USER_STORAGE_KEY } from '@shared/constants';
+import { HOME_URL, MIN_PASSWORD_LENGTH, TOKEN_STORAGE_KEY, USER_STORAGE_KEY } from '@shared/constants';
 import { LocalStorageService } from '@shared/services/local-storage/local-storage.service';
 import { Alert, AlertType } from '@shared/models/alert';
 
@@ -41,7 +41,7 @@ export class LoginPageComponent implements OnInit {
   initForm() {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(MIN_PASSWORD_LENGTH)]]
     });
   }
 
@@ -58,7 +58,7 @@ export class LoginPageComponent implements OnInit {
     this.authenticationService.login(this.loginForm.value).subscribe(data => {
       this.localStorageService.insertLocalStorage(data.token, TOKEN_STORAGE_KEY);
       this.localStorageService.insertLocalStorage(data.userData, USER_STORAGE_KEY);
-      this.router.navigateByUrl('home')
+      this.router.navigateByUrl(HOME_URL)
         .catch(console.error);
     }, error => {
       this.isRequestError = true;
