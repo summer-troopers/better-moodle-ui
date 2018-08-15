@@ -82,7 +82,6 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
 
   pageChanged(event: any) {
     this.currentPage = event.page;
-
     this.router.navigate([STUDENTS_URL], { queryParams: { page: event.page } });
   }
 
