@@ -16,7 +16,7 @@ export class MyCoursesComponent implements OnInit {
   constructor(private crudService: CrudService) {}
 
   ngOnInit() {
-    const teacherId = this.user.id;
-    this.crudService.getItemsofTeacher(COURSES_URL, teacherId);
+    const userId = this.user.id;
+    this.crudService.getItemsofTeacher(COURSES_URL, userId);
   }
 }
