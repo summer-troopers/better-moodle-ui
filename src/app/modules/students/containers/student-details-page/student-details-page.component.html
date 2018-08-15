@@ -1,7 +1,7 @@
 <div class="container">
   <app-local-alert [alerts]="alerts"></app-local-alert>
 </div>
-<div class="container"
+<div class="container padded-container"
      *ngIf="student">
   <h1 class="text-center">{{student.firstName}} {{student.lastName}}</h1>
   <h3>First Name: {{student.firstName}}</h3>
@@ -15,7 +15,4 @@
 
   <button class="btn btn-default"
           (click)="openEditModal()">Edit</button>
-  <br>
-  <br>
-  <br>
 </div>
