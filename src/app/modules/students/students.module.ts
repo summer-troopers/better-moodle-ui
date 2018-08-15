@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { studentsRoutes } from './students.routes';
 import { StudentDetailsPageComponent, StudentsPageComponent } from '@modules/students/containers';
-import { AddStudentComponent } from '@modules/students/components/add-student/add-student.component'
+import { AddStudentComponent } from '@modules/students/components/add-student/add-student.component';
 
 @NgModule({
   imports: [
