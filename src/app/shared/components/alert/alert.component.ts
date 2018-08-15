@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import { Alert } from '@shared/models/alert';
 import { AlertService } from '@shared/services/alert/alert.service';
-import { LocalAlertComponent } from '@shared/componets/alert/local-alert/local-alert.component';
+import { LocalAlertComponent } from '@shared/components/alert/local-alert/local-alert.component';
 
 @Component({
   selector: 'app-alert',

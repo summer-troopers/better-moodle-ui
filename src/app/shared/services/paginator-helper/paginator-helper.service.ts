@@ -12,15 +12,6 @@ export class PaginatorHelperService {
     return totalItems - defaultItemsNumber;
   }
 
-  getCurentPage(pageParam: any): number {
-    const page = +pageParam;
-    if (page) {
-      return page;
-    } else {
-      return 1;
-    }
-  }
-
   getPaginationParams(totalItems: number, selectedPage: number): PaginationParams {
     let offset = 0;
     let limit = 10;
@@ -41,9 +32,4 @@ export class PaginatorHelperService {
       return 1;
     }
   }
-
-  getOffset(total: number, defaultItems: number) {
-    return total - defaultItems;
-  }
-
 }

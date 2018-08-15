@@ -60,7 +60,7 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  getTeacher(): Observable<Teacher> {
+  getTeacher(): Observable<Teacher[]> {
     return this.crudService.getItems(TEACHERS_URL, this.paginationParams.offset, this.paginationParams.limit)
       .pipe(takeUntil(this.destroy$),
         catchError((error) => {
