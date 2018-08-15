@@ -5,7 +5,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { NgHttpLoaderModule } from 'ng-http-loader';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 import { InitService } from '@core/services/init/init.service';
 import { LoggerInterceptorService } from '@core/interceptors/logger-interceptor/logger-interceptor.service';
