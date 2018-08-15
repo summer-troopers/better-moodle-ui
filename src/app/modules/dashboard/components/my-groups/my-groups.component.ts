@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CrudService } from '@shared/services/crud/crud.service';
 import { GROUPS_URL } from '@shared/constants';
 import Group from '@shared/models/group';
+import {DashboardService} from '@modules/dashboard/dashboard.service';
 
 @Component({
   selector: 'app-my-groups',
@@ -13,10 +13,10 @@ export class MyGroupsComponent implements OnInit {
   groups: Group;
   @Input() user;
 
-  constructor(private crudService: CrudService) { }
+  constructor(private dashboardService: DashboardService) { }
 
   ngOnInit() {
     const userId = this.user.id;
-    this.crudService.getItemsofTeacher(GROUPS_URL, userId);
+    this.dashboardService.getItemsofTeacher(GROUPS_URL, userId);
   }
 }

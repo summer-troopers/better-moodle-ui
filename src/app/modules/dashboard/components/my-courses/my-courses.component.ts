@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CrudService } from '@shared/services/crud/crud.service';
 import { COURSES_URL } from '@shared/constants';
 import Course from '@shared/models/course';
+import {DashboardService} from '@modules/dashboard/dashboard.service';
 
 @Component({
   selector: 'app-my-courses',
@@ -13,10 +13,10 @@ export class MyCoursesComponent implements OnInit {
   courses: Course;
   @Input() user;
 
-  constructor(private crudService: CrudService) {}
+  constructor(private dashboardService: DashboardService) {}
 
   ngOnInit() {
     const userId = this.user.id;
-    this.crudService.getItemsofTeacher(COURSES_URL, userId);
+    this.dashboardService.getItemsofTeacher(COURSES_URL, userId);
   }
 }
