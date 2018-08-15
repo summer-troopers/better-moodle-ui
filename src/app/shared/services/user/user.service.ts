@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +9,7 @@ export class UserService {
   }
 
   getUserLocalStorage(key: string) {
-    return localStorage.getItem(key);
+    const a = localStorage.getItem(key);
+    return JSON.parse(a);
   }
 }

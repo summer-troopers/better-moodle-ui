@@ -46,7 +46,7 @@ export class NavComponent implements OnInit {
   ngOnInit() {
     this.isAuthenticated = this.authenticationService.isAuthenticated();
 
-    const userFromStorage = JSON.parse(this.userService.getUserLocalStorage('user'));
+    const userFromStorage = this.userService.getUserLocalStorage('user');
     this.user = CreateUser(userFromStorage);
   }
 

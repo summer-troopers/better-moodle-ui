@@ -5,7 +5,8 @@
     <div class="container">
 
       <a class="navbar-brand btn btn-secondary bg-dark menubtn"
-         routerLink="" (click)="isCollapsed = true">
+         routerLink=""
+         (click)="isCollapsed = true">
         <i class="fa fa-home icon"></i>
       </a>
 
@@ -35,7 +36,8 @@
           </button>
           <ul *dropdownMenu
               class="collapse bg-dark dropdown-menu-right dropprofile"
-              aria-labelledby="button-basic">
+              aria-labelledby="button-basic"
+              (click)="isCollapsed = true">
             <li class="profile-name">{{user.firstName}} {{user.lastName}}</li>
             <li class="divider dropdown-divider"></li>
             <li routerLinkActive="activated"><a class="nav-link"
@@ -59,6 +61,7 @@
         </button>
         <ul class="collapse bg-dark dropdown-menu-right dropfont"
             role="menu"
+            (click)="isCollapsed = true"
             [collapse]="isCollapsed">
           <li routerLinkActive="activated"
               *ngFor="let item of items">
