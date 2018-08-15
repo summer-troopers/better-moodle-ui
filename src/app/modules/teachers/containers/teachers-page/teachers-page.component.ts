@@ -90,7 +90,7 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
 
     this.paginationParams = this.paginatorHelperService.getPaginationParams(this.totalItems, this.currentPage);
 
-    this.getTeacher()
+    this.getTeachers()
       .subscribe((teachers) => {
         this.teachers = teachers;
         this.teachers.reverse();
