@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { NavBarLink } from '@shared/models';
-import { AuthenticationService } from '@modules/authentication/authentication.service';
+import {NavBarLink} from '@shared/models';
+import {AuthenticationService} from '@modules/authentication/authentication.service';
 
 @Component({
   selector: 'app-nav',
@@ -10,6 +10,7 @@ import { AuthenticationService } from '@modules/authentication/authentication.se
 })
 export class NavComponent implements OnInit {
   isAuthenticated = false;
+  isCollapsed = true;
 
   public items: Array<NavBarLink> = [
     {
@@ -34,17 +35,11 @@ export class NavComponent implements OnInit {
     },
   ];
 
-  isCollapsed = true;
-
   constructor(private authenticationService: AuthenticationService) {
   }
 
   ngOnInit() {
     this.isAuthenticated = this.authenticationService.isAuthenticated();
-  }
-
-  logOut() {
-    this.authenticationService.logOut();
   }
 
   authenticatedVerify() {
@@ -54,5 +49,4 @@ export class NavComponent implements OnInit {
   changeCollapse() {
     this.isCollapsed = !this.isCollapsed;
   }
-
 }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 
 import { InitService } from '@core/services/init/init.service';
@@ -13,6 +14,7 @@ import { HeaderComponent } from '@core/components/header/header.component';
 import { LayoutComponent } from '@core/components/layout/layout.component';
 import { AuthenticationInterceptorService } from '@core/interceptors/authentication-interceptor/authentication-interceptor.service';
 import { AlertService } from '@core/../shared/services/alert/alert.service';
+import { UserDropdownComponent } from './components/nav/user-dropdown/user-dropdown/user-dropdown.component';
 
 const COMPONENTS = [
   NavComponent,
@@ -35,9 +37,11 @@ export function initAppFactory(initService: InitService) {
     CommonModule,
     ...MODULES,
     CollapseModule.forRoot(),
+    BsDropdownModule.forRoot(),
   ],
   declarations: [
     ...COMPONENTS,
+    UserDropdownComponent,
   ],
   exports: [
     ...COMPONENTS,

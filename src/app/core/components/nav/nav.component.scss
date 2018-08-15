@@ -78,9 +78,19 @@ ul {
 }
 
 .log-button {
-  background:none!important;
-  color:inherit;
-  border:none;
+  background: none !important;
+  color: inherit;
+  border: none;
   font: inherit;
   cursor: pointer;
+}
+
+.menubtn {
+  border: none;
+  border-radius: .25rem !important;
+  padding: 6px;
+}
+
+.nav-link:hover {
+  color: white;
 }

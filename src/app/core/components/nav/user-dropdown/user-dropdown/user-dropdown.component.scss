@@ -1,0 +1,65 @@
+.activated {
+  background-color: #9f8060;
+  border-radius: 10px;
+  @media screen and (max-width: 1000px) {
+    padding-left: 10px;
+  }
+}
+
+ul {
+  list-style-type: none;
+}
+
+.nvbar-right {
+  margin-left: 30%;
+  margin-right: 0;
+}
+
+.icon {
+  color: #d98026;
+  font-size: 200% !important;
+  padding-left: 2px;
+  &:hover {
+    color: #f0b375;
+  }
+}
+
+.dropprofile {
+  position: absolute;
+  width: 200px;
+  z-index: 2;
+  top: 100%;
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+}
+
+.dropdown-menu {
+  width: 80vw;
+  padding: 30px;
+}
+
+.log-button {
+  background: none !important;
+  color: inherit;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+.menubtn {
+  border: none;
+  border-radius: .25rem !important;
+  padding: 6px;
+}
+
+.profile-name {
+  font-size: 18px;
+  font-style: oblique;
+  color: white !important;
+}
+
+.nav-link:hover {
+  color: white;
+}

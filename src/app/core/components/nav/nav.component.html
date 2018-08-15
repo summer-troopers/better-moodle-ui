@@ -4,44 +4,40 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark app-nav">
     <div class="container">
 
-      <a class="navbar-brand" routerLink="">
-        <i class="fa fa-home icon"></i>
+      <a class="navbar-brand btn btn-secondary bg-dark menubtn"
+         (click)="isCollapsed = true">
+        <i class="fa fa-home icon" routerLink=""></i>
       </a>
 
       <!--big screen-->
       <div class="collapse navbar-collapse block">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item" *ngFor="let item of items" routerLinkActive="activated">
-            <a class="nav-link" routerLink={{item.url}}>{{item.name}}</a>
+          <li class="nav-item"
+              *ngFor="let item of items"
+              routerLinkActive="activated">
+            <a class="nav-link"
+               routerLink={{item.url}}>{{item.name}}</a>
           </li>
         </ul>
       </div>
-      <div class="collapse navbar-collapse profile-div">
-        <ul class="navbar-nav nvbar-right ml-auto p-2">
-          <li class="nav-item" routerLinkActive="activated">
-            <button class="nav-link log-button" (click)="logOut()">Log out</button>
-          </li>
-        </ul>
 
-        <a class="navbar-brand" routerLinkActive="activated">
-          <i class="fa fa-user icon" routerLink="dashboard"></i>
-        </a>
-      </div>
+      <app-user-dropdown [isCollapsed]="isCollapsed" class="nvbar-right ml-auto"> </app-user-dropdown>
 
-      <!--small screen-->
-      <div class="btn-group navbar-toggler toggle-container">
-        <a class="navbar-brand" routerLink="dashboard">
-          <i class="fa fa-user icon"></i>
-        </a>
-        <button type="button" class="btn btn-secondary" (click)="changeCollapse()">
+
+        <div class="btn-group navbar-toggler toggle-container">
+        <button type="button"
+                class="btn btn-secondary bg-dark menubtn"
+                (click)="changeCollapse()">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <ul class="collapse bg-dark dropdown-menu-right dropfont" [collapse]="isCollapsed">
-          <li class="nav-item" *ngFor="let item of items" routerLinkActive="activated">
-            <a class="nav-link" routerLink={{item.url}}>{{item.name}}</a>
-          </li>
-          <li class="nav-item" routerLinkActive="activated">
-            <button class="nav-link log-button" (click)="logOut()">Log out</button>
+        <ul class="collapse bg-dark dropdown-menu-right dropfont"
+            role="menu"
+            (click)="isCollapsed = true"
+            [collapse]="isCollapsed">
+          <li routerLinkActive="activated"
+              *ngFor="let item of items">
+            <a class="nav-link"
+               routerLink={{item.url}}>{{item.name}}</a>
           </li>
         </ul>
       </div>

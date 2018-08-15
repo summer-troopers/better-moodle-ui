@@ -14,10 +14,9 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    const userFromStorage = JSON.parse(this.userService.getUserLocalStorage('user'));
+    const userFromStorage = this.userService.getUserLocalStorage('user');
     console.log(userFromStorage);
-    const loggedUser = CreateUser(userFromStorage);
-    this.user = loggedUser;
+    this.user = CreateUser(userFromStorage);
   }
 
   ngOnDestroy() {
