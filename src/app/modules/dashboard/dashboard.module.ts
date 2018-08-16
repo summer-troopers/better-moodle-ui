@@ -13,6 +13,7 @@ import { UserCoursesComponent } from './components/user-courses/user-courses.com
 import { UserGroupsComponent } from './components/user-groups/user-groups.component';
 import { UserStudentsComponent } from './components/user-students/user-students.component';
 import { SharedModule } from '@shared/shared.module';
+import { LabStudentOnCourseComponent } from './components/lab-student-on-course/lab-student-on-course.component';
 
 const COMPONENTS = [
   DashboardPageComponent,
@@ -23,6 +24,7 @@ const COMPONENTS = [
   UserCoursesComponent,
   UserGroupsComponent,
   UserStudentsComponent,
+  LabStudentOnCourseComponent
 ];
 
 @NgModule({
