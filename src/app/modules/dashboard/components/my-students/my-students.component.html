@@ -8,17 +8,28 @@
       <th scope="col">Lastname</th>
       <th scope="col">Phone Number</th>
       <th scope="col">Email</th>
+      <th scope="col">Laboratories</th>
     </tr>
     </thead>
-    <tbody>
-    <tr *ngFor="let student of students; let i = index">
-      <th scope="row">{{i+1}}</th>
+    <tbody *ngFor="let student of students; let i = index">
+    <tr (click)=showUndoLabs(i) class="student_item">
+      <td scope="row">{{i + 1}}</td>
       <td>{{student.firstName}}</td>
       <td>{{student.lastName}}</td>
       <td>{{student.phoneNumber}}</td>
       <td>{{student.email}}</td>
+      <td>2</td>
+
     </tr>
+    <tr class="lab_student_list" *ngIf="showLabsIndex === i && show">
+      <td colspan="6" class="lab_student_list_item">
+        <app-lab-student-on-course class="test-int"></app-lab-student-on-course>
+      </td>
+
+    </tr>
+
     </tbody>
+
   </table>
 
 </div>

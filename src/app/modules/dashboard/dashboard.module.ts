@@ -13,6 +13,7 @@ import { MyCoursesComponent } from './components/my-courses/my-courses.component
 import { MySpecialtiesComponent } from './components/my-specialties/my-specialties.component';
 import { MyGroupsComponent } from './components/my-groups/my-groups.component';
 import { MyStudentsComponent } from './components/my-students/my-students.component';
+import { LabStudentOnCourseComponent } from './components/lab-student-on-course/lab-student-on-course.component';
 
 const COMPONENTS = [
   DashboardPageComponent,
@@ -31,10 +32,11 @@ const COMPONENTS = [
     CommonModule,
     RouterModule,
     dashboardRoutes,
-    TabsModule.forRoot(),
+    TabsModule.forRoot()
   ],
   declarations: [
-    ...COMPONENTS
+    ...COMPONENTS,
+    LabStudentOnCourseComponent
   ]
 })
 export class DashboardModule {
