@@ -10,7 +10,6 @@ import { StudentDashboardComponent } from './containers/student-dashboard/studen
 import { TeacherDashboardComponent } from './containers/teacher-dashboard/teacher-dashboard.component';
 import { MyTeachersComponent } from './components/my-teachers/my-teachers.component';
 import { MyCoursesComponent } from './components/my-courses/my-courses.component';
-import { MySpecialtiesComponent } from './components/my-specialties/my-specialties.component';
 import { MyGroupsComponent } from './components/my-groups/my-groups.component';
 import { MyStudentsComponent } from './components/my-students/my-students.component';
 import { MyLaboratoriesComponent } from './components/my-laboratories/my-laboratories/my-laboratories.component';
@@ -23,9 +22,10 @@ const COMPONENTS = [
   TeacherDashboardComponent,
   MyTeachersComponent,
   MyCoursesComponent,
-  MySpecialtiesComponent,
   MyGroupsComponent,
-  MyStudentsComponent
+  MyStudentsComponent,
+  MyLaboratoriesComponent,
+  MyTasksComponent
 ];
 
 @NgModule({
@@ -37,8 +37,6 @@ const COMPONENTS = [
   ],
   declarations: [
     ...COMPONENTS,
-    MyLaboratoriesComponent,
-    MyTasksComponent
   ]
 })
 export class DashboardModule {
