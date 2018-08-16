@@ -1,11 +1,11 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Subject, throwError} from 'rxjs';
-import {catchError, takeUntil} from 'rxjs/operators';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subject, throwError } from 'rxjs';
+import { catchError, takeUntil } from 'rxjs/operators';
 
-import {Student} from '@shared/models/student';
-import {STUDENTS_URL} from '@shared/constants';
-import {Alert, AlertType} from '@shared/models/alert';
-import {DashboardService} from '@modules/dashboard/dashboard.service';
+import { Student } from '@shared/models/student';
+import { STUDENTS_URL } from '@shared/constants';
+import { Alert, AlertType } from '@shared/models/alert';
+import { DashboardService } from '@modules/dashboard/dashboard.service';
 
 @Component({
   selector: 'app-my-students',

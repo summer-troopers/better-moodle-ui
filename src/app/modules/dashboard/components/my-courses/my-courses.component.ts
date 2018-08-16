@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { COURSES_URL } from '@shared/constants';
 import Course from '@shared/models/course';
-import {DashboardService} from '@modules/dashboard/dashboard.service';
+import { DashboardService } from '@modules/dashboard/dashboard.service';
 
 @Component({
   selector: 'app-my-courses',
