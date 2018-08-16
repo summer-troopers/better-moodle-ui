@@ -11,26 +11,12 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Iosif</td>
-      <td>Stalin</td>
-      <td>068375841</td>
-      <td>lalala@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Adolf</td>
-      <td>Hitler</td>
-      <td>068111043</td>
-      <td>hahaah@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Hihi</td>
-      <td>Haha</td>
-      <td>068583751</td>
-      <td>papinire@fat</td>
+    <tr *ngFor="let teacher of teachers; let i = index">
+      <th scope="row">{{i+1}}</th>
+      <td>{{teacher.firstName}}</td>
+      <td>{{teacher.lastName}}</td>
+      <td>{{teacher.phoneNumber}}</td>
+      <td>{{teacher.email}}</td>
     </tr>
     </tbody>
   </table>
