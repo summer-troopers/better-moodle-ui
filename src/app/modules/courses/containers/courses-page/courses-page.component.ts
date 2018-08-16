@@ -42,13 +42,12 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initPage();
-    this.initNumberOfCourses();
   }
 
   initPage() {
     this.route.queryParams.subscribe((params) => {
-      this.pageParam = +params.page;
-      this.paginatorHelperService.getCurrentPage(this.pageParam);
+      this.pageParam = this.paginatorHelperService.getCurrentPage(params.page);
+      this.initNumberOfCourses();
     });
   }
 
@@ -56,8 +55,7 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
     return this.crudService.getItems(COURSES_URL, this.paginationParams.offset, this.paginationParams.limit)
       .pipe(takeUntil(this.destroy$),
         catchError((error) => {
-          this.alerts.push({type: AlertType.Error, message: error});
-
+          this.alerts.push({ type: AlertType.Error, message: error });
           return throwError(error);
         }));
   }
@@ -65,15 +63,13 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
   initNumberOfCourses() {
     this.crudService.getNumberOfItems(COURSES_URL)
       .pipe(
-        mergeMap((courseNumber) => {
+        mergeMap((courseNumber: number) => {
           this.totalItems = courseNumber;
-          this.paginationParams.offset = this.paginatorHelperService.getOffset(this.totalItems, NUMBER_ITEMS_PAGE);
-
+          this.paginationParams = this.paginatorHelperService.getPaginationParams(this.totalItems, this.currentPage);
           return this.getCourses();
         }))
       .subscribe((courses) => {
-        this.courses = courses;
-        this.courses.reverse();
+        this.setCourses(courses);
       });
   }
 
@@ -84,27 +80,23 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((course) => {
         this.courses.unshift(course);
-        this.alerts.push({type: AlertType.Success, message: 'The new course is successfully added!'});
+        this.alerts.push({ type: AlertType.Success, message: 'The new course is successfully added!' });
       }, error => {
-        this.alerts.push({type: AlertType.Error, message: error});
+        this.alerts.push({ type: AlertType.Error, message: error });
       });
   }
 
   pageChanged(event: any) {
     this.currentPage = event.page;
-
-    this.paginationParams = this.paginatorHelperService.getPaginationParams(this.totalItems, this.currentPage);
-    this.getCourses()
-      .subscribe((courses) => {
-        this.courses = courses;
-        this.courses.reverse();
-      });
-
-    this.router.navigate([COURSES_URL], {queryParams: {page: event.page}});
+    this.router.navigate([COURSES_URL], { queryParams: { page: event.page } });
   }
 
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
+  }
+
+  setCourses(courses) {
+    this.courses = courses.reverse();
   }
 }
