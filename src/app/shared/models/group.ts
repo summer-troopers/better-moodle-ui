@@ -1,5 +1,4 @@
-export default interface Group {
-  id?: string;
+export interface Group {
   name: string;
-  specialty_id?: string;
+  specialtyId: string;
 }

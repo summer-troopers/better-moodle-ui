@@ -5,7 +5,7 @@
 	width: 100%;
 	text-align: left;
 	font: bold 16px sans-serif;
-
+  margin: 0;
 	padding: 55px 50px;
 }
 
@@ -26,7 +26,7 @@
 
 .footer-distributed h3{
 	color:  #ffffff;
-	font: normal 36px 'Cookie', cursive;
+	font: normal 36px 'Cookie', sans-serif;
 	margin: 0;
 }
 
@@ -143,23 +143,20 @@
 	margin-bottom: 5px;
 }
 
-@media (max-width: 880px) {
+@media(max-width: 906px) {
 
-	.footer-distributed{
-		font: bold 14px sans-serif;
+	.footer-distributed,
+  .footer-distributed .footer-left,
+  .footer-distributed .footer-left p,
+  .footer-distributed .footer-center,
+  .footer-distributed .footer-center p,
+  .footer-distributed .footer-right,
+  .footer-distributed .footer-right p,
+  .footer-distributed .footer-company-name,
+  .footer-distributed .footer-icons,
+  .footer-distributed .footer-icons {
+    float: none;
+    text-align: center;
+    width: 100%;
 	}
-
-	.footer-distributed .footer-left,
-	.footer-distributed .footer-center,
-	.footer-distributed .footer-right{
-		display: block;
-		width: 100%;
-		margin-bottom: 40px;
-		text-align: center;
-	}
-
-	.footer-distributed .footer-center i{
-		margin-left: 0;
-	}
-
 }

@@ -1,3 +1,24 @@
-<p>
-  spcialities-page works!
-</p>
+<div class="container">
+  <app-local-alert [alerts]="alerts"></app-local-alert>
+</div>
+<div class="container">
+  <div class="pageTitle">
+    <button class="btn btn-primary pull-right"
+            (click)="openAddModal()">Add a new specialty
+    </button>
+    <h1>List of all specialties</h1>
+    <ul class="list-group ">
+      <li class="list-group-item"
+          *ngFor="let specialty of specialties"
+          [routerLink]="['/specialties', specialty.id]">
+        {{specialty.name}}
+      </li>
+    </ul>
+  </div>
+  <div class="pagination-container">
+    <pagination class="d-flex justify-content-center"
+                [totalItems]="totalItems"
+                [(ngModel)]="currentPage"
+                (pageChanged)="pageChanged($event)"></pagination>
+  </div>
+</div>
