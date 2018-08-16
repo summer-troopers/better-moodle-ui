@@ -10,6 +10,5 @@ export class TeacherDashboardComponent implements OnInit {
   @Input() user;
 
   ngOnInit() {
-    console.log(this.user);
   }
 }

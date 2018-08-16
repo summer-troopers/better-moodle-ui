@@ -7,7 +7,6 @@ export class User {
   email: string;
   phoneNumber: string;
   groupId?: string;
-  specialtyId?: string;
   userRole: any;
 
   constructor(user: any) {

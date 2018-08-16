@@ -12,8 +12,6 @@ import { MyTeachersComponent } from './components/my-teachers/my-teachers.compon
 import { MyCoursesComponent } from './components/my-courses/my-courses.component';
 import { MyGroupsComponent } from './components/my-groups/my-groups.component';
 import { MyStudentsComponent } from './components/my-students/my-students.component';
-import { MyLaboratoriesComponent } from './components/my-laboratories/my-laboratories/my-laboratories.component';
-import { MyTasksComponent } from './components/my-tasks/my-tasks/my-tasks.component';
 
 const COMPONENTS = [
   DashboardPageComponent,
@@ -24,8 +22,6 @@ const COMPONENTS = [
   MyCoursesComponent,
   MyGroupsComponent,
   MyStudentsComponent,
-  MyLaboratoriesComponent,
-  MyTasksComponent
 ];
 
 @NgModule({

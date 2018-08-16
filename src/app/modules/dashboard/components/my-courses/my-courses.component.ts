@@ -3,7 +3,7 @@ import { Subject, throwError } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 
 import Course from '@shared/models/group';
-import { COURSES_URL } from '@shared/constants';
+import { COURSES_URL, LABORATORY_URL, LABTASK_URL, SPECIALTIES_URL } from '@shared/constants';
 import { Alert, AlertType } from '@shared/models/alert';
 import { DashboardService } from '@modules/dashboard/dashboard.service';
 
@@ -61,6 +61,15 @@ export class MyCoursesComponent implements OnInit, OnDestroy {
         )
         .subscribe((courses) => {
           this.courses = courses;
+          for (let i = 0; i < courses.length; i++) {
+            // this.crudService.getItem(LABTASK_URL, courses[i].id).subscribe(labTask => {
+            //   this.courses[i].id = labTask;
+            // });
+
+            // this.crudService.getItem(LABORATORY_URL, courses[i].id).subscribe(labReport => {
+            //   this.courses[i].id = labReport;
+            // });
+          }
         });
     }
   }
