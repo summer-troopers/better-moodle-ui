@@ -1,6 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subject, throwError } from 'rxjs';
+import { catchError, takeUntil } from 'rxjs/operators';
+
+import Course from '@shared/models/group';
 import { COURSES_URL } from '@shared/constants';
-import Course from '@shared/models/course';
+import { Alert, AlertType } from '@shared/models/alert';
 import { DashboardService } from '@modules/dashboard/dashboard.service';
 
 @Component({
@@ -8,15 +12,39 @@ import { DashboardService } from '@modules/dashboard/dashboard.service';
   templateUrl: './my-courses.component.html',
   styleUrls: ['./my-courses.component.scss']
 })
-export class MyCoursesComponent implements OnInit {
+export class MyCoursesComponent implements OnInit, OnDestroy {
   id: string;
-  courses: Course;
+  courses: Array<Course> = [];
   @Input() user;
 
-  constructor(private dashboardService: DashboardService) {}
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
+  alerts: Alert[] = [];
+
+  constructor(private dashboardService: DashboardService) {
+  }
 
   ngOnInit() {
+    this.getAllCourses();
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
+
+  getAllCourses() {
     const userId = this.user.id;
-    this.dashboardService.getItemsofTeacher(COURSES_URL, userId);
+    this.dashboardService.getItemsofTeacher(COURSES_URL, userId)
+      .pipe(
+        takeUntil(this.destroy$),
+        catchError((error) => {
+          this.alerts.push({type: AlertType.Error, message: error});
+          return throwError(error);
+        })
+      )
+      .subscribe((courses) => {
+        this.courses = courses;
+      });
   }
 }
