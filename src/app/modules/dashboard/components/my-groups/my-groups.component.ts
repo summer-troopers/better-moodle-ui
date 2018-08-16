@@ -35,7 +35,7 @@ export class MyGroupsComponent implements OnInit, OnDestroy {
 
   getAllGroups() {
     const userId = this.user.id;
-    this.dashboardService.getItemsofTeacher(GROUPS_URL, userId)
+    this.dashboardService.getItemsOfTeacher(GROUPS_URL, userId)
       .pipe(
         takeUntil(this.destroy$),
         catchError((error) => {

@@ -1,7 +1,7 @@
 import { User } from '@shared/models/user';
 
 export class Teacher extends User {
-  specialtyId: number;
+  specialtyId: string;
 
   constructor(teacher: any) {
     super(teacher);

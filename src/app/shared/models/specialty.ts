@@ -1,4 +1,4 @@
 export interface Specialty {
-  id: string;
+  id?: string;
   name: string;
 }

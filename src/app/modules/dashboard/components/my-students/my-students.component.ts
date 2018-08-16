@@ -3,9 +3,10 @@ import { Subject, throwError } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 
 import { Student } from '@shared/models/student';
-import { STUDENTS_URL } from '@shared/constants';
+import { GROUPS_URL, STUDENTS_URL } from '@shared/constants';
 import { Alert, AlertType } from '@shared/models/alert';
 import { DashboardService } from '@modules/dashboard/dashboard.service';
+import { CrudService } from '@shared/services/crud/crud.service';
 
 @Component({
   selector: 'app-my-students',
@@ -21,7 +22,8 @@ export class MyStudentsComponent implements OnInit, OnDestroy {
 
   alerts: Alert[] = [];
 
-  constructor(private dashboardService: DashboardService) {
+  constructor(private dashboardService: DashboardService,
+              private crudService: CrudService) {
   }
 
   ngOnInit() {
@@ -35,7 +37,7 @@ export class MyStudentsComponent implements OnInit, OnDestroy {
 
   getAllStudents() {
     const userId = this.user.id;
-    this.dashboardService.getItemsofTeacher(STUDENTS_URL, userId)
+    this.dashboardService.getItemsOfTeacher(STUDENTS_URL, userId)
       .pipe(
         takeUntil(this.destroy$),
         catchError((error) => {
@@ -45,6 +47,11 @@ export class MyStudentsComponent implements OnInit, OnDestroy {
       )
       .subscribe((students) => {
         this.students = students;
+        for (let i = 0; i < students.length; i++) {
+          this.crudService.getItem(GROUPS_URL, students[i].groupId).subscribe(group => {
+            this.students[i].group = group;
+          });
+        }
       });
   }
 }

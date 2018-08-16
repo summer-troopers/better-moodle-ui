@@ -37,7 +37,7 @@ export class MyCoursesComponent implements OnInit, OnDestroy {
     const userId = this.user.id;
 
     if (this.user.isStudent()) {
-      this.dashboardService.getItemsofStudent(COURSES_URL, userId)
+      this.dashboardService.getItemsOfStudent(COURSES_URL, userId)
         .pipe(
           takeUntil(this.destroy$),
           catchError((error) => {
@@ -51,7 +51,7 @@ export class MyCoursesComponent implements OnInit, OnDestroy {
     }
 
     if (this.user.isTeacher()) {
-      this.dashboardService.getItemsofTeacher(COURSES_URL, userId)
+      this.dashboardService.getItemsOfTeacher(COURSES_URL, userId)
         .pipe(
           takeUntil(this.destroy$),
           catchError((error) => {

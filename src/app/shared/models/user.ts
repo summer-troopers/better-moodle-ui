@@ -1,13 +1,13 @@
 import { UserType } from '@shared/models/user-type';
 
 export class User {
-  id: number;
+  id: string;
   firstName: string;
   lastName: string;
   email: string;
   phoneNumber: string;
-  groupId?: number;
-  specialtyId?: number;
+  groupId?: string;
+  specialtyId?: string;
   userRole: any;
 
   constructor(user: any) {
