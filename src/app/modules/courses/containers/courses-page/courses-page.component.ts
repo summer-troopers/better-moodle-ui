@@ -23,7 +23,6 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
   totalItems: number;
   currentPage = 1;
   maxSizePagination = MAX_SIZE_PAGINATION;
-  pageParam: number;
   paginationParams = new PaginationParams(0, NUMBER_ITEMS_PAGE);
 
   modalRef: BsModalRef;
@@ -46,7 +45,7 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
 
   initPage() {
     this.route.queryParams.subscribe((params) => {
-      this.pageParam = this.paginatorHelperService.getCurrentPage(params.page);
+      this.currentPage = this.paginatorHelperService.getCurrentPage(params.page);
       this.initNumberOfCourses();
     });
   }

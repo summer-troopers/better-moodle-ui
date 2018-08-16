@@ -11,7 +11,7 @@ import { PaginationParams } from '@shared/models/pagination-params';
 import { PaginatorHelperService } from '@shared/services/paginator-helper/paginator-helper.service';
 import { Alert, AlertType } from '@shared/models/alert';
 import { CrudService } from '@shared/services/crud/crud.service';
-import { TEACHERS_URL } from '@shared/constants';
+import { TEACHERS_URL, NUMBER_ITEMS_PAGE } from '@shared/constants';
 
 @Component({
   selector: 'app-teachers-page',
@@ -25,13 +25,11 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
   modalRef: BsModalRef;
 
   alerts: Alert[] = [];
-  defaultItemsNumber = 10;
-  paginationParams = new PaginationParams(0, this.defaultItemsNumber);
+  paginationParams = new PaginationParams(0, NUMBER_ITEMS_PAGE);
 
   teachers: Array<Teacher> = [];
   totalItems: number;
   currentPage = 1;
-  pageParam: number;
 
   constructor(private crudService: CrudService,
     private modalService: BsModalService,
@@ -55,7 +53,7 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
 
   initPage() {
     this.route.queryParams.subscribe((params) => {
-      this.pageParam = this.paginatorHelperService.getCurrentPage(params.page);
+      this.currentPage = this.paginatorHelperService.getCurrentPage(params.page);
       this.initNumberOfTeachers();
     });
   }

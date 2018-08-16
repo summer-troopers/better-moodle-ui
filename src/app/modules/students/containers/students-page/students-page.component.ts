@@ -22,7 +22,6 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
 
   totalItems: number;
   currentPage = 1;
-  pageParam: number;
 
   alerts: Alert[] = [];
   students: Array<Student> = [];
