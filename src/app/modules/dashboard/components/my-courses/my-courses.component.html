@@ -2,22 +2,45 @@
 
   <table class="table table-sm table-hover">
     <thead>
-    <tr  class="table-success">
+    <tr class="table-success">
       <th scope="col">#</th>
       <th scope="col">Name</th>
-      <th scope="col">Laboratory</th>
+      <th scope="col"
+          *ngIf="user && user.isStudent()">Task
+      </th>
+      <th scope="col">
+        <div *ngIf="user && user.isStudent()">My Report</div>
+        <div *ngIf="user && user.isTeacher()">My Task</div>
+      </th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let course of courses; let i = index">
       <th scope="row">{{i+1}}</th>
-      <td>{{course.name}} </td>
-      <div *ngIf="user && user.isStudent()">
-      <td><button>Add Laboratory Report</button></td>
-      </div>
-      <div *ngIf="user && user.isTeacher()">
-        <td><button>Add Laboratory Task</button></td>
-      </div>
+      <td>{{course.name}}</td>
+      <td *ngIf="user && user.isStudent()">
+        <button class="btn btn-secondary iconbtn"><i class="fa fa-file"></i></button>
+      </td>
+      <td>
+        <div *ngIf="user && user.isStudent()">
+          <div>
+            <button class="btn btn-secondary addbtn">Add Report</button>
+          </div>
+          <div>
+            <button class="btn btn-secondary iconbtn"><i class="fa fa-file"><br>name</i></button><br>
+            <button class="btn btn-secondary dltbtn">Delete Report</button>
+          </div>
+        </div>
+        <div *ngIf="user && user.isTeacher()">
+          <div>
+            <button class="btn btn-secondary addbtn">Add Task</button>
+          </div>
+          <div>
+            <button class="btn btn-secondary iconbtn"><i class="fa fa-file"><br>name</i></button><br>
+            <button class="btn btn-secondary dltbtn">Delete Task</button>
+          </div>
+        </div>
+      </td>
     </tr>
     </tbody>
   </table>
