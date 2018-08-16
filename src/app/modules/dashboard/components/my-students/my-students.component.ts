@@ -47,5 +47,4 @@ export class MyStudentsComponent implements OnInit, OnDestroy {
         this.students = students;
       });
   }
-
 }
