@@ -12,7 +12,12 @@
     <tr *ngFor="let course of courses; let i = index">
       <th scope="row">{{i+1}}</th>
       <td>{{course.name}} </td>
-      <td><button>Add Task Laboratory</button></td>
+      <div *ngIf="user && user.isStudent()">
+      <td><button>Add Laboratory Report</button></td>
+      </div>
+      <div *ngIf="user && user.isTeacher()">
+        <td><button>Add Laboratory Task</button></td>
+      </div>
     </tr>
     </tbody>
   </table>

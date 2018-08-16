@@ -35,16 +35,33 @@ export class MyCoursesComponent implements OnInit, OnDestroy {
 
   getAllCourses() {
     const userId = this.user.id;
-    this.dashboardService.getItemsofTeacher(COURSES_URL, userId)
-      .pipe(
-        takeUntil(this.destroy$),
-        catchError((error) => {
-          this.alerts.push({type: AlertType.Error, message: error});
-          return throwError(error);
-        })
-      )
-      .subscribe((courses) => {
-        this.courses = courses;
-      });
+
+    if (this.user.isStudent()) {
+      this.dashboardService.getItemsofStudent(COURSES_URL, userId)
+        .pipe(
+          takeUntil(this.destroy$),
+          catchError((error) => {
+            this.alerts.push({type: AlertType.Error, message: error});
+            return throwError(error);
+          })
+        )
+        .subscribe((courses) => {
+          this.courses = courses;
+        });
+    }
+
+    if (this.user.isTeacher()) {
+      this.dashboardService.getItemsofTeacher(COURSES_URL, userId)
+        .pipe(
+          takeUntil(this.destroy$),
+          catchError((error) => {
+            this.alerts.push({type: AlertType.Error, message: error});
+            return throwError(error);
+          })
+        )
+        .subscribe((courses) => {
+          this.courses = courses;
+        });
+    }
   }
 }
