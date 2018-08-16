@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { BsModalRef } from 'ngx-bootstrap';
@@ -12,7 +12,7 @@ import { COURSES_URL } from '@shared/constants';
   selector: 'app-edit-course-modal',
   templateUrl: './edit-course-modal.component.html',
 })
-export class EditCourseModalComponent implements OnInit, OnDestroy  {
+export class EditCourseModalComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   course: Course;
@@ -23,11 +23,8 @@ export class EditCourseModalComponent implements OnInit, OnDestroy  {
 
   editItemEvent: EventEmitter<any> = new EventEmitter();
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private crudService: CrudService,
-    private modalRef: BsModalRef
-  ) { }
+  constructor(private crudService: CrudService,
+    private modalRef: BsModalRef) { }
 
   ngOnInit() {
     this.initForm();
@@ -38,9 +35,9 @@ export class EditCourseModalComponent implements OnInit, OnDestroy  {
   }
 
   initForm() {
-    this.courseForm = this.formBuilder.group({
-      id: [this.course.id],
-      name: ['', Validators.required]
+    this.courseForm = new FormGroup({
+      id: new FormControl(this.course.id),
+      name: new FormControl(this.course.name, Validators.required),
     });
   }
 
