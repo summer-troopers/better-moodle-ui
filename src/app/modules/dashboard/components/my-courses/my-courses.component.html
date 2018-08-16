@@ -5,24 +5,20 @@
     <tr  class="table-success">
       <th scope="col">#</th>
       <th scope="col">Name</th>
-      <th scope="col">Details</th>
+      <th scope="col">Laboratory</th>
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Math</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>History</td>
-      <td>@fat</td>
+    <tr *ngFor="let course of courses; let i = index">
+      <th scope="row">{{i+1}}</th>
+      <td>{{course.name}} </td>
+      <td><button>Add Laboratory</button></td>
     </tr>
     <tr>
       <th scope="row">3</th>
       <td>Biology</td>
-      <td>@fat</td>
+      <td><button>Add Task Laboratory</button></td>
+
     </tr>
     </tbody>
   </table>

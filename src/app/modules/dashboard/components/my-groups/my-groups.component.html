@@ -9,20 +9,10 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>IA161</td>
-      <td>Aplied Informatics</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>C174</td>
-      <td>Computers</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>M263</td>
-      <td>Medicine</td>
+    <tr *ngFor="let group of groups; let i = index">
+      <th scope="row">{{i+1}}</th>
+      <td>{{group.name}}</td>
+      <td>{{group.specialtyId}}</td>
     </tr>
     </tbody>
   </table>
