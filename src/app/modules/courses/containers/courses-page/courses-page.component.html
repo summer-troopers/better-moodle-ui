@@ -1,36 +1,26 @@
 <div class="container">
   <app-local-alert [alerts]="alerts"></app-local-alert>
 </div>
-<div class="container">
-  <div *ngIf="courses && courses.length; else noCourses">
-    <div class="pageTitle">
-      <h1>
-        List of all courses
-        <button appHasRole="admin"
-                class="btn btn-primary pull-right"
-                (click)="openModal()">
-          Add new course
-        </button>
-      </h1>
-    </div>
-    <div *ngFor="let course of courses">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item list-group-item-dark">
-          <a routerLink="{{ course.id }}"
-             class="list-group-item list-group-item-action">
-            {{ course.name }}
-          </a>
-        </li>
-      </ul>
-    </div>
+<div class="container"
+     *ngIf="courses && courses.length; else noCourses">
+  <div class="pageTitle">
+    <h1>
+      List of all courses
+      <button class="btn btn-primary pull-right"
+              (click)="openModal()">
+        Add new course
+      </button>
+    </h1>
   </div>
-
-  <div class="pagination-container">
-    <pagination class="d-flex justify-content-center pagination-index"
-                [totalItems]="totalItems"
-                [maxSize]="maxSizePagination"
-                [(ngModel)]="currentPage"
-                (pageChanged)="pageChanged($event)"></pagination>
+  <div *ngFor="let course of courses">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item list-group-item-dark">
+        <a routerLink="{{ course.id }}"
+           class="list-group-item list-group-item-action">
+          {{ course.name }}
+        </a>
+      </li>
+    </ul>
   </div>
 
   <ng-template #noCourses>
@@ -48,4 +38,10 @@
     </div>
   </ng-template>
 
+</div>
+<div class="pagination-container">
+  <pagination class="d-flex justify-content-center"
+              [totalItems]="totalItems"
+              [(ngModel)]="currentPage"
+              (pageChanged)="pageChanged($event)"></pagination>
 </div>
