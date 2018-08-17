@@ -13,8 +13,7 @@ import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-
 
 @Component({
   selector: 'app-course-details-page',
-  templateUrl: './course-details-page.component.html',
-  styleUrls: ['./course-details-page.component.scss']
+  templateUrl: './course-details-page.component.html'
 })
 export class CourseDetailsPageComponent implements OnInit, OnDestroy {
 
@@ -38,9 +37,9 @@ export class CourseDetailsPageComponent implements OnInit, OnDestroy {
       this.crudService.getItem(COURSES_URL, this.id)
         .pipe(takeUntil(this.destroy$))
         .subscribe((course) => {
-        this.course = course;
+          this.course = course;
         }, error => {
-          this.alerts.push({type: AlertType.Error, message: error});
+          this.alerts.push({ type: AlertType.Error, message: error });
         });
     });
   }
@@ -54,15 +53,15 @@ export class CourseDetailsPageComponent implements OnInit, OnDestroy {
     const initialState: any = {
       course: this.course
     };
-    this.modalRef = this.modalService.show(EditCourseModalComponent, {initialState});
+    this.modalRef = this.modalService.show(EditCourseModalComponent, { initialState });
 
     this.modalRef.content.editItemEvent
       .pipe(takeUntil(this.destroy$))
       .subscribe((course) => {
         this.course = course;
-        this.alerts.push({type: AlertType.Success, message: 'Course was edited!'});
+        this.alerts.push({ type: AlertType.Success, message: 'Course was edited!' });
       }, error => {
-        this.alerts.push({type: AlertType.Error, message: error});
+        this.alerts.push({ type: AlertType.Error, message: error });
       });
   }
 

@@ -13,8 +13,7 @@ import { Alert, AlertType } from '@shared/models/alert';
 import { STUDENTS_URL, GROUPS_URL } from '@shared/constants';
 @Component({
   selector: 'app-student-details-page',
-  templateUrl: './student-details-page.component.html',
-  styleUrls: ['./student-details-page.component.scss']
+  templateUrl: './student-details-page.component.html'
 })
 export class StudentDetailsPageComponent implements OnInit, OnDestroy {
   id: string;

@@ -1,28 +1,16 @@
 <div class="container">
   <app-local-alert [alerts]="alerts"></app-local-alert>
 </div>
-<div *ngIf="course"
-     class="container">
-  <form class="list-group">
-    <li class="list-group-item">
-      <label for="name"
-             class="font-weight-bold">Name</label>
-      <input id="name"
-             name="name"
-             type="text"
-             value="{{course.name}}"
-             readonly
-             class="input-group-text">
-    </li>
-  </form>
+
+<div class="container"
+     *ngIf="course">
+  <h3> Course Name: {{course.name}}</h3>
+
   <button appHasRole="admin"
-          type="button"
-          (click)="openEditModal()"
-          class="btn btn-success mt-2 mb-2 mr-2">Edit
-  </button>
+          class="btn btn-danger mt-2 mb-2 mr-2"
+          (click)="openDeleteModal()">Delete</button>
+
   <button appHasRole="admin"
-          type="button"
-          (click)="openDeleteModal()"
-          class="btn btn-danger mt-2 mb-2 mr-2">Delete
-  </button>
+          class="btn btn-success mt-2 mb-2 mr-2"
+          (click)="openEditModal()">Edit</button>
 </div>

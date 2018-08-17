@@ -1,26 +1,19 @@
 <div class="container">
   <app-local-alert [alerts]="alerts"></app-local-alert>
 </div>
-<div class="container">
-  <div *ngIf="teacher;">
-    <h1>{{teacher.firstName}} {{teacher.lastName}}</h1>
-    <br>
+<div class="container"
+     *ngIf="teacher">
+  <h1 class="text-center">{{teacher.firstName}} {{teacher.lastName}}</h1>
+  <h3>First Name: {{teacher.firstName}}</h3>
+  <h3>Last Name: {{teacher.lastName}}</h3>
+  <h3>Email: {{teacher.email}}</h3>
+  <h3>Phone Number: {{teacher.phoneNumber}}</h3>
 
-    <h3>First Name : {{teacher.firstName}}</h3>
-    <h3>Last Name : {{teacher.lastName}}</h3>
-    <h3>Email : {{teacher.email}}</h3>
-    <h3>Phone Number : {{teacher.phoneNumber}}</h3>
+  <button appHasRole="admin"
+          class="btn btn-danger mt-2 mb-2 mr-2"
+          (click)="openDeleteModal()">Delete</button>
 
-    <button appHasRole="admin"
-            type="button"
-            class="btn btn-success"
-            (click)="openEditModal()">Edit
-    </button>
-    <button appHasRole="admin"
-            class="btn btn-danger"
-            (click)="openDeleteModal()">Delete
-    </button>
-    <br>
-  </div>
-  <br>
+  <button appHasRole="admin"
+          class="btn btn-success mt-2 mb-2 mr-2"
+          (click)="openEditModal()">Edit</button>
 </div>
