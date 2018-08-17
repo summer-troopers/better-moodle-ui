@@ -10,7 +10,5 @@ export default class LabReport {
   labTask?: LabTask;
 
   constructor() {
-    this.studentId = this.student.id;
-    this.labTaskId = this.labTask.id;
   }
 }

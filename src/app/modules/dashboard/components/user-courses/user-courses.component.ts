@@ -3,16 +3,16 @@ import { Subject, throwError } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 
 import Course from '@shared/models/group';
-import { COURSES_URL, LABORATORY_URL, LABTASK_URL, SPECIALTIES_URL } from '@shared/constants';
+import { COURSES_URL} from '@shared/constants';
 import { Alert, AlertType } from '@shared/models/alert';
 import { DashboardService } from '@modules/dashboard/dashboard.service';
 
 @Component({
-  selector: 'app-my-courses',
-  templateUrl: './my-courses.component.html',
-  styleUrls: ['./my-courses.component.scss']
+  selector: 'app-user-courses',
+  templateUrl: './user-courses.component.html',
+  styleUrls: ['./user-courses.component.scss']
 })
-export class MyCoursesComponent implements OnInit, OnDestroy {
+export class UserCoursesComponent implements OnInit, OnDestroy {
   id: string;
   courses: Array<Course> = [];
   @Input() user;

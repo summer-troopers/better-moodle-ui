@@ -8,20 +8,20 @@ import { DashboardPageComponent } from './containers/dashboard-page/dashboard-pa
 import { AdminDashboardComponent } from './containers/admin-dashboard/admin-dashboard.component';
 import { StudentDashboardComponent } from './containers/student-dashboard/student-dashboard.component';
 import { TeacherDashboardComponent } from './containers/teacher-dashboard/teacher-dashboard.component';
-import { MyTeachersComponent } from './components/my-teachers/my-teachers.component';
-import { MyCoursesComponent } from './components/my-courses/my-courses.component';
-import { MyGroupsComponent } from './components/my-groups/my-groups.component';
-import { MyStudentsComponent } from './components/my-students/my-students.component';
+import { UserTeachersComponent } from './components/user-teachers/user-teachers.component';
+import { UserCoursesComponent } from './components/user-courses/user-courses.component';
+import { UserGroupsComponent } from './components/user-groups/user-groups.component';
+import { UserStudentsComponent } from './components/user-students/user-students.component';
 
 const COMPONENTS = [
   DashboardPageComponent,
   AdminDashboardComponent,
   StudentDashboardComponent,
   TeacherDashboardComponent,
-  MyTeachersComponent,
-  MyCoursesComponent,
-  MyGroupsComponent,
-  MyStudentsComponent,
+  UserTeachersComponent,
+  UserCoursesComponent,
+  UserGroupsComponent,
+  UserStudentsComponent,
 ];
 
 @NgModule({

@@ -7,6 +7,5 @@ export class Student extends User {
 
   constructor(student: any) {
     super(student);
-    this.groupId = student.groupId;
   }
 }

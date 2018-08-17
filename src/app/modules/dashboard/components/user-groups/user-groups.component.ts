@@ -2,20 +2,20 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subject, throwError } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 
-import { Student } from '@shared/models/student';
-import { GROUPS_URL, STUDENTS_URL } from '@shared/constants';
+import { Group } from '@shared/models/group';
+import { GROUPS_URL } from '@shared/constants';
 import { Alert, AlertType } from '@shared/models/alert';
 import { DashboardService } from '@modules/dashboard/dashboard.service';
 import { CrudService } from '@shared/services/crud/crud.service';
 
 @Component({
-  selector: 'app-my-students',
-  templateUrl: './my-students.component.html',
-  styleUrls: ['./my-students.component.scss']
+  selector: 'app-user-groups',
+  templateUrl: './user-groups.component.html',
+  styleUrls: ['./user-groups.component.scss']
 })
-export class MyStudentsComponent implements OnInit, OnDestroy {
+export class UserGroupsComponent implements OnInit, OnDestroy {
   id: string;
-  students: Array<Student> = [];
+  groups: Array<Group> = [];
   @Input() user;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
@@ -27,7 +27,7 @@ export class MyStudentsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.getAllStudents();
+    this.getAllGroups();
   }
 
   ngOnDestroy() {
@@ -35,23 +35,20 @@ export class MyStudentsComponent implements OnInit, OnDestroy {
     this.destroy$.unsubscribe();
   }
 
-  getAllStudents() {
+  getAllGroups() {
     const userId = this.user.id;
-    this.dashboardService.getItemsOfTeacher(STUDENTS_URL, userId)
+    const groupObservable$ = this.dashboardService.getItemsOfTeacher(GROUPS_URL, userId)
       .pipe(
         takeUntil(this.destroy$),
         catchError((error) => {
           this.alerts.push({type: AlertType.Error, message: error});
           return throwError(error);
         })
-      )
-      .subscribe((students) => {
-        this.students = students;
-        for (let i = 0; i < students.length; i++) {
-          this.crudService.getItem(GROUPS_URL, students[i].groupId).subscribe(group => {
-            this.students[i].group = group;
-          });
-        }
-      });
+      );
+    const specialtyObservable$ = this.crudService.getItems(SPECIALTIES_URL, null, null);
+
+    const result$ = forkJoin(groupObservable$, specialtyObservable$).subscribe(result => {
+      console.log(result);
+    });
   }
 }

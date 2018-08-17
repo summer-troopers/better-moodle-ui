@@ -2,7 +2,7 @@
 
   <table class="table table-sm table-hover">
     <thead>
-    <tr  class="table-success">
+    <tr class="table-success">
       <th scope="col">#</th>
       <th scope="col">Name</th>
       <th scope="col">Specialty</th>
@@ -12,7 +12,7 @@
     <tr *ngFor="let group of groups; let i = index">
       <th scope="row">{{i+1}}</th>
       <td>{{group.name}}</td>
-      <td>{{group.specialty.name}}</td>
+      <td *ngIf="group.specialty">{{group.specialty.name}}</td>
     </tr>
     </tbody>
   </table>

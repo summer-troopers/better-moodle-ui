@@ -17,10 +17,10 @@
     <tabset #staticTabs
             *ngIf="user && user.isStudent()">
       <tab heading="My Courses">
-        <app-my-courses [user]="user"></app-my-courses>
+        <app-user-courses [user]="user"></app-user-courses>
       </tab>
       <tab heading="My Teachers">
-        <app-my-teachers [user]="user"></app-my-teachers>
+        <app-user-teachers [user]="user"></app-user-teachers>
       </tab>
     </tabset>
   </div>
