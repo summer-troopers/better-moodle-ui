@@ -6,11 +6,11 @@ import { Subject, throwError } from 'rxjs';
 import { DashboardService } from '@modules/dashboard/dashboard.service';
 
 @Component({
-  selector: 'app-list-labs-teacher',
-  templateUrl: './list-labs-teacher.component.html',
-  styleUrls: ['./list-labs-teacher.component.scss']
+  selector: 'app-labs-list-for-teacher',
+  templateUrl: './labs-list-for-teacher.component.html',
+  styleUrls: ['./labs-list-for-teacher.component.scss']
 })
-export class ListLabsTeacherComponent implements OnInit {
+export class LabsListForTeacherComponent implements OnInit {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
