@@ -28,11 +28,11 @@
 </div>
 
 <ng-template #noTeachers>
-  <h1>No teachers to show...</h1>
-  <div class="text-center">
-    <h2>Want to add a new teacher ? </h2>
+  <div class="container bottom-padded">
+    <h1>No teachers to show...</h1>
+    <h2 class="text-center">Want to add a new teacher? </h2>
+    <button type="button"
+            class="btn btn-primary pull-right text-center"
+            (click)="openAddTeacherModal()">Add new teacher</button>
   </div>
-  <button type="button"
-          class="btn btn-primary pull-right text-center"
-          (click)="openAddTeacherModal()">Add new teacher</button>
 </ng-template>

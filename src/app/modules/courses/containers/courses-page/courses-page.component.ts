@@ -19,7 +19,7 @@ import { PaginationParams } from '@shared/models/pagination-params';
 
 })
 export class CoursesPageComponent implements OnInit, OnDestroy {
-  courses: Array<Course>;
+  courses: Array<Course> = [];
   totalItems: number;
   currentPage = 1;
   maxSizePagination = MAX_SIZE_PAGINATION;
@@ -74,7 +74,7 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  openModal() {
+  openAddCourseModal() {
     this.modalRef = this.modalService.show(AddCourseModalComponent);
 
     this.modalRef.content.addItemEvent

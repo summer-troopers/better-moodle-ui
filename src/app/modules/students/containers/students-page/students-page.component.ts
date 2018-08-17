@@ -55,11 +55,6 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
           this.paginationParams = this.paginatorHelper.getPaginationParams(this.totalItems, this.currentPage);
 
           return this.getAllStudents();
-        }),
-        catchError((error) => {
-          this.alerts.push({ type: AlertType.Error, message: error });
-
-          return throwError(error);
         })
       )
       .subscribe((students) => {
