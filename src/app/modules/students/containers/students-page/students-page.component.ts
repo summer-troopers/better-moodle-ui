@@ -36,10 +36,10 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
     private paginatorHelper: PaginatorHelperService) { }
 
   ngOnInit() {
-    this.initPage();
+    this.initPageData();
   }
 
-  initPage() {
+  initPageData() {
     this.route.queryParams.subscribe((params) => {
       this.currentPage = this.paginatorHelper.getCurrentPage(params.page);
       this.initNumberOfStudents();
@@ -53,10 +53,12 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
         mergeMap((studentsNumber: number) => {
           this.totalItems = studentsNumber;
           this.paginationParams = this.paginatorHelper.getPaginationParams(this.totalItems, this.currentPage);
+
           return this.getAllStudents();
         }),
         catchError((error) => {
           this.alerts.push({ type: AlertType.Error, message: error });
+
           return throwError(error);
         })
       )
@@ -91,6 +93,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
         catchError(
           (error) => {
             this.alerts.push({ type: AlertType.Error, message: error });
+
             return throwError(error);
           })
       );

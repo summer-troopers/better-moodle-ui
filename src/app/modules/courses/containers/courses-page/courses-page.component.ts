@@ -40,10 +40,10 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.initPage();
+    this.initPageData();
   }
 
-  initPage() {
+  initPageData() {
     this.route.queryParams.subscribe((params) => {
       this.currentPage = this.paginatorHelperService.getCurrentPage(params.page);
       this.initNumberOfCourses();
@@ -55,6 +55,7 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$),
         catchError((error) => {
           this.alerts.push({ type: AlertType.Error, message: error });
+
           return throwError(error);
         }));
   }
@@ -65,6 +66,7 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
         mergeMap((courseNumber: number) => {
           this.totalItems = courseNumber;
           this.paginationParams = this.paginatorHelperService.getPaginationParams(this.totalItems, this.currentPage);
+
           return this.getCourses();
         }))
       .subscribe((courses) => {

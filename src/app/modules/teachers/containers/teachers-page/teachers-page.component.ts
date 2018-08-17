@@ -39,7 +39,7 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.initPage();
+    this.initPageData();
   }
 
   openAddTeacherModal() {
@@ -51,7 +51,7 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  initPage() {
+  initPageData() {
     this.route.queryParams.subscribe((params) => {
       this.currentPage = this.paginatorHelperService.getCurrentPage(params.page);
       this.initNumberOfTeachers();
@@ -74,6 +74,7 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
         mergeMap((teachersNumber: number) => {
           this.totalItems = teachersNumber;
           this.paginationParams = this.paginatorHelperService.getPaginationParams(this.totalItems, this.currentPage);
+
           return this.getTeachers();
         }))
       .subscribe((teachers) => {
@@ -83,7 +84,7 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
 
   pageChanged(event: any) {
     this.currentPage = event.page;
-    this.router.navigate([`${TEACHERS_URL}`], { queryParams: { page: event.page } });
+    this.router.navigate([TEACHERS_URL], { queryParams: { page: event.page } });
   }
 
   setTeachers(teachers) {
