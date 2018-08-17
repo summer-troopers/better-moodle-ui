@@ -8,19 +8,11 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <td>Course 1</td>
+    <tr *ngFor="let report of reports; let i = index">
+      <td>Course {{i + 1}}</td>
       <td>
-        <button class=" download_labs"><i class="fa fa-file"><br>name</i></button>
-      </td>
-      <td>
-        <button>Add feedback</button>
-      </td>
-    </tr>
-    <tr>
-      <td>Course 2</td>
-      <td>
-        <button class=" download_labs"><i class="fa fa-file"><br>name</i></button>
+        <button class="download-labs"><i class="fa fa-file"><br class="name-new-line">
+          <p class="name-lab">{{ report.id }}</p></i></button>
       </td>
       <td>
         <button>Add feedback</button>

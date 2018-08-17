@@ -13,7 +13,7 @@ import { MyCoursesComponent } from './components/my-courses/my-courses.component
 import { MySpecialtiesComponent } from './components/my-specialties/my-specialties.component';
 import { MyGroupsComponent } from './components/my-groups/my-groups.component';
 import { MyStudentsComponent } from './components/my-students/my-students.component';
-import { LabStudentOnCourseComponent } from './components/lab-student-on-course/lab-student-on-course.component';
+import { ListLabsTeacherComponent } from './components/list-labs-teacher/list-labs-teacher.component';
 
 const COMPONENTS = [
   DashboardPageComponent,
@@ -36,7 +36,7 @@ const COMPONENTS = [
   ],
   declarations: [
     ...COMPONENTS,
-    LabStudentOnCourseComponent
+    ListLabsTeacherComponent
   ]
 })
 export class DashboardModule {
