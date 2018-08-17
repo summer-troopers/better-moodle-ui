@@ -11,7 +11,7 @@ import { PaginationParams } from '@shared/models/pagination-params';
 import { PaginatorHelperService } from '@shared/services/paginator-helper/paginator-helper.service';
 import { Alert, AlertType } from '@shared/models/alert';
 import { CrudService } from '@shared/services/crud/crud.service';
-import { TEACHERS_URL } from '@shared/constants';
+import { TEACHERS_URL, NUMBER_ITEMS_PAGE } from '@shared/constants';
 
 @Component({
   selector: 'app-teachers-page',
@@ -25,24 +25,21 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
   modalRef: BsModalRef;
 
   alerts: Alert[] = [];
-  defaultItemsNumber = 10;
-  paginationParams = new PaginationParams(0, this.defaultItemsNumber);
+  paginationParams = new PaginationParams(0, NUMBER_ITEMS_PAGE);
 
   teachers: Array<Teacher> = [];
   totalItems: number;
   currentPage = 1;
-  pageParam: number;
 
   constructor(private crudService: CrudService,
-              private modalService: BsModalService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private paginatorHelperService: PaginatorHelperService) {
+    private modalService: BsModalService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private paginatorHelperService: PaginatorHelperService) {
   }
 
   ngOnInit() {
-    this.initPage();
-    this.initNumberOfTeachers();
+    this.initPageData();
   }
 
   openAddTeacherModal() {
@@ -54,10 +51,10 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  initPage() {
+  initPageData() {
     this.route.queryParams.subscribe((params) => {
-      this.pageParam = +params.page;
-      this.paginatorHelperService.getCurrentPage(this.pageParam);
+      this.currentPage = this.paginatorHelperService.getCurrentPage(params.page);
+      this.initNumberOfTeachers();
     });
   }
 
@@ -75,28 +72,23 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
     this.crudService.getNumberOfItems(TEACHERS_URL)
       .pipe(
         mergeMap((teachersNumber: number) => {
-          this.totalItems = +teachersNumber;
-          this.paginationParams.offset = this.paginatorHelperService.getOffset(this.totalItems, this.defaultItemsNumber);
+          this.totalItems = teachersNumber;
+          this.paginationParams = this.paginatorHelperService.getPaginationParams(this.totalItems, this.currentPage);
 
           return this.getTeachers();
         }))
       .subscribe((teachers) => {
-        this.teachers = teachers;
-        this.teachers.reverse();
+        this.setTeachers(teachers);
       });
   }
 
   pageChanged(event: any) {
     this.currentPage = event.page;
+    this.router.navigate([TEACHERS_URL], { queryParams: { page: event.page } });
+  }
 
-    this.paginationParams = this.paginatorHelperService.getPaginationParams(this.totalItems, this.currentPage);
-
-    this.getTeachers()
-      .subscribe((teachers) => {
-        this.teachers = teachers;
-        this.teachers.reverse();
-      });
-    this.router.navigate([`${TEACHERS_URL}`], { queryParams: { page: event.page } });
+  setTeachers(teachers) {
+    this.teachers = teachers.reverse();
   }
 
   ngOnDestroy() {
