@@ -10,10 +10,10 @@ export class DashboardService {
   }
 
   getItemsOfTeacher(pageUrl: string, teacherId: number): Observable<Array<any>> {
-    return this.crudService.getItems(`${pageUrl}?teacherId=${teacherId}`, null, null);
+    return this.crudService.getItems(`${pageUrl}?teacherId=${teacherId}`, 0, 50);
   }
 
   getItemsOfStudent(pageUrl: string, studentId: number): Observable<Array<any>> {
-    return this.crudService.getItems(`${pageUrl}?studentId=${studentId}`, null, null);
+    return this.crudService.getItems(`${pageUrl}?studentId=${studentId}`, 0, 50);
   }
 }

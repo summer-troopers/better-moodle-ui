@@ -19,26 +19,20 @@
       <th scope="row">{{i+1}}</th>
       <td>{{course.name}}</td>
       <td *ngIf="user && user.isStudent()">
-        <button class="btn btn-secondary iconbtn"><i class="fa fa-file"><br>name</i></button>
+        <button class="btn btn-secondary iconbtn"><i class="fa fa-file"><br>Download Task Name</i></button>
       </td>
       <td>
         <div *ngIf="user && user.isStudent()">
-          <div>
-            <button class="btn btn-secondary addbtn">Add Report</button>
-          </div>
-          <div>
-            <button class="btn btn-secondary iconbtn"><i class="fa fa-file"><br>name</i></button><br>
-            <button class="btn btn-secondary dltbtn">Delete Report</button>
-          </div>
+          <input type="file"
+                 class="addbtn"
+                 value="Add Report"/>
+          <button class="btn btn-secondary iconbtn pull-right"><i class="fa fa-file"><br>Download Raport Name</i></button>
+          <button class="btn btn-secondary dltbtn pull-right">Delete Report</button>
         </div>
         <div *ngIf="user && user.isTeacher()">
-          <div>
-            <button class="btn btn-secondary addbtn">Add Task</button>
-          </div>
-          <div>
-            <button class="btn btn-secondary iconbtn"><i class="fa fa-file"><br>name</i></button><br>
+          <button class="btn btn-secondary addbtn">Add Task</button>
+            <button class="btn btn-secondary iconbtn"><i class="fa fa-file"><br>Download Task Name</i></button>
             <button class="btn btn-secondary dltbtn">Delete Task</button>
-          </div>
         </div>
       </td>
     </tr>
