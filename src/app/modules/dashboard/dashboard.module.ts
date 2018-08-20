@@ -12,6 +12,7 @@ import { UserTeachersComponent } from './components/user-teachers/user-teachers.
 import { UserCoursesComponent } from './components/user-courses/user-courses.component';
 import { UserGroupsComponent } from './components/user-groups/user-groups.component';
 import { UserStudentsComponent } from './components/user-students/user-students.component';
+import { SharedModule } from '@shared/shared.module';
 
 const COMPONENTS = [
   DashboardPageComponent,
@@ -29,6 +30,7 @@ const COMPONENTS = [
     CommonModule,
     RouterModule,
     dashboardRoutes,
+    SharedModule,
     TabsModule.forRoot(),
   ],
   declarations: [

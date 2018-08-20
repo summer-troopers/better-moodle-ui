@@ -12,7 +12,7 @@
     <tr *ngFor="let group of groups; let i = index">
       <th scope="row">{{i+1}}</th>
       <td>{{group.name}}</td>
-      <td *ngIf="group.specialty">{{group.specialty.name}}</td>
+      <td *ngIf="group.specialty">{{group.specialty?.name}}</td>
     </tr>
     </tbody>
   </table>

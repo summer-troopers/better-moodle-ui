@@ -6,11 +6,11 @@
       <th scope="col">#</th>
       <th scope="col">Name</th>
       <th scope="col"
-          appHasStudentRole>Task
+          [appHasRole]="'student'">Task
       </th>
       <th scope="col">
-        <div appHasStudentRole >My Report</div>
-        <div appHasTeacherRole >My Task</div>
+        <div [appHasRole]="'student'">My Report</div>
+        <div [appHasRole]="'teacher'">My Task</div>
       </th>
     </tr>
     </thead>
@@ -18,45 +18,51 @@
     <tr *ngFor="let course of courses; let i = index">
       <th scope="row">{{i+1}}</th>
       <td>{{course.name}}</td>
-      <td *ngIf="user && user.isStudent()">
-        <button appHasStudentRole
-                class="btn btn-secondary iconbtn"><i class="fa fa-file"><br>Download Task Name</i></button>
+      <td appHasRole="student">
+        <button
+          class="btn btn-secondary icon-button"><i class="fa fa-file"><br>Download Task Name</i></button>
       </td>
 
       <td>
-        <div appHasStudentRole>
+        <div [appHasRole]="'student'">
           <form>
             <input type="file"
-                   class="custom-file-input"
-                   value="Add Task"/> <br>
+                   id="raport-file"
+                   class="custom-file-input inputfile"
+                   value="Add Task"/>
+            <label for="raport-file">Choose a file</label> <br>
             <input type="submit"
-                   class="btn btn-secondary addbtn"
+                   class="btn btn-secondary submit-button"
                    value="Submit"/>
           </form>
-          <hr>
           <div>
-            <button class="btn btn-secondary iconbtn"><i class="fa fa-file"><br>Download Raport Name</i></button>
+            <button class="btn btn-secondary icon-button"><i class="fa fa-file"><br>{{course.labReport?.name}}Download
+              Raport Name</i></button>
             <br>
-            <button class="btn btn-secondary dltbtn">Delete Report</button>
+            <button class="btn btn-secondary delete-button">Delete Report</button>
           </div>
+          <hr>
         </div>
 
-        <div appHasTeacherRole
+        <div [appHasRole]="'teacher'"
              class="custom-file">
-          <form appHasTeacherRole>
+          <form>
             <input type="file"
-                   class=" btn btn-secondary form-control"
-                   value="Add Task"/> <br>
+                   id="task-file"
+                   class="custom-file-input inputfile"
+                   value="Add Task"/>
+            <label for="task-file">Choose a file</label><br>
             <input type="submit"
-                   class="btn btn-secondary addbtn"
+                   class="btn btn-secondary submit-button"
                    value="Submit"/>
           </form>
-          <hr>
           <div>
-            <button class="btn btn-secondary iconbtn"><i class="fa fa-file"><br>Download Task Name</i></button>
+            <button class="btn btn-secondary icon-button"><i class="fa fa-file"><br>{{course.labTask?.name}}Download
+              Task Name</i></button>
             <br>
-            <button class="btn btn-secondary dltbtn">Delete Task</button>
+            <button class="btn btn-secondary delete-button">Delete Task</button>
           </div>
+          <br>
         </div>
       </td>
 

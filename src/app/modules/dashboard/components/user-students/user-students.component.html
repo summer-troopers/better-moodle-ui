@@ -18,7 +18,7 @@
       <td>{{student.lastName}}</td>
       <td>{{student.phoneNumber}}</td>
       <td>{{student.email}}</td>
-      <td *ngIf="student.group">{{student.group.name}}</td>
+      <td *ngIf="student.group">{{student.group?.name}}</td>
     </tr>
     </tbody>
   </table>

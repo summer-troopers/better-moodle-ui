@@ -1,19 +1,40 @@
-.iconbtn, .iconbtn:active {
+.icon-button, .iconbtn:active {
   background-color: transparent !important;
   color: grey;
   border-color: transparent !important;
   border: none !important;
 }
 
-.iconbtn:active {
+.icon-button:active {
   color: #7ab8a7 !important;
   border: none !important;
 }
 
-.addbtn {
+.submit-button {
   background-color: #7ab8a7;
 }
 
-.dltbtn {
+.delete-button {
   background-color: #d78c42;
 }
+
+.inputfile, label {
+  font-size: 1.25em;
+  font-weight: 700;
+  color: white;
+  background-color: black;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+
+
