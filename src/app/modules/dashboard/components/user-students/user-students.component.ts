@@ -35,7 +35,7 @@ export class UserStudentsComponent implements OnInit, OnDestroy {
 
   getAllStudents() {
     const userId = this.user.id;
-    const studentObservable$ = this.dashboardService.getItemsOfTeacher(STUDENTS_URL, userId)
+    this.dashboardService.getItemsOfTeacher(STUDENTS_URL, userId)
       .pipe(
         takeUntil(this.destroy$),
         catchError((error) => {

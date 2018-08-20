@@ -35,7 +35,7 @@ export class UserGroupsComponent implements OnInit, OnDestroy {
 
   getAllGroups() {
     const userId = this.user.id;
-    const groupObservable$ = this.dashboardService.getItemsOfTeacher(GROUPS_URL, userId)
+    this.dashboardService.getItemsOfTeacher(GROUPS_URL, userId)
       .pipe(
         takeUntil(this.destroy$),
         catchError((error) => {
