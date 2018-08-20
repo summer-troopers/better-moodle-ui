@@ -13,10 +13,10 @@ export class MyCoursesComponent implements OnInit {
   courses: Course;
   @Input() user;
 
-  constructor(private dashboardService: DashboardService) {}
+  constructor(private dashboardService: DashboardService) { }
 
   ngOnInit() {
-    const userId = this.user.id;
-    this.dashboardService.getItemsofTeacher(COURSES_URL, userId);
+    // const userId = this.user.id;
+    // this.dashboardService.getItemsofTeacher(COURSES_URL, userId);
   }
 }
