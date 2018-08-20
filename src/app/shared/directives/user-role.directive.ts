@@ -8,8 +8,6 @@ import { USER_STORAGE_KEY } from '@shared/constants';
 })
 export class UserRoleDirective implements OnInit {
 
-  @Input() appHasRole: string;
-
   constructor(private userService: UserService,
     private elementRef: ElementRef) {
   }
