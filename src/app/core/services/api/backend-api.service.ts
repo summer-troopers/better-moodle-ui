@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
 
@@ -17,130 +17,101 @@ export class BackendApiService {
               private localStorageServices: LocalStorageService) {
   }
 
-  getHeaders(token, isFile?) {
-    let ContentType = 'application/json';
-    let responseType = '';
-    if (!token) {
-      token = '';
-    }
-    if (isFile) {
-      ContentType = 'text/plain;charset=utf-8';
-      responseType = 'blob';
-    }
+  private getHeaders() {
+    return new HttpHeaders({
+      token: this.localStorageServices.getLocalStorage(TOKEN_STORAGE_KEY),
+    });
+  }
 
+  private getParams(params: any) {
+    if (!params) { params = {}; }
+
+    const mainParamNames = ['limit', 'offset', 'contains'];
+
+    let httpParams = new HttpParams();
+    httpParams = httpParams.set('limit', params.limit || 0);
+    httpParams = httpParams.set('offset', params.offset || 0);
+    httpParams = httpParams.set('contains', params.contains || '');
+
+    const otherPossibleParamNames = [
+      'teacherId', 'studentId',
+      'groupId', 'courseId', 'specialtyId',
+      'labReportId', 'labTaskId', 'labCommentId'
+    ];
+
+    otherPossibleParamNames.forEach(key => {
+      if (params[key]) {
+        httpParams = httpParams.set(key, params[key]);
+      }
+    });
+
+    // Error checking
+    const otherParams = Object.keys(params).filter((key) => {
+      const mainFound = mainParamNames.find(name => name === key);
+      const otherFound = otherPossibleParamNames.find(name => name === key);
+
+      return (!mainFound && !otherFound);
+    });
+
+    if (otherParams.length > 0) {
+      console.error('Unknown query params set: ' + otherParams);
+    }
+    // End error checking
+
+    return httpParams;
+  }
+
+  private getOptions(params): any {
     return {
-      headers: new HttpHeaders({
-        token,
-        ContentType,
-      }),
-      responseType
+      headers: this.getHeaders(),
+      observe: 'response',
+      params: this.getParams(params),
     };
   }
 
   /**
    * GET resource from backend
-   * @param {string} path -  relative path to resource (ex.: 'courses')
+   * @param {string} path - relative path to resource (ex.: 'courses')
+   * @param {Object} params - an object containing the query params (ex: 'offset')
+   * @description 'limit' and 'offset' have default values of 0, 'contains' - ''
    * @returns {Observable<any>}
    */
-  get(path: string, isFile?: boolean): Observable<any> {
-    return this._request('GET', path, null,
-      this.getHeaders(this.localStorageServices.getLocalStorage(TOKEN_STORAGE_KEY), isFile),
-      isFile);
+  get(path: string, params?: Object): Observable<HttpResponse<any>> {
+    return this.http.get<any>(`${this.URL}/${path}`, this.getOptions(params)) as Observable<HttpResponse<any>>;
   }
 
   /**
    * POST resource to backend
    * @param {string} path -  relative path to resource (ex.: 'courses')
    * @param {Object} body - object to be sent to the backend
+   * @param {Object} params - an object containing the query params (ex: 'offset')
    * @returns {Observable<any>}
    */
-  post(path: string, body: Object): Observable<any> {
-    return this._request('POST', path, body,
-      this.getHeaders(this.localStorageServices.getLocalStorage(TOKEN_STORAGE_KEY)));
+  post(path: string, body: Object, params?: Object): Observable<HttpResponse<any>> {
+    return this.http.post<any>(`${this.URL}/${path}`, body, this.getOptions(params)) as Observable<HttpResponse<any>>;
   }
 
   /**
    * PUT resource to backend
    * @param {string} path -  relative path to resource (ex.: 'courses')
    * @param {Object} body - object to be sent to the backend
+   * @param {Object} params - an object containing the query params (ex: 'offset')
    * @returns {Observable<any>}
    */
-  put(path: string, body: Object): Observable<any> {
-    return this._request('PUT', path, body,
-      this.getHeaders(this.localStorageServices.getLocalStorage(TOKEN_STORAGE_KEY)));
-  }
-
-  /**
-   * PATCH resource to backend
-   * @param {string} path -  relative path to resource (ex.: 'courses')
-   * @param {Object} body - object to be sent to the backend
-   * @returns {Observable<any>}
-   */
-  patch(path: string, body: Object): Observable<any> {
-    return this._request('PATCH', path, body,
-      this.getHeaders(this.localStorageServices.getLocalStorage(TOKEN_STORAGE_KEY)));
+  put(path: string, body: Object, params?: Object): Observable<HttpResponse<any>> {
+    return this.http.put<any>(`${this.URL}/${path}`, body, this.getOptions(params)) as Observable<HttpResponse<any>>;
   }
 
   /**
    * DELETE resource from backend
    * @param {string} path -  relative path to resource (ex.: 'courses')
+   * @param {Object} params - an object containing the query params (ex: 'offset')
    * @returns {Observable<any>}
    */
-  delete(path: string): Observable<any> {
-    return this._request('DELETE', path, null,
-      this.getHeaders(this.localStorageServices.getLocalStorage(TOKEN_STORAGE_KEY)));
+  delete(path: string, params?: Object): Observable<HttpResponse<any>> {
+    return this.http.delete<any>(`${this.URL}/${path}`, this.getOptions(params)) as Observable<HttpResponse<any>>;
   }
 
-  /**
-   * GET Params for http requests
-   * @param {Object} params - object with query params
-   * @returns {HttpParams}
-   */
-  private getParams(params?: Object): HttpParams {
-    let paramsToSend: HttpParams = new HttpParams();
-
-    if (params) {
-      for (const [key, value] of Object.entries(params)) {
-        paramsToSend = paramsToSend.append(key, value as string);
-      }
-    }
-
-    return paramsToSend;
-  }
-
-  private _request(method: string, path: string, body?: any, options?: any, isFile?: boolean): Observable<any> {
-
-    if (!options) {
-      options = {};
-    }
-
-    const url = `${this.URL}/${path}`;
-    const params = options.params && this.getParams(options.params);
-
-    const optionsToSend = Object.assign(options, {
-      url,
-      body,
-      params,
-    });
-    if (isFile) {
-      optionsToSend.observe = 'response';
-    }
-
-    return Observable.create((observer) => {
-      return this.http.request(method, url, optionsToSend).subscribe(
-        (res) => {
-          observer.next(res);
-          observer.complete();
-        },
-        (err: HttpErrorResponse) => {
-          if (err.status === 401 || err.status === 403) {
-            console.log('Refresh token needed!');
-          }
-
-          observer.error(err);
-        });
-    });
-  }
 }
 
 
