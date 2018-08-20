@@ -18,7 +18,7 @@ export class MyStudentsComponent implements OnInit, OnDestroy {
   @Input() user;
 
   activeRowIndex: number;
-  isShow = false;
+  isShown = false;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -32,7 +32,7 @@ export class MyStudentsComponent implements OnInit, OnDestroy {
   }
 
   showStudentDoneLabs(index, id) {
-    this.isShow = !this.isShow;
+    this.isShown = !this.isShown;
     this.activeRowIndex = index;
     this.id = id;
   }
