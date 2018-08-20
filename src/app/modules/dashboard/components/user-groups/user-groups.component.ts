@@ -44,11 +44,8 @@ export class UserGroupsComponent implements OnInit, OnDestroy {
           this.alerts.push({type: AlertType.Error, message: error});
           return throwError(error);
         })
-      );
-    const specialtyObservable$ = this.crudService.getItems(SPECIALTIES_URL, 0, 50);
-
-    const result$ = forkJoin(groupObservable$, specialtyObservable$).subscribe(result => {
-      console.log(result);
-    });
+      ).subscribe(groups => {
+        this.groups = groups;
+      });
   }
 }

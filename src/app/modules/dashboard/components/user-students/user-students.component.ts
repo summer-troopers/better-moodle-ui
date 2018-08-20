@@ -44,11 +44,8 @@ export class UserStudentsComponent implements OnInit, OnDestroy {
           this.alerts.push({type: AlertType.Error, message: error});
           return throwError(error);
         })
-      );
-    const groupObservable$ = this.crudService.getItems(GROUPS_URL, 0, 50);
-
-    const result$ = forkJoin(studentObservable$, groupObservable$).subscribe(result => {
-      console.log(result);
+      ).subscribe(students => {
+      this.students = students;
     });
   }
 }
