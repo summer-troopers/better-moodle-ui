@@ -51,8 +51,4 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
         this.courses = courses;
       });
   }
-
-// deleteFile() {
-//   this.dashboardService.getItems();
-// }
 }

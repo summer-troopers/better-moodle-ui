@@ -4,9 +4,9 @@ import { UserService } from '@shared/services/user/user.service';
 import { USER_STORAGE_KEY } from '@shared/constants';
 
 @Directive({
-  selector: '[appHasRole]'
+  selector: '[appHasStudentRole]'
 })
-export class UserRoleDirective implements OnInit {
+export class StudentRoleDirective implements OnInit{
 
   constructor(private userService: UserService,
               private elementRef: ElementRef) {
@@ -14,9 +14,10 @@ export class UserRoleDirective implements OnInit {
 
   ngOnInit() {
     const user = this.userService.getUserLocalStorage(USER_STORAGE_KEY).userRole;
-    if (user === 'teacher' || user === 'student') {
+    if (user === 'admin' || user === 'teacher') {
       const child: HTMLElement = this.elementRef.nativeElement;
       child.parentNode.removeChild(child);
     }
   }
+
 }
