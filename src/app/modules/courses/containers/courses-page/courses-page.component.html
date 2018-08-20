@@ -6,9 +6,9 @@
     <div class="pageTitle">
       <h1>
         List of all courses
-        <button
-          class="btn btn-primary pull-right"
-          (click)="openModal()">
+        <button appHasRole
+                class="btn btn-primary pull-right"
+                (click)="openModal()">
           Add new course
         </button>
       </h1>
@@ -16,7 +16,8 @@
     <div *ngFor="let course of courses">
       <ul class="list-group list-group-flush">
         <li class="list-group-item list-group-item-dark">
-          <a routerLink="{{ course.id }}" class="list-group-item list-group-item-action">
+          <a routerLink="{{ course.id }}"
+             class="list-group-item list-group-item-action">
             {{ course.name }}
           </a>
         </li>
@@ -36,7 +37,8 @@
     <div class="card">
       <div class="card-header">
         <h4 class="card-title pull-left">No courses</h4>
-        <button type="button"
+        <button appHasRole
+                type="button"
                 class="close pull-right align-content-center"
                 aria-label="Close"
                 (click)="openModal()">

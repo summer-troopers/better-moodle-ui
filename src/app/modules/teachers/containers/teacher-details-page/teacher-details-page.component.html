@@ -12,10 +12,12 @@
     <h3>Email : {{teacher.email}}</h3>
     <h3>Phone Number : {{teacher.phoneNumber}}</h3>
 
-    <button type="button"
+    <button appHasRole
+            type="button"
             class="btn btn-success"
             (click)="openEditModal()">Edit</button>
-    <button class="btn btn-danger"
+    <button appHasRole
+            class="btn btn-danger"
             (click)="openDeleteModal()">Delete</button>
     <br>
   </div>
