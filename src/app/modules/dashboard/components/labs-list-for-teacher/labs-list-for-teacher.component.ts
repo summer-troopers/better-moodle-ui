@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { LABORATORY_URL } from '@shared/constants';
 import { catchError, takeUntil } from 'rxjs/operators';
-import { Alert, AlertType } from '@shared/models/alert';
 import { Subject, throwError } from 'rxjs';
+
 import { DashboardService } from '@modules/dashboard/dashboard.service';
+import { CrudService } from '@shared/services/crud/crud.service';
+import { Alert, AlertType } from '@shared/models/alert';
+import { LABORATORY_URL } from '@shared/constants';
 
 @Component({
   selector: 'app-labs-list-for-teacher',
@@ -14,13 +16,14 @@ export class LabsListForTeacherComponent implements OnInit {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  reports = [];
+  reports;
   @Input() user;
   @Input() students;
 
   alerts: Alert[] = [];
 
-  constructor(private dashboardService: DashboardService) {
+  constructor(private dashboardService: DashboardService,
+              private crudService: CrudService) {
   }
 
   ngOnInit() {
@@ -28,7 +31,7 @@ export class LabsListForTeacherComponent implements OnInit {
   }
 
   getAllReports() {
-    this.dashboardService.getItemsofRaports(LABORATORY_URL, this.students.id)
+    this.crudService.getItems(`${LABORATORY_URL}?studentId=${this.students.id}`, null, null)
       .pipe(
         takeUntil(this.destroy$),
         catchError((error) => {

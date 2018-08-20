@@ -16,8 +16,4 @@ export class DashboardService {
   getItemsOfStudent(pageUrl: string, studentId: number): Observable<Array<any>> {
     return this.crudService.getItems(`${pageUrl}?studentId=${studentId}`, 0, 50);
   }
-
-  getItemsofRaports(pageUrl: string, studentId: number) {
-    return this.crudService.getItems(`${pageUrl}?studentId=${studentId}`, null, null);
-  }
 }
