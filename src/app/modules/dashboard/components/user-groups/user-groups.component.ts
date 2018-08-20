@@ -6,7 +6,6 @@ import { Group } from '@shared/models/group';
 import { GROUPS_URL } from '@shared/constants';
 import { Alert, AlertType } from '@shared/models/alert';
 import { DashboardService } from '@modules/dashboard/dashboard.service';
-import { CrudService } from '@shared/services/crud/crud.service';
 
 @Component({
   selector: 'app-user-groups',
@@ -22,8 +21,7 @@ export class UserGroupsComponent implements OnInit, OnDestroy {
 
   alerts: Alert[] = [];
 
-  constructor(private dashboardService: DashboardService,
-              private crudService: CrudService) {
+  constructor(private dashboardService: DashboardService) {
   }
 
   ngOnInit() {

@@ -1,12 +1,11 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { forkJoin, Subject, throwError } from 'rxjs';
+import { Subject, throwError } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 
 import { Student } from '@shared/models/student';
-import { GROUPS_URL, SPECIALTIES_URL, STUDENTS_URL } from '@shared/constants';
+import { STUDENTS_URL } from '@shared/constants';
 import { Alert, AlertType } from '@shared/models/alert';
 import { DashboardService } from '@modules/dashboard/dashboard.service';
-import { CrudService } from '@shared/services/crud/crud.service';
 
 @Component({
   selector: 'app-user-students',
@@ -22,8 +21,7 @@ export class UserStudentsComponent implements OnInit, OnDestroy {
 
   alerts: Alert[] = [];
 
-  constructor(private dashboardService: DashboardService,
-              private crudService: CrudService) {
+  constructor(private dashboardService: DashboardService) {
   }
 
   ngOnInit() {
