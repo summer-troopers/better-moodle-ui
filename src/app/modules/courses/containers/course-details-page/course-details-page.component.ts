@@ -32,6 +32,11 @@ export class CourseDetailsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.initPageData();
+  }
+
+  initPageData() {
+
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.id = params.get('id');
       this.crudService.getItem(COURSES_URL, this.id)
