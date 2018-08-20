@@ -1,10 +1,12 @@
 import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { CrudService } from '@shared/services/crud/crud.service';
+import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
 import { COURSES_URL } from '@shared/constants';
 
 @Component({
@@ -20,12 +22,12 @@ export class AddCourseModalComponent implements OnInit, OnDestroy {
   addItemEvent: EventEmitter<any> = new EventEmitter();
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(
-    private formBuilder: FormBuilder,
+  confirmModalRef: BsModalRef;
+
+  constructor(private formBuilder: FormBuilder,
     private crudService: CrudService,
-    private modalRef: BsModalRef
-  ) {
-  }
+    private addModalRef: BsModalRef,
+    private modalService: BsModalService) { }
 
   ngOnInit() {
     this.initForm();
@@ -41,10 +43,6 @@ export class AddCourseModalComponent implements OnInit, OnDestroy {
     });
   }
 
-  closeModal(): void {
-    this.modalRef.hide();
-  }
-
   onSubmit(): void {
     this.isSubmitted = true;
 
@@ -55,10 +53,31 @@ export class AddCourseModalComponent implements OnInit, OnDestroy {
       .subscribe(
         (response) => {
           this.addItemEvent.emit(response);
-          this.closeModal();
+          this.addModalRef.hide();
         }, error => {
           this.addItemEvent.emit(error);
         });
+  }
+
+  openConfirmLeaveModal() {
+    if (this.checkFormForData()) {
+      this.confirmModalRef = this.modalService.show(ConfirmModalComponent);
+      this.confirmModalRef.content.onConfirm.pipe(takeUntil(this.destroy$))
+        .subscribe(() => {
+          this.confirmModalRef.hide();
+          this.addModalRef.hide();
+        });
+    } else {
+      this.addModalRef.hide();
+    }
+  }
+
+  checkFormForData(): boolean {
+    let hasData = false;
+    if (this.courseForm.value.name !== '') {
+      hasData = true;
+    }
+    return hasData;
   }
 
   ngOnDestroy() {

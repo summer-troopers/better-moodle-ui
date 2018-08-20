@@ -1,10 +1,12 @@
 import { Component, OnDestroy, OnInit, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Subject, throwError } from 'rxjs';
 import { takeUntil, catchError } from 'rxjs/operators';
 
 import { CrudService } from '@shared/services/crud/crud.service';
+import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
 import { Alert, AlertType } from '@shared/models/alert';
 import { TEACHERS_URL } from '@shared/constants';
 
@@ -21,9 +23,12 @@ export class AddTeacherModalComponent implements OnInit, OnDestroy {
   alerts: Alert[] = [];
   isSubmitted = false;
 
+  confirmModalRef: BsModalRef;
+
   constructor(private formBuilder: FormBuilder,
     private crudService: CrudService,
-    public bsModalRef: BsModalRef) { }
+    public addModalRef: BsModalRef,
+    private modalService: BsModalService) { }
 
   ngOnInit() {
     this.initForm();
@@ -79,8 +84,30 @@ export class AddTeacherModalComponent implements OnInit, OnDestroy {
       )
       .subscribe((newTeacher) => {
         this.teacherAdded.emit(newTeacher);
-        this.bsModalRef.hide();
+        this.addModalRef.hide();
       });
+  }
+
+  checkFormForData(): boolean {
+    let hasData = false;
+    if (this.userForm.value.firstName !== '' || this.userForm.value.lastName !== '' || this.userForm.value.email !== '' ||
+      this.userForm.value.phoneNumber !== '' || this.userForm.value.password !== '') {
+      hasData = true;
+    }
+    return hasData;
+  }
+
+  openConfirmLeaveModal() {
+    if (this.checkFormForData()) {
+      this.confirmModalRef = this.modalService.show(ConfirmModalComponent);
+      this.confirmModalRef.content.onConfirm.pipe(takeUntil(this.destroy$))
+        .subscribe(() => {
+          this.confirmModalRef.hide();
+          this.addModalRef.hide();
+        });
+    } else {
+      this.addModalRef.hide();
+    }
   }
 
   ngOnDestroy() {

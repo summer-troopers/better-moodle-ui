@@ -42,7 +42,10 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
   }
 
   openAddTeacherModal() {
-    this.modalRef = this.modalService.show(AddTeacherModalComponent);
+    this.modalRef = this.modalService.show(AddTeacherModalComponent, {
+      backdrop: 'static',
+      keyboard: false
+    });
     this.modalRef.content.teacherAdded
       .pipe(takeUntil(this.destroy$))
       .subscribe((newTeacher) => {

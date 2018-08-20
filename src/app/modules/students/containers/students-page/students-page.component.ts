@@ -62,7 +62,10 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
   }
 
   openAddStudentModal() {
-    this.modalRef = this.modalService.show(AddStudentModalComponent);
+    this.modalRef = this.modalService.show(AddStudentModalComponent, {
+      backdrop: 'static',
+      keyboard: false
+    });
 
     this.modalRef.content.studentAdded
       .subscribe((newStudent) => {
