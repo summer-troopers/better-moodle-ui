@@ -1,4 +1,4 @@
-import { Directive, Input, OnInit, ElementRef } from '@angular/core';
+import { Directive, OnInit, ElementRef } from '@angular/core';
 
 import { UserService } from '@shared/services/user/user.service';
 import { USER_STORAGE_KEY } from '@shared/constants';
