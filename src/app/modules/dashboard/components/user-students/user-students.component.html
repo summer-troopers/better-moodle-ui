@@ -23,9 +23,9 @@
       <td>2</td>
 
     </tr>
-    <tr class="lab-student-list" *ngIf="activeRowIndex === i && isShow">
-      <td colspan="6" class="lab-student-list-item">
-        <app-labs-list-for-teacher class="test-int" [students]="student"></app-labs-list-for-teacher>
+    <tr class="lab-student-list" *ngIf="activeRowIndex === i && isShown">
+      <td colspan="6" class="lab-student-list_item">
+        <app-labs-list-for-teacher [students]="student"></app-labs-list-for-teacher>
       </td>
     </tr>
     </tbody>
