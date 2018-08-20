@@ -21,20 +21,43 @@
       <td *ngIf="user && user.isStudent()">
         <button class="btn btn-secondary iconbtn"><i class="fa fa-file"><br>Download Task Name</i></button>
       </td>
+
       <td>
         <div *ngIf="user && user.isStudent()">
-          <input type="file"
-                 class="addbtn"
-                 value="Add Report"/>
-          <button class="btn btn-secondary iconbtn"><i class="fa fa-file"><br>Download Raport Name</i></button><br>
-          <button class="btn btn-secondary dltbtn">Delete Report</button>
+          <form>
+            <input type="file"
+                   class="custom-file-input"
+                   value="Add Task"/> <br>
+            <input type="submit"
+                   class="btn btn-secondary addbtn"
+                   value="Submit"/>
+          </form>
+          <hr>
+          <div>
+            <button class="btn btn-secondary iconbtn"><i class="fa fa-file"><br>Download Raport Name</i></button>
+            <br>
+            <button class="btn btn-secondary dltbtn">Delete Report</button>
+          </div>
         </div>
-        <div *ngIf="user && user.isTeacher()">
-          <button class="btn btn-secondary addbtn">Add Task</button>
-            <button class="btn btn-secondary iconbtn"><i class="fa fa-file"><br>Download Task Name</i></button><br>
+        <div *ngIf="user && user.isTeacher()"
+             class="custom-file">
+          <form>
+            <input type="file"
+                   class=" btn btn-secondary form-control"
+                   value="Add Task"/> <br>
+            <input type="submit"
+                   class="btn btn-secondary addbtn"
+                   value="Submit"/>
+          </form>
+          <hr>
+          <div>
+            <button class="btn btn-secondary iconbtn"><i class="fa fa-file"><br>Download Task Name</i></button>
+            <br>
             <button class="btn btn-secondary dltbtn">Delete Task</button>
+          </div>
         </div>
       </td>
+
     </tr>
     </tbody>
   </table>

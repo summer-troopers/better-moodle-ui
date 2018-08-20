@@ -3,7 +3,7 @@ import { Subject, throwError } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 
 import Course from '@shared/models/group';
-import { COURSES_URL} from '@shared/constants';
+import { COURSES_URL } from '@shared/constants';
 import { Alert, AlertType } from '@shared/models/alert';
 import { DashboardService } from '@modules/dashboard/dashboard.service';
 
@@ -36,32 +36,23 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
   getAllCourses() {
     const userId = this.user.id;
 
-    if (this.user.isStudent()) {
-      this.dashboardService.getItemsOfStudent(COURSES_URL, userId)
-        .pipe(
-          takeUntil(this.destroy$),
-          catchError((error) => {
-            this.alerts.push({type: AlertType.Error, message: error});
-            return throwError(error);
-          })
-        )
-        .subscribe((courses) => {
-          this.courses = courses;
-        });
-    }
+    const methodToCall = this.user.isTeacher() ?
+      this.dashboardService.getItemsOfTeacher(COURSES_URL, userId) :
+      this.dashboardService.getItemsOfStudent(COURSES_URL, userId);
 
-    if (this.user.isTeacher()) {
-      this.dashboardService.getItemsOfTeacher(COURSES_URL, userId)
-        .pipe(
-          takeUntil(this.destroy$),
-          catchError((error) => {
-            this.alerts.push({type: AlertType.Error, message: error});
-            return throwError(error);
-          })
-        )
-        .subscribe((courses) => {
-          this.courses = courses;
-        });
-    }
+    methodToCall.pipe(
+      takeUntil(this.destroy$),
+      catchError((error) => {
+        this.alerts.push({type: AlertType.Error, message: error});
+        return throwError(error);
+      })
+    )
+      .subscribe((courses) => {
+        this.courses = courses;
+      });
   }
+
+// deleteFile() {
+//   this.dashboardService.getItems();
+// }
 }
