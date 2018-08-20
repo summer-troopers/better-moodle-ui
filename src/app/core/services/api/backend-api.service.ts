@@ -12,20 +12,29 @@ import { TOKEN_STORAGE_KEY } from '@shared/constants';
 export class BackendApiService {
 
   protected URL: string = environment.apiUrl;
+  id;
 
   constructor(private http: HttpClient,
-    private localStorageServices: LocalStorageService) {
+              private localStorageServices: LocalStorageService) {
   }
 
-  getHeaders(token) {
+  getHeaders(token, isFile?) {
+    let ContentType = 'application/json';
+    let responseType = '';
     if (!token) {
       token = '';
     }
+    if (isFile) {
+      ContentType = 'text/plain;charset=utf-8';
+      responseType = 'blob';
+    }
+
     return {
       headers: new HttpHeaders({
         token,
-        'Content-Type': 'application/json'
-      })
+        ContentType,
+      }),
+      responseType
     };
   }
 
@@ -34,9 +43,9 @@ export class BackendApiService {
    * @param {string} path -  relative path to resource (ex.: 'courses')
    * @returns {Observable<any>}
    */
-  get(path: string): Observable<any> {
+  get(path: string, isFile?: boolean): Observable<any> {
     return this._request('GET', path, null,
-      this.getHeaders(this.localStorageServices.getLocalStorage(TOKEN_STORAGE_KEY)));
+      this.getHeaders(this.localStorageServices.getLocalStorage(TOKEN_STORAGE_KEY), isFile), isFile);
   }
 
   /**
@@ -99,7 +108,7 @@ export class BackendApiService {
     return paramsToSend;
   }
 
-  private _request(method: string, path: string, body?: any, options?: any): Observable<any> {
+  private _request(method: string, path: string, body?: any, options?: any, isFile?: boolean): Observable<any> {
 
     if (!options) {
       options = {};
@@ -111,9 +120,12 @@ export class BackendApiService {
     const optionsToSend = Object.assign(options, {
       url,
       body,
-      params
+      params,
+      // observe: 'response'
     });
-
+    if (isFile) {
+      optionsToSend.observe = 'response';
+    }
 
     return Observable.create((observer) => {
       return this.http.request(method, url, optionsToSend).subscribe(
@@ -131,3 +143,5 @@ export class BackendApiService {
     });
   }
 }
+
+
