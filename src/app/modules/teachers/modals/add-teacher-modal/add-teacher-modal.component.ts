@@ -6,6 +6,7 @@ import { Subject, throwError } from 'rxjs';
 import { takeUntil, catchError } from 'rxjs/operators';
 
 import { CrudService } from '@shared/services/crud/crud.service';
+import { ModalHelperService } from '@shared/services/modal-helper/modal-helper.service';
 import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
 import { Alert, AlertType } from '@shared/models/alert';
 import { TEACHERS_URL } from '@shared/constants';
@@ -28,7 +29,8 @@ export class AddTeacherModalComponent implements OnInit, OnDestroy {
   constructor(private formBuilder: FormBuilder,
     private crudService: CrudService,
     public addModalRef: BsModalRef,
-    private modalService: BsModalService) { }
+    private modalService: BsModalService,
+    private modalHelperService: ModalHelperService) { }
 
   ngOnInit() {
     this.initForm();
@@ -88,17 +90,8 @@ export class AddTeacherModalComponent implements OnInit, OnDestroy {
       });
   }
 
-  checkFormForData(): boolean {
-    let hasData = false;
-    if (this.userForm.value.firstName !== '' || this.userForm.value.lastName !== '' || this.userForm.value.email !== '' ||
-      this.userForm.value.phoneNumber !== '' || this.userForm.value.password !== '') {
-      hasData = true;
-    }
-    return hasData;
-  }
-
   openConfirmLeaveModal() {
-    if (this.checkFormForData()) {
+    if (this.modalHelperService.checkFormForData(this.userForm)) {
       this.confirmModalRef = this.modalService.show(ConfirmModalComponent);
       this.confirmModalRef.content.onConfirm.pipe(takeUntil(this.destroy$))
         .subscribe(() => {

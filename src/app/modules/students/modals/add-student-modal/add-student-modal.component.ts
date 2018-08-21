@@ -6,6 +6,7 @@ import { Subject, throwError } from 'rxjs';
 import { takeUntil, catchError } from 'rxjs/operators';
 
 import { CrudService } from '@shared/services/crud/crud.service';
+import { ModalHelperService } from '@shared/services/modal-helper/modal-helper.service';
 import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
 import { STUDENTS_URL } from '@shared/constants';
 import { Alert, AlertType } from '@shared/models/alert';
@@ -29,7 +30,8 @@ export class AddStudentModalComponent implements OnInit, OnDestroy {
   constructor(private formBuilder: FormBuilder,
     private crudService: CrudService,
     public addModalRef: BsModalRef,
-    private modalService: BsModalService) { }
+    private modalService: BsModalService,
+    private modalHelperService: ModalHelperService) { }
 
   ngOnInit() {
     this.initForm();
@@ -92,7 +94,7 @@ export class AddStudentModalComponent implements OnInit, OnDestroy {
   }
 
   openConfirmLeaveModal() {
-    if (this.checkFormForData()) {
+    if (this.modalHelperService.checkFormForData(this.studentForm)) {
       this.confirmModalRef = this.modalService.show(ConfirmModalComponent);
       this.confirmModalRef.content.onConfirm.pipe(takeUntil(this.destroy$))
         .subscribe(() => {
@@ -102,15 +104,6 @@ export class AddStudentModalComponent implements OnInit, OnDestroy {
     } else {
       this.addModalRef.hide();
     }
-  }
-
-  checkFormForData(): boolean {
-    let hasData = false;
-    if (this.studentForm.value.firstName !== '' || this.studentForm.value.lastName !== '' || this.studentForm.value.email !== '' ||
-      this.studentForm.value.phoneNumber !== '' || this.studentForm.value.password !== '' || this.studentForm.value.groupId !== '') {
-      hasData = true;
-    }
-    return hasData;
   }
 
   ngOnDestroy() {

@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { CrudService } from '@shared/services/crud/crud.service';
+import { ModalHelperService } from '@shared/services/modal-helper/modal-helper.service';
 import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
 import { COURSES_URL } from '@shared/constants';
 
@@ -27,7 +28,8 @@ export class AddCourseModalComponent implements OnInit, OnDestroy {
   constructor(private formBuilder: FormBuilder,
     private crudService: CrudService,
     private addModalRef: BsModalRef,
-    private modalService: BsModalService) { }
+    private modalService: BsModalService,
+    private modalHelperService: ModalHelperService) { }
 
   ngOnInit() {
     this.initForm();
@@ -60,7 +62,7 @@ export class AddCourseModalComponent implements OnInit, OnDestroy {
   }
 
   openConfirmLeaveModal() {
-    if (this.checkFormForData()) {
+    if (this.modalHelperService.checkFormForData(this.courseForm)) {
       this.confirmModalRef = this.modalService.show(ConfirmModalComponent);
       this.confirmModalRef.content.onConfirm.pipe(takeUntil(this.destroy$))
         .subscribe(() => {
@@ -70,14 +72,6 @@ export class AddCourseModalComponent implements OnInit, OnDestroy {
     } else {
       this.addModalRef.hide();
     }
-  }
-
-  checkFormForData(): boolean {
-    let hasData = false;
-    if (this.courseForm.value.name !== '') {
-      hasData = true;
-    }
-    return hasData;
   }
 
   ngOnDestroy() {
