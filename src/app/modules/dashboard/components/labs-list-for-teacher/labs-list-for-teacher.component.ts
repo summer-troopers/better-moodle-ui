@@ -19,6 +19,7 @@ export class LabsListForTeacherComponent extends Download implements OnInit {
 
   reports;
   courses;
+  coursesWithReports;
   @Input() user;
   @Input() students;
 
@@ -31,32 +32,10 @@ export class LabsListForTeacherComponent extends Download implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllCourses();
-    this.getAllReports();
-    //this.getAll();
+    this.createCoursesWithReports();
   }
 
-  getAll() {
-    this.crudService.getItems(`${COURSES_URL}?studentId=${this.students.id}`, null, null)
-      .pipe()
-      .subscribe(courses => {
-        this.courses = courses;
-        console.log(this.courses);
-        for (let i = 0; i < courses.length; i++) {
-          this.crudService.getItems(`${LABORATORY_URL}?courseId=${courses[i].id}`, null, null)
-            .subscribe(reports => {
-              console.log(reports);
-              // this.reports[i] = {
-              //   courseId: courses[i].id,
-              //   report: reports
-              // };
-            });
-        }
-      });
-  }
-
-
-  getAllCourses() {
+  getAllCourses(callback?: () => void) {
     this.crudService.getItems(`${COURSES_URL}?studentId=${this.students.id}`, null, null)
       .pipe(
         takeUntil(this.destroy$),
@@ -67,11 +46,13 @@ export class LabsListForTeacherComponent extends Download implements OnInit {
       )
       .subscribe((courses) => {
         this.courses = courses;
-        console.log(courses);
+        if (callback) {
+          callback();
+        }
       });
   }
 
-  getAllReports() {
+  getAllReports(callback?: () => void) {
     this.crudService.getItems(`${LABORATORY_URL}?studentId=${this.students.id}`, null, null)
       .pipe(
         takeUntil(this.destroy$),
@@ -82,8 +63,25 @@ export class LabsListForTeacherComponent extends Download implements OnInit {
       )
       .subscribe((reports) => {
         this.reports = reports;
-        console.log(reports);
+        if (callback) {
+          callback();
+        }
       });
+  }
+
+  createCoursesWithReports() {
+    this.getAllCourses(() => {
+      this.getAllReports(() => {
+        for (let i = 0; i < this.reports.length; i++) {
+          this.coursesWithReports = [{
+            report: this.reports[i],
+            course: this.courses.find(id => {
+              return id === this.reports[i].labTask.courseId;
+            })
+          }];
+        }
+      });
+    });
   }
 
   downloadReport(id) {
