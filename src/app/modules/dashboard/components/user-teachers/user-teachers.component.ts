@@ -10,7 +10,6 @@ import { DashboardService } from '@modules/dashboard/dashboard.service';
 @Component({
   selector: 'app-user-teachers',
   templateUrl: './user-teachers.component.html',
-  styleUrls: ['./user-teachers.component.scss']
 })
 export class UserTeachersComponent implements OnInit, OnDestroy {
   id: string;

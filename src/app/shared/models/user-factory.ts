@@ -3,7 +3,7 @@ import { Teacher } from '@shared/models/teacher';
 import { Admin } from '@shared/models/admin';
 import { UserType } from '@shared/models/user-type';
 
-export function CreateUser(user): any {
+export function createUser(user): any {
   if (user.userRole === UserType.Student) {
     return new Student(user);
   }

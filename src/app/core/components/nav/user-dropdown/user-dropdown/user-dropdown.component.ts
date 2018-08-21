@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CreateUser} from '@shared/models/user-factory';
+import {createUser} from '@shared/models/user-factory';
 import { UserService } from '@shared/services/user/user.service';
 import {AuthenticationService} from '@modules/authentication/authentication.service';
 
@@ -16,7 +16,7 @@ export class UserDropdownComponent implements OnInit {
 
   ngOnInit() {
     const userFromStorage = this.userService.getUserLocalStorage('user');
-    this.user = CreateUser(userFromStorage);
+    this.user = createUser(userFromStorage);
   }
 
   logOut() {
