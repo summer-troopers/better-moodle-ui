@@ -11,7 +11,7 @@ export class CrudService {
   constructor(private api: BackendApiService) { }
 
   getNumberOfItems(pageUrl: string) {
-    return this.api.get(pageUrl, { lemit: 0 })
+    return this.api.get(pageUrl)
       .pipe(map((result) => {
         const { total } = result.body;
         return total;
@@ -29,6 +29,9 @@ export class CrudService {
   getItem(pageUrl: string, id: string, params?: Object): Observable<any> {
     return this.api.get(`${pageUrl}/${id}`, params)
       .pipe(map((result) => {
+        if (result.headers.has('content-disposition')) {
+          return result;
+        }
         const { body } = result;
         return body;
       }));

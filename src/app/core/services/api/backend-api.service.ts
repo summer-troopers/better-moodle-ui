@@ -24,39 +24,20 @@ export class BackendApiService {
   }
 
   private getParams(params: any) {
-    if (!params) { params = {}; }
-
-    const mainParamNames = ['limit', 'offset', 'contains'];
+    if (!params) {
+      params = {};
+    }
 
     let httpParams = new HttpParams();
     httpParams = httpParams.set('limit', params.limit || 0);
     httpParams = httpParams.set('offset', params.offset || 0);
     httpParams = httpParams.set('contains', params.contains || '');
 
-    const otherPossibleParamNames = [
-      'teacherId', 'studentId',
-      'groupId', 'courseId', 'specialtyId',
-      'labReportId', 'labTaskId', 'labCommentId'
-    ];
-
-    otherPossibleParamNames.forEach(key => {
-      if (params[key]) {
-        httpParams = httpParams.set(key, params[key]);
-      }
+    Object.keys(params).forEach((key: string) => {
+      httpParams = httpParams.set(key, params[key]);
     });
 
-    // Error checking
-    const otherParams = Object.keys(params).filter((key) => {
-      const mainFound = mainParamNames.find(name => name === key);
-      const otherFound = otherPossibleParamNames.find(name => name === key);
-
-      return (!mainFound && !otherFound);
-    });
-
-    if (otherParams.length > 0) {
-      console.error('Unknown query params set: ' + otherParams);
-    }
-    // End error checking
+    console.log(`Query params sent by 'BackendApiService': [${httpParams.keys()}]`);
 
     return httpParams;
   }
