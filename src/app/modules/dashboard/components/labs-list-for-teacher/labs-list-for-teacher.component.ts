@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Renderer2 } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { catchError, takeUntil } from 'rxjs/operators';
 import { Subject, throwError } from 'rxjs';
 
@@ -24,9 +24,8 @@ export class LabsListForTeacherComponent extends Download implements OnInit {
   alerts: Alert[] = [];
 
   constructor(private dashboardService: DashboardService,
-              private crudService: CrudService,
-              public renderer: Renderer2) {
-    super(renderer);
+              private crudService: CrudService) {
+    super();
   }
 
   ngOnInit() {

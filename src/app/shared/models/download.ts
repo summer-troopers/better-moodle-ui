@@ -1,16 +1,12 @@
-import { Renderer2 } from '@angular/core';
+import { saveAs } from 'file-saver/FileSaver';
 
 export default class Download {
-  constructor(public renderer: Renderer2) {
+  constructor() {
   }
 
   downloadFile(fileData) {
-    const blob = new Blob([fileData.data], {type: 'text/csv'});
-    const anchor = this.renderer.createElement('a');
-
-    anchor.download = this.getFileNameFromHttpResponse(fileData);
-    anchor.href = window.URL.createObjectURL(blob);
-    anchor.click();
+    const blob = new Blob([fileData.data], {type: 'application/octet-stream'});
+    saveAs(blob, this.getFileNameFromHttpResponse(fileData));
   }
 
   getFileNameFromHttpResponse(httpResponse) {
