@@ -7,7 +7,7 @@ import { createUser } from '@shared/models/user-factory';
   templateUrl: './dashboard-page.component.html',
   styleUrls: ['./dashboard-page.component.scss']
 })
-export class DashboardPageComponent implements OnInit{
+export class DashboardPageComponent implements OnInit {
   user: any;
 
   constructor(private userService: UserService) {
