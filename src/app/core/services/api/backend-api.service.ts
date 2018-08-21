@@ -12,7 +12,6 @@ import { TOKEN_STORAGE_KEY } from '@shared/constants';
 export class BackendApiService {
 
   protected URL: string = environment.apiUrl;
-  id;
 
   constructor(private http: HttpClient,
               private localStorageServices: LocalStorageService) {
@@ -45,7 +44,8 @@ export class BackendApiService {
    */
   get(path: string, isFile?: boolean): Observable<any> {
     return this._request('GET', path, null,
-      this.getHeaders(this.localStorageServices.getLocalStorage(TOKEN_STORAGE_KEY), isFile), isFile);
+      this.getHeaders(this.localStorageServices.getLocalStorage(TOKEN_STORAGE_KEY), isFile),
+      isFile);
   }
 
   /**
@@ -121,7 +121,6 @@ export class BackendApiService {
       url,
       body,
       params,
-      // observe: 'response'
     });
     if (isFile) {
       optionsToSend.observe = 'response';

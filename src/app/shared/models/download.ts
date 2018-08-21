@@ -9,8 +9,7 @@ export default class Download {
     const anchor = this.renderer.createElement('a');
 
     anchor.download = this.getFileNameFromHttpResponse(fileData);
-    anchor.href = (window.URL).createObjectURL(blob);
-    anchor.dataset.downloadurl = ['text/plain', anchor.download, anchor.href].join(':');
+    anchor.href = window.URL.createObjectURL(blob);
     anchor.click();
   }
 

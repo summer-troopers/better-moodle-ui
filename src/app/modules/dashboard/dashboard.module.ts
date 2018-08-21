@@ -24,7 +24,8 @@ const COMPONENTS = [
   MyCoursesComponent,
   MySpecialtiesComponent,
   MyGroupsComponent,
-  MyStudentsComponent
+  MyStudentsComponent,
+  LabsListForTeacherComponent
 ];
 
 @NgModule({
@@ -36,7 +37,6 @@ const COMPONENTS = [
   ],
   declarations: [
     ...COMPONENTS,
-    LabsListForTeacherComponent
   ]
 })
 export class DashboardModule {
