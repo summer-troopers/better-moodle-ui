@@ -1,13 +1,11 @@
 import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { CrudService } from '@shared/services/crud/crud.service';
 import { ModalHelperService } from '@shared/services/modal-helper/modal-helper.service';
-import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
 import { COURSES_URL } from '@shared/constants';
 
 @Component({
@@ -28,7 +26,6 @@ export class AddCourseModalComponent implements OnInit, OnDestroy {
   constructor(private formBuilder: FormBuilder,
     private crudService: CrudService,
     private addModalRef: BsModalRef,
-    private modalService: BsModalService,
     private modalHelperService: ModalHelperService) { }
 
   ngOnInit() {

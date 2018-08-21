@@ -1,13 +1,11 @@
 import { Component, OnInit, EventEmitter, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Subject, throwError } from 'rxjs';
 import { takeUntil, catchError } from 'rxjs/operators';
 
 import { CrudService } from '@shared/services/crud/crud.service';
 import { ModalHelperService } from '@shared/services/modal-helper/modal-helper.service';
-import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
 import { STUDENTS_URL } from '@shared/constants';
 import { Alert, AlertType } from '@shared/models/alert';
 
@@ -30,7 +28,6 @@ export class AddStudentModalComponent implements OnInit, OnDestroy {
   constructor(private formBuilder: FormBuilder,
     private crudService: CrudService,
     public addModalRef: BsModalRef,
-    private modalService: BsModalService,
     private modalHelperService: ModalHelperService) { }
 
   ngOnInit() {
