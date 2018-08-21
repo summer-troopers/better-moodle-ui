@@ -38,9 +38,9 @@ export class CourseDetailsPageComponent implements OnInit, OnDestroy {
       this.crudService.getItem(COURSES_URL, this.id)
         .pipe(takeUntil(this.destroy$))
         .subscribe((course) => {
-        this.course = course;
+          this.course = course;
         }, error => {
-          this.alerts.push({type: AlertType.Error, message: error});
+          this.alerts.push({ type: AlertType.Error, message: error });
         });
     });
   }
@@ -54,15 +54,15 @@ export class CourseDetailsPageComponent implements OnInit, OnDestroy {
     const initialState: any = {
       course: this.course
     };
-    this.modalRef = this.modalService.show(EditCourseModalComponent, {initialState});
+    this.modalRef = this.modalService.show(EditCourseModalComponent, { initialState });
 
     this.modalRef.content.editItemEvent
       .pipe(takeUntil(this.destroy$))
       .subscribe((course) => {
         this.course = course;
-        this.alerts.push({type: AlertType.Success, message: 'Course was edited!'});
+        this.alerts.push({ type: AlertType.Success, message: 'Course was edited!' });
       }, error => {
-        this.alerts.push({type: AlertType.Error, message: error});
+        this.alerts.push({ type: AlertType.Error, message: error });
       });
   }
 
@@ -71,13 +71,14 @@ export class CourseDetailsPageComponent implements OnInit, OnDestroy {
     this.modalRef.content.onConfirm
       .pipe(takeUntil(this.destroy$))
       .subscribe(
-        () => this.crudService.deleteItem(COURSES_URL, this.id)
+        success => this.crudService.deleteItem(COURSES_URL, this.id)
           .pipe(takeUntil(this.destroy$))
-          .subscribe(() => {
-            this.modalRef.content.afterConfirmAction(COURSES_URL, 'Delete successfully!');
-          }, (error) => {
-            this.modalRef.content.message = error;
-          })
+          .subscribe(
+            succ => {
+              this.modalRef.content.afterConfirmAction(COURSES_URL, 'Delete successfully!');
+            }, err => {
+              this.modalRef.content.message = 'This course can not be deleleted because of it`s link \nto other tables';
+            })
       );
   }
 }
