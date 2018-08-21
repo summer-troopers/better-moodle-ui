@@ -5,7 +5,7 @@ import { Subject, throwError } from 'rxjs';
 import { DashboardService } from '@modules/dashboard/dashboard.service';
 import { CrudService } from '@shared/services/crud/crud.service';
 import { Alert, AlertType } from '@shared/models/alert';
-import { LABORATORY_URL } from '@shared/constants';
+import { COURSES_URL, LABORATORY_URL } from '@shared/constants';
 import Download from '@shared/models/download';
 
 @Component({
@@ -18,6 +18,7 @@ export class LabsListForTeacherComponent extends Download implements OnInit {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   reports;
+  courses;
   @Input() user;
   @Input() students;
 
@@ -30,7 +31,44 @@ export class LabsListForTeacherComponent extends Download implements OnInit {
   }
 
   ngOnInit() {
+    this.getAllCourses();
     this.getAllReports();
+    //this.getAll();
+  }
+
+  getAll() {
+    this.crudService.getItems(`${COURSES_URL}?studentId=${this.students.id}`, null, null)
+      .pipe()
+      .subscribe(courses => {
+        this.courses = courses;
+        console.log(this.courses);
+        for (let i = 0; i < courses.length; i++) {
+          this.crudService.getItems(`${LABORATORY_URL}?courseId=${courses[i].id}`, null, null)
+            .subscribe(reports => {
+              console.log(reports);
+              // this.reports[i] = {
+              //   courseId: courses[i].id,
+              //   report: reports
+              // };
+            });
+        }
+      });
+  }
+
+
+  getAllCourses() {
+    this.crudService.getItems(`${COURSES_URL}?studentId=${this.students.id}`, null, null)
+      .pipe(
+        takeUntil(this.destroy$),
+        catchError((error) => {
+          this.alerts.push({type: AlertType.Error, message: error});
+          return throwError(error);
+        })
+      )
+      .subscribe((courses) => {
+        this.courses = courses;
+        console.log(courses);
+      });
   }
 
   getAllReports() {
@@ -44,6 +82,7 @@ export class LabsListForTeacherComponent extends Download implements OnInit {
       )
       .subscribe((reports) => {
         this.reports = reports;
+        console.log(reports);
       });
   }
 
