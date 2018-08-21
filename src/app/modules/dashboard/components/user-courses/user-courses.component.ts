@@ -17,6 +17,8 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
   courses: Array<Course> = [];
   @Input() user;
 
+  fileExists = true;
+
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   alerts: Alert[] = [];
@@ -50,5 +52,23 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
       .subscribe((courses) => {
         this.courses = courses;
       });
+  }
+
+  deleteTask() {
+  }
+
+  deleteReport() {
+  }
+
+  downloadReport(id) {
+  }
+
+  downloadTask(id) {
+  }
+
+  uploadTask() {
+  }
+
+  uploadReport() {
   }
 }

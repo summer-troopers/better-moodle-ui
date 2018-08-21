@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '@shared/services/user/user.service';
-import { createUser } from '@shared/models/user-factory';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -14,8 +13,7 @@ export class DashboardPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    const userFromStorage = this.userService.getUserLocalStorage('user');
-    this.user = createUser(userFromStorage);
+    this.user = this.userService.getUser();
   }
 }
 

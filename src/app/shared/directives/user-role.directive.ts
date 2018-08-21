@@ -1,7 +1,6 @@
 import { Directive, OnInit, ElementRef, Input } from '@angular/core';
 
 import { UserService } from '@shared/services/user/user.service';
-import { createUser } from '@shared/models/user-factory';
 
 @Directive({
   selector: '[appHasRole]'
@@ -14,8 +13,7 @@ export class UserRoleDirective implements OnInit {
   }
 
   ngOnInit() {
-    const userFromStorage = this.userService.getUserLocalStorage('user');
-    const user = createUser(userFromStorage);
+    const user = this.userService.getUser();
 
     if (user.userRole !== this.role) {
       const child: HTMLElement = this.elementRef.nativeElement;

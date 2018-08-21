@@ -1,6 +1,6 @@
 <div class="container">
   <div class="card"
-       *ngIf="user && user.isStudent()">
+       [appHasRole]="'student'">
     <h1>{{user.firstName}} {{user.lastName}}</h1>
     <div class="card-body">
       <h6>First Name: {{user.firstName}}</h6>
@@ -15,7 +15,7 @@
 
   <div>
     <tabset #staticTabs
-            *ngIf="user && user.isStudent()">
+            [appHasRole]="'student'">
       <tab heading="My Courses">
         <app-user-courses [user]="user"></app-user-courses>
       </tab>
