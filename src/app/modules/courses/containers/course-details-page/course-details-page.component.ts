@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject, throwError } from 'rxjs';
+import { takeUntil, flatMap, catchError, map } from 'rxjs/operators';
 
 import { EditCourseModalComponent } from '@modules/courses/components';
 import { Alert, AlertType } from '@shared/models/alert';
@@ -36,17 +36,21 @@ export class CourseDetailsPageComponent implements OnInit, OnDestroy {
   }
 
   initPageData() {
-
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      this.id = params.get('id');
-      this.crudService.getItem(COURSES_URL, this.id)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((course) => {
-          this.course = course;
-        }, error => {
-          this.alerts.push({ type: AlertType.Error, message: error });
-        });
-    });
+    this.route.params
+      .pipe(
+        flatMap(params => {
+          this.id = params.id;
+          return this.crudService.getItem(COURSES_URL, params.id)
+            .pipe(catchError(error => {
+              this.alerts.push({ type: AlertType.Error, message: error });
+              return throwError(error);
+            }),
+              map((course) => {
+                this.course = course;
+              }));
+        }),
+        takeUntil(this.destroy$)
+      ).subscribe();
   }
 
   ngOnDestroy() {

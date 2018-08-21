@@ -7,15 +7,19 @@ html {
   min-height: 100%;
 }
 
-.pagination-container{
-  padding-top: 20px;
-}
-
 #spinner {
   background-color:#414758 !important;
   opacity: 1 !important;
 }
 
-.pagination-index {
-  z-index: 0;
+.bottom-padded{
+  padding-bottom: 40px;
+}
+
+.pagination-container{
+  padding-top: 20px;
+}
+
+.pageTitle{
+  padding-top: 50px;
 }

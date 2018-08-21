@@ -14,8 +14,7 @@ import { PaginationParams } from '@shared/models/pagination-params';
 
 @Component({
   selector: 'app-courses-page',
-  templateUrl: './courses-page.component.html',
-  styleUrls: ['./courses-page.component.scss']
+  templateUrl: './courses-page.component.html'
 
 })
 export class CoursesPageComponent implements OnInit, OnDestroy {

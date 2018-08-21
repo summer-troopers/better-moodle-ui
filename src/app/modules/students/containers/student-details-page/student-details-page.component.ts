@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { takeUntil, mergeMap, catchError } from 'rxjs/operators';
+import { takeUntil, mergeMap, catchError, flatMap, map } from 'rxjs/operators';
 import { Subject, throwError } from 'rxjs';
 
 import { CrudService } from '@shared/services/crud/crud.service';
@@ -28,36 +28,28 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
     private crudService: CrudService,
-    private modalService: BsModalService,
-    private router: Router) { }
+    private modalService: BsModalService) { }
 
   ngOnInit() {
     this.initPageData();
   }
 
   initPageData() {
-    this.route.params.subscribe(params => {
-      this.id = params['id'];
-      this.crudService.getItem(STUDENTS_URL, this.id)
-        .pipe(
-          mergeMap((student: Student) => {
-            this.student = student;
-            return this.crudService.getItem(GROUPS_URL, student.groupId.toString())
-              .pipe(
-                takeUntil(this.destroy$),
-                catchError((error) => {
-                  this.alerts.push({ type: AlertType.Error, message: error });
-                  return throwError(error);
-                })
-              );
-          }),
-          catchError(error => {
-            this.alerts.push({ type: AlertType.Error, message: error });
-            return throwError(error);
-          })
-        )
-        .subscribe(group => this.groupName = group.name);
-    });
+    this.route.params
+      .pipe(
+        flatMap(params => {
+          this.id = params.id;
+          return this.crudService.getItem(STUDENTS_URL, params.id)
+            .pipe(catchError(error => {
+              this.alerts.push({ type: AlertType.Error, message: error });
+              return throwError(error);
+            }),
+              map((student) => {
+                this.student = student;
+              }));
+        }),
+        takeUntil(this.destroy$)
+      ).subscribe();
   }
 
   ngOnDestroy() {

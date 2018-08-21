@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Subject, throwError } from 'rxjs';
-import { takeUntil, catchError } from 'rxjs/operators';
+import { takeUntil, catchError, flatMap, map } from 'rxjs/operators';
 
 import { Teacher } from '@shared/models/teacher';
 import { EditTeacherModalComponent } from '@teacherModals/edit-teacher-modal/edit-teacher-modal.component';
@@ -34,20 +34,21 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
   }
 
   getItem() {
-    this.route.params.pipe(takeUntil(this.destroy$))
-      .subscribe(params => {
-        this.id = params['id'];
-        this.crudService.getItem(TEACHERS_URL, this.id)
-          .pipe(takeUntil(this.destroy$),
-            catchError((error) => {
+    this.route.params
+      .pipe(
+        flatMap(params => {
+          this.id = params.id;
+          return this.crudService.getItem(TEACHERS_URL, params.id)
+            .pipe(catchError(error => {
               this.alerts.push({ type: AlertType.Error, message: error });
-
               return throwError(error);
-            }))
-          .subscribe((data) => {
-            this.teacher = data;
-          });
-      });
+            }),
+              map((teacher) => {
+                this.teacher = teacher;
+              }));
+        }),
+        takeUntil(this.destroy$)
+      ).subscribe();
   }
 
   openEditModal() {

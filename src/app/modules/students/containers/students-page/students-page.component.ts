@@ -14,8 +14,7 @@ import { Alert, AlertType } from '@shared/models/alert';
 import { STUDENTS_URL, NUMBER_ITEMS_PAGE } from '@shared/constants';
 @Component({
   selector: 'app-students-page',
-  templateUrl: './students-page.component.html',
-  styleUrls: ['./students-page.component.scss']
+  templateUrl: './students-page.component.html'
 })
 export class StudentsPageComponent implements OnInit, OnDestroy {
   paginationParams = new PaginationParams(0, NUMBER_ITEMS_PAGE);
