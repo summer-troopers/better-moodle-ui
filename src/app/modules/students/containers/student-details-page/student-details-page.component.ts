@@ -41,13 +41,12 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
             .pipe(catchError(error => {
               this.alerts.push({ type: AlertType.Error, message: error });
               return throwError(error);
-            }),
-              map((student) => {
-                this.student = student;
-              }));
+            }));
         }),
         takeUntil(this.destroy$)
-      ).subscribe();
+      ).subscribe((student) => {
+        this.student = student;
+      });
   }
 
   ngOnDestroy() {
@@ -95,13 +94,9 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
               err => {
                 this.modalRef.content.message = `Error on deleting student!`;
                 return throwError(err);
-              }),
-            map(
-              () => {
-                this.modalRef.content.afterConfirmAction(STUDENTS_URL, `Student was successfully deleted!`);
               }));
       }),
       takeUntil(this.destroy$)
-    ).subscribe();
+    ).subscribe(() => this.modalRef.content.afterConfirmAction(STUDENTS_URL, `Student was successfully deleted!`));
   }
 }

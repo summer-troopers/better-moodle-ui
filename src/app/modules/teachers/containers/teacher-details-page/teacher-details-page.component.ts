@@ -40,13 +40,12 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
             .pipe(catchError(error => {
               this.alerts.push({ type: AlertType.Error, message: error });
               return throwError(error);
-            }),
-              map((teacher) => {
-                this.teacher = teacher;
-              }));
+            }));
         }),
         takeUntil(this.destroy$)
-      ).subscribe();
+      ).subscribe((teacher) => {
+        this.teacher = teacher;
+      });
   }
 
   openEditModal() {
@@ -74,14 +73,10 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
               err => {
                 this.modal.content.message = `Error on deleting teacher!`;
                 return throwError(err);
-              }),
-            map(
-              () => {
-                this.modal.content.afterConfirmAction(TEACHERS_URL, `Teacher was successfully deleted!`);
               }));
       }),
       takeUntil(this.destroy$)
-    ).subscribe();
+    ).subscribe(() => this.modal.content.afterConfirmAction(TEACHERS_URL, `Teacher was successfully deleted!`));
   }
 
   ngOnDestroy() {
