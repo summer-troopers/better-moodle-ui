@@ -4,19 +4,27 @@
     <thead>
     <tr class="table-success">
       <th scope="col">#</th>
-      <th scope="col">Firstname</th>
-      <th scope="col">Lastname</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
       <th scope="col">Phone Number</th>
       <th scope="col">Email</th>
+      <th scope="col">Laboratories</th>
     </tr>
     </thead>
-    <tbody>
-    <tr *ngFor="let student of students; let i = index">
-      <th scope="row">{{i+1}}</th>
+    <tbody *ngFor="let student of students; let i = index">
+    <tr (click)=showStudentDoneLabs(i,student.id) class="student-item">
+      <td scope="row">{{i + 1}}</td>
       <td>{{student.firstName}}</td>
       <td>{{student.lastName}}</td>
       <td>{{student.phoneNumber}}</td>
       <td>{{student.email}}</td>
+      <td>2</td>
+
+    </tr>
+    <tr class="lab-student-list" *ngIf="activeRowIndex === i && isShown">
+      <td colspan="6" class="lab-student-list_item">
+        <app-labs-list-for-teacher [students]="student"></app-labs-list-for-teacher>
+      </td>
     </tr>
     </tbody>
   </table>

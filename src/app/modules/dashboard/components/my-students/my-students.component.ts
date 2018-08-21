@@ -17,6 +17,9 @@ export class MyStudentsComponent implements OnInit, OnDestroy {
   students: Array<Student> = [];
   @Input() user;
 
+  activeRowIndex: number;
+  isShown = false;
+
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   alerts: Alert[] = [];
@@ -26,6 +29,12 @@ export class MyStudentsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getAllStudents();
+  }
+
+  showStudentDoneLabs(index, id) {
+    this.isShown = !this.isShown;
+    this.activeRowIndex = index;
+    this.id = id;
   }
 
   ngOnDestroy() {
