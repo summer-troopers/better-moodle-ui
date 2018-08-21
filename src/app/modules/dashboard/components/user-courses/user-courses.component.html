@@ -29,10 +29,11 @@
 
       <td class="labs-cell">
         <div [appHasRole]="'student'">
-          <form *ngIf="!fileExists">
+          <form *ngIf="fileExists">
             <input type="file"
                    id="raport-file"
-                   class="custom-file-input inputfile"
+                   name="raport-file"
+                   class="inputfile"
                    value="Add Task"/>
             <label for="raport-file"><i class="fa fa-upload"
                                         aria-hidden="true"></i>
@@ -56,13 +57,14 @@
 
         <div [appHasRole]="'teacher'"
              class="custom-file">
-          <form *ngIf="!fileExists">
+          <form *ngIf="fileExists">
             <input type="file"
                    id="task-file"
-                   class="custom-file-input inputfile"
+                   name="task-file"
+                   class="inputfile"
                    value="Add Task"/>
-            <label for="raport-file"><i class="fa fa-upload"
-                                        aria-hidden="true"></i>
+            <label for="task-file"><i class="fa fa-upload"
+                                      aria-hidden="true"></i>
               Choose a file...</label> <br>
             <input type="submit"
                    (click)="uploadTask()"
