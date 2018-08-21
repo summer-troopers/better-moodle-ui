@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
-import { Subject, throwError } from 'rxjs';
-import { catchError, flatMap, map, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { flatMap, takeUntil } from 'rxjs/operators';
 
 import { Group } from '@shared/models/group';
 import { EditGroupModalComponent } from '@modules/groups/components/edit-group-modal/edit-group-modal.component';
@@ -34,19 +34,17 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
     this.route.params.pipe(
       flatMap(
         params => {
-          return this.crudService.getItem(GROUPS_URL, params.id).pipe(
-            catchError(err => {
-              this.alerts.push({type: AlertType.Error, message: `Couldn't get the group!`});
-
-              return throwError(err);
-            }),
-            map(
-              group => {
-                this.group = group;
-              }));
+          return this.crudService.getItem(GROUPS_URL, params.id);
         }),
       takeUntil(this.destroy$)
-    ).subscribe();
+    ).subscribe(
+      group => {
+        this.group = group;
+      },
+      error => {
+        this.alerts.push({type: AlertType.Error, message: `Couldn't get the group!`});
+      }
+    );
   }
 
   openEditModal() {
@@ -71,20 +69,16 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
     this.modalRef = this.modalService.show(ConfirmModalComponent);
     this.modalRef.content.onConfirm.pipe(
       flatMap(() => {
-        return this.crudService.deleteItem(GROUPS_URL, this.group.id)
-          .pipe(
-            catchError(
-              err => {
-                this.modalRef.content.message = `Error on deleting group!`;
-
-                return throwError(err);
-              }),
-            map(
-              () => {
-                this.modalRef.content.afterConfirmAction(GROUPS_URL, `The group was successfully deleted!`);
-              }));
+        return this.crudService.deleteItem(GROUPS_URL, this.group.id);
       }),
       takeUntil(this.destroy$)
-    ).subscribe();
+    ).subscribe(
+      success => {
+        this.modalRef.content.afterConfirmAction(GROUPS_URL, `The group was successfully deleted!`);
+      },
+      error => {
+        this.modalRef.content.message = `Error on deleting group!`;
+      }
+    );
   }
 }

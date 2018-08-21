@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
-import { Subject, throwError } from 'rxjs';
-import { catchError, flatMap, map, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { flatMap, takeUntil } from 'rxjs/operators';
 
 import { CrudService } from '@shared/services/crud/crud.service';
 import { Alert, AlertType } from '@shared/models/alert';
@@ -34,19 +34,17 @@ export class SpecialtyDetailsPageComponent implements OnInit, OnDestroy {
     this.route.params.pipe(
       flatMap(
         params => {
-          return this.crudService.getItem(SPECIALTIES_URL, params.id).pipe(
-            catchError(err => {
-              this.alerts.push({type: AlertType.Error, message: `Couldn't get the specialty!`});
-
-              return throwError(err);
-            }),
-            map(
-              specialty => {
-                this.specialty = specialty;
-              }));
+          return this.crudService.getItem(SPECIALTIES_URL, params.id);
         }),
       takeUntil(this.destroy$)
-    ).subscribe();
+    ).subscribe(
+      specialty => {
+        this.specialty = specialty;
+      },
+      error => {
+        this.alerts.push({type: AlertType.Error, message: `Couldn't get the specialty!`});
+      }
+    );
   }
 
   openEditModal() {
@@ -70,20 +68,15 @@ export class SpecialtyDetailsPageComponent implements OnInit, OnDestroy {
     this.modalRef = this.modalService.show(ConfirmModalComponent);
     this.modalRef.content.onConfirm.pipe(
       flatMap(() => {
-        return this.crudService.deleteItem(SPECIALTIES_URL, this.specialty.id)
-          .pipe(
-            catchError(
-              err => {
-                this.modalRef.content.message = `Error on deleting specialty!`;
-
-                return throwError(err);
-              }),
-            map(
-              () => {
-                this.modalRef.content.afterConfirmAction(SPECIALTIES_URL, `The specialty was successfully deleted!`);
-              }));
+        return this.crudService.deleteItem(SPECIALTIES_URL, this.specialty.id);
       }),
       takeUntil(this.destroy$)
-    ).subscribe();
+    ).subscribe(
+      succcess => {
+        this.modalRef.content.afterConfirmAction(SPECIALTIES_URL, `The specialty was successfully deleted!`);
+      },
+      error => {
+        this.modalRef.content.message = `Error on deleting specialty!`;
+      });
   }
 }

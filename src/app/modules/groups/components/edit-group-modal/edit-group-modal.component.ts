@@ -73,7 +73,7 @@ export class EditGroupModalComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.isSubmitted = true;
 
-    if (this.groupForm.invalid  || this.lastMatchNotPresent) {
+    if (this.groupForm.invalid || this.lastMatchNotPresent) {
       this.alerts.push({type: AlertType.Error, message: `Invalid form!`});
       return;
     }
