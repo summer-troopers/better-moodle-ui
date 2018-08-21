@@ -37,6 +37,7 @@ const COMPONENTS = [
   ],
   declarations: [
     ...COMPONENTS,
+    LabsListForTeacherComponent
   ]
 })
 export class DashboardModule {

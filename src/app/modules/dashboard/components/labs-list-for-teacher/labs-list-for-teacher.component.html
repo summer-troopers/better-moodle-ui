@@ -8,12 +8,12 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let courseWithReport of coursesWithReports; let i = index">
-      <td>{{courseWithReport.course.name}}</td>
+    <tr *ngFor="let report of reports; let i = index">
+      <td>{{ report.labTask.course.name }}</td>
       <td>
-        <button (click)="downloadReport(courseWithReport.report.id)" class="download-labs"><i
-          class="fa fa-file name-lab">
-          {{ courseWithReport.report.id }}</i></button>
+        <button (click)="downloadReport(report.id)" class="download-labs"><i
+          class="fa fa-file name-lab pr-1"></i>Download
+        </button>
       </td>
       <td>
         <button>Add feedback</button>
