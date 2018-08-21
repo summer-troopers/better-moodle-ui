@@ -26,14 +26,14 @@ export class CrudService {
   getItem(pageUrl: string, id: string, isFile?: boolean): Observable<any> {
     return this.api.get(`${pageUrl}/${id}`, isFile)
       .pipe(map(result => {
-        console.log(result.body);
+        console.log(result);
         if (isFile) {
           return {
             data: result.body,
             headers: result.headers
           };
         }
-        return result.data;
+        return result;
       }));
   }
 
