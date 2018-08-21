@@ -5,7 +5,7 @@ import { Subject, throwError } from 'rxjs';
 import { DashboardService } from '@modules/dashboard/dashboard.service';
 import { CrudService } from '@shared/services/crud/crud.service';
 import { Alert, AlertType } from '@shared/models/alert';
-import { COURSES_URL, LABORATORY_URL } from '@shared/constants';
+import { LABORATORY_URL } from '@shared/constants';
 import Download from '@shared/models/download';
 
 @Component({
@@ -18,8 +18,6 @@ export class LabsListForTeacherComponent extends Download implements OnInit {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   reports;
-  courses;
-  coursesWithReports;
   @Input() user;
   @Input() students;
 
@@ -32,27 +30,10 @@ export class LabsListForTeacherComponent extends Download implements OnInit {
   }
 
   ngOnInit() {
-    this.createCoursesWithReports();
+    this.getAllReports();
   }
 
-  getAllCourses(callback?: () => void) {
-    this.crudService.getItems(`${COURSES_URL}?studentId=${this.students.id}`, null, null)
-      .pipe(
-        takeUntil(this.destroy$),
-        catchError((error) => {
-          this.alerts.push({type: AlertType.Error, message: error});
-          return throwError(error);
-        })
-      )
-      .subscribe((courses) => {
-        this.courses = courses;
-        if (callback) {
-          callback();
-        }
-      });
-  }
-
-  getAllReports(callback?: () => void) {
+  getAllReports() {
     this.crudService.getItems(`${LABORATORY_URL}?studentId=${this.students.id}`, null, null)
       .pipe(
         takeUntil(this.destroy$),
@@ -63,25 +44,8 @@ export class LabsListForTeacherComponent extends Download implements OnInit {
       )
       .subscribe((reports) => {
         this.reports = reports;
-        if (callback) {
-          callback();
-        }
+        console.log(this.reports);
       });
-  }
-
-  createCoursesWithReports() {
-    this.getAllCourses(() => {
-      this.getAllReports(() => {
-        for (let i = 0; i < this.reports.length; i++) {
-          this.coursesWithReports = [{
-            report: this.reports[i],
-            course: this.courses.find(id => {
-              return id === this.reports[i].labTask.courseId;
-            })
-          }];
-        }
-      });
-    });
   }
 
   downloadReport(id) {
