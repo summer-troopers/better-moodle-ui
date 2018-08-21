@@ -76,16 +76,21 @@ export class CourseDetailsPageComponent implements OnInit, OnDestroy {
 
   openDeleteModal() {
     this.modalRef = this.modalService.show(ConfirmModalComponent);
-    this.modalRef.content.onConfirm
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(
-        () => this.crudService.deleteItem(COURSES_URL, this.id)
-          .pipe(takeUntil(this.destroy$))
-          .subscribe(() => {
-            this.modalRef.content.afterConfirmAction(COURSES_URL, 'Delete successfully!');
-          }, (error) => {
-            this.modalRef.content.message = error;
-          })
-      );
+    this.modalRef.content.onConfirm.pipe(
+      flatMap(() => {
+        return this.crudService.deleteItem(COURSES_URL, this.course.id)
+          .pipe(
+            catchError(
+              err => {
+                this.modalRef.content.message = `Error on deleting course!`;
+                return throwError(err);
+              }),
+            map(
+              () => {
+                this.modalRef.content.afterConfirmAction(COURSES_URL, `Course was successfully deleted!`);
+              }));
+      }),
+      takeUntil(this.destroy$)
+    ).subscribe();
   }
 }

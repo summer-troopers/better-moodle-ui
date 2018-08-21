@@ -22,7 +22,6 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
 
   modal: BsModalRef;
   alerts: Alert[] = [];
-  id: string;
   teacher: Teacher;
 
   constructor(private route: ActivatedRoute,
@@ -37,7 +36,6 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
     this.route.params
       .pipe(
         flatMap(params => {
-          this.id = params.id;
           return this.crudService.getItem(TEACHERS_URL, params.id)
             .pipe(catchError(error => {
               this.alerts.push({ type: AlertType.Error, message: error });
@@ -68,18 +66,22 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
 
   openDeleteModal() {
     this.modal = this.modalService.show(ConfirmModalComponent);
-    this.modal.content.onConfirm.pipe(takeUntil(this.destroy$)).subscribe(
-      () => this.crudService.deleteItem(TEACHERS_URL, this.id)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(
-          success => {
-            this.modal.content.afterConfirmAction(TEACHERS_URL, 'Successfully deleted');
-          },
-          error => {
-            this.modal.content.message = 'Error on delete';
-          }
-        ),
-    );
+    this.modal.content.onConfirm.pipe(
+      flatMap(() => {
+        return this.crudService.deleteItem(TEACHERS_URL, this.teacher.id)
+          .pipe(
+            catchError(
+              err => {
+                this.modal.content.message = `Error on deleting teacher!`;
+                return throwError(err);
+              }),
+            map(
+              () => {
+                this.modal.content.afterConfirmAction(TEACHERS_URL, `Teacher was successfully deleted!`);
+              }));
+      }),
+      takeUntil(this.destroy$)
+    ).subscribe();
   }
 
   ngOnDestroy() {

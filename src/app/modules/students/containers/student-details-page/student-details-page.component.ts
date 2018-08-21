@@ -16,7 +16,6 @@ import { STUDENTS_URL, GROUPS_URL } from '@shared/constants';
   templateUrl: './student-details-page.component.html'
 })
 export class StudentDetailsPageComponent implements OnInit, OnDestroy {
-  id: string;
   student: Student;
   groupName: string;
 
@@ -38,7 +37,6 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
     this.route.params
       .pipe(
         flatMap(params => {
-          this.id = params.id;
           return this.crudService.getItem(STUDENTS_URL, params.id)
             .pipe(catchError(error => {
               this.alerts.push({ type: AlertType.Error, message: error });
@@ -89,17 +87,21 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
 
   openDeleteModal() {
     this.modalRef = this.modalService.show(ConfirmModalComponent);
-    this.modalRef.content.onConfirm.pipe(takeUntil(this.destroy$)).subscribe(
-      () => this.crudService.deleteItem(STUDENTS_URL, this.id)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(
-          success => {
-            this.modalRef.content.afterConfirmAction(STUDENTS_URL, 'Successfully deleted.');
-          },
-          error => {
-            this.modalRef.content.message = 'Error on delete';
-          }
-        )
-    );
+    this.modalRef.content.onConfirm.pipe(
+      flatMap(() => {
+        return this.crudService.deleteItem(STUDENTS_URL, this.student.id)
+          .pipe(
+            catchError(
+              err => {
+                this.modalRef.content.message = `Error on deleting student!`;
+                return throwError(err);
+              }),
+            map(
+              () => {
+                this.modalRef.content.afterConfirmAction(STUDENTS_URL, `Student was successfully deleted!`);
+              }));
+      }),
+      takeUntil(this.destroy$)
+    ).subscribe();
   }
 }
