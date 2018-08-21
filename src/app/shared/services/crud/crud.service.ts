@@ -12,7 +12,7 @@ export class CrudService {
   constructor(private api: BackendApiService) {}
 
   getNumberOfItems(pageUrl: string) {
-    return this.api.get(pageUrl + '?limit=0')
+    return this.api.get(`${pageUrl}?limit=0`)
       .pipe(map(result => result.total));
   }
 

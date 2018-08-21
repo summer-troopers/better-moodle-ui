@@ -31,6 +31,23 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.initGroup();
+  }
+
+  openEditModal() {
+    const initialState: any = {
+      group: this.group,
+      editItem: this.editItem,
+    };
+    this.modalRef = this.modalService.show(EditGroupModalComponent, {initialState});
+  }
+
+  editItem(event: any) {
+    this.group.name = event.groupName;
+    this.group.specialty = event.specialty;
+  }
+
+  initGroup() {
     this.route.params.pipe(
       flatMap(
         params => {
@@ -45,19 +62,6 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
         this.alerts.push({type: AlertType.Error, message: `Couldn't get the group!`});
       }
     );
-  }
-
-  openEditModal() {
-    const initialState: any = {
-      group: this.group,
-      editItem: this.editItem,
-    };
-    this.modalRef = this.modalService.show(EditGroupModalComponent, {initialState});
-  }
-
-  editItem(event: any) {
-    this.group.name = event.groupName;
-    this.group.specialty = event.specialty;
   }
 
   ngOnDestroy() {

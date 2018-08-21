@@ -31,6 +31,22 @@ export class SpecialtyDetailsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.initSpecialty();
+  }
+
+  openEditModal() {
+    const initialState: any = {
+      specialty: this.specialty,
+      editItem: this.editItem,
+    };
+    this.modalRef = this.modalService.show(EditSpecialtyModalComponent, {initialState});
+  }
+
+  editItem(event: any) {
+    this.specialty.name = event.specialtyName;
+  }
+
+  initSpecialty() {
     this.route.params.pipe(
       flatMap(
         params => {
@@ -45,18 +61,6 @@ export class SpecialtyDetailsPageComponent implements OnInit, OnDestroy {
         this.alerts.push({type: AlertType.Error, message: `Couldn't get the specialty!`});
       }
     );
-  }
-
-  openEditModal() {
-    const initialState: any = {
-      specialty: this.specialty,
-      editItem: this.editItem,
-    };
-    this.modalRef = this.modalService.show(EditSpecialtyModalComponent, {initialState});
-  }
-
-  editItem(event: any) {
-    this.specialty.name = event.specialtyName;
   }
 
   ngOnDestroy() {
