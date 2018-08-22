@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
 
@@ -7,9 +6,6 @@ import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-
   providedIn: 'root'
 })
 export class ModalHelperService {
-
-  confirmModalRef: BsModalRef;
-
   constructor(private modalService: BsModalService) { }
 
   checkFormForData(form): boolean {
