@@ -4,7 +4,7 @@ import { Observable, Subject, throwError } from 'rxjs';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { catchError, mergeMap, takeUntil } from 'rxjs/operators';
 
-import Group from '@shared/models/group';
+import { Group } from '@shared/models/group';
 import { CrudService } from '@shared/services/crud/crud.service';
 import { AddGroupModalComponent } from '@modules/groups/components/add-group-modal/add-group-modal.component';
 import { GROUPS_URL, NUMBER_ITEMS_PAGE } from '@shared/constants';

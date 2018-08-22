@@ -5,7 +5,7 @@ import { catchError, takeUntil } from 'rxjs/operators';
 import { GROUPS_URL } from '@shared/constants';
 import { Alert, AlertType } from '@shared/models/alert';
 import { DashboardService } from '@modules/dashboard/dashboard.service';
-import Group from '@shared/models/group';
+import { Group } from '@shared/models/group';
 
 @Component({
   selector: 'app-user-groups',
