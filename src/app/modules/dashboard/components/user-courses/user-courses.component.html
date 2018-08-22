@@ -38,7 +38,7 @@
             <label for="raport-file"><i class="fa fa-upload"
                                         aria-hidden="true"></i>
               Choose a file...</label> <br>
-            <input type="submit"
+            <input type="button"
                    (click)="uploadReport()"
                    class="btn btn-secondary submit-button"
                    value="Submit"/>
@@ -57,17 +57,17 @@
 
         <div [appHasRole]="'teacher'"
              class="custom-file">
-          <form *ngIf="fileExists">
+          <form *ngIf="fileExists" action="http://localhost:80/api/v1/lab_tasks" method="post">
             <input type="file"
                    id="task-file"
-                   name="task-file"
+                   name="labTask"
                    class="inputfile"
                    value="Add Task"/>
             <label for="task-file"><i class="fa fa-upload"
                                       aria-hidden="true"></i>
               Choose a file...</label> <br>
             <input type="submit"
-                   (click)="uploadTask()"
+                   (click)="uploadTask($event)"
                    class="btn btn-secondary submit-button"
                    value="Submit"/>
           </form>

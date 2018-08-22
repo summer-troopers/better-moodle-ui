@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Subject, throwError } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 
@@ -60,15 +60,17 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
   deleteReport() {
   }
 
-  downloadReport(id) {
+  downloadTask(fileData) {
   }
 
-  downloadTask(id) {
+  downloadReport(fileData) {
   }
 
-  uploadTask() {
+  uploadTask(event) {
+    console.log(event);
   }
 
-  uploadReport() {
+  uploadReport(event) {
+    console.log(event);
   }
 }
