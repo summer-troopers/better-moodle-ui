@@ -9,7 +9,7 @@
       <th scope="col">Phone Number</th>
       <th scope="col">Email</th>
       <th scope="col">Group</th>
-      <th scope="col">Laboratories</th>
+      <th scope="col">Nr. Laboratories</th>
     </tr>
     </thead>
     <tbody *ngFor="let student of students; let i = index">
@@ -20,7 +20,7 @@
       <td>{{student.phoneNumber}}</td>
       <td>{{student.email}}</td>
       <td>{{student.group?.name}}</td>
-      <td align="center">2</td>
+      <td align="center">{{student.labReportCount}}</td>
 
     </tr>
     <tr class="lab-student-list" *ngIf="activeRowIndex === i && isShown">
