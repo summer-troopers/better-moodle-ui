@@ -58,5 +58,4 @@ export class LabsListForTeacherComponent implements OnInit {
         this.downloadService.downloadFile(data);
       });
   }
-
 }
