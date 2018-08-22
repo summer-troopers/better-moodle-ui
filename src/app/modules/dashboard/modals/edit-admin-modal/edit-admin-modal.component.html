@@ -8,7 +8,7 @@
     </button>
   </div>
 
-  <!-- <div class="modal-body">
+  <div class="modal-body">
     <form [formGroup]="userForm"
           (ngSubmit)="onSubmit()">
       <div class="form-group">
@@ -72,11 +72,10 @@
           <div *ngIf="phoneNumber.errors.required">Phone number is required</div>
         </div>
       </div>
-
-      <button [disabled]="userForm.invalid"
-              type="submit"
+      <!-- [disabled]="userForm.invalid" -->
+      <button type="submit"
               class="btn btn-primary"
-              (click)="bsModalRef.hide()">Submit</button>
+              (click)="bsModalRef.hide()">Edit</button>
     </form>
-  </div> -->
+  </div>
 </div>
