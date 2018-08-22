@@ -14,8 +14,7 @@ import { Alert, AlertType } from '@shared/models/alert';
 import { STUDENTS_URL, NUMBER_ITEMS_PAGE } from '@shared/constants';
 @Component({
   selector: 'app-students-page',
-  templateUrl: './students-page.component.html',
-  styleUrls: ['./students-page.component.scss']
+  templateUrl: './students-page.component.html'
 })
 export class StudentsPageComponent implements OnInit, OnDestroy {
   paginationParams = new PaginationParams(0, NUMBER_ITEMS_PAGE);
@@ -55,11 +54,6 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
           this.paginationParams = this.paginatorHelper.getPaginationParams(this.totalItems, this.currentPage);
 
           return this.getAllStudents();
-        }),
-        catchError((error) => {
-          this.alerts.push({ type: AlertType.Error, message: error });
-
-          return throwError(error);
         })
       )
       .subscribe((students) => {
@@ -70,7 +64,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
   openAddStudentModal() {
     this.modalRef = this.modalService.show(AddStudentModalComponent);
 
-    this.modalRef.content.event
+    this.modalRef.content.studentAdded
       .subscribe((newStudent) => {
         this.students.unshift(newStudent);
       });

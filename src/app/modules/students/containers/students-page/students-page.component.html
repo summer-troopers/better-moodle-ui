@@ -15,7 +15,9 @@
     <ul class="list-group list-group-flush">
       <li class="list-group-item list-group-item-dark">
         <a [routerLink]="['/students', student.id]"
-           class="list-group-item list-group-item-action">{{student.firstName}} {{student.lastName}}</a>
+           class="list-group-item list-group-item-action">
+          {{student.firstName}} {{student.lastName}}
+        </a>
       </li>
     </ul>
   </div>
@@ -28,12 +30,11 @@
 </div>
 
 <ng-template #noStudents>
-  <h1>No students to show...</h1>
-  <h2 class="text-center">Want to add a new Student? </h2>
-  <div class="text-center">
-    <button appHasRole="admin"
-            type="button"
-            class="btn btn-primary pull-right"
+  <div class="container bottom-padded">
+    <h1>No students to show...</h1>
+    <h2 class="text-center">Want to add a new Student? </h2>
+    <button type="button"
+            class="btn btn-primary pull-right text-center"
             (click)="openAddStudentModal()">Add new student</button>
   </div>
 </ng-template>

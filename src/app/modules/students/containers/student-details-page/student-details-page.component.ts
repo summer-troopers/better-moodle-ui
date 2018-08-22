@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { takeUntil, mergeMap, catchError } from 'rxjs/operators';
+import { takeUntil, mergeMap, catchError, flatMap, map } from 'rxjs/operators';
 import { Subject, throwError } from 'rxjs';
 
 import { CrudService } from '@shared/services/crud/crud.service';
@@ -13,11 +13,9 @@ import { Alert, AlertType } from '@shared/models/alert';
 import { STUDENTS_URL, GROUPS_URL } from '@shared/constants';
 @Component({
   selector: 'app-student-details-page',
-  templateUrl: './student-details-page.component.html',
-  styleUrls: ['./student-details-page.component.scss']
+  templateUrl: './student-details-page.component.html'
 })
 export class StudentDetailsPageComponent implements OnInit, OnDestroy {
-  id: string;
   student: Student;
   groupName: string;
 
@@ -29,36 +27,26 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
     private crudService: CrudService,
-    private modalService: BsModalService,
-    private router: Router) { }
+    private modalService: BsModalService) { }
 
   ngOnInit() {
     this.initPageData();
   }
 
   initPageData() {
-    this.route.params.subscribe(params => {
-      this.id = params['id'];
-      this.crudService.getItem(STUDENTS_URL, this.id)
-        .pipe(
-          mergeMap((student: Student) => {
-            this.student = student;
-            return this.crudService.getItem(GROUPS_URL, student.groupId.toString())
-              .pipe(
-                takeUntil(this.destroy$),
-                catchError((error) => {
-                  this.alerts.push({ type: AlertType.Error, message: error });
-                  return throwError(error);
-                })
-              );
-          }),
-          catchError(error => {
-            this.alerts.push({ type: AlertType.Error, message: error });
-            return throwError(error);
-          })
-        )
-        .subscribe(group => this.groupName = group.name);
-    });
+    this.route.params
+      .pipe(
+        flatMap(params => {
+          return this.crudService.getItem(STUDENTS_URL, params.id)
+            .pipe(catchError(error => {
+              this.alerts.push({ type: AlertType.Error, message: error });
+              return throwError(error);
+            }));
+        }),
+        takeUntil(this.destroy$)
+      ).subscribe((student) => {
+        this.student = student;
+      });
   }
 
   ngOnDestroy() {
@@ -98,17 +86,17 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
 
   openDeleteModal() {
     this.modalRef = this.modalService.show(ConfirmModalComponent);
-    this.modalRef.content.onConfirm.pipe(takeUntil(this.destroy$)).subscribe(
-      () => this.crudService.deleteItem(STUDENTS_URL, this.id)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(
-          success => {
-            this.modalRef.content.afterConfirmAction(STUDENTS_URL, 'Successfully deleted.');
-          },
-          error => {
-            this.modalRef.content.message = 'Error on delete';
-          }
-        )
-    );
+    this.modalRef.content.onConfirm.pipe(
+      flatMap(() => {
+        return this.crudService.deleteItem(STUDENTS_URL, this.student.id)
+          .pipe(
+            catchError(
+              err => {
+                this.modalRef.content.message = `Error on deleting student!`;
+                return throwError(err);
+              }));
+      }),
+      takeUntil(this.destroy$)
+    ).subscribe(() => this.modalRef.content.afterConfirmAction(STUDENTS_URL, `Student was successfully deleted!`));
   }
 }

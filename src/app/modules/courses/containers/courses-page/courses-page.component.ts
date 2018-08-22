@@ -14,12 +14,11 @@ import { PaginationParams } from '@shared/models/pagination-params';
 
 @Component({
   selector: 'app-courses-page',
-  templateUrl: './courses-page.component.html',
-  styleUrls: ['./courses-page.component.scss']
+  templateUrl: './courses-page.component.html'
 
 })
 export class CoursesPageComponent implements OnInit, OnDestroy {
-  courses: Array<Course>;
+  courses: Array<Course> = [];
   totalItems: number;
   currentPage = 1;
   maxSizePagination = MAX_SIZE_PAGINATION;
@@ -74,7 +73,7 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  openModal() {
+  openAddCourseModal() {
     this.modalRef = this.modalService.show(AddCourseModalComponent);
 
     this.modalRef.content.addItemEvent
