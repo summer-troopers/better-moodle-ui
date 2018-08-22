@@ -37,8 +37,8 @@ export class EditAdminModalComponent implements OnInit, OnDestroy {
       lastName: new FormControl(this.user.lastName, Validators.required),
       email: new FormControl(this.user.email, [Validators.required, Validators.email]),
       phoneNumber: new FormControl(this.user.phoneNumber, Validators.required),
+      userRole: new FormControl(this.user.userRole)
     });
-    this.userService.updateUser(this.userForm.value);
   }
 
   get firstName() {
@@ -59,6 +59,7 @@ export class EditAdminModalComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.isSubmitted = true;
+
     // if (this.userForm.invalid) {
     //   return;
     // }
@@ -75,11 +76,16 @@ export class EditAdminModalComponent implements OnInit, OnDestroy {
       )
       .subscribe(
         succ => {
-          // let localStorageUser = this.userService.getUser();
+          this.userService.updateUser(formParam);
+          // this.crudService.getItem(ADMINS_URL, formParam.id).
+          //   pipe(takeUntil(this.destroy$)).subscribe(
+          //     test => {
+          //       this.user = test;
+          //     }
+          //   );
 
 
           this.hideConfirmationModal();
-
         },
         err => { });
   }

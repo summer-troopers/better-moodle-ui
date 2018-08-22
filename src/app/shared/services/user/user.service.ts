@@ -45,8 +45,8 @@ export class UserService {
     return this.user;
   }
 
-  updateUser(user) {
-
-    console.log(user)
+  updateUser(user): any {
+    return localStorage.setItem('user', JSON.stringify(user)),
+      this.getUserLocalStorage('user');
   }
 }
