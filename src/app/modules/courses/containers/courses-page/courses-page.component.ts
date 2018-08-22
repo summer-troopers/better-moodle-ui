@@ -4,7 +4,7 @@ import { Subject, throwError } from 'rxjs';
 import { catchError, mergeMap, takeUntil } from 'rxjs/operators';
 
 import { AddCourseModalComponent } from '@modules/courses/components';
-import Course from '@shared/models/course';
+import { Course } from '@shared/models/course';
 import { PaginatorHelperService } from '@shared/services/paginator-helper/paginator-helper.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Alert, AlertType } from '@shared/models/alert';

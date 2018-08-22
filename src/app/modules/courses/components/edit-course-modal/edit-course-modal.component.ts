@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { BsModalRef } from 'ngx-bootstrap';
 
-import Course from '@shared/models/course';
+import { Course } from '@shared/models/course';
 import { CrudService } from '@shared/services/crud/crud.service';
 import { COURSES_URL } from '@shared/constants';
 

@@ -1,4 +1,4 @@
-import Course from '@shared/models/course';
+import { Course } from '@shared/models/course';
 import { Teacher } from '@shared/models/teacher';
 
 export default class LabTask {
