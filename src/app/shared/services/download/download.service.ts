@@ -1,8 +1,12 @@
+import { Injectable } from '@angular/core';
 import { saveAs } from 'file-saver/FileSaver';
 
-export default class Download {
-  constructor() {
-  }
+@Injectable({
+  providedIn: 'root'
+})
+export class DownloadService {
+
+  constructor() { }
 
   downloadFile(fileData) {
     const blob = new Blob([fileData.data], {type: 'application/octet-stream'});
