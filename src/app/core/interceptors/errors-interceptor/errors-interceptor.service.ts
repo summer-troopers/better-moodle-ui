@@ -16,17 +16,15 @@ export class ErrorsInterceptorService implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(catchError(err => {
-      if (err.status === 401 && this.authenticationService.isAuthenticated()) {
-        this.authenticationService.logOut();
-        this.alertService.error('Authentication expired!');
-      } else if (err.status === 403 && this.authenticationService.isAuthenticated()) {
-        this.alertService.error('Forbidden!');
-      } else if (err.status === 405 && this.authenticationService.isAuthenticated()) {
-        this.alertService.error('Cannot delete!');
+      if (err.status === 403 && this.authenticationService.isAuthenticated()) {
+        this.alertService.error('You don`t have permissions to do this action!');
+      } else if (err.status === 409 && this.authenticationService.isAuthenticated()) {
+        this.alertService.error('This method could not be performed on this resource because another resourse depend on this one.');
       }
       const error = err.error.message || err.statusText;
       return throwError(error);
     }));
   }
+
 }
 
