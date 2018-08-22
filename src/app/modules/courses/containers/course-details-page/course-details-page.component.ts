@@ -6,7 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import { EditCourseModalComponent } from '@modules/courses/components';
 import { Alert, AlertType } from '@shared/models/alert';
-import Course from '@shared/models/course';
+import { Course } from '@shared/models/course';
 import { CrudService } from '@shared/services/crud/crud.service';
 import { COURSES_URL } from '@shared/constants';
 import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
