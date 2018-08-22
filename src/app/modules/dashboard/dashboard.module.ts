@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { TabsModule } from 'ngx-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RatingModule, TabsModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { NgxUploaderModule } from 'ngx-uploader';
 
 import { dashboardRoutes } from '@modules/dashboard/dashboard.routes';
 import { DashboardPageComponent } from './containers/dashboard-page/dashboard-page.component';
@@ -16,7 +17,8 @@ import { UserGroupsComponent } from './components/user-groups/user-groups.compon
 import { UserStudentsComponent } from './components/user-students/user-students.component';
 import { SharedModule } from '@shared/shared.module';
 import { LabsListForTeacherComponent } from '@modules/dashboard/components/labs-list-for-teacher/labs-list-for-teacher.component';
-import { NgxUploaderModule } from 'ngx-uploader';
+import { LabReportCommentModalComponent } from './modals/lab-report-comment-modal/lab-report-comment-modal.component';
+import { ViewLabReportCommentModalComponent } from './modals/view-lab-report-comment-modal/view-lab-report-comment-modal.component';
 import { TaskColumnComponent } from './components/user-courses/task-column/task-column.component';
 import { ReportColumnComponent } from './components/user-courses/report-column/report-column.component';
 
@@ -30,6 +32,8 @@ const COMPONENTS = [
   UserGroupsComponent,
   UserStudentsComponent,
   LabsListForTeacherComponent,
+  ViewLabReportCommentModalComponent,
+  LabReportCommentModalComponent,
   TaskColumnComponent,
   ReportColumnComponent
 ];
@@ -42,11 +46,14 @@ const COMPONENTS = [
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
+    TabsModule.forRoot(),
     NgxUploaderModule,
     ModalModule.forRoot(),
-    FormsModule,
-    ReactiveFormsModule,
-    TabsModule.forRoot(),
+    RatingModule,
+  ],
+  entryComponents: [
+    LabReportCommentModalComponent,
+    ViewLabReportCommentModalComponent
   ],
   declarations: [
     ...COMPONENTS

@@ -1,26 +1,51 @@
 <div class="table-responsive-sm">
   <table class="table table-sm">
     <thead>
-      <tr class="table-success">
-        <th scope="col">Courses</th>
-        <th scope="col">Download</th>
-        <th scope="col">Feedback</th>
-      </tr>
+    <tr class="table-success">
+      <th scope="col"
+          class="cell-padding">Report Nr
+      </th>
+      <th scope="col"
+          class="cell-padding">Courses
+      </th>
+      <th scope="col"
+          class="cell-padding">Download
+      </th>
+      <th scope="col"
+          class="cell-padding">Assessment
+      </th>
+      <th scope="col"
+          class="pull-right cell-padding">Review
+      </th>
+    </tr>
     </thead>
-
     <tbody>
-      <tr *ngFor="let report of reports; let i = index">
-        <td>{{ report.courseInstance.course.name }}</td>
-        <td>
-          <button (click)="downloadReport(report.id)"
-                  class="download-labs">
-            <i class="fa fa-file name-lab pr-1"></i>Download
-          </button>
-        </td>
-        <td>
-          <button>Add feedback</button>
-        </td>
-      </tr>
+    <tr *ngFor="let report of reports; let i = index">
+      <td class="cell-padding">{{i + 1}}
+      </td>
+      <td class="cell-padding">{{report.courseInstance.course.name}}
+      </td>
+      <td>
+        <button (click)="downloadReport(report.id)"
+                class="download-labs"><i class="fa fa-file name-lab">
+          {{ report.id }}</i>
+        </button>
+      <td class="cell-padding">
+         <p *ngIf="!report.review">Not assessed</p>
+        {{report.mark}}
+      </td>
+
+      <td>
+        <button *ngIf="report.review" type="button"
+                class="btn btn-primary pull-right"
+                (click)="openViewCommentModal(report.review)">View review
+        </button>
+        <button *ngIf="!report.review" type="button"
+                class="btn btn-primary pull-right"
+                (click)="openCommentAndMarkModal(report.id)">Add review
+        </button>
+      </td>
+    </tr>
     </tbody>
   </table>
 </div>
