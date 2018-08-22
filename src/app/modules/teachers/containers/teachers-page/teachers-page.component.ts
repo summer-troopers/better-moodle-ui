@@ -11,7 +11,7 @@ import { PaginationParams } from '@shared/models/pagination-params';
 import { PaginatorHelperService } from '@shared/services/paginator-helper/paginator-helper.service';
 import { Alert, AlertType } from '@shared/models/alert';
 import { CrudService } from '@shared/services/crud/crud.service';
-import { TEACHERS_URL, NUMBER_ITEMS_PAGE } from '@shared/constants';
+import { TEACHERS_URL, NUMBER_ITEMS_PAGE, MODAL_OPTIONS } from '@shared/constants';
 
 @Component({
   selector: 'app-teachers-page',
@@ -42,10 +42,7 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
   }
 
   openAddTeacherModal() {
-    this.modalRef = this.modalService.show(AddTeacherModalComponent, {
-      backdrop: 'static',
-      keyboard: false
-    });
+    this.modalRef = this.modalService.show(AddTeacherModalComponent, MODAL_OPTIONS);
     this.modalRef.content.teacherAdded
       .pipe(takeUntil(this.destroy$))
       .subscribe((newTeacher) => {

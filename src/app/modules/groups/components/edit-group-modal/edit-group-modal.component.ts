@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { Specialty } from '@shared/models/specialty';
-import Group from '@shared/models/group';
+import { Group } from '@shared/models/group';
 import { CrudService } from '@shared/services/crud/crud.service';
 import { Alert, AlertType } from '@shared/models/alert';
 import { CONFIRM_MODAL_TIMEOUT, GROUPS_URL, SPECIALTIES_URL } from '@shared/constants';
@@ -29,8 +29,8 @@ export class EditGroupModalComponent implements OnInit, OnDestroy {
   lastMatchNotPresent = true;
 
   constructor(public modalRef: BsModalRef,
-              private fromBuilder: FormBuilder,
-              private crudService: CrudService) {
+    private fromBuilder: FormBuilder,
+    private crudService: CrudService) {
   }
 
   ngOnInit() {
@@ -53,7 +53,7 @@ export class EditGroupModalComponent implements OnInit, OnDestroy {
           this.specialties = specialties;
         },
         () => {
-          this.alerts.push({type: AlertType.Error, message: `Couldn't get the specialties!`});
+          this.alerts.push({ type: AlertType.Error, message: `Couldn't get the specialties!` });
         }
       );
   }
@@ -74,7 +74,7 @@ export class EditGroupModalComponent implements OnInit, OnDestroy {
     this.isSubmitted = true;
 
     if (this.groupForm.invalid || this.lastMatchNotPresent) {
-      this.alerts.push({type: AlertType.Error, message: `Invalid form!`});
+      this.alerts.push({ type: AlertType.Error, message: `Invalid form!` });
       return;
     }
     const specialtyName: string = this.groupForm.value.specialty;
@@ -86,7 +86,7 @@ export class EditGroupModalComponent implements OnInit, OnDestroy {
     };
     this.crudService.editItem(GROUPS_URL, newGroup).pipe(takeUntil(this.destroy$)).subscribe(
       () => {
-        this.alerts.push({type: AlertType.Success, message: `The group successfully updated!`});
+        this.alerts.push({ type: AlertType.Success, message: `The group successfully updated!` });
         setTimeout(this.modalRef.hide, CONFIRM_MODAL_TIMEOUT);
         const event = {
           groupName: this.groupForm.get('name').value,
@@ -95,7 +95,7 @@ export class EditGroupModalComponent implements OnInit, OnDestroy {
         this.editItem(event);
       },
       () => {
-        this.alerts.push({type: AlertType.Error, message: `Couldn't update the group!`});
+        this.alerts.push({ type: AlertType.Error, message: `Couldn't update the group!` });
       });
   }
 
