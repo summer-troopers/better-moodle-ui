@@ -21,4 +21,8 @@ export class ModalHelperService {
     return hasData;
   }
 
+  openConfirmLeaveModal() {
+    return this.modalService.show(ConfirmModalComponent);
+  }
+
 }

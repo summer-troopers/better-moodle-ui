@@ -90,9 +90,9 @@ export class AddStudentModalComponent implements OnInit, OnDestroy {
       });
   }
 
-  openConfirmLeaveModal() {
+  onClose() {
     if (this.modalHelperService.checkFormForData(this.studentForm)) {
-      this.confirmModalRef = this.modalService.show(ConfirmModalComponent);
+      this.confirmModalRef = this.modalHelperService.openConfirmLeaveModal();
       this.confirmModalRef.content.onConfirm.pipe(takeUntil(this.destroy$))
         .subscribe(() => {
           this.confirmModalRef.hide();
