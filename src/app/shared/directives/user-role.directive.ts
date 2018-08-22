@@ -6,7 +6,7 @@ import { UserService } from '@shared/services/user/user.service';
   selector: '[appHasRole]'
 })
 export class UserRoleDirective implements OnInit {
-  @Input('appHasRole') role = 'administrator';
+  @Input('appHasRole') role: string;
 
   constructor(private userService: UserService,
               private elementRef: ElementRef) {
