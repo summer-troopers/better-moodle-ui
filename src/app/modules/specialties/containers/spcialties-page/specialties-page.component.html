@@ -3,15 +3,16 @@
 </div>
 <div class="container">
   <div class="pageTitle">
-    <button class="btn btn-primary pull-right"
+    <button appHasRole
+            class="btn btn-primary pull-right"
             (click)="openAddModal()">Add a new specialty
     </button>
     <h1>List of all specialties</h1>
     <ul class="list-group ">
-      <li class="list-group-item"
+      <li class="list-group-item list-group-item-dark"
           *ngFor="let specialty of specialties"
           [routerLink]="['/specialties', specialty.id]">
-        {{specialty.name}}
+        <a class="list-group-item list-group-item-action">{{specialty.name}}</a>
       </li>
     </ul>
   </div>
