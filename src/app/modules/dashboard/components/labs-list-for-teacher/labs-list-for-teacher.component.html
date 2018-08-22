@@ -1,0 +1,23 @@
+<div class="table-responsive-sm">
+  <table class="table table-sm">
+    <thead>
+    <tr class="table-success">
+      <th scope="col">Courses</th>
+      <th scope="col">Download</th>
+      <th scope="col">Feedback</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let report of reports; let i = index">
+      <td>Course {{i + 1}}</td>
+      <td>
+        <button (click)="downloadReport(report.id)" class="download-labs"><i class="fa fa-file name-lab">
+          {{ report.id }}</i></button>
+      </td>
+      <td>
+        <button>Add feedback</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

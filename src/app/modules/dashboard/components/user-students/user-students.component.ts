@@ -10,11 +10,15 @@ import { DashboardService } from '@modules/dashboard/dashboard.service';
 @Component({
   selector: 'app-user-students',
   templateUrl: './user-students.component.html',
+  styleUrls: ['./user-students.component.scss']
 })
 export class UserStudentsComponent implements OnInit, OnDestroy {
   id: string;
   students: Array<Student> = [];
   @Input() user;
+
+  activeRowIndex: number;
+  isShown = false;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -25,6 +29,12 @@ export class UserStudentsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getAllStudents();
+  }
+
+  showStudentDoneLabs(index, id) {
+    this.isShown = !this.isShown;
+    this.activeRowIndex = index;
+    this.id = id;
   }
 
   ngOnDestroy() {

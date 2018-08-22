@@ -9,7 +9,8 @@ import { BackendApiService } from '@core/services/api/backend-api.service';
 })
 export class CrudService {
 
-  constructor(private api: BackendApiService) {}
+  constructor(private api: BackendApiService) {
+  }
 
   getNumberOfItems(pageUrl: string) {
     return this.api.get(`${pageUrl}?limit=0`)
@@ -21,8 +22,17 @@ export class CrudService {
       .pipe(map(result => result.data));
   }
 
-  getItem(pageUrl: string, id: string): Observable<any> {
-    return this.api.get(`${pageUrl}/${id}`);
+  getItem(pageUrl: string, id: string, isFile?: boolean): Observable<any> {
+    return this.api.get(`${pageUrl}/${id}`, isFile)
+      .pipe(map(result => {
+        if (isFile) {
+          return {
+            data: result.body,
+            headers: result.headers
+          };
+        }
+        return result;
+      }));
   }
 
   deleteItem(pageUrl: string, id: string): Observable<any> {

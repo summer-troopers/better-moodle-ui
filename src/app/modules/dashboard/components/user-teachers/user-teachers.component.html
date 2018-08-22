@@ -18,6 +18,11 @@
       <td>{{teacher.phoneNumber}}</td>
       <td>{{teacher.email}}</td>
     </tr>
+    <tr class="lab-student-list" *ngIf="activeRowIndex === i && isShown">
+      <td colspan="6" class="lab-student-list_item">
+        <app-labs-list-for-teacher [students]="student"></app-labs-list-for-teacher>
+      </td>
+    </tr>
     </tbody>
   </table>
 

@@ -4,7 +4,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { Subject } from 'rxjs';
 import { flatMap, takeUntil } from 'rxjs/operators';
 
-import { Group } from '@shared/models/group';
+import Group from '@shared/models/group';
 import { EditGroupModalComponent } from '@modules/groups/components/edit-group-modal/edit-group-modal.component';
 import { CrudService } from '@shared/services/crud/crud.service';
 import { Alert, AlertType } from '@shared/models/alert';
