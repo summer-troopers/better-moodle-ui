@@ -73,7 +73,7 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  openModal() {
+  openAddCourseModal() {
     this.modalRef = this.modalService.show(AddCourseModalComponent, MODAL_OPTIONS);
 
     this.modalRef.content.addItemEvent
