@@ -9,8 +9,7 @@ import { BackendApiService } from '@core/services/api/backend-api.service';
 })
 export class CrudService {
 
-  constructor(private api: BackendApiService) {
-  }
+  constructor(private api: BackendApiService) { }
 
   getNumberOfItems(pageUrl: string) {
     return this.api.get(`${pageUrl}?limit=0`)

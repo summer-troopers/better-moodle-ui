@@ -45,7 +45,7 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
     methodToCall.pipe(
       takeUntil(this.destroy$),
       catchError((error) => {
-        this.alerts.push({type: AlertType.Error, message: error});
+        this.alerts.push({ type: AlertType.Error, message: error });
         return throwError(error);
       })
     )

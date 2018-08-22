@@ -9,7 +9,7 @@ import { PaginatorHelperService } from '@shared/services/paginator-helper/pagina
 import { ActivatedRoute, Router } from '@angular/router';
 import { Alert, AlertType } from '@shared/models/alert';
 import { CrudService } from '@shared/services/crud/crud.service';
-import { COURSES_URL, MAX_SIZE_PAGINATION, NUMBER_ITEMS_PAGE } from '@shared/constants';
+import { COURSES_URL, MAX_SIZE_PAGINATION, NUMBER_ITEMS_PAGE, MODAL_OPTIONS } from '@shared/constants';
 import { PaginationParams } from '@shared/models/pagination-params';
 
 @Component({
@@ -74,7 +74,7 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
   }
 
   openAddCourseModal() {
-    this.modalRef = this.modalService.show(AddCourseModalComponent);
+    this.modalRef = this.modalService.show(AddCourseModalComponent, MODAL_OPTIONS);
 
     this.modalRef.content.addItemEvent
       .pipe(takeUntil(this.destroy$))

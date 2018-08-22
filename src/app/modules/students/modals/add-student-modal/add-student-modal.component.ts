@@ -5,6 +5,7 @@ import { Subject, throwError } from 'rxjs';
 import { takeUntil, catchError } from 'rxjs/operators';
 
 import { CrudService } from '@shared/services/crud/crud.service';
+import { ModalHelperService } from '@shared/services/modal-helper/modal-helper.service';
 import { STUDENTS_URL } from '@shared/constants';
 import { Alert, AlertType } from '@shared/models/alert';
 
@@ -22,9 +23,12 @@ export class AddStudentModalComponent implements OnInit, OnDestroy {
 
   studentAdded: EventEmitter<any> = new EventEmitter();
 
+  confirmModalRef: BsModalRef;
+
   constructor(private formBuilder: FormBuilder,
     private crudService: CrudService,
-    public bsModalRef: BsModalRef) { }
+    public addModalRef: BsModalRef,
+    private modalHelperService: ModalHelperService) { }
 
   ngOnInit() {
     this.initForm();
@@ -37,7 +41,7 @@ export class AddStudentModalComponent implements OnInit, OnDestroy {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       phoneNumber: ['', Validators.required],
-      groupId: [Validators.required]
+      groupId: ['', Validators.required]
     });
   }
 
@@ -82,8 +86,21 @@ export class AddStudentModalComponent implements OnInit, OnDestroy {
       )
       .subscribe((newStudent) => {
         this.studentAdded.emit(newStudent);
-        this.bsModalRef.hide();
+        this.addModalRef.hide();
       });
+  }
+
+  onClose() {
+    if (this.modalHelperService.checkFormForData(this.studentForm)) {
+      this.confirmModalRef = this.modalHelperService.openConfirmLeaveModal();
+      this.confirmModalRef.content.onConfirm.pipe(takeUntil(this.destroy$))
+        .subscribe(() => {
+          this.confirmModalRef.hide();
+          this.addModalRef.hide();
+        });
+    } else {
+      this.addModalRef.hide();
+    }
   }
 
   ngOnDestroy() {

@@ -4,7 +4,7 @@ import { Observable, Subject, throwError } from 'rxjs';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { catchError, mergeMap, takeUntil } from 'rxjs/operators';
 
-import Group from '@shared/models/group';
+import { Group } from '@shared/models/group';
 import { CrudService } from '@shared/services/crud/crud.service';
 import { AddGroupModalComponent } from '@modules/groups/components/add-group-modal/add-group-modal.component';
 import { GROUPS_URL, NUMBER_ITEMS_PAGE } from '@shared/constants';
@@ -29,10 +29,10 @@ export class GroupsPageComponent implements OnInit, OnDestroy {
   totalItems: number;
 
   constructor(private crudService: CrudService,
-              private modalService: BsModalService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private paginatorHelperService: PaginatorHelperService) {
+    private modalService: BsModalService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private paginatorHelperService: PaginatorHelperService) {
   }
 
   ngOnInit() {
@@ -50,7 +50,7 @@ export class GroupsPageComponent implements OnInit, OnDestroy {
     return this.crudService.getItems(GROUPS_URL, this.paginationParams.offset, this.paginationParams.limit)
       .pipe(takeUntil(this.destroy$),
         catchError((error) => {
-          this.alerts.push({type: AlertType.Error, message: `Couldn't get the groups!`});
+          this.alerts.push({ type: AlertType.Error, message: `Couldn't get the groups!` });
 
           return throwError(error);
         }));
@@ -77,7 +77,7 @@ export class GroupsPageComponent implements OnInit, OnDestroy {
 
   pageChanged(event: any) {
     this.currentPage = event.page;
-    this.router.navigate([GROUPS_URL], {queryParams: {page: event.page}});
+    this.router.navigate([GROUPS_URL], { queryParams: { page: event.page } });
   }
 
   setGroups(groups) {

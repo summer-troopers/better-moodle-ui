@@ -5,6 +5,7 @@ import { Subject, throwError } from 'rxjs';
 import { takeUntil, catchError } from 'rxjs/operators';
 
 import { CrudService } from '@shared/services/crud/crud.service';
+import { ModalHelperService } from '@shared/services/modal-helper/modal-helper.service';
 import { Alert, AlertType } from '@shared/models/alert';
 import { TEACHERS_URL } from '@shared/constants';
 
@@ -21,9 +22,12 @@ export class AddTeacherModalComponent implements OnInit, OnDestroy {
   alerts: Alert[] = [];
   isSubmitted = false;
 
+  confirmModalRef: BsModalRef;
+
   constructor(private formBuilder: FormBuilder,
     private crudService: CrudService,
-    public bsModalRef: BsModalRef) { }
+    public addModalRef: BsModalRef,
+    private modalHelperService: ModalHelperService) { }
 
   ngOnInit() {
     this.initForm();
@@ -79,8 +83,21 @@ export class AddTeacherModalComponent implements OnInit, OnDestroy {
       )
       .subscribe((newTeacher) => {
         this.teacherAdded.emit(newTeacher);
-        this.bsModalRef.hide();
+        this.addModalRef.hide();
       });
+  }
+
+  onClose() {
+    if (this.modalHelperService.checkFormForData(this.userForm)) {
+      this.confirmModalRef = this.modalHelperService.openConfirmLeaveModal();
+      this.confirmModalRef.content.onConfirm.pipe(takeUntil(this.destroy$))
+        .subscribe(() => {
+          this.confirmModalRef.hide();
+          this.addModalRef.hide();
+        });
+    } else {
+      this.addModalRef.hide();
+    }
   }
 
   ngOnDestroy() {

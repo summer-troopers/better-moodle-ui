@@ -5,7 +5,7 @@ import { catchError, takeUntil } from 'rxjs/operators';
 import { GROUPS_URL } from '@shared/constants';
 import { Alert, AlertType } from '@shared/models/alert';
 import { DashboardService } from '@modules/dashboard/dashboard.service';
-import Group from '@shared/models/group';
+import { Group } from '@shared/models/group';
 
 @Component({
   selector: 'app-user-groups',
@@ -38,7 +38,7 @@ export class UserGroupsComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this.destroy$),
         catchError((error) => {
-          this.alerts.push({type: AlertType.Error, message: error});
+          this.alerts.push({ type: AlertType.Error, message: error });
           return throwError(error);
         })
       ).subscribe(groups => {

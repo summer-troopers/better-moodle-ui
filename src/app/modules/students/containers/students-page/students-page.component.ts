@@ -11,7 +11,7 @@ import { CrudService } from '@shared/services/crud/crud.service';
 import { Student } from '@shared/models/student';
 import { PaginationParams } from '@shared/models/pagination-params';
 import { Alert, AlertType } from '@shared/models/alert';
-import { STUDENTS_URL, NUMBER_ITEMS_PAGE } from '@shared/constants';
+import { STUDENTS_URL, NUMBER_ITEMS_PAGE, MODAL_OPTIONS } from '@shared/constants';
 @Component({
   selector: 'app-students-page',
   templateUrl: './students-page.component.html'
@@ -62,7 +62,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
   }
 
   openAddStudentModal() {
-    this.modalRef = this.modalService.show(AddStudentModalComponent);
+    this.modalRef = this.modalService.show(AddStudentModalComponent, MODAL_OPTIONS);
 
     this.modalRef.content.studentAdded
       .subscribe((newStudent) => {
