@@ -7,12 +7,12 @@
       <th scope="col">Name</th>
       <th scope="col"
           class="labs-cell"
-          [appHasRole]="'student'">Task
+          appHasRole="student">Task
       </th>
       <th scope="col"
           class="labs-cell">
-        <div [appHasRole]="'student'">My Report</div>
-        <div [appHasRole]="'teacher'">My Task</div>
+        <div appHasRole="student">My Report</div>
+        <div appHasRole="teacher">My Task</div>
       </th>
     </tr>
     </thead>
@@ -28,7 +28,7 @@
       </td>
 
       <td class="labs-cell">
-        <div [appHasRole]="'student'">
+        <div appHasRole="student">
           <form *ngIf="fileExists">
             <input type="file"
                    id="raport-file"
@@ -55,7 +55,7 @@
           </div>
         </div>
 
-        <div [appHasRole]="'teacher'"
+        <div appHasRole="teacher"
              class="custom-file">
           <form *ngIf="fileExists" action="http://localhost:80/api/v1/lab_tasks" method="post">
             <input type="file"
