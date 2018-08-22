@@ -5,10 +5,10 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { Specialty } from '@shared/models/specialty';
-import { Group } from '@shared/models/group';
+import Group from '@shared/models/group';
 import { CrudService } from '@shared/services/crud/crud.service';
 import { Alert, AlertType } from '@shared/models/alert';
-import { SPECIALTIES_URL, GROUPS_URL, CONFIRM_MODAL_TIMEOUT } from '@shared/constants';
+import { CONFIRM_MODAL_TIMEOUT, GROUPS_URL, SPECIALTIES_URL } from '@shared/constants';
 
 @Component({
   selector: 'app-edit-group-modal',

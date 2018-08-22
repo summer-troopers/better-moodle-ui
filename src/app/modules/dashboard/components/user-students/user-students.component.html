@@ -20,11 +20,11 @@
       <td>{{student.phoneNumber}}</td>
       <td>{{student.email}}</td>
       <td>{{student.group?.name}}</td>
-      <td>2</td>
+      <td align="center">2</td>
 
     </tr>
     <tr class="lab-student-list" *ngIf="activeRowIndex === i && isShown">
-      <td colspan="6" class="lab-student-list_item">
+      <td colspan="7" class="lab-student-list_item">
         <app-labs-list-for-teacher [students]="student"></app-labs-list-for-teacher>
       </td>
     </tr>
