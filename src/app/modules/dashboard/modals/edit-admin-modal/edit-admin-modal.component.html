@@ -1,0 +1,81 @@
+<div>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Edit admin</h4>
+    <button type="button"
+            class="close pull-right"
+            (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="userForm"
+          (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="firstName">Your first name</label>
+        <input formControlName="firstName"
+               type="text"
+               class="form-control"
+               [ngClass]="{ 'is-invalid': isSubmitted && firstName.errors }"
+               id="firstName"
+               autocomplete="on"
+               placeholder="Enter First Name">
+        <div *ngIf="isSubmitted && firstName.errors"
+             class="invalid-feedback">
+          <div *ngIf="firstName.errors.required">Name is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Your last name</label>
+        <input formControlName="lastName"
+               type="text"
+               class="form-control"
+               [ngClass]="{ 'is-invalid': isSubmitted && lastName.errors }"
+               id="lastName"
+               autocomplete="on"
+               placeholder="Enter Last Name">
+        <div *ngIf="isSubmitted && lastName.errors"
+             class="invalid-feedback">
+          <div *ngIf="lastName.errors.required">Name is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="email"
+               class="form-control"
+               id="email"
+               autocomplete="on"
+               placeholder="Enter email"
+               formControlName="email"
+               [ngClass]="{ 'is-invalid': isSubmitted && email.errors }">
+        <div *ngIf="isSubmitted && email.errors"
+             class="invalid-feedback">
+          <div *ngIf="email.errors.required">Email is required</div>
+          <div *ngIf="email.errors.email">Email must be a valid email address</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="phoneNumber">Your last name</label>
+        <input formControlName="phoneNumber"
+               type="tel"
+               class="form-control"
+               [ngClass]="{ 'is-invalid': isSubmitted && phoneNumber.errors }"
+               id="phoneNumber"
+               autocomplete="on"
+               placeholder="123-456-7890"
+               pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+        <div *ngIf="isSubmitted && phoneNumber.errors"
+             class="invalid-feedback">
+          <div *ngIf="phoneNumber.errors.required">Phone number is required</div>
+        </div>
+      </div>
+      <!-- [disabled]="userForm.invalid" -->
+      <button type="submit"
+              class="btn btn-primary"
+              (click)="bsModalRef.hide()">Edit</button>
+    </form>
+  </div>
+</div>

@@ -56,6 +56,7 @@ export class EditTeacherModalComponent implements OnInit, OnDestroy {
   get phoneNumber() {
     return this.userForm.controls.phoneNumber;
   }
+
   onSubmit() {
     this.isSubmitted = true;
 

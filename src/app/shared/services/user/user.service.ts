@@ -44,4 +44,9 @@ export class UserService {
     this.user = this.createUser(userFromStorage);
     return this.user;
   }
+
+  updateUser(user): any {
+    return localStorage.setItem('user', JSON.stringify(user)),
+      this.getUserLocalStorage('user');
+  }
 }
