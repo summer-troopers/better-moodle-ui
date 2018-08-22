@@ -31,17 +31,22 @@
         <div appHasRole="student">
           <form *ngIf="fileExists">
             <input type="file"
-                   id="raport-file"
-                   name="raport-file"
+                   ngFileSelect
+                   [options]="options"
+                   (uploadOutput)="onUploadOutput($event)"
+                   [uploadInput]="uploadInput"
+                   id="report-file"
+                   name="report-file"
                    class="inputfile"
-                   value="Add Task"/>
-            <label for="raport-file"><i class="fa fa-upload"
-                                        aria-hidden="true"></i>
+                   value="Add Report"/>
+            <label for="report-file"><i class="fa fa-upload"
+                                      aria-hidden="true"></i>
               Choose a file...</label> <br>
             <input type="button"
                    (click)="uploadReport()"
                    class="btn btn-secondary submit-button"
                    value="Submit"/>
+
           </form>
           <div *ngIf="fileExists">
             <button class="btn btn-secondary icon-button"
@@ -57,19 +62,24 @@
 
         <div appHasRole="teacher"
              class="custom-file">
-          <form *ngIf="fileExists" action="http://localhost:80/api/v1/lab_tasks" method="post">
+          <form *ngIf="fileExists">
             <input type="file"
+                   ngFileSelect
+                   [options]="options"
+                   (uploadOutput)="onUploadOutput($event)"
+                   [uploadInput]="uploadInput"
                    id="task-file"
-                   name="labTask"
+                   name="task-file"
                    class="inputfile"
                    value="Add Task"/>
             <label for="task-file"><i class="fa fa-upload"
                                       aria-hidden="true"></i>
               Choose a file...</label> <br>
-            <input type="submit"
-                   (click)="uploadTask($event)"
+            <input type="button"
+                   (click)="uploadTask()"
                    class="btn btn-secondary submit-button"
                    value="Submit"/>
+
           </form>
           <div *ngIf="fileExists">
             <button class="btn btn-secondary icon-button"
