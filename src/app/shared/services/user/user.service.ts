@@ -48,8 +48,7 @@ export class UserService {
 =======
 
   updateUser(user): any {
-    return localStorage.setItem('user', JSON.stringify(user)),
-      this.getUserLocalStorage('user');
+    return localStorage.setItem('user', JSON.stringify(user));
   }
 >>>>>>> test
 }
