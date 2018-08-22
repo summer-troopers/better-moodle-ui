@@ -1,0 +1,26 @@
+<div class="container table-responsive">
+
+  <table class="table table-sm table-hover">
+    <thead>
+    <tr class="table-success">
+      <th scope="col">#</th>
+      <th scope="col">Firstname</th>
+      <th scope="col">Lastname</th>
+      <th scope="col">Phone Number</th>
+      <th scope="col">Email</th>
+      <th scope="col">Group</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let student of students; let i = index">
+      <th scope="row">{{i+1}}</th>
+      <td>{{student.firstName}}</td>
+      <td>{{student.lastName}}</td>
+      <td>{{student.phoneNumber}}</td>
+      <td>{{student.email}}</td>
+      <td>{{student.group?.name}}</td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>

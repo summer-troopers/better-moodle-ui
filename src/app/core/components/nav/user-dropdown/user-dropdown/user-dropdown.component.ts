@@ -1,7 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {CreateUser} from '@shared/models/user-factory';
+import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from '@shared/services/user/user.service';
-import {AuthenticationService} from '@modules/authentication/authentication.service';
+import { AuthenticationService } from '@modules/authentication/authentication.service';
 
 @Component({
   selector: 'app-user-dropdown',
@@ -12,11 +11,11 @@ export class UserDropdownComponent implements OnInit {
   @Input() isCollapsed;
   user: any;
 
-  constructor( private userService: UserService, private authenticationService: AuthenticationService) { }
+  constructor(private userService: UserService, private authenticationService: AuthenticationService) {
+  }
 
   ngOnInit() {
-    const userFromStorage = this.userService.getUserLocalStorage('user');
-    this.user = CreateUser(userFromStorage);
+    this.user = this.userService.getUser();
   }
 
   logOut() {

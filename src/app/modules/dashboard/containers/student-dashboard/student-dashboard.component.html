@@ -1,5 +1,6 @@
 <div class="container">
-  <div class="card" *ngIf="user && user.isStudent()">
+  <div class="card"
+       appHasRole="student">
     <h1>{{user.firstName}} {{user.lastName}}</h1>
     <div class="card-body">
       <h6>First Name: {{user.firstName}}</h6>
@@ -7,20 +8,20 @@
       <h6>Email: {{user.email}}</h6>
       <h6>Phone Number: {{user.phoneNumber}}</h6>
       <h6>Role: {{user.userRole}}</h6>
+    </div>
+    <br>
   </div>
-  <br>
-</div>
-<hr>
+  <hr>
 
-
-<div>
-  <tabset #staticTabs>
-    <tab heading="My Courses">
-      <app-my-courses></app-my-courses>
-    </tab>
-    <tab heading="My Teachers">
-      <app-my-teachers></app-my-teachers>
-    </tab>
-  </tabset>
-</div>
-<br><br>
+  <div>
+    <tabset #staticTabs
+            appHasRole="student">
+      <tab heading="My Courses">
+        <app-user-courses [user]="user"></app-user-courses>
+      </tab>
+      <tab heading="My Teachers">
+        <app-user-teachers [user]="user"></app-user-teachers>
+      </tab>
+    </tabset>
+  </div>
+  <br><br>

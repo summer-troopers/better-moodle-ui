@@ -5,10 +5,11 @@
   <div *ngIf="teachers.length; else noTeachers">
     <div class="pageTitle">
       <h1>List of all teachers
-        <button appHasRole
+        <button appHasRole="admin"
                 type="button"
                 class="btn btn-primary pull-right"
-                (click)="openAddTeacherModal()">Add new teacher</button>
+                (click)="openAddTeacherModal()">Add new teacher
+        </button>
       </h1>
       <br>
     </div>
@@ -27,13 +28,16 @@
     <div class="text-center">
       <h2>Want to add a new teacher ? </h2>
     </div>
-    <button type="button"
-            class="btn btn-primary pull-right text-center"
-            (click)="openAddTeacherModal()">Add new teacher</button>
+    <button
+      appHasRole="admin"
+      type="button"
+      class="btn btn-primary pull-right text-center"
+      (click)="openAddTeacherModal()">Add new teacher
+    </button>
   </ng-template>
 
   <div class="pagination-container">
-    <pagination class="d-flex justify-content-center"
+    <pagination class="d-flex justify-content-center pagination-index"
                 [totalItems]="totalItems"
                 [(ngModel)]="currentPage"
                 (pageChanged)="pageChanged($event)"></pagination>

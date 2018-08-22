@@ -9,11 +9,11 @@ export class DashboardService {
   constructor(private crudService: CrudService) {
   }
 
-  getItemsofTeacher(pageUrl: string, teacherId: number): Observable<Array<any>> {
-    return this.crudService.getItems(`${pageUrl}?teacherId=${teacherId}`, null, null);
+  getItemsOfTeacher(pageUrl: string, teacherId: number): Observable<Array<any>> {
+    return this.crudService.getItems(`${pageUrl}?teacherId=${teacherId}`, 0, 50);
   }
 
-  getItemsofStudent(pageUrl: string, studentId: number): Observable<Array<any>> {
-    return this.crudService.getItems(`${pageUrl}?studentId=${studentId}`, null, null);
+  getItemsOfStudent(pageUrl: string, studentId: number): Observable<Array<any>> {
+    return this.crudService.getItems(`${pageUrl}?studentId=${studentId}`, 0, 50);
   }
 }
