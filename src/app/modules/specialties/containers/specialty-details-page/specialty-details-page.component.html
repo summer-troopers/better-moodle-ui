@@ -10,11 +10,11 @@
            [(ngModel)]="specialty.name"
            [attr.readOnly]="isEditable"
            [ngClass]="{ 'is-invalid': isSubmitted && specialtyName.errors }">
-    <button appHasRole
+    <button appHasRole="admin"
             class="btn btn-primary"
             (click)="openEditModal()">Edit
     </button>
-    <button appHasRole
+    <button appHasRole="admin"
             (click)="openDeleteModal()"
             class="btn btn-danger">Delete
     </button>
