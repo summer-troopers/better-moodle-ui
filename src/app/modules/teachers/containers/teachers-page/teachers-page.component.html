@@ -5,7 +5,8 @@
      *ngIf="teachers.length; else noTeachers">
   <div class="pageTitle">
     <h1>List of all teachers
-      <button type="button"
+      <button appHasRole="admin"
+              type="button"
               class="btn btn-primary pull-right"
               (click)="openAddTeacherModal()">Add new teacher</button>
     </h1>

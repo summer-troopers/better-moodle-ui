@@ -6,7 +6,8 @@
   <div class="pageTitle">
     <h1>
       List of all courses
-      <button class="btn btn-primary pull-right"
+      <button appHasRole="admin"
+              class="btn btn-primary pull-right"
               (click)="openAddCourseModal()">
         Add new course
       </button>
