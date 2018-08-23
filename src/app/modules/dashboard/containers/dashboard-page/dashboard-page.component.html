@@ -1,4 +1,5 @@
 <div class="container">
+  <app-local-alert [alerts]="alert"></app-local-alert>
   <h1 class="title"><i>My Profile</i></h1>
   <hr>
   <app-student-dashboard [user]="user" *ngIf="user && user.isStudent()"></app-student-dashboard>

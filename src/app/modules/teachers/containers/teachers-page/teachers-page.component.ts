@@ -11,7 +11,7 @@ import { PaginationParams } from '@shared/models/pagination-params';
 import { PaginatorHelperService } from '@shared/services/paginator-helper/paginator-helper.service';
 import { Alert, AlertType } from '@shared/models/alert';
 import { CrudService } from '@shared/services/crud/crud.service';
-import { TEACHERS_URL, NUMBER_ITEMS_PAGE, MODAL_OPTIONS } from '@shared/constants';
+import { MODAL_OPTIONS, NUMBER_ITEMS_PAGE, TEACHERS_URL } from '@shared/constants';
 
 @Component({
   selector: 'app-teachers-page',
