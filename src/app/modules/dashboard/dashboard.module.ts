@@ -17,8 +17,6 @@ import { UserStudentsComponent } from './components/user-students/user-students.
 import { SharedModule } from '@shared/shared.module';
 import { LabsListForTeacherComponent } from '@modules/dashboard/components/labs-list-for-teacher/labs-list-for-teacher.component';
 import { EditAdminModalComponent } from './modals/edit-admin-modal/edit-admin-modal.component';
-import { EditTeacherModalComponent } from './modals/edit-teacher-modal/edit-teacher-modal.component';
-import { EditStudentModalComponent } from './modals/edit-student-modal/edit-student-modal.component';
 
 const COMPONENTS = [
   DashboardPageComponent,
@@ -33,9 +31,7 @@ const COMPONENTS = [
 ];
 
 const MODALS = [
-  EditAdminModalComponent,
-  EditTeacherModalComponent,
-  EditStudentModalComponent
+  EditAdminModalComponent
 ];
 
 @NgModule({

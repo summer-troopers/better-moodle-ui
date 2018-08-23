@@ -17,8 +17,7 @@ import { UserService } from '@shared/services/user/user.service';
 
 @Component({
   selector: 'app-edit-admin-modal',
-  templateUrl: './edit-admin-modal.component.html',
-  styleUrls: ['./edit-admin-modal.component.scss']
+  templateUrl: './edit-admin-modal.component.html'
 })
 <<<<<<< HEAD
 export class EditAdminModalComponent implements OnInit {
