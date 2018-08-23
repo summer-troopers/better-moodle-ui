@@ -12,17 +12,25 @@ import { Admin } from '@shared/models/admin';
 import { ADMINS_URL } from '@shared/constants';
 import { CrudService } from '@shared/services/crud/crud.service';
 import { UserService } from '@shared/services/user/user.service';
-import { DashboardPageComponent } from '../../../dashboard/containers/dashboard-page/dashboard-page.component';
 
 >>>>>>> error
 
 @Component({
   selector: 'app-edit-admin-modal',
   templateUrl: './edit-admin-modal.component.html',
-  styleUrls: ['./edit-admin-modal.component.scss'],
-  providers: [DashboardPageComponent]
+  styleUrls: ['./edit-admin-modal.component.scss']
 })
+<<<<<<< HEAD
 export class EditAdminModalComponent implements OnInit {
+=======
+export class EditAdminModalComponent implements OnInit, OnDestroy {
+
+  destroy$: Subject<boolean> = new Subject<boolean>();
+  onChange: Subject<any> = new Subject<any>();
+
+  userForm: FormGroup;
+  alerts: Alert[] = [];
+>>>>>>> fix error
 
 <<<<<<< HEAD
   constructor() { }
@@ -33,9 +41,13 @@ export class EditAdminModalComponent implements OnInit {
 
   constructor(private crudService: CrudService,
     public bsModalRef: BsModalRef,
+<<<<<<< HEAD
     private userService: UserService,
     private dashboard: DashboardPageComponent) { }
 >>>>>>> error
+=======
+    private userService: UserService) { }
+>>>>>>> fix error
 
   ngOnInit() {
   }
@@ -64,9 +76,9 @@ export class EditAdminModalComponent implements OnInit {
       )
       .subscribe(
         succ => {
-          this.userService.updateUser(formParam);
+          // this.userService.updateUser(formParam);
+          this.onChange.next(this.userService.updateUser(formParam));
           this.hideConfirmationModal();
-          this.dashboard.ngOnInit();
         },
         err => { });
   }

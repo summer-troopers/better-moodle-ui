@@ -9,6 +9,7 @@ import { Alert, AlertType } from '@shared/models/alert';
 import { EditAdminModalComponent } from '../../modals/edit-admin-modal/edit-admin-modal.component';
 import { Admin } from '@shared/models/admin';
 import { CrudService } from '@shared/services/crud/crud.service';
+import { UserService } from '@shared/services/user/user.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -100,5 +101,11 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
+    this.modal = this.modalService.show(EditAdminModalComponent, { initialState });
+    this.modal.content.onChange.subscribe(
+      test => {
+        this.user = test;
+      }
+    );
   }
 }
