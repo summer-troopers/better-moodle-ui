@@ -13,7 +13,7 @@ export class DashboardPageComponent implements OnInit {
   alert: Alert[] = [];
 
   constructor(private userService: UserService,
-              private dashboardService: DashboardService) {
+    private dashboardService: DashboardService) {
   }
 
   ngOnInit() {

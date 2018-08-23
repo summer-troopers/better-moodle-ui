@@ -3,6 +3,7 @@ export const USER_STORAGE_KEY = 'user';
 export const ADMINS_URL = 'admins';
 export const GROUPS_URL = 'groups';
 export const SPECIALTIES_URL = 'specialties';
+export const DASHBOARLD_URL = 'dashboard';
 export const TEACHERS_URL = 'teachers';
 export const CONFIRM_MODAL_TIMEOUT = 2000;
 export const MIN_PASSWORD_LENGTH = 5;
