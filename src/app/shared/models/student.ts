@@ -1,5 +1,5 @@
 import { User } from '@shared/models/user';
-import Group from '@shared/models/group';
+import { Group } from '@shared/models/group';
 
 export class Student extends User {
   group?: Group;
