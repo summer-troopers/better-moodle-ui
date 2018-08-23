@@ -83,8 +83,8 @@
                [class.is-invalid]="isSubmitted && phoneNumber.errors"
                id="phoneNumber"
                autocomplete="on"
-               placeholder="123-456-7890"
-               pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+               placeholder="068123456"
+               pattern="[0-9]{9}">
         <div *ngIf="isSubmitted && phoneNumber.errors"
              class="invalid-feedback">
           <div *ngIf="phoneNumber.errors.required">Phone number is required</div>
