@@ -4,12 +4,12 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { Subject, throwError } from 'rxjs';
 import { takeUntil, flatMap, catchError, map } from 'rxjs/operators';
 
-import { EditCourseModalComponent } from '@modules/courses/components';
 import { Alert, AlertType } from '@shared/models/alert';
 import { Course } from '@shared/models/course';
 import { CrudService } from '@shared/services/crud/crud.service';
-import { COURSES_URL } from '@shared/constants';
+import { COURSES_URL, MODAL_OPTIONS } from '@shared/constants';
 import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
+import { GlobalModalComponent } from '@shared/components/global-modal/global-modal.component';
 
 @Component({
   selector: 'app-course-details-page',
@@ -58,12 +58,14 @@ export class CourseDetailsPageComponent implements OnInit, OnDestroy {
   }
 
   openEditModal() {
-    const initialState: any = {
-      course: this.course
+    MODAL_OPTIONS['initialState'] = {
+      onAdd: false,
+      itemType: 'course',
+      item: this.course
     };
-    this.modalRef = this.modalService.show(EditCourseModalComponent, { initialState });
+    this.modalRef = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
 
-    this.modalRef.content.editItemEvent
+    this.modalRef.content.itemEdited
       .pipe(takeUntil(this.destroy$))
       .subscribe((course) => {
         this.course = course;

@@ -10,7 +10,8 @@ import { PaginationParams } from '@shared/models/pagination-params';
 import { Alert, AlertType } from '@shared/models/alert';
 import { CrudService } from '@shared/services/crud/crud.service';
 import { PaginatorHelperService } from '@shared/services/paginator-helper/paginator-helper.service';
-import { SPECIALTIES_URL, NUMBER_ITEMS_PAGE } from '@shared/constants';
+import { GlobalModalComponent } from '@shared/components/global-modal/global-modal.component';
+import { SPECIALTIES_URL, NUMBER_ITEMS_PAGE, MODAL_OPTIONS } from '@shared/constants';
 
 @Component({
   selector: 'app-specialties-page',
@@ -28,10 +29,10 @@ export class SpecialtiesPageComponent implements OnInit, OnDestroy {
   modalRef: BsModalRef;
 
   constructor(private crudService: CrudService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private paginatorHelperService: PaginatorHelperService,
-              private modalService: BsModalService) {
+    private route: ActivatedRoute,
+    private router: Router,
+    private paginatorHelperService: PaginatorHelperService,
+    private modalService: BsModalService) {
   }
 
   ngOnInit() {
@@ -49,7 +50,7 @@ export class SpecialtiesPageComponent implements OnInit, OnDestroy {
     return this.crudService.getItems(SPECIALTIES_URL, this.paginationParams.offset, this.paginationParams.limit)
       .pipe(takeUntil(this.destroy$),
         catchError(error => {
-          this.alerts.push({type: AlertType.Error, message: error});
+          this.alerts.push({ type: AlertType.Error, message: error });
 
           return throwError(error);
         }));
@@ -72,11 +73,19 @@ export class SpecialtiesPageComponent implements OnInit, OnDestroy {
 
   pageChanged(event: any) {
     this.currentPage = event.page;
-    this.router.navigate([SPECIALTIES_URL], {queryParams: {page: event.page}});
+    this.router.navigate([SPECIALTIES_URL], { queryParams: { page: event.page } });
   }
 
   openAddModal() {
-    this.modalRef = this.modalService.show(AddSpecialtyModalComponent);
+    MODAL_OPTIONS['initialState'] = {
+      onAdd: true,
+      itemType: 'specialty'
+    };
+    this.modalRef = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
+    this.modalRef.content.itemAdded
+      .subscribe((newSpecialty) => {
+        this.specialties.unshift(newSpecialty);
+      });
   }
 
   setSpecialties(specialties) {

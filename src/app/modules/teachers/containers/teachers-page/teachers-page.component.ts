@@ -6,7 +6,7 @@ import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, mergeMap, takeUntil } from 'rxjs/operators';
 
 import { Teacher } from '@shared/models/teacher';
-import { AddTeacherModalComponent } from '@teacherModals/add-teacher-modal/add-teacher-modal.component';
+import { GlobalModalComponent } from '@shared/components/global-modal/global-modal.component';
 import { PaginationParams } from '@shared/models/pagination-params';
 import { PaginatorHelperService } from '@shared/services/paginator-helper/paginator-helper.service';
 import { Alert, AlertType } from '@shared/models/alert';
@@ -42,8 +42,12 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
   }
 
   openAddTeacherModal() {
-    this.modalRef = this.modalService.show(AddTeacherModalComponent, MODAL_OPTIONS);
-    this.modalRef.content.teacherAdded
+    MODAL_OPTIONS['initialState'] = {
+      onAdd: true,
+      itemType: 'teacher'
+    };
+    this.modalRef = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
+    this.modalRef.content.itemAdded
       .pipe(takeUntil(this.destroy$))
       .subscribe((newTeacher) => {
         this.teachers.unshift(newTeacher);

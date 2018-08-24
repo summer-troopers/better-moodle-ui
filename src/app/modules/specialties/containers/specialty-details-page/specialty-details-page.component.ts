@@ -6,9 +6,9 @@ import { flatMap, takeUntil } from 'rxjs/operators';
 
 import { CrudService } from '@shared/services/crud/crud.service';
 import { Alert, AlertType } from '@shared/models/alert';
-import { SPECIALTIES_URL } from '@shared/constants';
+import { SPECIALTIES_URL, MODAL_OPTIONS } from '@shared/constants';
 import { Specialty } from '@shared/models/specialty';
-import { EditSpecialtyModalComponent } from '@modules/specialties/components/edit-specialty-modal/edit-specialty-modal.component';
+import { GlobalModalComponent } from '@shared/components/global-modal/global-modal.component';
 import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
 
 @Component({
@@ -26,8 +26,8 @@ export class SpecialtyDetailsPageComponent implements OnInit, OnDestroy {
   message: string;
 
   constructor(private route: ActivatedRoute,
-              private modalService: BsModalService,
-              private crudService: CrudService) {
+    private modalService: BsModalService,
+    private crudService: CrudService) {
   }
 
   ngOnInit() {
@@ -35,11 +35,20 @@ export class SpecialtyDetailsPageComponent implements OnInit, OnDestroy {
   }
 
   openEditModal() {
-    const initialState: any = {
-      specialty: this.specialty,
-      editItem: this.editItem,
+    MODAL_OPTIONS['initialState'] = {
+      onAdd: false,
+      itemType: 'specialty',
+      item: this.specialty
     };
-    this.modalRef = this.modalService.show(EditSpecialtyModalComponent, {initialState});
+    this.modalRef = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
+    this.modalRef.content.itemEdited
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((specialty) => {
+        this.specialty = specialty;
+        this.alerts.push({ type: AlertType.Success, message: 'Teacher was edited!' });
+      }, error => {
+        this.alerts.push({ type: AlertType.Error, message: error });
+      });
   }
 
   editItem(event: any) {
@@ -58,7 +67,7 @@ export class SpecialtyDetailsPageComponent implements OnInit, OnDestroy {
         this.specialty = specialty;
       },
       error => {
-        this.alerts.push({type: AlertType.Error, message: `Couldn't get the specialty!`});
+        this.alerts.push({ type: AlertType.Error, message: `Couldn't get the specialty!` });
       }
     );
   }

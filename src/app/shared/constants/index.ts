@@ -15,7 +15,9 @@ export const AUTHENTICATION_URL = 'auth';
 export const NUMBER_ITEMS_PAGE = 10;
 export const MAX_SIZE_PAGINATION = 5;
 export const STUDENTS_URL = 'students';
-export const MODAL_OPTIONS: {} = {
+export const ADMINS_URL = 'admins';
+export var MODAL_OPTIONS: {} = {
+  initialState: {},
   backdrop: 'static',
   keyboard: false
 };
