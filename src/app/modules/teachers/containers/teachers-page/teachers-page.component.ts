@@ -44,7 +44,9 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
   openAddTeacherModal() {
     MODAL_OPTIONS['initialState'] = {
       onAdd: true,
-      itemType: 'teacher'
+      itemType: 'teacher',
+      title: 'Add New Teacher',
+      buttonTitle: 'Add Teacher'
     };
     this.modalRef = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
     this.modalRef.content.itemAdded

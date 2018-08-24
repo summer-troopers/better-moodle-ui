@@ -38,7 +38,9 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
     MODAL_OPTIONS['initialState'] = {
       onAdd: false,
       itemType: 'group',
-      item: this.group
+      item: this.group,
+      title: 'Edit Group',
+      buttonTitle: 'Update Group'
     };
     this.modalRef = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
     this.modalRef.content.itemEdited

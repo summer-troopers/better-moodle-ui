@@ -78,7 +78,9 @@ export class SpecialtiesPageComponent implements OnInit, OnDestroy {
   openAddModal() {
     MODAL_OPTIONS['initialState'] = {
       onAdd: true,
-      itemType: 'specialty'
+      itemType: 'specialty',
+      title: 'Add New Specialty',
+      buttonTitle: 'Add Specialty'
     };
     this.modalRef = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
     this.modalRef.content.itemAdded

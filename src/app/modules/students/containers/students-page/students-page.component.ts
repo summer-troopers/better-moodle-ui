@@ -64,7 +64,9 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
   openAddStudentModal() {
     MODAL_OPTIONS['initialState'] = {
       onAdd: true,
-      itemType: 'student'
+      itemType: 'student',
+      title: 'Add New Student',
+      buttonTitle: 'Add Student'
     };
     this.userModalRef = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
     this.userModalRef.content.itemAdded

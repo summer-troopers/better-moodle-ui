@@ -76,7 +76,9 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
   openAddCourseModal() {
     MODAL_OPTIONS['initialState'] = {
       onAdd: true,
-      itemType: 'course'
+      itemType: 'course',
+      title: 'Add New Course',
+      buttonTitle: 'Add Course'
     };
     this.modalRef = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
 

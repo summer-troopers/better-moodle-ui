@@ -30,6 +30,9 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
 
   confirmModalRef: BsModalRef;
 
+  title: string;
+  buttonTitle: string;
+
   constructor(private formBuilder: FormBuilder,
     private crudService: CrudService,
     public itemModalRef: BsModalRef) { }
@@ -97,8 +100,8 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
   }
 
   addSpecialtyIdIfGroup() {
-    if (this.itemType == 'student')
-      this.itemForm.addControl('groupId', new FormControl(this.getSpecialtyIdValue(), Validators.required));
+    if (this.itemType == 'group')
+      this.itemForm.addControl('specialtyId', new FormControl(this.getSpecialtyIdValue(), Validators.required));
   }
 
   getSpecialtyIdValue() {

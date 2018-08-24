@@ -38,7 +38,9 @@ export class SpecialtyDetailsPageComponent implements OnInit, OnDestroy {
     MODAL_OPTIONS['initialState'] = {
       onAdd: false,
       itemType: 'specialty',
-      item: this.specialty
+      item: this.specialty,
+      title: 'Edit Specialty',
+      buttonTitle: 'Update Specialty'
     };
     this.modalRef = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
     this.modalRef.content.itemEdited

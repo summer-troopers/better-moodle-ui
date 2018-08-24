@@ -74,7 +74,9 @@ export class GroupsPageComponent implements OnInit, OnDestroy {
   openAddModal() {
     MODAL_OPTIONS['initialState'] = {
       onAdd: true,
-      itemType: 'group'
+      itemType: 'group',
+      title: 'Add New Group',
+      buttonTitle: 'Add Group'
     };
     this.modalRef = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
     this.modalRef.content.itemAdded

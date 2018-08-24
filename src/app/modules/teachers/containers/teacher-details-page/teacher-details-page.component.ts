@@ -52,7 +52,9 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
     MODAL_OPTIONS['initialState'] = {
       onAdd: false,
       itemType: 'teacher',
-      item: this.teacher
+      item: this.teacher,
+      title: 'Edit Teacher',
+      buttonTitle: 'Update Teacher'
     };
     this.modal = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
     this.modal.content.itemEdited

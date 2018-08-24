@@ -1,5 +1,5 @@
 <app-default-modal [form]="itemForm"
-                   title="Add new user">
+                   [title]="title">
   <form [formGroup]="itemForm"
         (ngSubmit)="onSubmit()">
     <div class="form-group"
@@ -129,6 +129,6 @@
 
     <button [disabled]="itemForm.invalid"
             type="submit"
-            class="btn btn-primary">Submit</button>
+            class="btn btn-primary">{{buttonTitle}}</button>
   </form>
 </app-default-modal>
