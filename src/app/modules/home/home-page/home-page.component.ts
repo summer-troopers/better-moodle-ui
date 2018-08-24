@@ -17,7 +17,6 @@ export class HomePageComponent implements OnInit {
   constructor(private crud: CrudService) { }
 
   ngOnInit() {
-    this.getAllAdmins();
     this.getAllStudents();
     this.getAllTeachers();
   }
@@ -37,13 +36,4 @@ export class HomePageComponent implements OnInit {
       }
     );
   }
-
-  getAllAdmins() {
-    return this.crud.getItems(ADMINS_URL).subscribe(
-      admin => {
-        this.totalAdmins = admin.length;
-      }
-    );
-  }
-
 }
