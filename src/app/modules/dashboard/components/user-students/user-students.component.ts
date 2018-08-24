@@ -52,7 +52,7 @@ export class UserStudentsComponent implements OnInit, OnDestroy {
           return throwError(error);
         })
       )
-      .subscribe((students) => {
+      .subscribe(students => {
         this.students = students;
       });
   }

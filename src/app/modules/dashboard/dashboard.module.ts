@@ -36,8 +36,7 @@ const COMPONENTS = [
     TabsModule.forRoot(),
   ],
   declarations: [
-    ...COMPONENTS,
-    LabsListForTeacherComponent
+    ...COMPONENTS
   ]
 })
 export class DashboardModule {
