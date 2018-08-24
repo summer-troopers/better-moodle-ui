@@ -1,27 +1,38 @@
 <div class="container">
   <app-local-alert [alerts]="alerts"></app-local-alert>
 </div>
-<div class="container">
-  <div class="pageTitle">
-    <button appHasRole="admin"
-            class="btn btn-primary pull-right"
-            (click)="openAddModal()">Add a new group
-    </button>
-    <h1>List of all groups</h1>
-    <ul class="list-group">
-      <li class="list-group-item list-group-item-dark"
-          *ngFor="let group of groups"
-          [routerLink]="['/groups', group.id]">
-        <a class="list-group-item list-group-item-action">{{group.name}}</a>
-      </li>
-    </ul>
-  </div>
-
-  <div class="pagination-container">
-    <pagination class="d-flex justify-content-center"
-                *ngIf="totalItems && currentPage"
-                [totalItems]="totalItems"
-                [(ngModel)]="currentPage"
-                (pageChanged)="pageChanged($event)"></pagination>
-  </div>
+<div class="container"
+     *ngIf="groups.length; else noGroups"></div>
+<div class="pageTitle">
+  <button appHasRole="admin"
+          class="btn btn-primary pull-right"
+          (click)="openAddModal()">Add a new group
+  </button>
+  <h1>List of all groups</h1>
+  <ul class="list-group">
+    <li class="list-group-item list-group-item-dark"
+        *ngFor="let group of groups"
+        [routerLink]="['/groups', group.id]">
+      <a class="list-group-item list-group-item-action">{{group.name}}</a>
+    </li>
+  </ul>
 </div>
+
+<div class="pagination-container">
+  <pagination class="d-flex justify-content-center"
+              *ngIf="totalItems && currentPage"
+              [totalItems]="totalItems"
+              [(ngModel)]="currentPage"
+              (pageChanged)="pageChanged($event)"></pagination>
+</div>
+</div>
+
+<ng-template #noGroups>
+  <div class="container bottom-padded">
+    <h1>No groups to show...</h1>
+    <h2 class="text-center">Want to add a new group? </h2>
+    <button type="button"
+            class="btn btn-primary pull-right text-center"
+            (click)="openAddModal()">Add new group</button>
+  </div>
+</ng-template>

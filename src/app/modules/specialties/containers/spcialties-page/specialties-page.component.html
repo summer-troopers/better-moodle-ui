@@ -1,7 +1,8 @@
 <div class="container">
   <app-local-alert [alerts]="alerts"></app-local-alert>
 </div>
-<div class="container">
+<div class="container"
+     *ngIf="specialties.length; else noSpecialties">
   <div class="pageTitle">
     <button appHasRole="admin"
             class="btn btn-primary pull-right"
@@ -24,3 +25,13 @@
                 (pageChanged)="pageChanged($event)"></pagination>
   </div>
 </div>
+
+<ng-template #noSpecialties>
+  <div class="container bottom-padded">
+    <h1>No specialties to show...</h1>
+    <h2 class="text-center">Want to add a new specialty? </h2>
+    <button type="button"
+            class="btn btn-primary pull-right text-center"
+            (click)="openAddModal()">Add new Specialty</button>
+  </div>
+</ng-template>
