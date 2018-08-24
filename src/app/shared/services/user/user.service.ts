@@ -13,9 +13,6 @@ export class UserService {
 
   updatedUser: Subject<any> = new Subject<any>();
 
-  constructor() {
-  }
-
   getUserLocalStorage(key: string) {
     const item = localStorage.getItem(key);
     let parsedItem;
@@ -48,8 +45,7 @@ export class UserService {
     return this.user;
   }
   updateUser(user): any {
-    localStorage.setItem('user', JSON.stringify(user));
     this.user = user;
-    //return user;
+    return this.user;
   }
 }

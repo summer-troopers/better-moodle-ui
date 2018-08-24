@@ -8,10 +8,11 @@ import { Subject, throwError } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 
 import { Admin } from '@shared/models/admin';
-import { ADMINS_URL } from '@shared/constants';
+import { ADMINS_URL, USER_STORAGE_KEY } from '@shared/constants';
 import { CrudService } from '@shared/services/crud/crud.service';
 import { UserService } from '@shared/services/user/user.service';
 import { Alert, AlertType } from '@shared/models/alert';
+import { LocalStorageService } from '@shared/services/local-storage/local-storage.service';
 
 >>>>>>> error
 
@@ -41,12 +42,17 @@ export class EditAdminModalComponent implements OnInit, OnDestroy {
   constructor(private crudService: CrudService,
     public bsModalRef: BsModalRef,
 <<<<<<< HEAD
+<<<<<<< HEAD
     private userService: UserService,
     private dashboard: DashboardPageComponent) { }
 >>>>>>> error
 =======
     private userService: UserService) { }
 >>>>>>> fix error
+=======
+    private userService: UserService,
+    private localStorage: LocalStorageService) { }
+>>>>>>> fix
 
   ngOnInit() {
 <<<<<<< HEAD
@@ -102,6 +108,7 @@ export class EditAdminModalComponent implements OnInit, OnDestroy {
       )
       .subscribe(
         succ => {
+          this.localStorage.insertLocalStorage(formParam, USER_STORAGE_KEY);
           this.onChange.next(this.userService.updateUser(formParam));
           this.hideConfirmationModal();
         });
