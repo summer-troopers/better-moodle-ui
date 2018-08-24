@@ -86,7 +86,14 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
 
   addGroupIdIfStudent() {
     if (this.itemType == 'student')
-      this.itemForm.addControl('groupId', new FormControl(this.item.groupId, Validators.required));
+      this.itemForm.addControl('groupId', new FormControl(this.getGroupIdValue(), Validators.required));
+  }
+
+  getGroupIdValue() {
+    if (!this.onAdd)
+      return this.item.groupId;
+    else
+      return '';
   }
 
   addSpecialtyControlIfGroup() {

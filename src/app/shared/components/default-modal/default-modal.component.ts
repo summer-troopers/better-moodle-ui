@@ -8,8 +8,7 @@ import { ModalHelperService } from '@shared/services/modal-helper/modal-helper.s
 
 @Component({
   selector: 'app-default-modal',
-  templateUrl: './default-modal.component.html',
-  styleUrls: ['./default-modal.component.scss']
+  templateUrl: './default-modal.component.html'
 })
 export class DefaultModalComponent implements OnInit {
   @Input() title: string;
