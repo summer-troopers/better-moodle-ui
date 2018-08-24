@@ -81,8 +81,8 @@ export class GroupsPageComponent implements OnInit, OnDestroy {
     this.modalRef = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
     this.modalRef.content.itemAdded
       .pipe(takeUntil(this.destroy$))
-      .subscribe((newTeacher) => {
-        this.groups.unshift(newTeacher);
+      .subscribe((group) => {
+        this.groups.unshift(group);
       });
   }
 
