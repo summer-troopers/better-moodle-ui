@@ -9,12 +9,14 @@ export class PaginatorHelperService {
   constructor() { }
 
   getPaginationParams(totalItems: number, selectedPage: number): PaginationParams {
-    let offset = 0;
-    let limit = 10;
-    if (totalItems - (limit * selectedPage) < 0) {
-      limit = -(totalItems - (limit * selectedPage));
+    const limit = 10;
+    const select = selectedPage - 1;
+    let offset;
+
+    if (selectedPage <= 0 || !selectedPage || !totalItems || totalItems === 0) {
+      offset = 0;
     } else {
-      offset = totalItems - (limit * selectedPage);
+      offset = limit * select;
     }
 
     return new PaginationParams(limit, offset);

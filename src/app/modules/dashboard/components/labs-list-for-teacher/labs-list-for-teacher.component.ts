@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { catchError, takeUntil } from 'rxjs/operators';
 import { Subject, throwError } from 'rxjs';
 
@@ -22,6 +22,7 @@ export class LabsListForTeacherComponent implements OnInit {
   @Input() students;
 
   alerts: Alert[] = [];
+  downloadAlertEvent: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private dashboardService: DashboardService,
               private crudService: CrudService,
@@ -38,6 +39,7 @@ export class LabsListForTeacherComponent implements OnInit {
         takeUntil(this.destroy$),
         catchError((error) => {
           this.alerts.push({type: AlertType.Error, message: error});
+          this.downloadAlertEvent.emit(this.dashboardService.downloadAlert.next(this.alerts));
           return throwError(error);
         })
       )
@@ -51,6 +53,7 @@ export class LabsListForTeacherComponent implements OnInit {
       .pipe(takeUntil(this.destroy$),
         catchError((error) => {
           this.alerts.push({type: AlertType.Error, message: error});
+          this.downloadAlertEvent.emit(this.dashboardService.downloadAlert.next(this.alerts));
 
           return throwError(error);
         }))
