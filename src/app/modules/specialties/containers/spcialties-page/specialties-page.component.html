@@ -29,8 +29,10 @@
 <ng-template #noSpecialties>
   <div class="container bottom-padded">
     <h1>No specialties to show...</h1>
-    <h2 class="text-center">Want to add a new specialty? </h2>
-    <button type="button"
+    <h2 appHasRole="admin"
+        class="text-center">Want to add a new specialty? </h2>
+    <button appHasRole="admin"
+            type="button"
             class="btn btn-primary pull-right text-center"
             (click)="openAddModal()">Add new Specialty</button>
   </div>

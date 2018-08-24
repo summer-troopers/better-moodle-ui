@@ -33,8 +33,10 @@
 <ng-template #noStudents>
   <div class="container bottom-padded">
     <h1>No students to show...</h1>
-    <h2 class="text-center">Want to add a new Student? </h2>
-    <button type="button"
+    <h2 appHasRole="admin"
+        class="text-center">Want to add a new Student? </h2>
+    <button appHasRole="admin"
+            type="button"
             class="btn btn-primary pull-right text-center"
             (click)="openAddStudentModal()">Add new student</button>
   </div>

@@ -36,8 +36,10 @@
 <ng-template #noCourses>
   <div class="container bottom-padded">
     <h1>No courses to show...</h1>
-    <h2 class="text-center">Want to add a new course? </h2>
-    <button type="button"
+    <h2 appHasRole="admin"
+        class="text-center">Want to add a new course? </h2>
+    <button appHasRole="admin"
+            type="button"
             class="btn btn-primary pull-right text-center"
             (click)="openAddCourseModal()">Add new course</button>
   </div>

@@ -32,8 +32,10 @@
 <ng-template #noTeachers>
   <div class="container bottom-padded">
     <h1>No teachers to show...</h1>
-    <h2 class="text-center">Want to add a new teacher? </h2>
-    <button type="button"
+    <h2 appHasRole="admin"
+        class="text-center">Want to add a new teacher? </h2>
+    <button appHasRole="admin"
+            type="button"
             class="btn btn-primary pull-right text-center"
             (click)="openAddTeacherModal()">Add new teacher</button>
   </div>

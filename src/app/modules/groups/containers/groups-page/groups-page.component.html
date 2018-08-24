@@ -30,8 +30,10 @@
 <ng-template #noGroups>
   <div class="container bottom-padded">
     <h1>No groups to show...</h1>
-    <h2 class="text-center">Want to add a new group? </h2>
-    <button type="button"
+    <h2 appHasRole="admin"
+        class="text-center">Want to add a new group? </h2>
+    <button appHasRole="admin"
+            type="button"
             class="btn btn-primary pull-right text-center"
             (click)="openAddModal()">Add new group</button>
   </div>
