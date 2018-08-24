@@ -4,11 +4,14 @@
 <div class="container"
      *ngIf="specialties.length; else noSpecialties">
   <div class="pageTitle">
-    <button appHasRole="admin"
-            class="btn btn-primary pull-right"
-            (click)="openAddModal()">Add a new specialty
-    </button>
-    <h1>List of all specialties</h1>
+    <h1>List of all specialties
+      <button appHasRole="admin"
+              class="btn btn-primary pull-right"
+              (click)="openAddModal()">Add a new specialty
+      </button>
+    </h1>
+    <br>
+    <br>
     <ul class="list-group ">
       <li class="list-group-item list-group-item-dark"
           *ngFor="let specialty of specialties"
