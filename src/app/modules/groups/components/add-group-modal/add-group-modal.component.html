@@ -4,7 +4,6 @@
           (click)="modalRef.hide()"></button>
 </div>
 <div class="modal-body">
-  <app-local-alert [alerts]="alerts"></app-local-alert>
   <form [formGroup]="groupForm"
         (ngSubmit)="onSubmit()">
     <div class="form-group">
