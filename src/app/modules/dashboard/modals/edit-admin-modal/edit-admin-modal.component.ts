@@ -14,8 +14,11 @@ import { UserService } from '@shared/services/user/user.service';
 import { Alert, AlertType } from '@shared/models/alert';
 import { LocalStorageService } from '@shared/services/local-storage/local-storage.service';
 
+<<<<<<< HEAD
 >>>>>>> error
 
+=======
+>>>>>>> del space
 @Component({
   selector: 'app-edit-admin-modal',
   templateUrl: './edit-admin-modal.component.html'
