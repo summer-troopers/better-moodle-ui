@@ -6,12 +6,12 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject, throwError } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
-import { Alert, AlertType } from '@shared/models/alert';
 
 import { Admin } from '@shared/models/admin';
 import { ADMINS_URL } from '@shared/constants';
 import { CrudService } from '@shared/services/crud/crud.service';
 import { UserService } from '@shared/services/user/user.service';
+import { Alert, AlertType } from '@shared/models/alert';
 
 >>>>>>> error
 
@@ -49,6 +49,33 @@ export class EditAdminModalComponent implements OnInit, OnDestroy {
 >>>>>>> fix error
 
   ngOnInit() {
+<<<<<<< HEAD
+=======
+    this.initProfileForm();
+  }
+
+  initProfileForm() {
+    this.userForm = new FormGroup({
+      id: new FormControl(this.user.id),
+      firstName: new FormControl(this.user.firstName, Validators.required),
+      lastName: new FormControl(this.user.lastName, Validators.required),
+      email: new FormControl(this.user.email, [Validators.required, Validators.email]),
+      phoneNumber: new FormControl(this.user.phoneNumber, Validators.required),
+      userRole: new FormControl(this.user.userRole)
+    });
+  }
+
+  get firstName() {
+    return this.userForm.controls.firstName;
+  }
+
+  get lastName() {
+    return this.userForm.controls.lastName;
+  }
+
+  get email() {
+    return this.userForm.controls.email;
+>>>>>>> fix few errors
   }
 
 <<<<<<< HEAD
@@ -75,11 +102,9 @@ export class EditAdminModalComponent implements OnInit, OnDestroy {
       )
       .subscribe(
         succ => {
-          // this.userService.updateUser(formParam);
           this.onChange.next(this.userService.updateUser(formParam));
           this.hideConfirmationModal();
-        },
-        err => { });
+        });
   }
 
   ngOnDestroy() {

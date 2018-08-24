@@ -49,6 +49,7 @@ export class UserService {
   }
   updateUser(user): any {
     localStorage.setItem('user', JSON.stringify(user));
-    return user;
+    this.user = user;
+    //return user;
   }
 }

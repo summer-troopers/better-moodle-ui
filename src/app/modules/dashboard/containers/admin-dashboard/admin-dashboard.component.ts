@@ -103,8 +103,8 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     this.destroy$.unsubscribe();
     this.modal = this.modalService.show(EditAdminModalComponent, { initialState });
     this.modal.content.onChange.subscribe(
-      test => {
-        this.user = test;
+      user => {
+        this.user = user;
       }
     );
   }
