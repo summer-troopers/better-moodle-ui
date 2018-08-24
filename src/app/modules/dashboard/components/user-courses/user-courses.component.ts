@@ -22,6 +22,7 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
   courses: Array<Course> = [];
   alerts: Alert[] = [];
   fileExists = true;
+
   @Input() user;
 
   options: UploaderOptions;
@@ -32,9 +33,8 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
 
   constructor(private dashboardService: DashboardService,
               private crudService: CrudService,
-              private downloadService: DownloadService,
+              private downloadService: DownloadService
   ) {
-
     this.options = {concurrency: 1, maxUploads: 3};
     this.uploadInput = new EventEmitter<UploadInput>();
   }
@@ -64,53 +64,61 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
     )
       .subscribe((courses) => {
         this.courses = courses;
+        console.log(this.courses);
       });
   }
 
-  deleteTask() {
-  }
 
-  deleteReport() {
-  }
-
-
-  uploadReport() {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUm9sZSI6ImFkbWluIiwidXNlciI6MSwiaWF0IjoxNTM0Nzc5OTczLCJleHAiOjE1MzU2NDM5NzN9._Qj4Y8OlrC2dxyQFDz7muqOBRLIyYxnz6hQnXaT7OBE';  // <----  get token
-    const event: UploadInput = {
+  uploadReport(courseId): void {
+    const token = localStorage.getItem('authorization');
+    const ContentType = this.file.type;
+    const uploadEvent: UploadInput = {
       type: 'uploadFile',
       url: 'http://localhost:80/api/v1/lab_reports',
       method: 'POST',
-      headers: {token},  // <----  set headers
-      data: {courseId: '1'},
+      headers: {token},
+      data: {courseId, ContentType},
       fieldName: 'labReport',
       file: this.file,
     };
-    console.log(event);
-    this.uploadInput.emit(event);
+    this.uploadInput.emit(uploadEvent);
+
+    const removeEvent: UploadInput = {
+      type: 'remove',
+      id: this.file.id,
+    };
+    this.uploadInput.emit(removeEvent);
   }
 
-  uploadTask(): void {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUm9sZSI6ImFkbWluIiwidXNlciI6MSwiaWF0IjoxNTM0Nzc5OTczLCJleHAiOjE1MzU2NDM5NzN9._Qj4Y8OlrC2dxyQFDz7muqOBRLIyYxnz6hQnXaT7OBE';  // <----  get token
-    const event: UploadInput = {
+  uploadTask(courseId): void {
+    const token = localStorage.getItem('authorization');
+    const ContentType = this.file.type;
+    const uploadEvent: UploadInput = {
       type: 'uploadFile',
       url: 'http://localhost:80/api/v1/lab_tasks',
       method: 'POST',
-      headers: {token},  // <----  set headers
-      data: {courseId: '1'},
+      headers: {token},
+      data: {courseId, ContentType},
       fieldName: 'labTask',
       file: this.file,
     };
-    console.log(event);
-    this.uploadInput.emit(event);
+    this.uploadInput.emit(uploadEvent);
+
+    const removeEvent: UploadInput = {
+      type: 'remove',
+      id: this.file.id,
+    };
+    this.uploadInput.emit(removeEvent);
   }
 
   onUploadOutput(output: UploadOutput): void {
-    console.log(output);
-    if (output.type === 'addedToQueue' && typeof output.file !== 'undefined') { // add file to array when added
+    if (output.type === 'addedToQueue' && typeof output.file !== 'undefined') {
       this.file = output.file;
     }
-    console.log(this.file);
+    // console.log(this.file);
+    console.log(output);
   }
+
 
   downloadTask(id) {
     this.crudService.getItem(LABTASK_URL, id, true)
@@ -137,4 +145,33 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
         this.downloadService.downloadFile(data);
       });
   }
+
+
+  deleteTask(id) {
+    this.crudService.deleteItem(LABTASK_URL, id)
+      .pipe(takeUntil(this.destroy$),
+        catchError((error) => {
+          this.alerts.push({type: AlertType.Error, message: error});
+
+          return throwError(error);
+        }))
+      .subscribe(data => {
+        this.file = data;
+      });
+  }
+
+  deleteReport() {
+    this.crudService.deleteItem(LABORATORY_URL, id)
+      .pipe(takeUntil(this.destroy$),
+        catchError((error) => {
+          this.alerts.push({type: AlertType.Error, message: error});
+
+          return throwError(error);
+        }))
+      .subscribe(data => {
+        this.file = data;
+      });
+  }
+
+
 }
