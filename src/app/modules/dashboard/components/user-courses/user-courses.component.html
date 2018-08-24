@@ -53,10 +53,6 @@
                     (click)="downloadReport(course.labReport.id)"><i class="fa fa-file"></i><br>{{course.labReport?.name}}Download
               Raport Name
             </button>
-            <br>
-            <button class="btn btn-secondary delete-button"
-                    (click)="deleteReport()">Delete Report
-            </button>
           </div>
         </div>
 
@@ -83,12 +79,12 @@
           </form>
           <div *ngIf="fileExists">
             <button class="btn btn-secondary icon-button"
-                    (click)="downloadTask(course.labTask.id)"><i class="fa fa-file"></i><br>{{course.labTask?.name}}Download
-              Task Name
+                    (click)="downloadTask(course.labTask.id)"><i class="fa fa-file"></i><br>Download Task Name
+              {{course.labTask?.name}}
             </button>
             <br>
             <button class="btn btn-secondary delete-button"
-                    (click)="deleteTask()">Delete Task
+                    (click)="deleteTask(course.labTask.id)">Delete Task {{course.labTask?.name}}
             </button>
           </div>
           <br>

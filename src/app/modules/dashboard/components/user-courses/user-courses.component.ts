@@ -64,7 +64,6 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
     )
       .subscribe((courses) => {
         this.courses = courses;
-        console.log(this.courses);
       });
   }
 
@@ -148,6 +147,7 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
 
 
   deleteTask(id) {
+    console.log(id);
     this.crudService.deleteItem(LABTASK_URL, id)
       .pipe(takeUntil(this.destroy$),
         catchError((error) => {
@@ -159,19 +159,4 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
         this.file = data;
       });
   }
-
-  deleteReport() {
-    this.crudService.deleteItem(LABORATORY_URL, id)
-      .pipe(takeUntil(this.destroy$),
-        catchError((error) => {
-          this.alerts.push({type: AlertType.Error, message: error});
-
-          return throwError(error);
-        }))
-      .subscribe(data => {
-        this.file = data;
-      });
-  }
-
-
 }
