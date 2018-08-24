@@ -20,6 +20,7 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
   isSubmitted = false;
 
   item;
+
   itemType: string;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
@@ -60,9 +61,8 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
       this.itemForm = this.formBuilder.group({
         name: ['', Validators.required]
       });
-      this.addSpecialtyControlIfGroup();
+      this.addSpecialtyIdIfGroup()
     }
-
   }
 
   initEditForm() {
@@ -80,7 +80,7 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
         id: new FormControl(this.item.id),
         name: new FormControl(this.item.name, Validators.required),
       });
-      this.addSpecialtyControlIfGroup();
+      this.addSpecialtyIdIfGroup()
     }
   }
 
@@ -96,9 +96,16 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
       return '';
   }
 
-  addSpecialtyControlIfGroup() {
-    if (this.itemType == 'group')
-      this.itemForm.addControl('specialty', new FormControl(this.item.specialty, Validators.required));
+  addSpecialtyIdIfGroup() {
+    if (this.itemType == 'student')
+      this.itemForm.addControl('groupId', new FormControl(this.getSpecialtyIdValue(), Validators.required));
+  }
+
+  getSpecialtyIdValue() {
+    if (!this.onAdd)
+      return this.item.specialtyId;
+    else
+      return '';
   }
 
   get firstName() {
@@ -127,6 +134,10 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
 
   get name() {
     return this.itemForm.controls.name;
+  }
+
+  get specialtyId() {
+    return this.itemForm.controls.specialtyId;
   }
 
   initUrl() {

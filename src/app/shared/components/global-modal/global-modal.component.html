@@ -100,7 +100,7 @@
     </div>
 
     <div class="form-group"
-         *ngIf="itemType == 'course' || itemType == 'specialty'">
+         *ngIf="itemType == 'course' || itemType == 'specialty' || itemType == 'group'">
       <label for="name">Name</label>
       <input type="text"
              id="name"
@@ -110,6 +110,20 @@
              [class.is-invalid]="isSubmitted && name.errors">
       <div *ngIf="isSubmitted && name.errors"
            class="invalid-feedback">The name is required
+      </div>
+    </div>
+
+    <div class="form-group"
+         *ngIf="itemType == 'group'">
+      <label for="specialtyId">Specialty</label>
+      <input type="number"
+             id="specialtyId"
+             class="form-control"
+             placeholder="Specialty ID"
+             formControlName="specialtyId"
+             [class.is-invalid]="isSubmitted && specialtyId.errors">
+      <div *ngIf="isSubmitted && specialtyId.errors"
+           class="invalid-feedback">The id of specialty is required
       </div>
     </div>
 
