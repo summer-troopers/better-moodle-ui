@@ -11,8 +11,9 @@ export class ModalHelperService {
   checkFormForData(form): boolean {
     let hasData = false;
     for (const conontrol in form.controls) {
-      if (form.value[conontrol])
+      if (form.value[conontrol]) {
         hasData = true;
+      }
     }
     return hasData;
   }
