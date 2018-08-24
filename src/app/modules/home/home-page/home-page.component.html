@@ -10,9 +10,9 @@
         <h1>Better Moodle</h1>
         <p>Better Moodle - the best guide in your university life</p>
       </div>
-      <video autoplay
+      <video muted
+             autoplay
              loop
-             muted
              playsinline
              src="../../../../assets/images/banner.mp4"></video>
     </section>
@@ -108,14 +108,11 @@
     <section class="wrapper">
       <div class="inner">
         <header class="special">
-          <div class="column_attr clearfix"
-               style="column_counter">
-
-            <span class="number"
-                  data-to="124057970">{{totalAdmins+totalTeachers+totalStudents}}</span>
-            <span class="label postfix">+</span>
+          <b class="registeredUsers">Now we are </b>
+          <div class="column_attr clearfix">
+            <span class="number registeredUsers">{{totalAdmins+totalTeachers+totalStudents}}</span>
           </div>
-          <p class="title">REGISTERED USERS</p>
+          <b class="registeredUsers">REGISTERED USERS</b>
 
         </header>
         <div class="testimonials">
