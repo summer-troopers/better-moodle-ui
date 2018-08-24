@@ -5,7 +5,6 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { catchError, mergeMap, takeUntil } from 'rxjs/operators';
 
 import { Specialty } from '@shared/models/specialty';
-import { AddSpecialtyModalComponent } from '@modules/specialties/components/add-specialty-modal/add-specialty-modal.component';
 import { PaginationParams } from '@shared/models/pagination-params';
 import { Alert, AlertType } from '@shared/models/alert';
 import { CrudService } from '@shared/services/crud/crud.service';
