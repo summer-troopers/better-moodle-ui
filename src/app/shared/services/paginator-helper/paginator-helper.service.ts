@@ -11,7 +11,13 @@ export class PaginatorHelperService {
   getPaginationParams(totalItems: number, selectedPage: number): PaginationParams {
     const limit = 10;
     const select = selectedPage - 1;
-    const offset = limit * select;
+    let offset;
+
+    if (selectedPage <= 0 || !selectedPage || !totalItems || totalItems === 0) {
+      offset = 0;
+    } else {
+      offset = limit * select;
+    }
 
     return new PaginationParams(limit, offset);
   }
