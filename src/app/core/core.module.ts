@@ -12,7 +12,7 @@ import { NavComponent } from '@core/components/nav/nav.component';
 import { FooterComponent } from '@core/components/footer/footer.component';
 import { HeaderComponent } from '@core/components/header/header.component';
 import { LayoutComponent } from '@core/components/layout/layout.component';
-import { AuthenticationInterceptorService } from '@core/interceptors/authentication-interceptor/authentication-interceptor.service';
+import { ErrorsInterceptorService } from '@core/interceptors/errors-interceptor/errors-interceptor.service';
 import { AlertService } from '@core/../shared/services/alert/alert.service';
 import { UserDropdownComponent } from './components/nav/user-dropdown/user-dropdown/user-dropdown.component';
 
@@ -61,7 +61,7 @@ export function initAppFactory(initService: InitService) {
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: AuthenticationInterceptorService,
+      useClass: ErrorsInterceptorService,
       multi: true
     },
     AlertService,
