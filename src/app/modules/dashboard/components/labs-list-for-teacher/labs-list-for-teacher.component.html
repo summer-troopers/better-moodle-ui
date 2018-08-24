@@ -9,10 +9,11 @@
     </thead>
     <tbody>
     <tr *ngFor="let report of reports; let i = index">
-      <td>Course {{i + 1}}</td>
+      <td>{{ report.labTask.course.name }}</td>
       <td>
-        <button (click)="downloadReport(report.id)" class="download-labs"><i class="fa fa-file name-lab">
-          {{ report.id }}</i></button>
+        <button (click)="downloadReport(report.id)" class="download-labs"><i
+          class="fa fa-file name-lab pr-1"></i>Download
+        </button>
       </td>
       <td>
         <button>Add feedback</button>

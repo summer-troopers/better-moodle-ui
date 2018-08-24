@@ -51,9 +51,9 @@ export class UserStudentsComponent implements OnInit, OnDestroy {
           this.alerts.push({type: AlertType.Error, message: error});
           return throwError(error);
         })
-      ).subscribe(students => {
-      this.students = students;
-    });
+      )
+      .subscribe(students => {
+        this.students = students;
+      });
   }
 }
-

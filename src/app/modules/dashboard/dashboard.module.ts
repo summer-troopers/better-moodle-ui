@@ -36,7 +36,7 @@ const COMPONENTS = [
     TabsModule.forRoot(),
   ],
   declarations: [
-    ...COMPONENTS,
+    ...COMPONENTS
   ]
 })
 export class DashboardModule {
