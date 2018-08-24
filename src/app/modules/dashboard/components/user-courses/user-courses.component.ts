@@ -1,16 +1,27 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subject, throwError } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
+import { UploaderOptions, UploadFile, UploadInput, UploadOutput } from 'ngx-uploader';
 
 import { Course } from '@shared/models/course';
-import { COURSES_URL, LABORATORY_URL, LABTASK_URL } from '@shared/constants';
+import LabTask from '@shared/models/labtask';
+import LabReport from '@shared/models/labreport';
+import { COURSES_URL, LABORATORY_URL, COURSE_INSTANCES_URL } from '@shared/constants';
 import { Alert, AlertType } from '@shared/models/alert';
-import { DashboardService } from '@modules/dashboard/dashboard.service';
 
+import { DashboardService } from '@modules/dashboard/dashboard.service';
 import { CrudService } from '@shared/services/crud/crud.service';
 import { DownloadService } from '@shared/services/download/download.service';
+import { Teacher } from '@shared/models/teacher';
 
-import { UploaderOptions, UploadFile, UploadInput, UploadOutput } from 'ngx-uploader';
+interface CourseInstance {
+  id: string;
+  courseId: string;
+  teacherId: string;
+  course: Course;
+  teacher: Teacher;
+  fileExists: boolean;
+}
 
 @Component({
   selector: 'app-user-courses',
@@ -20,7 +31,9 @@ import { UploaderOptions, UploadFile, UploadInput, UploadOutput } from 'ngx-uplo
 export class UserCoursesComponent implements OnInit, OnDestroy {
   id: string;
   courses: Array<Course> = [];
-  tasks;
+  courseInstances: Array<CourseInstance> = [];
+  tasks: Array<LabTask> = [];
+  reports: Array<LabReport> = [];
   alerts: Alert[] = [];
   fileExists = true;
 
@@ -41,8 +54,10 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.getAllCourses();
-    this.getTasks();
+    // this.getAllCourses();
+    // this.getAllTasks();
+    this.getAllCourseInstances();
+    this.getAllReports();
   }
 
   ngOnDestroy() {
@@ -69,21 +84,47 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
       });
   }
 
-  getTasks() {
-    this.crudService.getItems(LABTASK_URL).subscribe(tasks => {
+  getAllCourseInstances() {
+    const userId = this.user.id;
+
+    const methodToCall = this.user.isTeacher() ?
+      this.dashboardService.getItemsOfTeacher(COURSE_INSTANCES_URL, userId) :
+      this.dashboardService.getItemsOfStudent(COURSE_INSTANCES_URL, userId);
+
+    methodToCall.pipe(
+      takeUntil(this.destroy$),
+      catchError((error) => {
+        this.alerts.push({type: AlertType.Error, message: error});
+        return throwError(error);
+      })
+    )
+      .subscribe((courseInstances) => {
+        this.courseInstances = courseInstances;
+      });
+  }
+
+  getAllTasks() {
+    this.crudService.getItems(COURSE_INSTANCES_URL).subscribe(tasks => {
       this.tasks = tasks;
       console.log(this.tasks);
       return this.tasks;
     }, error1 => console.log(error1));
   }
 
+  getAllReports() {
+    this.crudService.getItems(LABORATORY_URL).subscribe(reports => {
+      this.reports = reports;
+      console.log(this.reports);
+      return this.reports;
+    }, error1 => console.log(error1));
+  }
 
   uploadReport(courseId): void {
     const token = localStorage.getItem('authorization');
     const ContentType = this.file.type;
     const uploadEvent: UploadInput = {
       type: 'uploadFile',
-      url: 'http://localhost:80/api/v1/lab_reports',
+      url: `http://localhost:80/api/v1/${LABORATORY_URL}`,
       method: 'POST',
       headers: {token},
       data: {courseId, ContentType},
@@ -104,8 +145,8 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
     const ContentType = this.file.type;
     const uploadEvent: UploadInput = {
       type: 'uploadFile',
-      url: 'http://localhost:80/api/v1/lab_tasks',
-      method: 'POST',
+      url: `http://localhost:80/api/v1/${COURSE_INSTANCES_URL}`,
+      method: 'PUT',
       headers: {token},
       data: {courseId, ContentType},
       fieldName: 'labTask',
@@ -129,7 +170,7 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
 
 
   downloadTask(taskId) {
-    this.crudService.getItem(LABTASK_URL, taskId, true)
+    this.crudService.getItem(COURSE_INSTANCES_URL, taskId, true)
       .pipe(takeUntil(this.destroy$),
         catchError((error) => {
           this.alerts.push({type: AlertType.Error, message: error});
@@ -157,7 +198,7 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
 
   deleteTask(taskId) {
     console.log(taskId);
-    this.crudService.deleteItem(LABTASK_URL, taskId)
+    this.crudService.deleteItem(COURSE_INSTANCES_URL, taskId)
       .pipe(takeUntil(this.destroy$),
         catchError((error) => {
           this.alerts.push({type: AlertType.Error, message: error});

@@ -17,9 +17,9 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let task of tasks; let i = index">
+    <tr *ngFor="let courseInstance of courseInstances; let i = index">
       <th scope="row">{{i+1}}</th>
-      <td>{{task.course.name}}</td>
+      <td>{{courseInstance.course.name}}</td>
       <td appHasRole="student"
           class="labs-cell">
         <button
@@ -28,7 +28,7 @@
       </td>
 
       <td class="labs-cell">
-        <div appHasRole="student">
+<!--        <div appHasRole="student">
           <form *ngIf="fileExists">
             <input type="file"
                    ngFileSelect
@@ -43,18 +43,18 @@
                                         aria-hidden="true"></i>
               Choose a file...</label> <br>
             <input type="button"
-                   (click)="uploadReport(task.course.id)"
+                   (click)="uploadReport(courseInstance.id)"
                    class="btn btn-secondary submit-button"
                    value="Submit"/>
 
           </form>
           <div *ngIf="fileExists">
             <button class="btn btn-secondary icon-button"
-                    (click)="downloadReport(task.labReport.id)"><i class="fa fa-file"></i><br>{{task.labReport?.name}}Download
+                    (click)="downloadReport(courseInstance.i.id)"><i class="fa fa-file"></i><br>{{courseInstance.course?.name}}Download
               Raport Name
             </button>
           </div>
-        </div>
+        </div>-->
 
         <div appHasRole="teacher"
              class="custom-file">
@@ -72,19 +72,19 @@
                                       aria-hidden="true"></i>
               Choose a file...</label> <br>
             <input type="button"
-                   (click)="uploadTask(task.course.id)"
+                   (click)="uploadTask(courseInstance.id)"
                    class="btn btn-secondary submit-button"
                    value="Submit"/>
 
           </form>
           <div *ngIf="fileExists">
             <button class="btn btn-secondary icon-button"
-                    (click)="downloadTask(task.id)"><i class="fa fa-file"></i><br>Download
+                    (click)="downloadTask(courseInstance.id)"><i class="fa fa-file"></i><br>Download
               Task
             </button>
             <br>
             <button class="btn btn-secondary delete-button"
-                    (click)="deleteTask(task.id)">Delete Task {{task.name}}
+                    (click)="deleteTask(courseInstance.id)">Delete Task
             </button>
           </div>
           <br>
