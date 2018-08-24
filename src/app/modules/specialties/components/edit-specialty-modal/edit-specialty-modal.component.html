@@ -21,8 +21,7 @@
            class="invalid-feedback">The name of specialty is required
       </div>
     </div>
-    <input type="submit"
-           class="btn btn-primary">
+    <button [disabled]="specialtyForm.invalid"
+            class="btn btn-primary">Edit course</button>
   </form>
 </div>
-
