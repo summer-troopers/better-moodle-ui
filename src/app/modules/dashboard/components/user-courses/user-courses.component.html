@@ -17,9 +17,9 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let course of courses; let i = index">
+    <tr *ngFor="let task of tasks; let i = index">
       <th scope="row">{{i+1}}</th>
-      <td>{{course.name}}</td>
+      <td>{{task.course.name}}</td>
       <td appHasRole="student"
           class="labs-cell">
         <button
@@ -43,14 +43,14 @@
                                         aria-hidden="true"></i>
               Choose a file...</label> <br>
             <input type="button"
-                   (click)="uploadReport(course.id)"
+                   (click)="uploadReport(task.course.id)"
                    class="btn btn-secondary submit-button"
                    value="Submit"/>
 
           </form>
           <div *ngIf="fileExists">
             <button class="btn btn-secondary icon-button"
-                    (click)="downloadReport(course.labReport.id)"><i class="fa fa-file"></i><br>{{course.labReport?.name}}Download
+                    (click)="downloadReport(task.labReport.id)"><i class="fa fa-file"></i><br>{{task.labReport?.name}}Download
               Raport Name
             </button>
           </div>
@@ -72,19 +72,19 @@
                                       aria-hidden="true"></i>
               Choose a file...</label> <br>
             <input type="button"
-                   (click)="uploadTask(course.id)"
+                   (click)="uploadTask(task.course.id)"
                    class="btn btn-secondary submit-button"
                    value="Submit"/>
 
           </form>
           <div *ngIf="fileExists">
             <button class="btn btn-secondary icon-button"
-                    (click)="downloadTask(course.labTask.id)"><i class="fa fa-file"></i><br>Download Task Name
-              {{course.labTask?.name}}
+                    (click)="downloadTask(task.id)"><i class="fa fa-file"></i><br>Download
+              Task
             </button>
             <br>
             <button class="btn btn-secondary delete-button"
-                    (click)="deleteTask(course.labTask.id)">Delete Task {{course.labTask?.name}}
+                    (click)="deleteTask(task.id)">Delete Task {{task.name}}
             </button>
           </div>
           <br>

@@ -20,6 +20,7 @@ import { UploaderOptions, UploadFile, UploadInput, UploadOutput } from 'ngx-uplo
 export class UserCoursesComponent implements OnInit, OnDestroy {
   id: string;
   courses: Array<Course> = [];
+  tasks;
   alerts: Alert[] = [];
   fileExists = true;
 
@@ -41,6 +42,7 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getAllCourses();
+    this.getTasks();
   }
 
   ngOnDestroy() {
@@ -65,6 +67,14 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
       .subscribe((courses) => {
         this.courses = courses;
       });
+  }
+
+  getTasks() {
+    this.crudService.getItems(LABTASK_URL).subscribe(tasks => {
+      this.tasks = tasks;
+      console.log(this.tasks);
+      return this.tasks;
+    }, error1 => console.log(error1));
   }
 
 
@@ -114,13 +124,12 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
     if (output.type === 'addedToQueue' && typeof output.file !== 'undefined') {
       this.file = output.file;
     }
-    // console.log(this.file);
     console.log(output);
   }
 
 
-  downloadTask(id) {
-    this.crudService.getItem(LABTASK_URL, id, true)
+  downloadTask(taskId) {
+    this.crudService.getItem(LABTASK_URL, taskId, true)
       .pipe(takeUntil(this.destroy$),
         catchError((error) => {
           this.alerts.push({type: AlertType.Error, message: error});
@@ -132,8 +141,8 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
       });
   }
 
-  downloadReport(id) {
-    this.crudService.getItem(LABORATORY_URL, id, true)
+  downloadReport(reportId) {
+    this.crudService.getItem(LABORATORY_URL, reportId, true)
       .pipe(takeUntil(this.destroy$),
         catchError((error) => {
           this.alerts.push({type: AlertType.Error, message: error});
@@ -146,9 +155,9 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
   }
 
 
-  deleteTask(id) {
-    console.log(id);
-    this.crudService.deleteItem(LABTASK_URL, id)
+  deleteTask(taskId) {
+    console.log(taskId);
+    this.crudService.deleteItem(LABTASK_URL, taskId)
       .pipe(takeUntil(this.destroy$),
         catchError((error) => {
           this.alerts.push({type: AlertType.Error, message: error});
@@ -159,4 +168,5 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
         this.file = data;
       });
   }
+
 }
