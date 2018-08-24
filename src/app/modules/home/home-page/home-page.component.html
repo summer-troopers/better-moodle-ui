@@ -1,3 +1,177 @@
-<p>
-  home-page works!
-</p>
+<div class="home">
+  <link rel="stylesheet"
+        href="../../../../assets/css/main.css" />
+
+  <div class="is-preload">
+
+    <section id="banner">
+      <div class="inner">
+        <h1>Better Moodle</h1>
+        <p>Better Moodle - the best guide in your university life</p>
+      </div>
+      <video muted
+             autoplay
+             loop
+             playsinline
+             src="../../../../assets/images/banner.mp4"></video>
+    </section>
+
+    <section class="wrapper">
+      <div class="inner">
+        <header class="special">
+          <h1>Welcome to better moodle</h1>
+          <h2>What you can find on this site? </h2>
+        </header>
+        <div class="highlights">
+          <section>
+            <div class="content">
+              <header>
+                <h3>Your profile</h3>
+                <a [routerLink]="['dashboard']"
+                   class="icon fa-vcard-o">
+                  <span class="label">Icon</span>
+                </a>
+              </header>
+            </div>
+          </section>
+          <section>
+            <div class="content">
+              <header>
+                <h3>University teachers</h3>
+                <a [routerLink]="['teachers']"
+                   class="icon fa fa-mortar-board">
+                  <span class="label">Icon</span>
+                </a>
+              </header>
+            </div>
+          </section>
+          <section>
+            <div class="content">
+              <header>
+                <h3>University students</h3>
+                <a [routerLink]="['students']"
+                   class="icon fa fa-child">
+                  <span class="label">Icon</span>
+                </a>
+              </header>
+            </div>
+          </section>
+          <section>
+            <div class="content">
+              <header>
+                <h3>University courses</h3>
+                <a [routerLink]="['courses']"
+                   class="icon fa-files-o">
+                  <span class="label">Icon</span>
+                </a>
+              </header>
+            </div>
+          </section>
+          <section>
+            <div class="content">
+              <header>
+                <h3>University groups</h3>
+                <a [routerLink]="['teachers']"
+                   class="icon fa fa-users">
+                  <span class="label">Icon</span>
+                </a>
+              </header>
+            </div>
+          </section>
+          <section>
+            <div class="content">
+              <header>
+                <h3>University specialties</h3>
+                <a [routerLink]="['specialties']"
+                   class="icon fa fa-university">
+                  <span class="label">Icon</span>
+                </a>
+              </header>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section id="cta"
+             class="wrapper block-size">
+      <div class="inner">
+        <h2>The secret of getting ahead is getting started.</h2>
+        <p class="pull-right author-quote">Mark Twain</p>
+      </div>
+    </section>
+
+    <section class="wrapper">
+      <div class="inner">
+        <header class="special">
+          <b class="registeredUsers">Now we are </b>
+          <div class="column_attr clearfix">
+            <span class="number registeredUsers">{{totalAdmins+totalTeachers+totalStudents}}</span>
+          </div>
+          <b class="registeredUsers">REGISTERED USERS</b>
+
+        </header>
+        <div class="testimonials">
+          <section>
+            <div class="content">
+              <blockquote>
+                <p>Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida odio porttitor sem non mi integer non
+                  faucibus.
+                </p>
+              </blockquote>
+              <div class="author">
+                <div class="image">
+                  <img src="../../../../assets/images/pic01.jpg"
+                       alt="" />
+                </div>
+                <p class="credit">-
+                  <strong>Jane Doe</strong>
+                  <span>CEO - ABC Inc.</span>
+                </p>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="content">
+              <blockquote>
+                <p>Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida odio porttitor sem non mi integer non
+                  faucibus.
+                </p>
+              </blockquote>
+              <div class="author">
+                <div class="image">
+                  <img src="../../../../assets/images/pic03.jpg"
+                       alt="" />
+                </div>
+                <p class="credit">-
+                  <strong>John Doe</strong>
+                  <span>CEO - ABC Inc.</span>
+                </p>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="content">
+              <blockquote>
+                <p>Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida odio porttitor sem non mi integer non
+                  faucibus.
+                </p>
+              </blockquote>
+              <div class="author">
+                <div class="image">
+                  <img src="../../../../assets/images/pic02.jpg"
+                       alt="" />
+                </div>
+                <p class="credit">-
+                  <strong>Janet Smith</strong>
+                  <span>CEO - ABC Inc.</span>
+                </p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+  </div>
+
+</div>

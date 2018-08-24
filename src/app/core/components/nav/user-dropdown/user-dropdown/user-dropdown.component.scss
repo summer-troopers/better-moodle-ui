@@ -27,7 +27,7 @@ ul {
 .dropprofile {
   position: absolute;
   width: 200px;
-  z-index: 2;
+  z-index: 2 !important;
   top: 100%;
   padding: 10px;
   font-size: 15px;
