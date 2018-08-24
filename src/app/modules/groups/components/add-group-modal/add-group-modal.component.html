@@ -36,8 +36,7 @@
            class="invalid-feedback">The name of specialty is required
       </div>
     </div>
-    <input type="submit"
-           class="btn btn-primary">
+    <button class="btn btn-primary"
+            [disabled]="groupForm.invalid">Add group</button>
   </form>
 </div>
-

@@ -20,8 +20,7 @@
         <div *ngIf="specialtyName.errors">The name of specialty is required</div>
       </div>
     </div>
-    <input type="submit"
-           class="btn btn-primary">
+    <button class="btn btn-primary"
+            [disabled]="specialtyForm.invalid">Add specialty</button>
   </form>
 </div>
-
