@@ -1,22 +1,16 @@
 <div class="container">
   <app-local-alert [alerts]="alerts"></app-local-alert>
   <div class="space-30">
-    <label for="name"
-           class="font-weight-bold">Name</label>
-    <input id="name"
-           type="text"
-           class="input-group-text"
-           *ngIf="specialty"
-           [(ngModel)]="specialty.name"
-           [attr.readOnly]="isEditable"
-           [ngClass]="{ 'is-invalid': isSubmitted && specialtyName.errors }">
-    <button appHasRole="admin"
-            class="btn btn-primary"
-            (click)="openEditModal()">Edit
-    </button>
-    <button appHasRole="admin"
-            (click)="openDeleteModal()"
-            class="btn btn-danger">Delete
-    </button>
+    <div class="container">
+      <h3> Specialty Name: {{specialty?.name}}</h3>
+      <button appHasRole="admin"
+              class="btn btn-success mt-2 mb-2 mr-2"
+              (click)="openEditModal()">Edit
+      </button>
+      <button appHasRole="admin"
+              class="btn btn-danger mt-2 mb-2 mr-2"
+              (click)="openDeleteModal()">Delete
+      </button>
+    </div>
   </div>
 </div>
