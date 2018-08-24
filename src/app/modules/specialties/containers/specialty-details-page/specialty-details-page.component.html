@@ -1,16 +1,14 @@
 <div class="container">
   <app-local-alert [alerts]="alerts"></app-local-alert>
-  <div class="space-30">
-    <div class="container">
-      <h3> Specialty Name: {{specialty?.name}}</h3>
-      <button appHasRole="admin"
-              class="btn btn-success mt-2 mb-2 mr-2"
-              (click)="openEditModal()">Edit
-      </button>
-      <button appHasRole="admin"
-              class="btn btn-danger mt-2 mb-2 mr-2"
-              (click)="openDeleteModal()">Delete
-      </button>
-    </div>
-  </div>
+</div>
+<div class="container">
+  <h3> Specialty Name: {{specialty?.name}}</h3>
+  <button appHasRole="admin"
+          class="btn btn-danger mt-2 mb-2 mr-2"
+          (click)="openDeleteModal()">Delete
+  </button>
+  <button appHasRole="admin"
+          class="btn btn-success mt-2 mb-2 mr-2"
+          (click)="openEditModal()">Edit
+  </button>
 </div>
