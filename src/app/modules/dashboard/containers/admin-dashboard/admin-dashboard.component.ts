@@ -2,14 +2,12 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable, Subject, throwError } from 'rxjs';
-import { catchError, mergeMap, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { Alert, AlertType } from '@shared/models/alert';
 
-import { EditAdminModalComponent } from '../../modals/edit-admin-modal/edit-admin-modal.component';
-import { Admin } from '@shared/models/admin';
-import { CrudService } from '@shared/services/crud/crud.service';
-import { UserService } from '@shared/services/user/user.service';
+import { GlobalModalComponent } from '@shared/components/global-modal/global-modal.component';
+import { MODAL_OPTIONS } from '@shared/constants';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -23,89 +21,43 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
 
   serForm: FormGroup;
   alerts: Alert[] = [];
-  admin: Admin;
   userForm: FormGroup;
-
-  isSubmitted = false;
 
   modal: BsModalRef;
 
-  constructor(private crudService: CrudService,
-    private modalService: BsModalService) { }
+  constructor(private modalService: BsModalService) { }
 
   ngOnInit() {
     this.userForm = new FormGroup({
-      id: new FormControl(this.admin.id),
-      firstName: new FormControl(this.admin.firstName, Validators.required),
-      lastName: new FormControl(this.admin.lastName, Validators.required),
-      email: new FormControl(this.admin.email, [Validators.required, Validators.email]),
-      phoneNumber: new FormControl(this.admin.phoneNumber, Validators.required),
+      id: new FormControl(this.user.id),
+      firstName: new FormControl(this.user.firstName, Validators.required),
+      lastName: new FormControl(this.user.lastName, Validators.required),
+      email: new FormControl(this.user.email, [Validators.required, Validators.email]),
+      phoneNumber: new FormControl(this.user.phoneNumber, Validators.required),
     });
-    console.log(this.userForm)
-    //console.log(this.userForm.controls)
-  }
-
-  get firstName() {
-
-    return this.userForm.controls.firstName;
-  }
-
-  get lastName() {
-    return this.userForm.controls.lastName;
-  }
-
-  get email() {
-    return this.userForm.controls.email;
-  }
-
-  get password() {
-    return this.userForm.controls.password;
-  }
-
-  get phoneNumber() {
-    return this.userForm.controls.phoneNumber;
   }
 
   openEditModal() {
-    this.modal = this.modalService.show(EditAdminModalComponent);
-  }
-
-  onSubmit() {
-    this.isSubmitted = true;
-
-    if (this.userForm.invalid) {
-
-      return;
-    }
-
-    // const formParam = this.userForm.value;
-
-    // this.crudService.editItem(TEACHERS_URL, formParam)
-    //   .pipe(takeUntil(this.destroy$),
-    //     catchError((error) => {
-    //       this.alerts.push({ type: AlertType.Error, message: error });
-
-    //       return throwError(error);
-    //     })
-    //   )
-    //   .subscribe(() => {
-    //     this.teacherEdited.emit(formParam);
-    //     this.hideConfirmationModal();
-    //   });
-  }
-
-  hideConfirmationModal(): void {
-    this.modal.hide();
+    MODAL_OPTIONS['initialState'] = {
+      onAdd: false,
+      itemType: 'admin',
+      item: this.user,
+      title: 'Edit Admin',
+      buttonTitle: 'Update Admin'
+    };
+    this.modal = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
+    this.modal.content.itemEdited
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((admin) => {
+        this.user = admin;
+        this.alerts.push({ type: AlertType.Success, message: 'Admin was edited!' });
+      }, error => {
+        this.alerts.push({ type: AlertType.Error, message: error });
+      });
   }
 
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
-    this.modal = this.modalService.show(EditAdminModalComponent, { initialState });
-    this.modal.content.onChange.subscribe(
-      user => {
-        this.user = user;
-      }
-    );
   }
 }

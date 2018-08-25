@@ -16,7 +16,6 @@ import { UserGroupsComponent } from './components/user-groups/user-groups.compon
 import { UserStudentsComponent } from './components/user-students/user-students.component';
 import { SharedModule } from '@shared/shared.module';
 import { LabsListForTeacherComponent } from '@modules/dashboard/components/labs-list-for-teacher/labs-list-for-teacher.component';
-import { EditAdminModalComponent } from './modals/edit-admin-modal/edit-admin-modal.component';
 
 const COMPONENTS = [
   DashboardPageComponent,
@@ -30,10 +29,6 @@ const COMPONENTS = [
   LabsListForTeacherComponent
 ];
 
-const MODALS = [
-  EditAdminModalComponent
-];
-
 @NgModule({
   imports: [
     CommonModule,
@@ -45,10 +40,8 @@ const MODALS = [
     ReactiveFormsModule,
     TabsModule.forRoot(),
   ],
-  entryComponents: [...MODALS],
   declarations: [
-    ...COMPONENTS,
-    ...MODALS
+    ...COMPONENTS
 
   ]
 })
