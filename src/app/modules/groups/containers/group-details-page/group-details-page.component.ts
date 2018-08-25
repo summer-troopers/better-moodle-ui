@@ -22,8 +22,8 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
   isEditable = false;
   modalRef: BsModalRef;
   group: Group;
-  groupStudents: Array<any>;
-  alerts: Array<Alert> = [];
+  groupStudents: any;
+  alerts: Alert[] = [];
   message: string;
 
   constructor(private route: ActivatedRoute,
@@ -42,7 +42,7 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
         flatMap(params => {
           return this.crudService.getItem(GROUPS_URL, params.id)
             .pipe(catchError(error => {
-              this.alerts.push({ type: AlertType, message: error });
+              this.alerts.push({ type: AlertType.Error, message: error });
 
               return throwError(error);
             }));
@@ -61,13 +61,17 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
     return this.crudService.getItems(STUDENTS_URL)
       .subscribe(
         students => {
+          const temp: any = [];
           for (let i = 0; i < students.length; i++) {
             if (students[i].group.id == this.route.params.value.id) {
-              this.groupStudents = students[i];
+              temp[i] = students[i];
             }
           }
+          this.groupStudents = temp.filter(element => {
+            return element !== undefined;
+          });
         }, catchError(error => {
-          this.alerts.push({ type: AlertType, message: error });
+          this.alerts.push({ type: AlertType.Error, message: error });
           return throwError(error);
         }));
   }
