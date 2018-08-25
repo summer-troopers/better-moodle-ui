@@ -42,7 +42,6 @@ const COMPONENTS = [
   ],
   declarations: [
     ...COMPONENTS
-
   ]
 })
 export class DashboardModule {
