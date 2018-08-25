@@ -65,6 +65,7 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
         this.group.specialty = specialty;
         this.alerts.push({ type: AlertType.Success, message: 'Student data updated!' });
       });
+    this.modalRef = this.modalService.show(EditGroupModalComponent, { initialState });
   }
 
   editItem(event: any) {
@@ -73,20 +74,21 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
   }
 
   initGroup() {
-    this.route.params.pipe(
-      flatMap(
-        params => {
-          return this.crudService.getItem(GROUPS_URL, params.id);
-        }),
-      takeUntil(this.destroy$)
-    ).subscribe(
-      group => {
-        this.group = group;
-      },
-      error => {
-        this.alerts.push({ type: AlertType.Error, message: `Couldn't get the group!` });
-      }
-    );
+    this.route.params
+      .pipe(
+        flatMap(
+          params => {
+            return this.crudService.getItem(GROUPS_URL, params.id);
+          }),
+        takeUntil(this.destroy$)
+      ).subscribe(
+        group => {
+          this.group = group;
+        },
+        error => {
+          this.alerts.push({ type: AlertType.Error, message: `Couldn't get the group!` });
+        }
+      );
   }
 
   ngOnDestroy() {
