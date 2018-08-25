@@ -3,15 +3,12 @@ import { Student } from '@shared/models/student';
 import { UserType } from '@shared/models/user-type';
 import { Admin } from '@shared/models/admin';
 import { Teacher } from '@shared/models/teacher';
-import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   user: any;
-
-  updatedUser: Subject<any> = new Subject<any>();
 
   getUserLocalStorage(key: string) {
     const item = localStorage.getItem(key);
@@ -42,10 +39,6 @@ export class UserService {
   getUser(): any {
     const userFromStorage = this.getUserLocalStorage('user');
     this.user = this.createUser(userFromStorage);
-    return this.user;
-  }
-  updateUser(user): any {
-    this.user = user;
     return this.user;
   }
 }
