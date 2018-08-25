@@ -14,8 +14,7 @@ import { SPECIALTIES_URL, NUMBER_ITEMS_PAGE, MODAL_OPTIONS } from '@shared/const
 
 @Component({
   selector: 'app-specialties-page',
-  templateUrl: './specialties-page.component.html',
-  styleUrls: ['./specialties-page.component.scss']
+  templateUrl: './specialties-page.component.html'
 })
 export class SpecialtiesPageComponent implements OnInit, OnDestroy {
 

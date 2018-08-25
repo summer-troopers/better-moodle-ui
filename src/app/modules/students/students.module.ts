@@ -5,15 +5,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ModalModule } from 'ngx-bootstrap';
 
-import { EditStudentModalComponent } from './modals/edit-student-modal/edit-student-modal.component';
-import { AddStudentModalComponent } from './modals/add-student-modal/add-student-modal.component';
 import { StudentDetailsPageComponent, StudentsPageComponent } from '@modules/students/containers';
 import { SharedModule } from '@shared/shared.module';
 
-const COMPONENTS = [
-  AddStudentModalComponent,
-  EditStudentModalComponent,
-];
 
 @NgModule({
   imports: [
@@ -28,10 +22,6 @@ const COMPONENTS = [
   declarations: [
     StudentDetailsPageComponent,
     StudentsPageComponent,
-    ...COMPONENTS
   ],
-  entryComponents: [
-    ...COMPONENTS
-  ]
 })
 export class StudentsModule { }

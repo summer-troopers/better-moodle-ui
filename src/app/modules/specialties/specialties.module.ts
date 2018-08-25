@@ -6,15 +6,9 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ModalModule } from 'ngx-bootstrap';
 
 import { SpecialtyDetailsPageComponent, SpecialtiesPageComponent } from '@modules/specialties/containers';
-import { AddSpecialtyModalComponent } from './components/add-specialty-modal/add-specialty-modal.component';
-import { EditSpecialtyModalComponent } from './components/edit-specialty-modal/edit-specialty-modal.component';
 import { specialitiesRoutes } from '@modules/specialties/specialties.routes';
 import { SharedModule } from '@shared/shared.module';
 
-const COMPONENTS = [
-  EditSpecialtyModalComponent,
-  AddSpecialtyModalComponent
-];
 
 @NgModule({
   imports: [
@@ -27,9 +21,6 @@ const COMPONENTS = [
     ReactiveFormsModule,
     specialitiesRoutes
   ],
-  entryComponents: [
-    ...COMPONENTS
-  ],
-  declarations: [SpecialtyDetailsPageComponent, SpecialtiesPageComponent, ...COMPONENTS]
+  declarations: [SpecialtyDetailsPageComponent, SpecialtiesPageComponent]
 })
-export class SpecialtiesModule {}
+export class SpecialtiesModule { }

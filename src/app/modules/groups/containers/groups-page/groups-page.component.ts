@@ -14,8 +14,7 @@ import { GlobalModalComponent } from '@shared/components/global-modal/global-mod
 
 @Component({
   selector: 'app-groups-page',
-  templateUrl: './groups-page.component.html',
-  styleUrls: ['./groups-page.component.scss']
+  templateUrl: './groups-page.component.html'
 })
 export class GroupsPageComponent implements OnInit, OnDestroy {
 

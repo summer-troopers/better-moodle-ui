@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Subject, throwError } from 'rxjs';
-import { takeUntil, catchError, flatMap, map } from 'rxjs/operators';
+import { takeUntil, catchError, flatMap } from 'rxjs/operators';
 
 import { Teacher } from '@shared/models/teacher';
 import { GlobalModalComponent } from '@shared/components/global-modal/global-modal.component';

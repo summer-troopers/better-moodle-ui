@@ -6,16 +6,12 @@ import { ModalModule } from 'ngx-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { coursesRoutes } from '@modules/courses/courses.routes';
-import { AddCourseModalComponent } from '@modules/courses/components/add-course-modal/add-course-modal.component';
-import { EditCourseModalComponent } from '@modules/courses/components/edit-course-modal/edit-course-modal.component';
 import { SharedModule } from '@shared/shared.module';
 import { CourseDetailsPageComponent, CoursesPageComponent } from './containers';
 
 const COMPONENTS = [
   CoursesPageComponent,
-  CourseDetailsPageComponent,
-  AddCourseModalComponent,
-  EditCourseModalComponent];
+  CourseDetailsPageComponent];
 
 const MODULES = [
   CommonModule,
@@ -30,11 +26,6 @@ const MODULES = [
   imports: [
     ...MODULES,
     coursesRoutes,
-  ],
-  exports: [],
-  entryComponents: [
-    AddCourseModalComponent,
-    EditCourseModalComponent,
   ],
   declarations: [
     ...COMPONENTS
