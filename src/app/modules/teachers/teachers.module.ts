@@ -6,14 +6,8 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 import { TeacherDetailsPageComponent, TeachersPageComponent } from '@modules/teachers/containers';
 import { teacherRoutes } from './teachers.routes';
-import { AddTeacherModalComponent } from '@teacherModals/add-teacher-modal/add-teacher-modal.component';
-import { EditTeacherModalComponent } from '@teacherModals/edit-teacher-modal/edit-teacher-modal.component';
 import { SharedModule } from '@shared/shared.module';
 
-const COMPONENTS = [
-  AddTeacherModalComponent,
-  EditTeacherModalComponent,
-];
 
 @NgModule({
   imports: [
@@ -25,8 +19,7 @@ const COMPONENTS = [
     SharedModule,
     ReactiveFormsModule
   ],
-  entryComponents: [...COMPONENTS],
   providers: [],
-  declarations: [TeacherDetailsPageComponent, TeachersPageComponent, ...COMPONENTS]
+  declarations: [TeacherDetailsPageComponent, TeachersPageComponent]
 })
 export class TeachersModule { }

@@ -107,7 +107,6 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
         this.group.specialty = specialty;
         this.alerts.push({ type: AlertType.Success, message: 'Student data updated!' });
       });
-    // this.modalRef = this.modalService.show(EditGroupModalComponent, { initialState });
   }
 
   editItem(event: any) {
