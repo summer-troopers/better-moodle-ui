@@ -22,7 +22,7 @@ export class HomePageComponent implements OnInit {
   }
 
   getAllTeachers() {
-    return this.crud.getItems(TEACHERS_URL).subscribe(
+    return this.crud.getItems(TEACHERS_URL, 0, 999).subscribe(
       teacher => {
         this.totalTeachers = teacher.length;
       }
@@ -30,7 +30,7 @@ export class HomePageComponent implements OnInit {
   }
 
   getAllStudents() {
-    return this.crud.getItems(STUDENTS_URL).subscribe(
+    return this.crud.getItems(STUDENTS_URL, 0, 999).subscribe(
       student => {
         this.totalStudents = student.length;
       }

@@ -7,7 +7,7 @@ import { flatMap, takeUntil, mergeMap, catchError } from 'rxjs/operators';
 import { Group } from '@shared/models/group';
 import { CrudService } from '@shared/services/crud/crud.service';
 import { Alert, AlertType } from '@shared/models/alert';
-import { GROUPS_URL, MODAL_OPTIONS, SPECIALTIES_URL } from '@shared/constants';
+import { GROUPS_URL, STUDENTS_URL, MODAL_OPTIONS, SPECIALTIES_URL } from '@shared/constants';
 import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
 import { GlobalModalComponent } from '@shared/components/global-modal/global-modal.component';
 
@@ -22,7 +22,8 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
   isEditable = false;
   modalRef: BsModalRef;
   group: Group;
-  alerts: Array<Alert> = [];
+  groupStudents: any;
+  alerts: Alert[] = [];
   message: string;
 
   constructor(private route: ActivatedRoute,
@@ -31,7 +32,48 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.initGroup();
+    this.getItem();
+    this.getGroupStudents();
+  }
+
+  getItem() {
+    this.route.params
+      .pipe(
+        flatMap(params => {
+          return this.crudService.getItem(GROUPS_URL, params.id)
+            .pipe(catchError(error => {
+              this.alerts.push({ type: AlertType.Error, message: error });
+
+              return throwError(error);
+            }));
+        }),
+        takeUntil(this.destroy$)
+      ).subscribe(group => {
+        this.group = group;
+      },
+        error => {
+          this.alerts.push({ type: AlertType.Error, message: `Can not get the group!` });
+        }
+      );
+  }
+
+  getGroupStudents() {
+    return this.crudService.getItems(STUDENTS_URL)
+      .subscribe(
+        students => {
+          const temp: any = [];
+          for (let i = 0; i < students.length; i++) {
+            if (students[i].group.id == this.route.params.value.id) {
+              temp[i] = students[i];
+            }
+          }
+          this.groupStudents = temp.filter(element => {
+            return element !== undefined;
+          });
+        }, catchError(error => {
+          this.alerts.push({ type: AlertType.Error, message: error });
+          return throwError(error);
+        }));
   }
 
   openEditModal() {
@@ -65,35 +107,13 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
         this.group.specialty = specialty;
         this.alerts.push({ type: AlertType.Success, message: 'Student data updated!' });
       });
+    // this.modalRef = this.modalService.show(EditGroupModalComponent, { initialState });
   }
 
   editItem(event: any) {
     this.group.name = event.groupName;
     this.group.specialty = event.specialty;
   }
-
-  initGroup() {
-    this.route.params.pipe(
-      flatMap(
-        params => {
-          return this.crudService.getItem(GROUPS_URL, params.id);
-        }),
-      takeUntil(this.destroy$)
-    ).subscribe(
-      group => {
-        this.group = group;
-      },
-      error => {
-        this.alerts.push({ type: AlertType.Error, message: `Couldn't get the group!` });
-      }
-    );
-  }
-
-  ngOnDestroy() {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
-  }
-
   openDeleteModal() {
     this.modalRef = this.modalService.show(ConfirmModalComponent);
     this.modalRef.content.onConfirm.pipe(
@@ -109,5 +129,10 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
         this.modalRef.content.message = `Error on deleting group!`;
       }
     );
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

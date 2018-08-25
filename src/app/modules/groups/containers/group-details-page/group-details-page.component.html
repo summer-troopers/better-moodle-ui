@@ -12,4 +12,21 @@
           class="btn btn-success mt-2 mb-2 mr-2"
           (click)="openEditModal()">Edit
   </button>
+
+  <ul class="list-group"
+      *ngIf="groupStudents.length;else noStudents">
+    <h1>
+      <em>Students from this group</em>
+    </h1>
+    <li class="list-group-item list-group-item-dark"
+        *ngFor="let student of groupStudents">
+      <h4 class="list-group-item">{{student.firstName}} {{student.lastName}}</h4>
+    </li>
+  </ul>
 </div>
+
+<ng-template #noStudents>
+  <h1>
+    <em>This group has no students.</em>
+  </h1>
+</ng-template>
