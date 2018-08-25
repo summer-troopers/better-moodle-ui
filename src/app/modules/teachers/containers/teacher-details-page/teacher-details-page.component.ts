@@ -43,9 +43,12 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
             }));
         }),
         takeUntil(this.destroy$)
-      ).subscribe((teacher) => {
+      ).subscribe(teacher => {
         this.teacher = teacher;
-      });
+      },
+        error => {
+          this.alerts.push({ type: AlertType.Error, message: `Can not get the teacher!` });
+        });
   }
 
   openEditModal() {
