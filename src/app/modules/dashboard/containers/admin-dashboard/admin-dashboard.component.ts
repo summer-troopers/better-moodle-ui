@@ -4,8 +4,8 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Alert, AlertType } from '@shared/models/alert';
 
+import { Alert, AlertType } from '@shared/models/alert';
 import { GlobalModalComponent } from '@shared/components/global-modal/global-modal.component';
 import { MODAL_OPTIONS } from '@shared/constants';
 
