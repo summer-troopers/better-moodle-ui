@@ -6,11 +6,11 @@ import { Subject, throwError } from 'rxjs';
 import { takeUntil, catchError, flatMap, map } from 'rxjs/operators';
 
 import { Teacher } from '@shared/models/teacher';
-import { EditTeacherModalComponent } from '@teacherModals/edit-teacher-modal/edit-teacher-modal.component';
+import { GlobalModalComponent } from '@shared/components/global-modal/global-modal.component';
 import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
 import { CrudService } from '@shared/services/crud/crud.service';
 import { Alert, AlertType } from '@shared/models/alert';
-import { TEACHERS_URL } from '@shared/constants';
+import { TEACHERS_URL, MODAL_OPTIONS } from '@shared/constants';
 
 @Component({
   selector: 'app-teacher-details-page',
@@ -49,11 +49,15 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
   }
 
   openEditModal() {
-    const initialState: any = {
-      teacher: this.teacher
+    MODAL_OPTIONS['initialState'] = {
+      onAdd: false,
+      itemType: 'teacher',
+      item: this.teacher,
+      title: 'Edit Teacher',
+      buttonTitle: 'Update Teacher'
     };
-    this.modal = this.modalService.show(EditTeacherModalComponent, { initialState });
-    this.modal.content.teacherEdited
+    this.modal = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
+    this.modal.content.itemEdited
       .pipe(takeUntil(this.destroy$))
       .subscribe((teacher) => {
         this.teacher = teacher;

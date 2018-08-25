@@ -6,11 +6,11 @@ import { catchError, mergeMap, takeUntil } from 'rxjs/operators';
 
 import { Group } from '@shared/models/group';
 import { CrudService } from '@shared/services/crud/crud.service';
-import { AddGroupModalComponent } from '@modules/groups/components/add-group-modal/add-group-modal.component';
-import { GROUPS_URL, NUMBER_ITEMS_PAGE } from '@shared/constants';
+import { GROUPS_URL, NUMBER_ITEMS_PAGE, MODAL_OPTIONS } from '@shared/constants';
 import { PaginationParams } from '@shared/models/pagination-params';
 import { PaginatorHelperService } from '@shared/services/paginator-helper/paginator-helper.service';
 import { Alert, AlertType } from '@shared/models/alert';
+import { GlobalModalComponent } from '@shared/components/global-modal/global-modal.component';
 
 @Component({
   selector: 'app-groups-page',
@@ -72,7 +72,18 @@ export class GroupsPageComponent implements OnInit, OnDestroy {
   }
 
   openAddModal() {
-    this.modalRef = this.modalService.show(AddGroupModalComponent);
+    MODAL_OPTIONS['initialState'] = {
+      onAdd: true,
+      itemType: 'group',
+      title: 'Add New Group',
+      buttonTitle: 'Add Group'
+    };
+    this.modalRef = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
+    this.modalRef.content.itemAdded
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((group) => {
+        this.groups.unshift(group);
+      });
   }
 
   pageChanged(event: any) {

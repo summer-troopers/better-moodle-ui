@@ -3,7 +3,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { Subject, throwError } from 'rxjs';
 import { catchError, mergeMap, takeUntil } from 'rxjs/operators';
 
-import { AddCourseModalComponent } from '@modules/courses/components';
+import { GlobalModalComponent } from '@shared/components/global-modal/global-modal.component';
 import { Course } from '@shared/models/course';
 import { PaginatorHelperService } from '@shared/services/paginator-helper/paginator-helper.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -74,9 +74,15 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
   }
 
   openAddCourseModal() {
-    this.modalRef = this.modalService.show(AddCourseModalComponent, MODAL_OPTIONS);
+    MODAL_OPTIONS['initialState'] = {
+      onAdd: true,
+      itemType: 'course',
+      title: 'Add New Course',
+      buttonTitle: 'Add Course'
+    };
+    this.modalRef = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
 
-    this.modalRef.content.addItemEvent
+    this.modalRef.content.itemAdded
       .pipe(takeUntil(this.destroy$))
       .subscribe((course) => {
         this.courses.unshift(course);

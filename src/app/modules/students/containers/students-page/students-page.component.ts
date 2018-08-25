@@ -5,9 +5,9 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Observable, Subject, throwError } from 'rxjs';
 import { mergeMap, takeUntil, catchError } from 'rxjs/operators';
 
-import { AddStudentModalComponent } from '@modules/students/modals/add-student-modal/add-student-modal.component';
 import { PaginatorHelperService } from '@shared/services/paginator-helper/paginator-helper.service';
 import { CrudService } from '@shared/services/crud/crud.service';
+import { GlobalModalComponent } from '@shared/components/global-modal/global-modal.component';
 import { Student } from '@shared/models/student';
 import { PaginationParams } from '@shared/models/pagination-params';
 import { Alert, AlertType } from '@shared/models/alert';
@@ -24,7 +24,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
 
   alerts: Alert[] = [];
   students: Array<Student> = [];
-  modalRef: BsModalRef;
+  userModalRef: BsModalRef;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -62,9 +62,14 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
   }
 
   openAddStudentModal() {
-    this.modalRef = this.modalService.show(AddStudentModalComponent, MODAL_OPTIONS);
-
-    this.modalRef.content.studentAdded
+    MODAL_OPTIONS['initialState'] = {
+      onAdd: true,
+      itemType: 'student',
+      title: 'Add New Student',
+      buttonTitle: 'Add Student'
+    };
+    this.userModalRef = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
+    this.userModalRef.content.itemAdded
       .subscribe((newStudent) => {
         this.students.unshift(newStudent);
       });

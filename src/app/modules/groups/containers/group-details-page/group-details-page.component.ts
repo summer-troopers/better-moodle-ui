@@ -1,15 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
-import { Subject } from 'rxjs';
-import { flatMap, takeUntil } from 'rxjs/operators';
+import { Subject, throwError } from 'rxjs';
+import { flatMap, takeUntil, mergeMap, catchError } from 'rxjs/operators';
 
 import { Group } from '@shared/models/group';
-import { EditGroupModalComponent } from '@modules/groups/components/edit-group-modal/edit-group-modal.component';
 import { CrudService } from '@shared/services/crud/crud.service';
 import { Alert, AlertType } from '@shared/models/alert';
-import { GROUPS_URL } from '@shared/constants';
+import { GROUPS_URL, MODAL_OPTIONS, SPECIALTIES_URL } from '@shared/constants';
 import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
+import { GlobalModalComponent } from '@shared/components/global-modal/global-modal.component';
 
 @Component({
   selector: 'app-group-details-page',
@@ -26,8 +26,8 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
   message: string;
 
   constructor(private route: ActivatedRoute,
-              private crudService: CrudService,
-              private modalService: BsModalService) {
+    private crudService: CrudService,
+    private modalService: BsModalService) {
   }
 
   ngOnInit() {
@@ -35,11 +35,36 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
   }
 
   openEditModal() {
-    const initialState: any = {
-      group: this.group,
-      editItem: this.editItem,
+    MODAL_OPTIONS['initialState'] = {
+      onAdd: false,
+      itemType: 'group',
+      item: this.group,
+      title: 'Edit Group',
+      buttonTitle: 'Update Group'
     };
-    this.modalRef = this.modalService.show(EditGroupModalComponent, {initialState});
+    this.modalRef = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
+    this.modalRef.content.itemEdited
+      .pipe(
+        takeUntil(this.destroy$),
+        mergeMap((updatedData: any) => {
+          this.group = updatedData;
+          return this.crudService.getItem(SPECIALTIES_URL, updatedData.specialtyId.toString())
+            .pipe(
+              catchError((error) => {
+                this.alerts.push({ type: AlertType.Error, message: error });
+                return throwError(error);
+              })
+            );
+        }),
+        catchError((error) => {
+          this.alerts.push({ type: AlertType.Error, message: error });
+          return throwError(error);
+        })
+      )
+      .subscribe((specialty) => {
+        this.group.specialty = specialty;
+        this.alerts.push({ type: AlertType.Success, message: 'Student data updated!' });
+      });
   }
 
   editItem(event: any) {
@@ -59,7 +84,7 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
         this.group = group;
       },
       error => {
-        this.alerts.push({type: AlertType.Error, message: `Couldn't get the group!`});
+        this.alerts.push({ type: AlertType.Error, message: `Couldn't get the group!` });
       }
     );
   }

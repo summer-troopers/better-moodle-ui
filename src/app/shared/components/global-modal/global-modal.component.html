@@ -1,0 +1,134 @@
+<app-default-modal [form]="itemForm"
+                   [title]="title">
+  <form [formGroup]="itemForm"
+        (ngSubmit)="onSubmit()">
+    <div class="form-group"
+         *ngIf="itemType == 'student' || itemType == 'teacher' || itemType == 'admin'">
+      <label for="firstName">First name</label>
+      <input formControlName="firstName"
+             type="text"
+             class="form-control"
+             [class.is-invalid]="isSubmitted && firstName.errors"
+             id="firstName"
+             autocomplete="on"
+             placeholder="Enter First Name">
+      <div *ngIf="isSubmitted && firstName.errors"
+           class="invalid-feedback">
+        <div *ngIf="firstName.errors.required">First Name is required</div>
+      </div>
+    </div>
+
+    <div class="form-group"
+         *ngIf="itemType == 'student' || itemType == 'teacher' || itemType == 'admin'">
+      <label for="lastName">Last name</label>
+      <input formControlName="lastName"
+             type="text"
+             class="form-control"
+             [class.is-invalid]="isSubmitted && lastName.errors"
+             id="lastName"
+             autocomplete="on"
+             placeholder="Enter Last Name">
+      <div *ngIf="isSubmitted && lastName.errors"
+           class="invalid-feedback">
+        <div *ngIf="lastName.errors.required">Last Name is required</div>
+      </div>
+    </div>
+
+    <div class="form-group"
+         *ngIf="itemType == 'student' || itemType == 'teacher' || itemType == 'admin'">
+      <label for="email">Email address</label>
+      <input type="email"
+             class="form-control"
+             id="email"
+             autocomplete="on"
+             placeholder="Enter email"
+             formControlName="email"
+             [class.is-invalid]="isSubmitted && email.errors">
+      <div *ngIf="isSubmitted && email.errors"
+           class="invalid-feedback">
+        <div *ngIf="email.errors.required">Email is required</div>
+        <div *ngIf="email.errors.email">Email must be a valid email address</div>
+      </div>
+    </div>
+
+    <div class="form-group"
+         *ngIf="itemType == 'student'">
+      <label for="groupId">Group ID</label>
+      <input formControlName="groupId"
+             type="number"
+             class="form-control"
+             [class.is-invalid]="isSubmitted && groupId.errors"
+             id="groupId"
+             autocomplete="on"
+             placeholder="Select groupId">
+      <div *ngIf="isSubmitted && groupId.errors"
+           class="invalid-feedback">
+        <div *ngIf="groupId.errors.required">Group ID is required</div>
+      </div>
+    </div>
+
+    <div class="form-group"
+         *ngIf="itemType == 'student' || itemType == 'teacher' || itemType == 'admin'">
+      <label for="phoneNumber">Phone Number</label>
+      <input formControlName="phoneNumber"
+             type="tel"
+             class="form-control"
+             [class.is-invalid]="isSubmitted && phoneNumber.errors"
+             id="phoneNumber"
+             autocomplete="on"
+             placeholder="0632356897">
+      <div *ngIf="isSubmitted && phoneNumber.errors"
+           class="invalid-feedback">
+        <div *ngIf="phoneNumber.errors.required">Phone number is required</div>
+      </div>
+    </div>
+
+    <div class="form-group"
+         *ngIf=" (itemType == 'student' || itemType == 'teacher' || itemType == 'admin') && onAdd">
+      <label for="password">Password</label>
+      <input formControlName="password"
+             type="password"
+             class="form-control"
+             [class.is-invalid]="isSubmitted && password.errors"
+             id="password"
+             autocomplete="on"
+             placeholder="Enter a password">
+      <div *ngIf="isSubmitted && password.errors"
+           class="invalid-feedback">
+        <div *ngIf="password.errors.required">Password is required</div>
+      </div>
+    </div>
+
+    <div class="form-group"
+         *ngIf="itemType == 'course' || itemType == 'specialty' || itemType == 'group'">
+      <label for="name">Name</label>
+      <input type="text"
+             id="name"
+             class="form-control"
+             placeholder="Name"
+             formControlName="name"
+             [class.is-invalid]="isSubmitted && name.errors">
+      <div *ngIf="isSubmitted && name.errors"
+           class="invalid-feedback">The name is required
+      </div>
+    </div>
+
+    <div class="form-group"
+         *ngIf="itemType == 'group'">
+      <label for="specialtyId">Specialty</label>
+      <input type="number"
+             id="specialtyId"
+             class="form-control"
+             placeholder="Specialty ID"
+             formControlName="specialtyId"
+             [class.is-invalid]="isSubmitted && specialtyId.errors">
+      <div *ngIf="isSubmitted && specialtyId.errors"
+           class="invalid-feedback">The id of specialty is required
+      </div>
+    </div>
+
+    <button [disabled]="itemForm.invalid"
+            type="submit"
+            class="btn btn-primary">{{buttonTitle}}</button>
+  </form>
+</app-default-modal>
