@@ -82,6 +82,9 @@ export class GroupsPageComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((group) => {
         this.groups.unshift(group);
+        this.alerts.push({ type: AlertType.Success, message: 'New group was added!' });
+      }, error => {
+        this.alerts.push({ type: AlertType.Error, message: error });
       });
   }
 

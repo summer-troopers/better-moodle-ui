@@ -53,6 +53,9 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((newTeacher) => {
         this.teachers.unshift(newTeacher);
+        this.alerts.push({ type: AlertType.Success, message: 'New teacher was added!' });
+      }, error => {
+        this.alerts.push({ type: AlertType.Error, message: error });
       });
   }
 

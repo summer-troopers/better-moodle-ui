@@ -83,7 +83,12 @@ export class TeacherDetailsPageComponent implements OnInit, OnDestroy {
               }));
       }),
       takeUntil(this.destroy$)
-    ).subscribe(() => this.modal.content.afterConfirmAction(TEACHERS_URL, `Teacher was successfully deleted!`));
+    ).subscribe(succ => {
+      this.modal.content.afterConfirmAction(TEACHERS_URL);
+      this.alerts.push({ type: AlertType.Success, message: 'Deleted!\nYou will be redirected in a moment!' });
+    }, error => {
+      this.alerts.push({ type: AlertType.Error, message: error });
+    });
   }
 
   ngOnDestroy() {

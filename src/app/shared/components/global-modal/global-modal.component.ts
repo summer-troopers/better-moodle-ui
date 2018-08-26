@@ -12,23 +12,21 @@ import { STUDENTS_URL, TEACHERS_URL, ADMINS_URL, GROUPS_URL, SPECIALTIES_URL, CO
   templateUrl: './global-modal.component.html'
 })
 export class GlobalModalComponent implements OnInit, OnDestroy {
-  onAdd: boolean;
-
-  ITEM_URL: string;
-
-  itemForm: FormGroup;
-  isSubmitted = false;
-
-  item;
-
-  itemType: string;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   itemAdded: EventEmitter<any> = new EventEmitter();
   itemEdited: EventEmitter<any> = new EventEmitter();
+  onAdd: boolean;
 
   confirmModalRef: BsModalRef;
+
+  itemForm: FormGroup;
+  isSubmitted = false;
+
+  item;
+  ITEM_URL: string;
+  itemType: string;
 
   title: string;
   buttonTitle: string;
@@ -44,7 +42,7 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
 
   initForm() {
     if (this.onAdd) {
-      this.initAddForm()
+      this.initAddForm();
     } else {
       this.initEditForm();
     }
@@ -88,27 +86,31 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
   }
 
   addGroupIdIfStudent() {
-    if (this.itemType == 'student')
+    if (this.itemType == 'student') {
       this.itemForm.addControl('groupId', new FormControl(this.getGroupIdValue(), Validators.required));
+    }
   }
 
   getGroupIdValue() {
-    if (!this.onAdd)
+    if (!this.onAdd) {
       return this.item.groupId;
-    else
+    } else {
       return '';
+    }
   }
 
   addSpecialtyIdIfGroup() {
-    if (this.itemType == 'group')
+    if (this.itemType == 'group') {
       this.itemForm.addControl('specialtyId', new FormControl(this.getSpecialtyIdValue(), Validators.required));
+    }
   }
 
   getSpecialtyIdValue() {
-    if (!this.onAdd)
+    if (!this.onAdd) {
       return this.item.specialtyId;
-    else
+    } else {
       return '';
+    }
   }
 
   get firstName() {
@@ -179,7 +181,7 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
     }
 
     if (this.onAdd) {
-      this.onAddSubmit()
+      this.onAddSubmit();
     } else {
       this.onEditSubmit();
     }

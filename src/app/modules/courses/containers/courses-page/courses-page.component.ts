@@ -86,7 +86,7 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((course) => {
         this.courses.unshift(course);
-        this.alerts.push({ type: AlertType.Success, message: 'The new course is successfully added!' });
+        this.alerts.push({ type: AlertType.Success, message: 'New course was added!' });
       }, error => {
         this.alerts.push({ type: AlertType.Error, message: error });
       });

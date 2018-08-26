@@ -21,7 +21,7 @@ export class CourseDetailsPageComponent implements OnInit, OnDestroy {
   id: string;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  modalRef: BsModalRef;
+  modal: BsModalRef;
 
   alerts: Alert[] = [];
 
@@ -65,9 +65,9 @@ export class CourseDetailsPageComponent implements OnInit, OnDestroy {
       title: 'Edit Course',
       buttonTitle: 'Update Course'
     };
-    this.modalRef = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
+    this.modal = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
 
-    this.modalRef.content.itemEdited
+    this.modal.content.itemEdited
       .pipe(takeUntil(this.destroy$))
       .subscribe((course) => {
         this.course = course;
@@ -78,18 +78,23 @@ export class CourseDetailsPageComponent implements OnInit, OnDestroy {
   }
 
   openDeleteModal() {
-    this.modalRef = this.modalService.show(ConfirmModalComponent);
-    this.modalRef.content.onConfirm.pipe(
+    this.modal = this.modalService.show(ConfirmModalComponent);
+    this.modal.content.onConfirm.pipe(
       flatMap(() => {
         return this.crudService.deleteItem(COURSES_URL, this.course.id)
           .pipe(
             catchError(
               err => {
-                this.modalRef.content.message = `Error on deleting course!`;
+                this.modal.content.message = `Error on deleting course!`;
                 return throwError(err);
               }));
       }),
       takeUntil(this.destroy$)
-    ).subscribe(() => this.modalRef.content.afterConfirmAction(COURSES_URL, `Course was successfully deleted!`));
+    ).subscribe(succ => {
+      this.modal.content.afterConfirmAction(COURSES_URL);
+      this.alerts.push({ type: AlertType.Success, message: 'Deleted!\nYou will be redirected in a moment!' });
+    }, error => {
+      this.alerts.push({ type: AlertType.Error, message: error });
+    });
   }
 }
