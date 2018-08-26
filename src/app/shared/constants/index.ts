@@ -15,7 +15,7 @@ export const AUTHENTICATION_URL = 'auth';
 export const NUMBER_ITEMS_PAGE = 10;
 export const MAX_SIZE_PAGINATION = 5;
 export const STUDENTS_URL = 'students';
-export var MODAL_OPTIONS: {} = {
+export let MODAL_OPTIONS: {} = {
   initialState: {},
   backdrop: 'static',
   keyboard: false

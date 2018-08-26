@@ -49,7 +49,7 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
   }
 
   initAddForm() {
-    if (this.itemType == 'student' || this.itemType == 'admin' || this.itemType == 'teacher') {
+    if (this.itemType === 'student' || this.itemType === 'admin' || this.itemType === 'teacher') {
       this.itemForm = this.formBuilder.group({
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
@@ -62,12 +62,12 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
       this.itemForm = this.formBuilder.group({
         name: ['', Validators.required]
       });
-      this.addSpecialtyIdIfGroup()
+      this.addSpecialtyIdIfGroup();
     }
   }
 
   initEditForm() {
-    if (this.itemType == 'student' || this.itemType == 'admin' || this.itemType == 'teacher') {
+    if (this.itemType === 'student' || this.itemType === 'admin' || this.itemType === 'teacher') {
       this.itemForm = new FormGroup({
         id: new FormControl(this.item.id, Validators.required),
         firstName: new FormControl(this.item.firstName, Validators.required),
@@ -81,12 +81,12 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
         id: new FormControl(this.item.id),
         name: new FormControl(this.item.name, Validators.required),
       });
-      this.addSpecialtyIdIfGroup()
+      this.addSpecialtyIdIfGroup();
     }
   }
 
   addGroupIdIfStudent() {
-    if (this.itemType == 'student') {
+    if (this.itemType === 'student') {
       this.itemForm.addControl('groupId', new FormControl(this.getGroupIdValue(), Validators.required));
     }
   }
@@ -100,7 +100,7 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
   }
 
   addSpecialtyIdIfGroup() {
-    if (this.itemType == 'group') {
+    if (this.itemType === 'group') {
       this.itemForm.addControl('specialtyId', new FormControl(this.getSpecialtyIdValue(), Validators.required));
     }
   }
@@ -219,5 +219,4 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
-
 }

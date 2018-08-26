@@ -6,10 +6,12 @@ import { UserService } from '@shared/services/user/user.service';
   selector: '[appHasRole]'
 })
 export class UserRoleDirective implements OnInit {
+
+  // tslint:disable-next-line
   @Input('appHasRole') role: string;
 
   constructor(private userService: UserService,
-              private elementRef: ElementRef) {
+    private elementRef: ElementRef) {
   }
 
   ngOnInit() {
