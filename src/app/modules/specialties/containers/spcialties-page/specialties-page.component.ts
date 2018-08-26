@@ -99,5 +99,4 @@ export class SpecialtiesPageComponent implements OnInit, OnDestroy {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
-
 }

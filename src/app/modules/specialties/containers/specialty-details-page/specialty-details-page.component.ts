@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
-import { Subject } from 'rxjs';
-import { flatMap, takeUntil } from 'rxjs/operators';
+import { Subject, throwError } from 'rxjs';
+import { flatMap, takeUntil, catchError } from 'rxjs/operators';
 
 import { CrudService } from '@shared/services/crud/crud.service';
 import { Alert, AlertType } from '@shared/models/alert';
-import { SPECIALTIES_URL, MODAL_OPTIONS } from '@shared/constants';
+import { SPECIALTIES_URL, COURSES_URL, MODAL_OPTIONS } from '@shared/constants';
 import { Specialty } from '@shared/models/specialty';
 import { GlobalModalComponent } from '@shared/components/global-modal/global-modal.component';
 import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
@@ -21,6 +21,7 @@ export class SpecialtyDetailsPageComponent implements OnInit, OnDestroy {
 
   isEditable = false;
   specialty: Specialty;
+  specialtyCourses: any;
   modal: BsModalRef;
   alerts: Array<Alert> = [];
   message: string;
@@ -32,6 +33,7 @@ export class SpecialtyDetailsPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initSpecialty();
+    this.getSpecialtyCourses();
   }
 
   openEditModal() {
@@ -74,11 +76,6 @@ export class SpecialtyDetailsPageComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy() {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
-  }
-
   openDeleteModal() {
     this.modal = this.modalService.show(ConfirmModalComponent);
     this.modal.content.onConfirm.pipe(
@@ -92,5 +89,31 @@ export class SpecialtyDetailsPageComponent implements OnInit, OnDestroy {
     }, error => {
       this.alerts.push({ type: AlertType.Error, message: error });
     });
+  }
+
+  getSpecialtyCourses() {
+    // return this.crudService.getItems(COURSES_URL)
+    //   .subscribe(
+    //     courses => {
+    //       console.log(courses)
+    //       const temp: any = [];
+    //       for (let i = 0; i < courses.length; i++) {
+    //         if (courses[i].group.id == this.route.params.value.id) {
+    //           temp[i] = courses[i];
+    //         }
+    //       }
+    //       this.specialtyCourses = temp.filter(element => {
+    //         return element !== undefined;
+    //       });
+    //     }, catchError(error => {
+    //       this.alerts.push({ type: AlertType.Error, message: error });
+    //       return throwError(error);
+    //     })
+    //   );
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

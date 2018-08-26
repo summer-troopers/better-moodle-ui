@@ -22,7 +22,9 @@ export class GroupsPageComponent implements OnInit, OnDestroy {
   paginationParams = new PaginationParams(0, NUMBER_ITEMS_PAGE);
   alerts: Array<Alert> = [];
   groups: Array<Group> = [];
+
   modalRef: BsModalRef;
+
   group: Group;
   currentPage: number;
   totalItems: number;
@@ -101,5 +103,4 @@ export class GroupsPageComponent implements OnInit, OnDestroy {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
-
 }

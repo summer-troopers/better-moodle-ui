@@ -12,3 +12,20 @@
           (click)="openEditModal()">Edit
   </button>
 </div>
+
+<ul class="list-group"
+    *ngIf="groupStudents.length;else noCourses">
+  <h1>
+    <em>This specialty has courses:</em>
+  </h1>
+  <li class="list-group-item list-group-item-dark"
+      *ngFor="let student of groupStudents">
+    <h4 class="list-group-item">{{student.firstName}} {{student.lastName}}</h4>
+  </li>
+</ul>
+
+<ng-template #noCourses>
+  <h1>
+    <em>This specialty has no courses.</em>
+  </h1>
+</ng-template>

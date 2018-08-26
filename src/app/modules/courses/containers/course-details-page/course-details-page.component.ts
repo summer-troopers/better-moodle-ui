@@ -52,11 +52,6 @@ export class CourseDetailsPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy() {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
-  }
-
   openEditModal() {
     MODAL_OPTIONS['initialState'] = {
       onAdd: false,
@@ -96,5 +91,10 @@ export class CourseDetailsPageComponent implements OnInit, OnDestroy {
     }, error => {
       this.alerts.push({ type: AlertType.Error, message: error });
     });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }
