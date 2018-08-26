@@ -9,7 +9,7 @@ export class PaginatorHelperService {
   constructor() { }
 
   getPaginationParams(totalItems: number, selectedPage: number): PaginationParams {
-    const limit = 10;
+    const limit = 30;
     const select = selectedPage - 1;
     let offset;
 

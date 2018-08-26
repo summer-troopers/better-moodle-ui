@@ -1,14 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
 
 import { CrudService } from '@shared/services/crud/crud.service';
-import { TEACHERS_URL, STUDENTS_URL, ADMINS_URL } from '@shared/constants'
+import { TEACHERS_URL, STUDENTS_URL } from '@shared/constants';
 
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss']
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent implements OnInit, OnDestroy {
+
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   totalAdmins: any;
   totalTeachers: any;
@@ -35,5 +38,10 @@ export class HomePageComponent implements OnInit {
         this.totalStudents = student.length;
       }
     );
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }
