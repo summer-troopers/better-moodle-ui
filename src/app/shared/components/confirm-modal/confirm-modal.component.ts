@@ -25,11 +25,11 @@ export class ConfirmModalComponent {
     this.bsModalRef.hide();
   }
 
-  afterConfirmAction(url, message) {
+  afterConfirmAction(url, message?) {
     this.message = message;
+    this.bsModalRef.hide();
     setTimeout(() => {
       this.router.navigateByUrl(url);
-      this.bsModalRef.hide();
     }, CONFIRM_MODAL_TIMEOUT);
   }
 }

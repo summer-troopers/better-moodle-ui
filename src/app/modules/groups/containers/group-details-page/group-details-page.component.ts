@@ -20,7 +20,7 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   isEditable = false;
-  modalRef: BsModalRef;
+  modal: BsModalRef;
   group: Group;
   groupStudents: any;
   alerts: Alert[] = [];
@@ -84,8 +84,8 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
       title: 'Edit Group',
       buttonTitle: 'Update Group'
     };
-    this.modalRef = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
-    this.modalRef.content.itemEdited
+    this.modal = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
+    this.modal.content.itemEdited
       .pipe(
         takeUntil(this.destroy$),
         mergeMap((updatedData: any) => {
@@ -114,20 +114,18 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
     this.group.specialty = event.specialty;
   }
   openDeleteModal() {
-    this.modalRef = this.modalService.show(ConfirmModalComponent);
-    this.modalRef.content.onConfirm.pipe(
+    this.modal = this.modalService.show(ConfirmModalComponent);
+    this.modal.content.onConfirm.pipe(
       flatMap(() => {
         return this.crudService.deleteItem(GROUPS_URL, this.group.id);
       }),
       takeUntil(this.destroy$)
-    ).subscribe(
-      success => {
-        this.modalRef.content.afterConfirmAction(GROUPS_URL, `The group was successfully deleted!`);
-      },
-      error => {
-        this.modalRef.content.message = `Error on deleting group!`;
-      }
-    );
+    ).subscribe(succ => {
+      this.modal.content.afterConfirmAction(GROUPS_URL);
+      this.alerts.push({ type: AlertType.Success, message: 'Deleted!\nYou will be redirected in a moment!' });
+    }, error => {
+      this.alerts.push({ type: AlertType.Error, message: error });
+    });
   }
 
   ngOnDestroy() {

@@ -10,6 +10,21 @@ import { UserRoleDirective } from '@shared/directives/user-role.directive';
 import { DefaultModalComponent } from './components/default-modal/default-modal.component';
 import { GlobalModalComponent } from './components/global-modal/global-modal.component';
 
+const COMPONENTS = [
+  LocalAlertComponent,
+  AlertComponent
+];
+
+const MODALS = [
+  ConfirmModalComponent,
+  DefaultModalComponent,
+  GlobalModalComponent
+];
+
+const DIRECTIVES = [
+  UserRoleDirective
+];
+
 @NgModule({
   imports: [
     CommonModule,
@@ -17,8 +32,8 @@ import { GlobalModalComponent } from './components/global-modal/global-modal.com
     FormsModule,
     ReactiveFormsModule
   ],
-  entryComponents: [ConfirmModalComponent, DefaultModalComponent, GlobalModalComponent],
-  declarations: [LocalAlertComponent, AlertComponent, ConfirmModalComponent, UserRoleDirective, DefaultModalComponent, GlobalModalComponent],
-  exports: [LocalAlertComponent, AlertComponent, UserRoleDirective]
+  entryComponents: [...MODALS],
+  declarations: [...COMPONENTS, ...MODALS, ...DIRECTIVES],
+  exports: [...COMPONENTS, ...DIRECTIVES]
 })
 export class SharedModule { }

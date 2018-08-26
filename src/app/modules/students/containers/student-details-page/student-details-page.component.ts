@@ -22,7 +22,7 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
 
   alerts: Alert[] = [];
 
-  modalRef: BsModalRef;
+  modal: BsModalRef;
 
   constructor(private route: ActivatedRoute,
     private crudService: CrudService,
@@ -61,9 +61,9 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
       title: 'Edit Student',
       buttonTitle: 'Update Student'
     };
-    this.modalRef = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
+    this.modal = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
 
-    this.modalRef.content.itemEdited.pipe(
+    this.modal.content.itemEdited.pipe(
       takeUntil(this.destroy$),
       mergeMap((updatedStudentData: Student) => {
         this.student = updatedStudentData;
@@ -87,18 +87,23 @@ export class StudentDetailsPageComponent implements OnInit, OnDestroy {
   }
 
   openDeleteModal() {
-    this.modalRef = this.modalService.show(ConfirmModalComponent);
-    this.modalRef.content.onConfirm.pipe(
+    this.modal = this.modalService.show(ConfirmModalComponent);
+    this.modal.content.onConfirm.pipe(
       flatMap(() => {
         return this.crudService.deleteItem(STUDENTS_URL, this.student.id)
           .pipe(
             catchError(
               err => {
-                this.modalRef.content.message = `Error on deleting student!`;
+                this.modal.content.message = `Error on deleting student!`;
                 return throwError(err);
               }));
       }),
       takeUntil(this.destroy$)
-    ).subscribe(() => this.modalRef.content.afterConfirmAction(STUDENTS_URL, `Student was successfully deleted!`));
+    ).subscribe(succ => {
+      this.modal.content.afterConfirmAction(STUDENTS_URL);
+      this.alerts.push({ type: AlertType.Success, message: 'Deleted!\nYou will be redirected in a moment!' });
+    }, error => {
+      this.alerts.push({ type: AlertType.Error, message: error });
+    });
   }
 }

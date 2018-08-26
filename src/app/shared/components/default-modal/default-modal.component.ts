@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { FormGroup } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
@@ -10,7 +10,7 @@ import { ModalHelperService } from '@shared/services/modal-helper/modal-helper.s
   selector: 'app-default-modal',
   templateUrl: './default-modal.component.html'
 })
-export class DefaultModalComponent implements OnInit {
+export class DefaultModalComponent implements OnInit, OnDestroy {
   @Input() title: string;
   @Input() form: FormGroup;
 
@@ -44,5 +44,4 @@ export class DefaultModalComponent implements OnInit {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
-
 }

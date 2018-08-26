@@ -21,7 +21,7 @@ export class SpecialtyDetailsPageComponent implements OnInit, OnDestroy {
 
   isEditable = false;
   specialty: Specialty;
-  modalRef: BsModalRef;
+  modal: BsModalRef;
   alerts: Array<Alert> = [];
   message: string;
 
@@ -42,8 +42,8 @@ export class SpecialtyDetailsPageComponent implements OnInit, OnDestroy {
       title: 'Edit Specialty',
       buttonTitle: 'Update Specialty'
     };
-    this.modalRef = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
-    this.modalRef.content.itemEdited
+    this.modal = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
+    this.modal.content.itemEdited
       .pipe(takeUntil(this.destroy$))
       .subscribe((specialty) => {
         this.specialty = specialty;
@@ -80,18 +80,17 @@ export class SpecialtyDetailsPageComponent implements OnInit, OnDestroy {
   }
 
   openDeleteModal() {
-    this.modalRef = this.modalService.show(ConfirmModalComponent);
-    this.modalRef.content.onConfirm.pipe(
+    this.modal = this.modalService.show(ConfirmModalComponent);
+    this.modal.content.onConfirm.pipe(
       flatMap(() => {
         return this.crudService.deleteItem(SPECIALTIES_URL, this.specialty.id);
       }),
       takeUntil(this.destroy$)
-    ).subscribe(
-      succcess => {
-        this.modalRef.content.afterConfirmAction(SPECIALTIES_URL, `The specialty was successfully deleted!`);
-      },
-      error => {
-        this.modalRef.content.message = `Error on deleting specialty!`;
-      });
+    ).subscribe(succ => {
+      this.modal.content.afterConfirmAction(SPECIALTIES_URL);
+      this.alerts.push({ type: AlertType.Success, message: 'Deleted!\nYou will be redirected in a moment!' });
+    }, error => {
+      this.alerts.push({ type: AlertType.Error, message: error });
+    });
   }
 }
