@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
-import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
+
+import { environment } from '@env/environment';
 
 import { LocalStorageService } from '@shared/services/local-storage/local-storage.service';
 import { TOKEN_STORAGE_KEY } from '@shared/constants';
@@ -20,6 +21,7 @@ export class BackendApiService {
   private getHeaders() {
     return new HttpHeaders({
       token: this.localStorageServices.getLocalStorage(TOKEN_STORAGE_KEY),
+      'Content-Type': 'application/json',
     });
   }
 
@@ -28,10 +30,10 @@ export class BackendApiService {
       params = {};
     }
 
-    let httpParams = new HttpParams();
-    httpParams = httpParams.set('limit', params.limit || 0);
-    httpParams = httpParams.set('offset', params.offset || 0);
-    httpParams = httpParams.set('contains', params.contains || '');
+    let httpParams = new HttpParams()
+      .set('limit', params.limit || 0)
+      .set('offset', params.offset || 0)
+      .set('contains', params.contains || '');
 
     Object.keys(params).forEach((key: string) => {
       httpParams = httpParams.set(key, params[key]);
