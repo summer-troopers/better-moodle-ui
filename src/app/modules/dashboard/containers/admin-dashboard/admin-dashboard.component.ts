@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, EventEmitter } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { FormGroup } from '@angular/forms';
@@ -8,6 +8,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Alert, AlertType } from '@shared/models/alert';
 import { GlobalModalComponent } from '@shared/components/global-modal/global-modal.component';
 import { MODAL_OPTIONS } from '@shared/constants';
+import { DashboardService } from '../../dashboard.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -24,7 +25,10 @@ export class AdminDashboardComponent implements OnDestroy {
 
   modal: BsModalRef;
 
-  constructor(private modalService: BsModalService) { }
+  downloadAlertEvent: EventEmitter<any> = new EventEmitter<any>();
+
+  constructor(private modalService: BsModalService,
+    private dashboardService: DashboardService) { }
 
   openEditModal() {
     MODAL_OPTIONS['initialState'] = {
@@ -40,8 +44,10 @@ export class AdminDashboardComponent implements OnDestroy {
       .subscribe((admin) => {
         this.user = admin;
         this.alerts.push({ type: AlertType.Success, message: 'Admin was edited!' });
+        this.downloadAlertEvent.emit(this.dashboardService.downloadAlert.next(this.alerts));
       }, error => {
         this.alerts.push({ type: AlertType.Error, message: error });
+        this.downloadAlertEvent.emit(this.dashboardService.downloadAlert.next(this.alerts));
       });
   }
 
