@@ -1,13 +1,14 @@
-import { Component, OnInit, EventEmitter, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Subject, throwError } from 'rxjs';
-import { takeUntil, catchError } from 'rxjs/operators';
+import { catchError, takeUntil } from 'rxjs/operators';
 
 import { CrudService } from '@shared/services/crud/crud.service';
-import { STUDENTS_URL, TEACHERS_URL, ADMINS_URL, GROUPS_URL, SPECIALTIES_URL, COURSES_URL } from '@shared/constants';
+import { ADMINS_URL, COURSES_URL, GROUPS_URL, SPECIALTIES_URL, STUDENTS_URL, TEACHERS_URL } from '@shared/constants';
 import { Group } from '@shared/models/group';
 import { Specialty } from '@shared/models/specialty';
+import { PHONE_NUMBER_LENGTH } from 'src/app/shared/constants';
 
 @Component({
   selector: 'app-global-modal',
@@ -25,6 +26,7 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
 
   itemForm: FormGroup;
   isSubmitted = false;
+  isRequestError = false;
 
   item;
   ITEM_URL: string;
@@ -56,32 +58,56 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
       case 'teacher':
       case 'admin': {
         this.itemForm = this.formBuilder.group({
-          firstName: [this.getItemValue('firstName'), [Validators.required, Validators.pattern(/^[a-z A-Z -]*$/), Validators.maxLength(50)]],
-          lastName: [this.getItemValue('lastName'), [Validators.required, Validators.pattern(/^[a-z A-Z -]*$/), Validators.maxLength(50)]],
-          email: [this.getItemValue('email'), [Validators.required, Validators.email]],
+          firstName: [this.getItemValue('firstName'), [
+            Validators.required,
+            Validators.pattern(`^[a-z A-Z -]*$`),
+            Validators.maxLength(50)]],
+          lastName: [this.getItemValue('lastName'), [
+            Validators.required,
+            Validators.pattern(`^[a-z A-Z -]*$`),
+            Validators.maxLength(50)]],
+          email: [this.getItemValue('email'), [
+            Validators.required,
+            Validators.email]],
           password: [this.getItemValue('password'), Validators.required],
-          phoneNumber: [this.getItemValue('phoneNumber'), Validators.required],
+          phoneNumber: [this.getItemValue('phoneNumber'), [
+            Validators.required,
+            Validators.minLength(PHONE_NUMBER_LENGTH),
+            Validators.maxLength(PHONE_NUMBER_LENGTH),
+            Validators.pattern('[0-9]+')]],
         });
         this.addGroupIdIfStudent();
         break;
       }
       case 'specialty': {
         this.itemForm = this.formBuilder.group({
-          name: [this.getItemValue('name'), [Validators.required, Validators.pattern(/^[a-z A-Z]*$/), Validators.maxLength(50)]],
-          description: [this.getItemValue('description'), [Validators.required, Validators.pattern(/^[a-z A-Z]*$/), Validators.maxLength(50)]],
+          name: [this.getItemValue('name'), [
+            Validators.required,
+            Validators.pattern(`^[a-z A-Z]*$`),
+            Validators.maxLength(50)]],
+          description: [this.getItemValue('description'), [
+            Validators.required,
+            Validators.pattern(`^[a-z A-Z]*$`),
+            Validators.maxLength(50)]],
         });
         break;
       }
       case 'group': {
         this.itemForm = this.formBuilder.group({
-          name: [this.getItemValue('name'), [Validators.required, Validators.pattern(/^[A-Z]{2,3}\d{3}/)]],
-          specialtyId: [this.getItemValue('specialtyId'), Validators.required]
+          name: [this.getItemValue('name'), [
+            Validators.required,
+            Validators.pattern(`^[A-Z]{3}\d{3}`)]],
+          spacialtyId: [this.getItemValue('spacialtyId'),
+            Validators.required]
         });
         break;
       }
       case 'course': {
         this.itemForm = this.formBuilder.group({
-          name: [this.getItemValue('name'), [Validators.required, Validators.pattern(/^[a-z A-Z -]*$/), Validators.maxLength(50)]]
+          name: [this.getItemValue('name'), [
+            Validators.required,
+            Validators.pattern(`^[a-z A-Z -]*$`),
+            Validators.maxLength(50)]]
         });
         break;
       }
@@ -92,25 +118,30 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
     }
   }
 
-  addGroupIdIfStudent() {
-    if (this.itemType === 'student') {
-      this.itemForm.addControl('groupId', new FormControl(this.getGroupIdValue(), Validators.required));
-    }
-  }
-
-  getGroupIdValue() {
-    if (!this.onAdd) {
-      return this.item.groupName;
-    } else {
-      return '';
-    }
-  }
-
   getItemValue(control) {
     if (!this.onAdd) {
       return this.item[control];
     } else {
       return '';
+    }
+  }
+
+  phoneNumberFormat() {
+    let format;
+    if (this.itemForm.value.phoneNumber) {
+      format = this.itemForm.value.phoneNumber[0] + this.itemForm.value.phoneNumber[1];
+      if (format === '06' || format === '07') {
+        return true;
+      }
+    } else {
+      return true;
+    }
+    return false;
+  }
+
+  addGroupIdIfStudent() {
+    if (this.itemType === 'student') {
+      this.itemForm.addControl('groupId', new FormControl(this.getItemValue('groupId'), Validators.required));
     }
   }
 
@@ -197,7 +228,7 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.isSubmitted = true;
-    if (this.itemForm.invalid) {
+    if (this.itemForm.invalid || this.phoneNumberFormat() === false) {
       return;
     }
 
@@ -213,11 +244,13 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this.destroy$),
         catchError((error) => {
+          this.isRequestError = true;
           return throwError(error);
         })
       )
       .subscribe((newUser) => {
         this.itemAdded.emit(newUser);
+        this.isRequestError = false;
         this.itemModalRef.hide();
       });
   }
@@ -227,11 +260,13 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this.destroy$),
         catchError((error) => {
+          this.isRequestError = true;
           return throwError(error);
         })
       )
       .subscribe(() => {
         this.itemEdited.emit(this.itemForm.value);
+        this.isRequestError = false;
         this.itemModalRef.hide();
       });
   }
