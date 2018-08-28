@@ -15,6 +15,7 @@
       <div *ngIf="isSubmitted && firstName.errors"
            class="invalid-feedback">
         <div *ngIf="firstName.errors.required">First Name is required</div>
+        <div *ngIf="firstName.errors.pattern">First Name is composed only from letters!</div>
       </div>
     </div>
 
@@ -31,6 +32,7 @@
       <div *ngIf="isSubmitted && lastName.errors"
            class="invalid-feedback">
         <div *ngIf="lastName.errors.required">Last Name is required</div>
+        <div *ngIf="lastName.errors.pattern">Last Name is composed only from letters!</div>
       </div>
     </div>
 

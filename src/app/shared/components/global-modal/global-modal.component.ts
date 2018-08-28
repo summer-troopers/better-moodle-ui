@@ -41,84 +41,60 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
   }
 
   initForm() {
-    if (this.onAdd) {
-      this.initAddForm();
-    } else {
-      this.initEditForm();
-    }
+    this.initItemForm();
   }
 
-  initAddForm() {
-    if (this.itemType === 'student' || this.itemType === 'admin' || this.itemType === 'teacher') {
-      this.itemForm = this.formBuilder.group({
-        firstName: ['', Validators.required],
-        lastName: ['', Validators.required],
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', Validators.required],
-        phoneNumber: ['', Validators.required]
-      });
-      this.addGroupIdIfStudent();
-    } else if (this.itemType === 'specialty') {
-      this.itemForm = this.formBuilder.group({
-        name: ['', Validators.required],
-        description: ['', Validators.required],
-      });
-    } else {
-      this.itemForm = this.formBuilder.group({
-        name: ['', Validators.required]
-      });
-      this.addSpecialtyIdIfGroup();
+  initItemForm() {
+    switch (this.itemType) {
+      case 'student':
+      case 'teacher':
+      case 'admin': {
+        this.itemForm = this.formBuilder.group({
+          firstName: [this.getItemValue('firstName'), [Validators.required, Validators.pattern(`^[a-z A-Z -]*$`), Validators.maxLength(50)]],
+          lastName: [this.getItemValue('lastName'), [Validators.required, Validators.pattern(`^[a-z A-Z -]*$`), Validators.maxLength(50)]],
+          email: [this.getItemValue('email'), [Validators.required, Validators.email]],
+          password: [this.getItemValue('password'), Validators.required],
+          phoneNumber: [this.getItemValue('phoneNumber'), Validators.required],
+        });
+        this.addGroupIdIfStudent();
+        break;
+      }
+      case 'specialty': {
+        this.itemForm = this.formBuilder.group({
+          name: [this.getItemValue('name'), [Validators.required, Validators.pattern(`^[a-z A-Z]*$`), Validators.maxLength(50)]],
+          description: [this.getItemValue('description'), [Validators.required, Validators.pattern(`^[a-z A-Z]*$`), Validators.maxLength(50)]],
+        });
+        break;
+      }
+      case 'group': {
+        this.itemForm = this.formBuilder.group({
+          name: [this.getItemValue('name'), [Validators.required, Validators.pattern(`^[A-Z]{3}\d{3}`)]],
+          spacialtyId: [this.getItemValue('spacialtyId'), Validators.required]
+        });
+        break;
+      }
+      case 'course': {
+        this.itemForm = this.formBuilder.group({
+          name: [this.getItemValue('name'), [Validators.required, Validators.pattern(`^[a-z A-Z -]*$`), Validators.maxLength(50)]]
+        });
+        break;
+      }
     }
-  }
 
-  initEditForm() {
-    if (this.itemType === 'student' || this.itemType === 'admin' || this.itemType === 'teacher') {
-      this.itemForm = new FormGroup({
-        id: new FormControl(this.item.id, Validators.required),
-        firstName: new FormControl(this.item.firstName, Validators.required),
-        lastName: new FormControl(this.item.lastName, Validators.required),
-        email: new FormControl(this.item.email, [Validators.required, Validators.email]),
-        phoneNumber: new FormControl(this.item.phoneNumber, Validators.required)
-      });
-      this.addGroupIdIfStudent();
-    } else if (this.itemType === 'specialty') {
-      this.itemForm = new FormGroup({
-        id: new FormControl(this.item.id),
-        name: new FormControl(this.item.name, Validators.required),
-        description: new FormControl(this.item.name, Validators.required)
-      });
-    } else {
-      this.itemForm = new FormGroup({
-        id: new FormControl(this.item.id),
-        name: new FormControl(this.item.name, Validators.required),
-      });
-      this.addSpecialtyIdIfGroup();
+    if (!this.onAdd) {
+      this.itemForm.addControl('id', new FormControl(this.item.id, Validators.required));
     }
   }
 
   addGroupIdIfStudent() {
     if (this.itemType === 'student') {
-      this.itemForm.addControl('groupId', new FormControl(this.getGroupIdValue(), Validators.required));
+      this.itemForm.addControl('groupId', new FormControl(this.getItemValue('groupId'), Validators.required));
     }
   }
 
-  getGroupIdValue() {
+  getItemValue(control) {
     if (!this.onAdd) {
-      return this.item.groupId;
-    } else {
-      return '';
-    }
-  }
-
-  addSpecialtyIdIfGroup() {
-    if (this.itemType === 'group') {
-      this.itemForm.addControl('specialtyId', new FormControl(this.getSpecialtyIdValue(), Validators.required));
-    }
-  }
-
-  getSpecialtyIdValue() {
-    if (!this.onAdd) {
-      return this.item.specialtyId;
+      return this.item[control];
     } else {
       return '';
     }
