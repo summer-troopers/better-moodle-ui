@@ -92,14 +92,14 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
         this.courseInstances = courseInstances;
       });
   }
-
+/*
   getAllTasks() {
     this.crudService.getItems(COURSE_INSTANCES_URL).subscribe(tasks => {
       this.tasks = tasks;
       console.log(this.tasks);
       return this.tasks;
     }, error1 => console.log(error1));
-  }
+  }*/
 
   getAllReports() {
     this.crudService.getItems(LABORATORY_URL).subscribe(reports => {

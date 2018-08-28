@@ -43,12 +43,14 @@ i {
   font-size: 1.25em;
 }
 
-
-
-
-
-
-
+label {
+  margin: 4px;
+  margin-bottom: 0px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #7ab8a7;
+  border-radius: 4px;
+}
 
 .my-drop-zone {
   border: dotted 3px lightgray;
