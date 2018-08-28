@@ -88,7 +88,22 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
 
   addGroupIdIfStudent() {
     if (this.itemType === 'student') {
-      this.itemForm.addControl('groupId', new FormControl(this.getItemValue('groupId'), Validators.required));
+      this.itemForm.addControl('groupName', new FormControl(this.getGroupIdValue(), Validators.required));
+    }
+  }
+
+  getGroupIdValue() {
+    if (!this.onAdd) {
+
+      return this.item.groupName;
+    } else {
+      return '';
+    }
+  }
+
+  addSpecialtyIdIfGroup() {
+    if (this.itemType === 'group') {
+      this.itemForm.addControl('specialtyId', new FormControl(this.getSpecialtyIdValue(), Validators.required));
     }
   }
 
@@ -120,8 +135,8 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
     return this.itemForm.controls.phoneNumber;
   }
 
-  get groupId() {
-    return this.itemForm.controls.groupId;
+  get groupName() {
+    return this.itemForm.controls.groupName;
   }
 
   get name() {

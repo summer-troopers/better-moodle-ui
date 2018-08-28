@@ -55,17 +55,25 @@
 
     <div class="form-group"
          *ngIf="itemType == 'student'">
-      <label for="groupId">Group ID</label>
-      <input formControlName="groupId"
-             type="number"
+      <label for="groupName">Group Name</label>
+      <select name="groupName"
+              id="groupName"
+              class="form-control">
+        <option value="volvo">Volvo</option>
+        <option value="saab">Saab</option>
+        <option value="opel">Opel</option>
+        <option value="audi">Audi</option>
+      </select>
+      <!-- <input formControlName="groupName"
+             type="text"
              class="form-control"
-             [class.is-invalid]="isSubmitted && groupId.errors"
-             id="groupId"
+             [class.is-invalid]="isSubmitted && groupName.errors"
+             id="groupName"
              autocomplete="on"
-             placeholder="Select groupId">
-      <div *ngIf="isSubmitted && groupId.errors"
+             placeholder="Select groupName"> -->
+      <div *ngIf="isSubmitted && groupName.errors"
            class="invalid-feedback">
-        <div *ngIf="groupId.errors.required">Group ID is required</div>
+        <div *ngIf="groupName.errors.required">Group Name is required</div>
       </div>
     </div>
 
