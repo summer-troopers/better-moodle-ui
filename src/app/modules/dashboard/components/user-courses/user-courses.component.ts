@@ -3,9 +3,8 @@ import { Subject, throwError } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 import { UploaderOptions, UploadFile, UploadInput, UploadOutput } from 'ngx-uploader';
 
-import { Course } from '@shared/models/course';
 import { LabReport } from '@shared/models/labreport';
-import { COURSES_URL, LABORATORY_URL, COURSE_INSTANCES_URL } from '@shared/constants';
+import { LABORATORY_URL, COURSE_INSTANCES_URL } from '@shared/constants';
 import { Alert, AlertType } from '@shared/models/alert';
 
 import { DashboardService } from '@modules/dashboard/dashboard.service';
@@ -23,7 +22,8 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
   courseInstances: Array<CourseInstance> = [];
   reports: Array<LabReport> = [];
   alerts: Alert[] = [];
-  fileExists = true;
+  // reportExists = false;
+  isDisabled = true;
 
   @Input() user;
 
@@ -43,7 +43,6 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getAllCourseInstances();
-    // this.getAllReports();
   }
 
   ngOnDestroy() {
@@ -66,8 +65,10 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
       })
     )
       .subscribe((courseInstances) => {
-        console.log(courseInstances);
         this.courseInstances = courseInstances;
+        courseInstances.forEach(courseInstance => {
+          courseInstance.labReport = courseInstance.labReports.find(labReport => labReport.studentId === userId);
+        });
       });
   }
 
@@ -80,15 +81,16 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
       }, error1 => console.log(error1));
     } */
 
-  uploadReport(courseId): void {
+  uploadReport(courseInstanceId): void {
     const token = localStorage.getItem('authorization');
     const ContentType = this.file.type;
+    const userId = this.user.id;
     const uploadEvent: UploadInput = {
       type: 'uploadFile',
       url: `http://localhost:80/api/v1/${LABORATORY_URL}`,
       method: 'POST',
       headers: {token},
-      data: {courseId, ContentType},
+      data: {courseInstanceId, userId, ContentType},
       fieldName: 'labReport',
       file: this.file,
     };
@@ -99,6 +101,7 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
       id: this.file.id,
     };
     this.uploadInput.emit(removeEvent);
+    return this.getAllCourseInstances();
   }
 
   uploadTask(courseInstanceId): void {
@@ -126,6 +129,9 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
   onUploadOutput(output: UploadOutput): void {
     if (output.type === 'addedToQueue' && typeof output.file !== 'undefined') {
       this.file = output.file;
+      this.isDisabled = false;
+    } else if (output.type === 'done') {
+      this.isDisabled = true;
     }
     console.log(output);
   }

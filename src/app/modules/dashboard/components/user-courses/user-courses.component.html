@@ -19,90 +19,92 @@
 
     <tbody appHasRole="teacher">
 
-      <tr *ngFor="let courseInstance of courseInstances; let i = index">
-        <th scope="row">{{i+1}}</th>
-        <td>{{courseInstance.course.name}}</td>
-        <td appHasRole="student"
-            class="labs-cell">
+    <tr *ngFor="let courseInstance of courseInstances; let i = index">
+      <th scope="row">{{i+1}}</th>
+      <td>{{courseInstance.course.name}}</td>
+      <td appHasRole="student"
+          class="labs-cell">
+        <button class="btn btn-secondary icon-button"
+                (click)="downloadTask(courseInstance.id)"><i class="fa fa-file"></i><br>Download
+          Task
+        </button>
+      </td>
+
+      <td class="labs-cell">
+        <form *ngIf="!courseInstance.fileExists">
+          <input type="file"
+                 ngFileSelect
+                 [options]="options"
+                 (uploadOutput)="onUploadOutput($event)"
+                 [uploadInput]="uploadInput"
+                 id="task-file"
+                 name="task-file"
+                 class="inputfile"
+                 value="Add Task"/>
+          <label for="task-file"><i class="fa fa-upload"
+                                    aria-hidden="true"></i>
+            Choose a file...</label>
+          <input type="button"
+                 [disabled]="isDisabled"
+                 (click)="uploadTask(courseInstance.id)"
+                 class="btn btn-secondary submit-button"
+                 value="Submit"/>
+
+        </form>
+        <div *ngIf="courseInstance.fileExists">
           <button class="btn btn-secondary icon-button"
                   (click)="downloadTask(courseInstance.id)"><i class="fa fa-file"></i><br>Download
             Task
           </button>
-        </td>
-
-        <td class="labs-cell">
-          <form *ngIf="!courseInstance.fileExists">
-            <input type="file"
-                   ngFileSelect
-                   [options]="options"
-                   (uploadOutput)="onUploadOutput($event)"
-                   [uploadInput]="uploadInput"
-                   id="task-file"
-                   name="task-file"
-                   class="inputfile"
-                   value="Add Task"/>
-            <label for="task-file"><i class="fa fa-upload"
-                                      aria-hidden="true"></i>
-              Choose a file...</label>
-            <input type="button"
-                   (click)="uploadTask(courseInstance.id)"
-                   class="btn btn-secondary submit-button"
-                   value="Submit"/>
-
-          </form>
-          <div *ngIf="courseInstance.fileExists">
-            <button class="btn btn-secondary icon-button"
-                    (click)="downloadTask(courseInstance.id)"><i class="fa fa-file"></i><br>Download
-              Task
-            </button>
-            <button class="btn btn-secondary delete-button"
-                    (click)="deleteTask(courseInstance.id)">Delete Task
-            </button>
-          </div>
-          <br>
-        </td>
-      </tr>
+          <button class="btn btn-secondary delete-button"
+                  (click)="deleteTask(courseInstance.id)">Delete Task
+          </button>
+        </div>
+        <br>
+      </td>
+    </tr>
     </tbody>
 
 
     <tbody appHasRole="student">
-      <tr *ngFor="let courseInstance of courseInstances; let i = index">
-        <th scope="row">{{i+1}}</th>
-        <td>{{courseInstance.course.name}}</td>
-        <td class="labs-cell">
+    <tr *ngFor="let courseInstance of courseInstances; let i = index">
+      <th scope="row">{{i+1}}</th>
+      <td>{{courseInstance.course.name}}</td>
+      <td class="labs-cell">
+        <button class="btn btn-secondary icon-button"
+                (click)="downloadTask(courseInstance.id)"><i class="fa fa-file"></i><br>Download
+          Task
+        </button>
+      </td>
+
+      <td class="labs-cell">
+        <form *ngIf="!courseInstance.labReport">
+          <input type="file"
+                 ngFileSelect
+                 [options]="options"
+                 (uploadOutput)="onUploadOutput($event)"
+                 [uploadInput]="uploadInput"
+                 id="report-file"
+                 name="report-file"
+                 class="inputfile"
+                 value="Add Report"/>
+          <label for="report-file"><i class="fa fa-upload"
+                                      aria-hidden="true"></i>
+            Choose a file...</label>
+          <input type="button"
+                 [disabled]="isDisabled"
+                 (click)="uploadReport(courseInstance.id)"
+                 class="btn btn-secondary submit-button"
+                 value="Submit"/>
+
+        </form>
+        <div *ngIf="courseInstance.labReport">
           <button class="btn btn-secondary icon-button"
-                  (click)="downloadTask(courseInstance.id)"><i class="fa fa-file"></i><br>Download
-            Task
+                  (click)="downloadReport(courseInstance.labReport.id)"><i class="fa fa-file"></i><br>Download Report
           </button>
-        </td>
-
-        <td class="labs-cell">
-          <form *ngIf="fileExists">
-            <input type="file"
-                   ngFileSelect
-                   [options]="options"
-                   (uploadOutput)="onUploadOutput($event)"
-                   [uploadInput]="uploadInput"
-                   id="report-file"
-                   name="report-file"
-                   class="inputfile"
-                   value="Add Report"/>
-            <label for="report-file"><i class="fa fa-upload"
-                                        aria-hidden="true"></i>
-              Choose a file...</label>
-            <input type="button"
-                   (click)="uploadReport(courseInstance.id)"
-                   class="btn btn-secondary submit-button"
-                   value="Submit"/>
-
-          </form>
-          <div *ngIf="fileExists">
-            <button class="btn btn-secondary icon-button"
-                    (click)="downloadReport(courseInstance.id)"><i class="fa fa-file"></i><br>Download Report
-            </button>
-          </div>
-        </td>
-      </tr>
+        </div>
+      </td>
+    </tr>
     </tbody>
 
 
