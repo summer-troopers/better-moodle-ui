@@ -4,8 +4,7 @@ import { catchError, takeUntil } from 'rxjs/operators';
 import { UploaderOptions, UploadFile, UploadInput, UploadOutput } from 'ngx-uploader';
 
 import { Course } from '@shared/models/course';
-import LabTask from '@shared/models/labtask';
-import LabReport from '@shared/models/labreport';
+import { LabReport } from '@shared/models/labreport';
 import { COURSES_URL, LABORATORY_URL, COURSE_INSTANCES_URL } from '@shared/constants';
 import { Alert, AlertType } from '@shared/models/alert';
 
@@ -13,15 +12,7 @@ import { DashboardService } from '@modules/dashboard/dashboard.service';
 import { CrudService } from '@shared/services/crud/crud.service';
 import { DownloadService } from '@shared/services/download/download.service';
 import { Teacher } from '@shared/models/teacher';
-
-interface CourseInstance {
-  id: string;
-  courseId: string;
-  teacherId: string;
-  course: Course;
-  teacher: Teacher;
-  fileExists: boolean;
-}
+import { CourseInstance } from '@shared/models/course-instances';
 
 @Component({
   selector: 'app-user-courses',
@@ -32,7 +23,6 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
   id: string;
   courses: Array<Course> = [];
   courseInstances: Array<CourseInstance> = [];
-  tasks: Array<LabTask> = [];
   reports: Array<LabReport> = [];
   alerts: Alert[] = [];
   fileExists = true;
@@ -140,16 +130,16 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
     this.uploadInput.emit(removeEvent);
   }
 
-  uploadTask(courseId): void {
+  uploadTask(courseInstanceId): void {
     const token = localStorage.getItem('authorization');
     const ContentType = this.file.type;
     const uploadEvent: UploadInput = {
       type: 'uploadFile',
-      url: `http://localhost:80/api/v1/${COURSE_INSTANCES_URL}`,
+      url: `http://localhost:80/api/v1/${COURSE_INSTANCES_URL}/${courseInstanceId}`,
       method: 'PUT',
       headers: {token},
-      data: {courseId, ContentType},
-      fieldName: 'labTask',
+      data: {ContentType},
+      fieldName: 'labTasksFile',
       file: this.file,
     };
     this.uploadInput.emit(uploadEvent);
