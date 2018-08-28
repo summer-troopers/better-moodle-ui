@@ -1,7 +1,7 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -14,28 +14,17 @@ import { MODAL_OPTIONS } from '@shared/constants';
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss']
 })
-export class AdminDashboardComponent implements OnInit, OnDestroy {
+export class AdminDashboardComponent implements OnDestroy {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
   @Input() user;
 
   serForm: FormGroup;
   alerts: Alert[] = [];
-  userForm: FormGroup;
 
   modal: BsModalRef;
 
   constructor(private modalService: BsModalService) { }
-
-  ngOnInit() {
-    this.userForm = new FormGroup({
-      id: new FormControl(this.user.id),
-      firstName: new FormControl(this.user.firstName, Validators.required),
-      lastName: new FormControl(this.user.lastName, Validators.required),
-      email: new FormControl(this.user.email, [Validators.required, Validators.email]),
-      phoneNumber: new FormControl(this.user.phoneNumber, Validators.required),
-    });
-  }
 
   openEditModal() {
     MODAL_OPTIONS['initialState'] = {
