@@ -64,7 +64,7 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
           const temp: any = [];
           for (let i = 0; i < students.length; i++) {
             // tslint:disable-next-line
-            if (students[i].group.id == this.route.params.value.id) {
+            if (students[i].group.id == this.route.params._value.id) {
               temp[i] = students[i];
             }
           }
