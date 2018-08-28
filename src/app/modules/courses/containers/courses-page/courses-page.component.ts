@@ -97,12 +97,12 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
     this.router.navigate([COURSES_URL], { queryParams: { page: event.page } });
   }
 
+  setCourses(courses) {
+    this.courses = courses.reverse();
+  }
+
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
-  }
-
-  setCourses(courses) {
-    this.courses = courses.reverse();
   }
 }

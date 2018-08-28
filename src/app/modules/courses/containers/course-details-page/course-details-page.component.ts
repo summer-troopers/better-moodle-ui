@@ -10,6 +10,7 @@ import { CrudService } from '@shared/services/crud/crud.service';
 import { COURSES_URL, MODAL_OPTIONS } from '@shared/constants';
 import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
 import { GlobalModalComponent } from '@shared/components/global-modal/global-modal.component';
+import { Teacher } from '@shared/models/teacher';
 
 @Component({
   selector: 'app-course-details-page',
@@ -24,6 +25,8 @@ export class CourseDetailsPageComponent implements OnInit, OnDestroy {
   modal: BsModalRef;
 
   alerts: Alert[] = [];
+
+  courseTeachers: Array<Teacher>;
 
   constructor(
     private crudService: CrudService,
@@ -47,14 +50,10 @@ export class CourseDetailsPageComponent implements OnInit, OnDestroy {
             }));
         }),
         takeUntil(this.destroy$)
-      ).subscribe((course) => {
+      ).subscribe((course: any) => {
         this.course = course;
+        this.courseTeachers = course.teachers;
       });
-  }
-
-  ngOnDestroy() {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
   }
 
   openEditModal() {
@@ -96,5 +95,10 @@ export class CourseDetailsPageComponent implements OnInit, OnDestroy {
     }, error => {
       this.alerts.push({ type: AlertType.Error, message: error });
     });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

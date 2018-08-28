@@ -58,6 +58,11 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
         phoneNumber: ['', Validators.required]
       });
       this.addGroupIdIfStudent();
+    } else if (this.itemType === 'specialty') {
+      this.itemForm = this.formBuilder.group({
+        name: ['', Validators.required],
+        description: ['', Validators.required],
+      });
     } else {
       this.itemForm = this.formBuilder.group({
         name: ['', Validators.required]
@@ -76,6 +81,12 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
         phoneNumber: new FormControl(this.item.phoneNumber, Validators.required)
       });
       this.addGroupIdIfStudent();
+    } else if (this.itemType === 'specialty') {
+      this.itemForm = new FormGroup({
+        id: new FormControl(this.item.id),
+        name: new FormControl(this.item.name, Validators.required),
+        description: new FormControl(this.item.name, Validators.required)
+      });
     } else {
       this.itemForm = new FormGroup({
         id: new FormControl(this.item.id),
@@ -143,6 +154,10 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
 
   get specialtyId() {
     return this.itemForm.controls.specialtyId;
+  }
+
+  get description() {
+    return this.itemForm.controls.description;
   }
 
   initUrl() {

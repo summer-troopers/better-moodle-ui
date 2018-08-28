@@ -127,6 +127,20 @@
       </div>
     </div>
 
+    <div class="form-group"
+         *ngIf="itemType == 'specialty'">
+      <label for="description">Description</label>
+      <input type="text"
+             id="description"
+             class="form-control"
+             placeholder="Description"
+             formControlName="description"
+             [class.is-invalid]="isSubmitted && description.errors">
+      <div *ngIf="isSubmitted && description.errors"
+           class="invalid-feedback">Description is required
+      </div>
+    </div>
+
     <button [disabled]="itemForm.invalid"
             type="submit"
             class="btn btn-primary">{{buttonTitle}}</button>

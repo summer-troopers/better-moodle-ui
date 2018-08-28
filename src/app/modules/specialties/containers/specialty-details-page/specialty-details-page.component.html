@@ -3,6 +3,7 @@
 </div>
 <div class="container">
   <h3> Specialty Name: {{specialty?.name}}</h3>
+  <h4> Description: {{specialty?.description}}</h4>
   <button appHasRole="admin"
           class="btn btn-danger mt-2 mb-2 mr-2"
           (click)="openDeleteModal()">Delete
@@ -11,4 +12,22 @@
           class="btn btn-success mt-2 mb-2 mr-2"
           (click)="openEditModal()">Edit
   </button>
+
+  <ul class="list-group"
+      *ngIf="specialtyCourses && specialtyCourses.length > 0;else noCourses">
+    <h1>
+      <em>This specialty has courses:</em>
+    </h1>
+    <li class="list-group-item list-group-item-dark"
+        *ngFor="let course of specialtyCourses">
+      <h4 class="list-group-item">{{course.course.name}}</h4>
+    </li>
+  </ul>
 </div>
+
+
+<ng-template #noCourses>
+  <h1>
+    <em>This specialty has no courses.</em>
+  </h1>
+</ng-template>

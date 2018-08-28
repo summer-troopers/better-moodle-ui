@@ -78,11 +78,6 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy() {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
-  }
-
   pageChanged(event: any) {
     this.currentPage = event.page;
     this.router.navigate([STUDENTS_URL], { queryParams: { page: event.page } });
@@ -103,5 +98,10 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
 
   setStudents(students) {
     this.students = students.reverse();
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

@@ -14,7 +14,7 @@
   </button>
 
   <ul class="list-group"
-      *ngIf="groupStudents.length;else noStudents">
+      *ngIf="groupStudents && groupStudents.length >0;else noStudents">
     <h1>
       <em>Students from this group</em>
     </h1>
