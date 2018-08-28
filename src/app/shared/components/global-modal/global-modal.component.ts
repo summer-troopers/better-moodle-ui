@@ -6,6 +6,7 @@ import { takeUntil, catchError } from 'rxjs/operators';
 
 import { CrudService } from '@shared/services/crud/crud.service';
 import { STUDENTS_URL, TEACHERS_URL, ADMINS_URL, GROUPS_URL, SPECIALTIES_URL, COURSES_URL } from '@shared/constants';
+import { Group } from '../../models/group';
 
 @Component({
   selector: 'app-global-modal',
@@ -27,6 +28,7 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
   item;
   ITEM_URL: string;
   itemType: string;
+  groupsName: Array<Group>;
 
   title: string;
   buttonTitle: string;
@@ -38,6 +40,7 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.initForm();
     this.initUrl();
+    this.getGroups();
   }
 
   initForm() {
@@ -88,7 +91,7 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
 
   addGroupIdIfStudent() {
     if (this.itemType === 'student') {
-      this.itemForm.addControl('groupName', new FormControl(this.getGroupIdValue(), Validators.required));
+      this.itemForm.addControl('groupId', new FormControl(this.getGroupIdValue(), Validators.required));
     }
   }
 
@@ -135,8 +138,8 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
     return this.itemForm.controls.phoneNumber;
   }
 
-  get groupName() {
-    return this.itemForm.controls.groupName;
+  get groupId() {
+    return this.itemForm.controls.groupId;
   }
 
   get name() {
@@ -149,6 +152,14 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
 
   get description() {
     return this.itemForm.controls.description;
+  }
+
+  getGroups() {
+    this.crudService.getItems(GROUPS_URL).subscribe(
+      group => {
+        this.groupsName = group;
+      }
+    );
   }
 
   initUrl() {
