@@ -40,10 +40,10 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
     public itemModalRef: BsModalRef) { }
 
   ngOnInit() {
-    this.initForm();
-    this.initUrl();
     this.getGroups();
     this.getSpecialties();
+    this.initForm();
+    this.initUrl();
   }
 
   initForm() {
