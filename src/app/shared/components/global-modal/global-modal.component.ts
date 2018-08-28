@@ -51,8 +51,8 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
   initAddForm() {
     if (this.itemType === 'student' || this.itemType === 'admin' || this.itemType === 'teacher') {
       this.itemForm = this.formBuilder.group({
-        firstName: ['', Validators.required],
-        lastName: ['', Validators.required],
+        firstName: ['', [Validators.required, Validators.pattern(`^[a-z ,.'-]+$`)]],
+        lastName: ['', [Validators.required, Validators.pattern(`^[a-z ,.'-]+$`)]],
         email: ['', [Validators.required, Validators.email]],
         password: ['', Validators.required],
         phoneNumber: ['', Validators.required]
@@ -75,8 +75,8 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
     if (this.itemType === 'student' || this.itemType === 'admin' || this.itemType === 'teacher') {
       this.itemForm = new FormGroup({
         id: new FormControl(this.item.id, Validators.required),
-        firstName: new FormControl(this.item.firstName, Validators.required),
-        lastName: new FormControl(this.item.lastName, Validators.required),
+        firstName: new FormControl(this.item.firstName, [Validators.required, Validators.pattern(`^[a-z ,.'-]+$`)]),
+        lastName: new FormControl(this.item.lastName, [Validators.required, Validators.pattern(`^[a-z ,.'-]+$`)]),
         email: new FormControl(this.item.email, [Validators.required, Validators.email]),
         phoneNumber: new FormControl(this.item.phoneNumber, Validators.required)
       });
