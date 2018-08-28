@@ -8,7 +8,7 @@ import { CrudService } from '@shared/services/crud/crud.service';
 import { ADMINS_URL, COURSES_URL, GROUPS_URL, SPECIALTIES_URL, STUDENTS_URL, TEACHERS_URL } from '@shared/constants';
 import { Group } from '@shared/models/group';
 import { Specialty } from '@shared/models/specialty';
-import { PHONE_NUMBER_LENGTH } from 'src/app/shared/constants';
+import { PHONE_NUMBER_LENGTH } from '@shared/constants';
 
 @Component({
   selector: 'app-global-modal',
@@ -98,7 +98,7 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
             Validators.required,
             Validators.pattern(`^[A-Z]{3}\d{3}`)]],
           spacialtyId: [this.getItemValue('spacialtyId'),
-            Validators.required]
+          Validators.required]
         });
         break;
       }
