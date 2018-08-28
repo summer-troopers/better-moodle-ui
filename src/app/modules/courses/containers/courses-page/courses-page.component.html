@@ -27,6 +27,7 @@
   </div>
   <div class="pagination-container">
     <pagination class="d-flex justify-content-center"
+                [maxSize]="MAX_SIZE_PAGINATION"
                 [totalItems]="totalItems"
                 [(ngModel)]="currentPage"
                 (pageChanged)="pageChanged($event)"></pagination>

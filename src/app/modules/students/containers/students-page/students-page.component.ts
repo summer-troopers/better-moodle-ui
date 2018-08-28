@@ -11,14 +11,14 @@ import { GlobalModalComponent } from '@shared/components/global-modal/global-mod
 import { Student } from '@shared/models/student';
 import { PaginationParams } from '@shared/models/pagination-params';
 import { Alert, AlertType } from '@shared/models/alert';
-import { STUDENTS_URL, NUMBER_ITEMS_PAGE, MODAL_OPTIONS } from '@shared/constants';
+import { STUDENTS_URL, NUMBER_ITEMS_PAGE, MODAL_OPTIONS, MAX_SIZE_PAGINATION } from '@shared/constants';
 @Component({
   selector: 'app-students-page',
   templateUrl: './students-page.component.html'
 })
 export class StudentsPageComponent implements OnInit, OnDestroy {
   paginationParams = new PaginationParams(0, NUMBER_ITEMS_PAGE);
-
+  MAX_SIZE_PAGINATION = MAX_SIZE_PAGINATION;
   totalItems: number;
   currentPage = 1;
 
@@ -57,7 +57,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe((students) => {
-        this.setStudents(students);
+        this.students = students;
       });
   }
 
@@ -71,7 +71,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
     this.userModalRef = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
     this.userModalRef.content.itemAdded
       .subscribe((newStudent) => {
-        this.students.unshift(newStudent);
+        this.students.push(newStudent);
         this.alerts.push({ type: AlertType.Success, message: 'New student was added!' });
       }, error => {
         this.alerts.push({ type: AlertType.Error, message: error });
@@ -94,10 +94,6 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
             return throwError(error);
           })
       );
-  }
-
-  setStudents(students) {
-    this.students = students.reverse();
   }
 
   ngOnDestroy() {

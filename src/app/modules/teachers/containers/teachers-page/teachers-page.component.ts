@@ -11,20 +11,20 @@ import { PaginationParams } from '@shared/models/pagination-params';
 import { PaginatorHelperService } from '@shared/services/paginator-helper/paginator-helper.service';
 import { Alert, AlertType } from '@shared/models/alert';
 import { CrudService } from '@shared/services/crud/crud.service';
-import { MODAL_OPTIONS, NUMBER_ITEMS_PAGE, TEACHERS_URL } from '@shared/constants';
+import { MODAL_OPTIONS, NUMBER_ITEMS_PAGE, TEACHERS_URL, MAX_SIZE_PAGINATION } from '@shared/constants';
 
 @Component({
   selector: 'app-teachers-page',
   templateUrl: './teachers-page.component.html'
 })
 export class TeachersPageComponent implements OnInit, OnDestroy {
-
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   modalRef: BsModalRef;
 
   alerts: Alert[] = [];
   paginationParams = new PaginationParams(0, NUMBER_ITEMS_PAGE);
+  MAX_SIZE_PAGINATION = MAX_SIZE_PAGINATION;
 
   teachers: Array<Teacher> = [];
   totalItems: number;
@@ -52,7 +52,7 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
     this.modalRef.content.itemAdded
       .pipe(takeUntil(this.destroy$))
       .subscribe((newTeacher) => {
-        this.teachers.unshift(newTeacher);
+        this.teachers.push(newTeacher);
         this.alerts.push({ type: AlertType.Success, message: 'New teacher was added!' });
       }, error => {
         this.alerts.push({ type: AlertType.Error, message: error });
@@ -86,17 +86,13 @@ export class TeachersPageComponent implements OnInit, OnDestroy {
           return this.getTeachers();
         }))
       .subscribe((teachers) => {
-        this.setTeachers(teachers);
+        this.teachers = teachers;
       });
   }
 
   pageChanged(event: any) {
     this.currentPage = event.page;
     this.router.navigate([TEACHERS_URL], { queryParams: { page: event.page } });
-  }
-
-  setTeachers(teachers) {
-    this.teachers = teachers.reverse();
   }
 
   ngOnDestroy() {

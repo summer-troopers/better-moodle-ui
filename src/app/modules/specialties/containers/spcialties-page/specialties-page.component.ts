@@ -10,17 +10,17 @@ import { Alert, AlertType } from '@shared/models/alert';
 import { CrudService } from '@shared/services/crud/crud.service';
 import { PaginatorHelperService } from '@shared/services/paginator-helper/paginator-helper.service';
 import { GlobalModalComponent } from '@shared/components/global-modal/global-modal.component';
-import { SPECIALTIES_URL, NUMBER_ITEMS_PAGE, MODAL_OPTIONS } from '@shared/constants';
+import { SPECIALTIES_URL, NUMBER_ITEMS_PAGE, MODAL_OPTIONS, MAX_SIZE_PAGINATION } from '@shared/constants';
 
 @Component({
   selector: 'app-specialties-page',
   templateUrl: './specialties-page.component.html'
 })
 export class SpecialtiesPageComponent implements OnInit, OnDestroy {
-
   destroy$: Subject<boolean> = new Subject<boolean>();
   alerts: Array<Alert> = [];
   paginationParams = new PaginationParams(0, NUMBER_ITEMS_PAGE);
+  MAX_SIZE_PAGINATION = MAX_SIZE_PAGINATION;
   totalItems: number;
   currentPage: number;
   specialties: Array<Specialty> = [];
@@ -65,7 +65,7 @@ export class SpecialtiesPageComponent implements OnInit, OnDestroy {
           return this.getSpecialties();
         }))
       .subscribe((specialties) => {
-        this.setSpecialties(specialties);
+        this.specialties = specialties;
       });
   }
 
@@ -84,15 +84,11 @@ export class SpecialtiesPageComponent implements OnInit, OnDestroy {
     this.modalRef = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
     this.modalRef.content.itemAdded
       .subscribe((newSpecialty) => {
-        this.specialties.unshift(newSpecialty);
+        this.specialties.push(newSpecialty);
         this.alerts.push({ type: AlertType.Success, message: 'New specialty was added!' });
       }, error => {
         this.alerts.push({ type: AlertType.Error, message: error });
       });
-  }
-
-  setSpecialties(specialties) {
-    this.specialties = specialties.reverse();
   }
 
   ngOnDestroy() {
