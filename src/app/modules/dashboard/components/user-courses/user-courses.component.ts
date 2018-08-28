@@ -66,6 +66,7 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
       })
     )
       .subscribe((courseInstances) => {
+        console.log(courseInstances);
         this.courseInstances = courseInstances;
       });
   }
@@ -119,6 +120,7 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
       id: this.file.id,
     };
     this.uploadInput.emit(removeEvent);
+    return this.getAllCourseInstances();
   }
 
   onUploadOutput(output: UploadOutput): void {
@@ -164,8 +166,8 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
 
           return throwError(error);
         }))
-      .subscribe(data => {
-        this.file = data;
+      .subscribe(() => {
+        return this.getAllCourseInstances();
       });
   }
 

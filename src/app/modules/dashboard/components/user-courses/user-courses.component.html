@@ -31,7 +31,7 @@
         </td>
 
         <td class="labs-cell">
-          <form *ngIf="fileExists">
+          <form *ngIf="!courseInstance.fileExists">
             <input type="file"
                    ngFileSelect
                    [options]="options"
@@ -50,7 +50,7 @@
                    value="Submit"/>
 
           </form>
-          <div *ngIf="fileExists">
+          <div *ngIf="courseInstance.fileExists">
             <button class="btn btn-secondary icon-button"
                     (click)="downloadTask(courseInstance.id)"><i class="fa fa-file"></i><br>Download
               Task

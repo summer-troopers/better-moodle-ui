@@ -16,7 +16,6 @@ import { UserGroupsComponent } from './components/user-groups/user-groups.compon
 import { UserStudentsComponent } from './components/user-students/user-students.component';
 import { SharedModule } from '@shared/shared.module';
 import { LabsListForTeacherComponent } from '@modules/dashboard/components/labs-list-for-teacher/labs-list-for-teacher.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxUploaderModule } from 'ngx-uploader';
 
 const COMPONENTS = [
