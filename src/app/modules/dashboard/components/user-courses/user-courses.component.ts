@@ -20,7 +20,6 @@ import { CourseInstance } from '@shared/models/course-instances';
 })
 export class UserCoursesComponent implements OnInit, OnDestroy {
   id: string;
-  courses: Array<Course> = [];
   courseInstances: Array<CourseInstance> = [];
   reports: Array<LabReport> = [];
   alerts: Alert[] = [];
@@ -45,7 +44,6 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getAllCourseInstances();
     // this.getAllReports();
-    // this.getAllTasks();
   }
 
   ngOnDestroy() {
@@ -71,15 +69,6 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
         this.courseInstances = courseInstances;
       });
   }
-
-  /*
-    getAllTasks() {
-      this.crudService.getItems(COURSE_INSTANCES_URL).subscribe(tasks => {
-        this.tasks = tasks;
-        console.log(this.tasks);
-        return this.tasks;
-      }, error1 => console.log(error1));
-    }*/
 
   /*
     getAllReports() {
@@ -165,7 +154,6 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
         this.downloadService.downloadFile(data);
       });
   }
-
 
   deleteTask(taskId) {
     console.log(taskId);
