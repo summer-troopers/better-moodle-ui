@@ -29,11 +29,11 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
   item;
   ITEM_URL: string;
   itemType: string;
-  groupsName: Array<Group>;
-  specialtiesName: Array<Specialty>;
 
   title: string;
   buttonTitle: string;
+  groupsName: Array<Group>;
+  specialtiesName: Array<Specialty>;
 
   constructor(private formBuilder: FormBuilder,
     private crudService: CrudService,
@@ -74,8 +74,8 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
       }
       case 'group': {
         this.itemForm = this.formBuilder.group({
-          name: [this.getItemValue('name'), [Validators.required, Validators.pattern(`^[A-Z]{3}\d{3}`)]],
-          spacialtyId: [this.getItemValue('spacialtyId'), Validators.required]
+          name: [this.getItemValue('name'), [Validators.required, Validators.pattern(`^[A-Z]{2,3}\d{3}`)]],
+          specialtyId: [this.getItemValue('specialtyId'), Validators.required]
         });
         break;
       }
@@ -100,16 +100,9 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
 
   getGroupIdValue() {
     if (!this.onAdd) {
-
       return this.item.groupName;
     } else {
       return '';
-    }
-  }
-
-  addSpecialtyIdIfGroup() {
-    if (this.itemType === 'group') {
-      this.itemForm.addControl('specialtyId', new FormControl(this.getSpecialtyIdValue(), Validators.required));
     }
   }
 
