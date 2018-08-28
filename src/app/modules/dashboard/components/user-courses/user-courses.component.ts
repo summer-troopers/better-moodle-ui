@@ -20,9 +20,7 @@ import { CourseInstance } from '@shared/models/course-instances';
 export class UserCoursesComponent implements OnInit, OnDestroy {
   id: string;
   courseInstances: Array<CourseInstance> = [];
-  reports: Array<LabReport> = [];
   alerts: Alert[] = [];
-  // reportExists = false;
   isDisabled = true;
 
   @Input() user;
@@ -71,15 +69,6 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
         });
       });
   }
-
-  /*
-    getAllReports() {
-      this.crudService.getItems(LABORATORY_URL).subscribe(reports => {
-        this.reports = reports;
-        // console.log(this.reports);
-        return this.reports;
-      }, error1 => console.log(error1));
-    } */
 
   uploadReport(courseInstanceId): void {
     const token = localStorage.getItem('authorization');
