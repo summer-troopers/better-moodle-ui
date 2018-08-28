@@ -10,9 +10,6 @@ import { Teacher } from '@shared/models/teacher';
 export class UserService {
   user: any;
 
-  constructor() {
-  }
-
   getUserLocalStorage(key: string) {
     const item = localStorage.getItem(key);
     let parsedItem;

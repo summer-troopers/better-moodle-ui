@@ -1,8 +1,12 @@
 <div class="container">
-  <app-local-alert [alerts]="alert"></app-local-alert>
-  <h1 class="title"><i>My Profile</i></h1>
+  <h1 class="title">
+    <i>My Profile</i>
+  </h1>
   <hr>
-  <app-student-dashboard [user]="user" *ngIf="user && user.isStudent()"></app-student-dashboard>
-  <app-teacher-dashboard [user]="user" *ngIf="user && user.isTeacher()"></app-teacher-dashboard>
-  <app-admin-dashboard [user]="user" *ngIf="user && user.isAdmin()"></app-admin-dashboard>
+  <app-student-dashboard [user]="user"
+                         *ngIf="user && user.isStudent()"></app-student-dashboard>
+  <app-teacher-dashboard [user]="user"
+                         *ngIf="user && user.isTeacher()"></app-teacher-dashboard>
+  <app-admin-dashboard [user]="user"
+                       *ngIf="user && user.isAdmin()"></app-admin-dashboard>
 </div>

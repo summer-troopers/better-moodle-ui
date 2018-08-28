@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TabsModule } from 'ngx-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { dashboardRoutes } from '@modules/dashboard/dashboard.routes';
 import { DashboardPageComponent } from './containers/dashboard-page/dashboard-page.component';
@@ -33,6 +35,9 @@ const COMPONENTS = [
     RouterModule,
     dashboardRoutes,
     SharedModule,
+    ModalModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
     TabsModule.forRoot(),
   ],
   declarations: [
