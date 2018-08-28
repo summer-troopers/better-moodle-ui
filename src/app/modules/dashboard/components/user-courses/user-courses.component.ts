@@ -3,7 +3,6 @@ import { Subject, throwError } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 import { UploaderOptions, UploadFile, UploadInput, UploadOutput } from 'ngx-uploader';
 
-import { LabReport } from '@shared/models/labreport';
 import { LABORATORY_URL, COURSE_INSTANCES_URL } from '@shared/constants';
 import { Alert, AlertType } from '@shared/models/alert';
 
@@ -90,7 +89,6 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
       id: this.file.id,
     };
     this.uploadInput.emit(removeEvent);
-    return this.getAllCourseInstances();
   }
 
   uploadTask(courseInstanceId): void {
@@ -112,7 +110,6 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
       id: this.file.id,
     };
     this.uploadInput.emit(removeEvent);
-    return this.getAllCourseInstances();
   }
 
   onUploadOutput(output: UploadOutput): void {
@@ -121,10 +118,10 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
       this.isDisabled = false;
     } else if (output.type === 'done') {
       this.isDisabled = true;
+      this.getAllCourseInstances();
     }
     console.log(output);
   }
-
 
   downloadTask(taskId) {
     this.crudService.getItem(COURSE_INSTANCES_URL, taskId, true)
