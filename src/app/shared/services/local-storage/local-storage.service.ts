@@ -11,7 +11,7 @@ export class LocalStorageService {
     if (typeof data !== 'string') {
       data = JSON.stringify(data);
     }
-    return localStorage.setItem(key, data);
+    localStorage.setItem(key, data);
   }
 
   getLocalStorage(key: string) {
