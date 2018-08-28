@@ -6,10 +6,11 @@ import { flatMap, takeUntil, catchError } from 'rxjs/operators';
 
 import { CrudService } from '@shared/services/crud/crud.service';
 import { Alert, AlertType } from '@shared/models/alert';
-import { SPECIALTIES_URL, COURSES_URL, MODAL_OPTIONS } from '@shared/constants';
+import { SPECIALTIES_URL, MODAL_OPTIONS } from '@shared/constants';
 import { Specialty } from '@shared/models/specialty';
 import { GlobalModalComponent } from '@shared/components/global-modal/global-modal.component';
 import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
+import { Course } from '@shared/models/course';
 
 @Component({
   selector: 'app-specialty-details-page',
@@ -21,10 +22,12 @@ export class SpecialtyDetailsPageComponent implements OnInit, OnDestroy {
 
   isEditable = false;
   specialty: Specialty;
-  specialtyCourses: any;
+  specialtyCourses: Array<Course>;
   modal: BsModalRef;
   alerts: Array<Alert> = [];
   message: string;
+
+  id: any;
 
   constructor(private route: ActivatedRoute,
     private modalService: BsModalService,
@@ -33,7 +36,11 @@ export class SpecialtyDetailsPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initSpecialty();
-    this.getSpecialtyCourses();
+    this.route.params.subscribe(
+      param => {
+        this.id = param.id;
+      }
+    );
   }
 
   openEditModal() {
@@ -67,8 +74,9 @@ export class SpecialtyDetailsPageComponent implements OnInit, OnDestroy {
         }),
       takeUntil(this.destroy$)
     ).subscribe(
-      specialty => {
+      (specialty: any) => {
         this.specialty = specialty;
+        this.specialtyCourses = specialty.courseInstances;
       },
       error => {
         this.alerts.push({ type: AlertType.Error, message: `Couldn't get the specialty!` });
@@ -89,27 +97,6 @@ export class SpecialtyDetailsPageComponent implements OnInit, OnDestroy {
     }, error => {
       this.alerts.push({ type: AlertType.Error, message: error });
     });
-  }
-
-  getSpecialtyCourses() {
-    // return this.crudService.getItems(COURSES_URL)
-    //   .subscribe(
-    //     courses => {
-    //       console.log(courses)
-    //       const temp: any = [];
-    //       for (let i = 0; i < courses.length; i++) {
-    //         if (courses[i].group.id == this.route.params.value.id) {
-    //           temp[i] = courses[i];
-    //         }
-    //       }
-    //       this.specialtyCourses = temp.filter(element => {
-    //         return element !== undefined;
-    //       });
-    //     }, catchError(error => {
-    //       this.alerts.push({ type: AlertType.Error, message: error });
-    //       return throwError(error);
-    //     })
-    //   );
   }
 
   ngOnDestroy() {

@@ -10,6 +10,7 @@ import { Alert, AlertType } from '@shared/models/alert';
 import { GROUPS_URL, STUDENTS_URL, MODAL_OPTIONS, SPECIALTIES_URL } from '@shared/constants';
 import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
 import { GlobalModalComponent } from '@shared/components/global-modal/global-modal.component';
+import { Student } from '@shared/models/student';
 
 @Component({
   selector: 'app-group-details-page',
@@ -22,7 +23,7 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
   isEditable = false;
   modal: BsModalRef;
   group: Group;
-  groupStudents: any;
+  groupStudents: Array<Student>;
   alerts: Alert[] = [];
   message: string;
 
