@@ -6,6 +6,8 @@ import { takeUntil, catchError } from 'rxjs/operators';
 
 import { CrudService } from '@shared/services/crud/crud.service';
 import { STUDENTS_URL, TEACHERS_URL, ADMINS_URL, GROUPS_URL, SPECIALTIES_URL, COURSES_URL } from '@shared/constants';
+import { Group } from '@shared/models/group';
+import { Specialty } from '@shared/models/specialty';
 
 @Component({
   selector: 'app-global-modal',
@@ -30,12 +32,16 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
 
   title: string;
   buttonTitle: string;
+  groupsName: Array<Group>;
+  specialtiesName: Array<Specialty>;
 
   constructor(private formBuilder: FormBuilder,
     private crudService: CrudService,
     public itemModalRef: BsModalRef) { }
 
   ngOnInit() {
+    this.getGroups();
+    this.getSpecialties();
     this.initForm();
     this.initUrl();
   }
@@ -68,8 +74,8 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
       }
       case 'group': {
         this.itemForm = this.formBuilder.group({
-          name: [this.getItemValue('name'), [Validators.required, Validators.pattern(`^[A-Z]{3}\d{3}`)]],
-          spacialtyId: [this.getItemValue('spacialtyId'), Validators.required]
+          name: [this.getItemValue('name'), [Validators.required, Validators.pattern(`^[A-Z]{2,3}\d{3}`)]],
+          specialtyId: [this.getItemValue('specialtyId'), Validators.required]
         });
         break;
       }
@@ -88,7 +94,15 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
 
   addGroupIdIfStudent() {
     if (this.itemType === 'student') {
-      this.itemForm.addControl('groupId', new FormControl(this.getItemValue('groupId'), Validators.required));
+      this.itemForm.addControl('groupId', new FormControl(this.getGroupIdValue(), Validators.required));
+    }
+  }
+
+  getGroupIdValue() {
+    if (!this.onAdd) {
+      return this.item.groupName;
+    } else {
+      return '';
     }
   }
 
@@ -134,6 +148,22 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
 
   get description() {
     return this.itemForm.controls.description;
+  }
+
+  getGroups() {
+    this.crudService.getItems(GROUPS_URL).subscribe(
+      groups => {
+        this.groupsName = groups;
+      }
+    );
+  }
+
+  getSpecialties() {
+    this.crudService.getItems(SPECIALTIES_URL).subscribe(
+      specialties => {
+        this.specialtiesName = specialties;
+      }
+    );
   }
 
   initUrl() {

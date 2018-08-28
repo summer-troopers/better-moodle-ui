@@ -55,17 +55,21 @@
 
     <div class="form-group"
          *ngIf="itemType == 'student'">
-      <label for="groupId">Group ID</label>
-      <input formControlName="groupId"
-             type="number"
-             class="form-control"
-             [class.is-invalid]="isSubmitted && groupId.errors"
-             id="groupId"
-             autocomplete="on"
-             placeholder="Select groupId">
+      <label for="groupId">Group Name</label>
+      <select name="groupId"
+              formControlName="groupId"
+              size="4"
+              id="groupId"
+              autocomplete="on"
+              type="text"
+              [class.is-invalid]="isSubmitted && groupId.errors"
+              class="form-control test">
+        <option *ngFor="let group of groupsName"
+                value="{{group.id}}">{{group.name}}</option>
+      </select>
       <div *ngIf="isSubmitted && groupId.errors"
            class="invalid-feedback">
-        <div *ngIf="groupId.errors.required">Group ID is required</div>
+        <div *ngIf="groupId.errors.required">Group Name is required</div>
       </div>
     </div>
 
@@ -118,12 +122,17 @@
     <div class="form-group"
          *ngIf="itemType == 'group'">
       <label for="specialtyId">Specialty</label>
-      <input type="number"
-             id="specialtyId"
-             class="form-control"
-             placeholder="Specialty ID"
-             formControlName="specialtyId"
-             [class.is-invalid]="isSubmitted && specialtyId.errors">
+      <select name="specialtyId"
+              formControlName="specialtyId"
+              id="specialtyId"
+              size="4"
+              autocomplete="on"
+              type="text"
+              [class.is-invalid]="isSubmitted && specialtyId.errors"
+              class="form-control">
+        <option *ngFor="let specialty of specialtiesName"
+                value="{{specialty.id}}">{{specialty.name}}</option>
+      </select>
       <div *ngIf="isSubmitted && specialtyId.errors"
            class="invalid-feedback">The id of specialty is required
       </div>
