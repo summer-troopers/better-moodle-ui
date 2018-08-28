@@ -1,11 +1,11 @@
-import { Component, OnInit, EventEmitter, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Subject, throwError } from 'rxjs';
-import { takeUntil, catchError } from 'rxjs/operators';
+import { catchError, takeUntil } from 'rxjs/operators';
 
 import { CrudService } from '@shared/services/crud/crud.service';
-import { STUDENTS_URL, TEACHERS_URL, ADMINS_URL, GROUPS_URL, SPECIALTIES_URL, COURSES_URL } from '@shared/constants';
+import { ADMINS_URL, COURSES_URL, GROUPS_URL, SPECIALTIES_URL, STUDENTS_URL, TEACHERS_URL } from '@shared/constants';
 import { Group } from '@shared/models/group';
 import { Specialty } from '@shared/models/specialty';
 
@@ -25,6 +25,7 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
 
   itemForm: FormGroup;
   isSubmitted = false;
+  isRequestError = false;
 
   item;
   ITEM_URL: string;
@@ -96,6 +97,19 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
     if (this.itemType === 'student') {
       this.itemForm.addControl('groupId', new FormControl(this.getGroupIdValue(), Validators.required));
     }
+  }
+
+  phoneNumberFormat() {
+    let format;
+    if (this.itemForm.value.phoneNumber) {
+      format = this.itemForm.value.phoneNumber[0] + this.itemForm.value.phoneNumber[1];
+      if (format === '06' || format === '07') {
+        return true;
+      }
+    } else {
+      return true;
+    }
+    return false;
   }
 
   getGroupIdValue() {
@@ -197,7 +211,7 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.isSubmitted = true;
-    if (this.itemForm.invalid) {
+    if (this.itemForm.invalid || this.phoneNumberFormat() === false) {
       return;
     }
 

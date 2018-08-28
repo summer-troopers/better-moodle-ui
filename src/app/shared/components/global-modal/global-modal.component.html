@@ -1,5 +1,6 @@
 <app-default-modal [form]="itemForm"
                    [title]="title">
+  <div *ngIf="isRequestError" class="mb-3 text-danger">Email or phone number is exist!</div>
   <form [formGroup]="itemForm"
         (ngSubmit)="onSubmit()">
     <div class="form-group"
@@ -45,7 +46,7 @@
              autocomplete="on"
              placeholder="Enter email"
              formControlName="email"
-             [class.is-invalid]="isSubmitted && email.errors">
+             [class.is-invalid]="isSubmitted && email.errors || isRequestError">
       <div *ngIf="isSubmitted && email.errors"
            class="invalid-feedback">
         <div *ngIf="email.errors.required">Email is required</div>
@@ -79,13 +80,16 @@
       <input formControlName="phoneNumber"
              type="tel"
              class="form-control"
-             [class.is-invalid]="isSubmitted && phoneNumber.errors"
+             [class.is-invalid]="(isSubmitted && phoneNumber.errors) || (phoneNumberFormat() === false && isSubmitted) || isRequestError"
              id="phoneNumber"
              autocomplete="on"
-             placeholder="0632356897">
+             placeholder="0XXXXXXXX"
+             maxlength="9">
       <div *ngIf="isSubmitted && phoneNumber.errors"
            class="invalid-feedback">
         <div *ngIf="phoneNumber.errors.required">Phone number is required</div>
+      </div>
+      <div *ngIf="phoneNumberFormat() === false && isSubmitted" class="text-danger">Phone number format is incorect!
       </div>
     </div>
 

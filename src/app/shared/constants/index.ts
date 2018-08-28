@@ -6,6 +6,7 @@ export const SPECIALTIES_URL = 'specialties';
 export const TEACHERS_URL = 'teachers';
 export const CONFIRM_MODAL_TIMEOUT = 2000;
 export const MIN_PASSWORD_LENGTH = 5;
+export const PHONE_NUMBER_LENGTH = 9;
 export const COURSES_URL = 'courses';
 export const LABORATORY_URL = 'lab_reports';
 export const LABTASK_URL = 'lab_tasks';
