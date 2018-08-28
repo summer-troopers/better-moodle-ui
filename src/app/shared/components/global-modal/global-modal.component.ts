@@ -56,8 +56,8 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
       case 'teacher':
       case 'admin': {
         this.itemForm = this.formBuilder.group({
-          firstName: [this.getItemValue('firstName'), [Validators.required, Validators.pattern(`^[a-z A-Z -]*$`), Validators.maxLength(50)]],
-          lastName: [this.getItemValue('lastName'), [Validators.required, Validators.pattern(`^[a-z A-Z -]*$`), Validators.maxLength(50)]],
+          firstName: [this.getItemValue('firstName'), [Validators.required, Validators.pattern(/^[a-z A-Z -]*$/), Validators.maxLength(50)]],
+          lastName: [this.getItemValue('lastName'), [Validators.required, Validators.pattern(/^[a-z A-Z -]*$/), Validators.maxLength(50)]],
           email: [this.getItemValue('email'), [Validators.required, Validators.email]],
           password: [this.getItemValue('password'), Validators.required],
           phoneNumber: [this.getItemValue('phoneNumber'), Validators.required],
@@ -67,21 +67,21 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
       }
       case 'specialty': {
         this.itemForm = this.formBuilder.group({
-          name: [this.getItemValue('name'), [Validators.required, Validators.pattern(`^[a-z A-Z]*$`), Validators.maxLength(50)]],
-          description: [this.getItemValue('description'), [Validators.required, Validators.pattern(`^[a-z A-Z]*$`), Validators.maxLength(50)]],
+          name: [this.getItemValue('name'), [Validators.required, Validators.pattern(/^[a-z A-Z]*$/), Validators.maxLength(50)]],
+          description: [this.getItemValue('description'), [Validators.required, Validators.pattern(/^[a-z A-Z]*$/), Validators.maxLength(50)]],
         });
         break;
       }
       case 'group': {
         this.itemForm = this.formBuilder.group({
-          name: [this.getItemValue('name'), [Validators.required, Validators.pattern(`^[A-Z]{2,3}\d{3}`)]],
+          name: [this.getItemValue('name'), [Validators.required, Validators.pattern(/^[A-Z]{2,3}\d{3}/)]],
           specialtyId: [this.getItemValue('specialtyId'), Validators.required]
         });
         break;
       }
       case 'course': {
         this.itemForm = this.formBuilder.group({
-          name: [this.getItemValue('name'), [Validators.required, Validators.pattern(`^[a-z A-Z -]*$`), Validators.maxLength(50)]]
+          name: [this.getItemValue('name'), [Validators.required, Validators.pattern(/^[a-z A-Z -]*$/), Validators.maxLength(50)]]
         });
         break;
       }
