@@ -36,7 +36,9 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getItem();
     this.getGroupStudents();
-    this.id = this.route.params._value.id;
+    this.route.params.subscribe(params => {
+      this.id = params.id;
+    });
   }
 
   getItem() {
