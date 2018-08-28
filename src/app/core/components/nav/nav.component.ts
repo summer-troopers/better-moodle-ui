@@ -1,7 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import {NavBarLink} from '@shared/models';
-import {AuthenticationService} from '@modules/authentication/authentication.service';
+import { NavBarLink } from '@shared/models';
+import { AuthenticationService } from '@modules/authentication/authentication.service';
+import { USER_STORAGE_KEY } from '@shared/constants';
+import { Observable } from 'rxjs';
+import { LocalStorageService } from '@shared/services/local-storage/local-storage.service';
 
 @Component({
   selector: 'app-nav',
@@ -11,6 +14,8 @@ import {AuthenticationService} from '@modules/authentication/authentication.serv
 export class NavComponent implements OnInit {
   isAuthenticated = false;
   isCollapsed = true;
+
+  userRole: String;
 
   public items: Array<NavBarLink> = [
     {
@@ -35,11 +40,13 @@ export class NavComponent implements OnInit {
     },
   ];
 
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(private authenticationService: AuthenticationService,
+    private localStorage: LocalStorageService) {
   }
 
   ngOnInit() {
     this.isAuthenticated = this.authenticationService.isAuthenticated();
+    this.getRole();
   }
 
   authenticatedVerify() {
@@ -48,5 +55,11 @@ export class NavComponent implements OnInit {
 
   changeCollapse() {
     this.isCollapsed = !this.isCollapsed;
+  }
+
+  getRole() {
+    const temp = JSON.parse(this.localStorage.getLocalStorage(USER_STORAGE_KEY));
+    this.userRole = temp.userRole;
+    return this.userRole;
   }
 }

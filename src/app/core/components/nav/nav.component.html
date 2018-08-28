@@ -20,6 +20,7 @@
                routerLink={{item.url}}>{{item.name}}</a>
           </li>
         </ul>
+        <h1 class="role">{{getRole()}}</h1>
       </div>
 
       <app-user-dropdown [isCollapsed]="isCollapsed"
