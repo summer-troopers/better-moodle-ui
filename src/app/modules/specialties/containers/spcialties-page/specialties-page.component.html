@@ -12,14 +12,17 @@
     </h1>
     <br>
     <br>
-    <ul class="list-group ">
-      <li class="list-group-item list-group-item-dark"
-          *ngFor="let specialty of specialties"
-          [routerLink]="['/specialties', specialty.id]">
-        <a class="list-group-item list-group-item-action">{{specialty.name}}</a>
+  </div>
+
+  <div *ngFor="let specialty of specialties">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item list-group-item-dark">
+        <a [routerLink]="['/specialties', specialty.id]"
+           class="list-group-item list-group-item-action">{{specialty.name}}</a>
       </li>
     </ul>
   </div>
+
   <div class="pagination-container">
     <pagination class="d-flex justify-content-center"
                 *ngIf="totalItems && currentPage"
