@@ -11,7 +11,6 @@ import { Alert, AlertType } from '@shared/models/alert';
 import { DashboardService } from '@modules/dashboard/dashboard.service';
 import { CrudService } from '@shared/services/crud/crud.service';
 import { DownloadService } from '@shared/services/download/download.service';
-import { Teacher } from '@shared/models/teacher';
 import { CourseInstance } from '@shared/models/course-instances';
 
 @Component({
@@ -44,34 +43,14 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this.getAllCourses();
-    // this.getAllTasks();
     this.getAllCourseInstances();
-    this.getAllReports();
+    // this.getAllReports();
+    // this.getAllTasks();
   }
 
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
-  }
-
-  getAllCourses() {
-    const userId = this.user.id;
-
-    const methodToCall = this.user.isTeacher() ?
-      this.dashboardService.getItemsOfTeacher(COURSES_URL, userId) :
-      this.dashboardService.getItemsOfStudent(COURSES_URL, userId);
-
-    methodToCall.pipe(
-      takeUntil(this.destroy$),
-      catchError((error) => {
-        this.alerts.push({type: AlertType.Error, message: error});
-        return throwError(error);
-      })
-    )
-      .subscribe((courses) => {
-        this.courses = courses;
-      });
   }
 
   getAllCourseInstances() {
@@ -92,22 +71,24 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
         this.courseInstances = courseInstances;
       });
   }
-/*
-  getAllTasks() {
-    this.crudService.getItems(COURSE_INSTANCES_URL).subscribe(tasks => {
-      this.tasks = tasks;
-      console.log(this.tasks);
-      return this.tasks;
-    }, error1 => console.log(error1));
-  }*/
 
-  getAllReports() {
-    this.crudService.getItems(LABORATORY_URL).subscribe(reports => {
-      this.reports = reports;
-      console.log(this.reports);
-      return this.reports;
-    }, error1 => console.log(error1));
-  }
+  /*
+    getAllTasks() {
+      this.crudService.getItems(COURSE_INSTANCES_URL).subscribe(tasks => {
+        this.tasks = tasks;
+        console.log(this.tasks);
+        return this.tasks;
+      }, error1 => console.log(error1));
+    }*/
+
+  /*
+    getAllReports() {
+      this.crudService.getItems(LABORATORY_URL).subscribe(reports => {
+        this.reports = reports;
+        // console.log(this.reports);
+        return this.reports;
+      }, error1 => console.log(error1));
+    } */
 
   uploadReport(courseId): void {
     const token = localStorage.getItem('authorization');
