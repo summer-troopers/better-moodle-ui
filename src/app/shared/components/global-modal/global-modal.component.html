@@ -58,11 +58,12 @@
       <label for="groupId">Group Name</label>
       <select name="groupId"
               formControlName="groupId"
+              size="4"
               id="groupId"
               autocomplete="on"
               type="text"
               [class.is-invalid]="isSubmitted && groupId.errors"
-              class="form-control">
+              class="form-control test">
         <option *ngFor="let group of groupsName"
                 value="{{group.id}}">{{group.name}}</option>
       </select>
@@ -124,6 +125,7 @@
       <select name="specialtyId"
               formControlName="specialtyId"
               id="specialtyId"
+              size="4"
               autocomplete="on"
               type="text"
               [class.is-invalid]="isSubmitted && specialtyId.errors"

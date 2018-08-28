@@ -6,7 +6,8 @@ import { takeUntil, catchError } from 'rxjs/operators';
 
 import { CrudService } from '@shared/services/crud/crud.service';
 import { STUDENTS_URL, TEACHERS_URL, ADMINS_URL, GROUPS_URL, SPECIALTIES_URL, COURSES_URL } from '@shared/constants';
-import { Group } from '../../models/group';
+import { Group } from '@shared/models/group';
+import { Specialty } from '@shared/models/specialty';
 
 @Component({
   selector: 'app-global-modal',
@@ -29,7 +30,7 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
   ITEM_URL: string;
   itemType: string;
   groupsName: Array<Group>;
-  specialtiesName: Array<Group>;
+  specialtiesName: Array<Specialty>;
 
   title: string;
   buttonTitle: string;
