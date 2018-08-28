@@ -26,6 +26,8 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
   alerts: Alert[] = [];
   message: string;
 
+  id: any;
+
   constructor(private route: ActivatedRoute,
     private crudService: CrudService,
     private modalService: BsModalService) {
@@ -34,6 +36,9 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getItem();
     this.getGroupStudents();
+    this.route.params.subscribe(params => {
+      this.id = params.id;
+    });
   }
 
   getItem() {
@@ -64,7 +69,7 @@ export class GroupDetailsPageComponent implements OnInit, OnDestroy {
           const temp: any = [];
           for (let i = 0; i < students.length; i++) {
             // tslint:disable-next-line
-            if (students[i].group.id == this.route.params._value.id) {
+            if (students[i].group.id == this.id) {
               temp[i] = students[i];
             }
           }
