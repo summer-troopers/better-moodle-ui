@@ -57,13 +57,9 @@ export class NavComponent implements OnInit {
     this.isCollapsed = !this.isCollapsed;
   }
 
-  getRole(): Observable<String> {
+  getRole() {
     const temp = JSON.parse(this.localStorage.getLocalStorage(USER_STORAGE_KEY));
     this.userRole = temp.userRole;
-    return new Observable(observer => {
-      console.log(observer)
-      observer.next(this.userRole);
-      observer.complete();
-    });
+    return this.userRole;
   }
 }
