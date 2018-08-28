@@ -30,6 +30,7 @@
     "font-awesome": "^4.7.0",
     "ng-http-loader": "^3.0.0",
     "ngx-bootstrap": "^3.0.1",
+    "ngx-webstorage": "^2.0.1",
     "rxjs": "^6.2.2",
     "zone.js": "^0.8.26"
   },
