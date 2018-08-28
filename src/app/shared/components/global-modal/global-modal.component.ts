@@ -29,6 +29,7 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
   ITEM_URL: string;
   itemType: string;
   groupsName: Array<Group>;
+  specialtiesName: Array<Group>;
 
   title: string;
   buttonTitle: string;
@@ -41,6 +42,7 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
     this.initForm();
     this.initUrl();
     this.getGroups();
+    this.getSpecialties();
   }
 
   initForm() {
@@ -156,8 +158,16 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
 
   getGroups() {
     this.crudService.getItems(GROUPS_URL).subscribe(
-      group => {
-        this.groupsName = group;
+      groups => {
+        this.groupsName = groups;
+      }
+    );
+  }
+
+  getSpecialties() {
+    this.crudService.getItems(SPECIALTIES_URL).subscribe(
+      specialties => {
+        this.specialtiesName = specialties;
       }
     );
   }

@@ -121,12 +121,16 @@
     <div class="form-group"
          *ngIf="itemType == 'group'">
       <label for="specialtyId">Specialty</label>
-      <input type="number"
-             id="specialtyId"
-             class="form-control"
-             placeholder="Specialty ID"
-             formControlName="specialtyId"
-             [class.is-invalid]="isSubmitted && specialtyId.errors">
+      <select name="specialtyId"
+              formControlName="specialtyId"
+              id="specialtyId"
+              autocomplete="on"
+              type="text"
+              [class.is-invalid]="isSubmitted && specialtyId.errors"
+              class="form-control">
+        <option *ngFor="let specialty of specialtiesName"
+                value="{{specialty.id}}">{{specialty.name}}</option>
+      </select>
       <div *ngIf="isSubmitted && specialtyId.errors"
            class="invalid-feedback">The id of specialty is required
       </div>
