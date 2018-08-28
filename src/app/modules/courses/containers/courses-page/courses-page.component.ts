@@ -21,8 +21,8 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
   courses: Array<Course> = [];
   totalItems: number;
   currentPage = 1;
-  maxSizePagination = MAX_SIZE_PAGINATION;
   paginationParams = new PaginationParams(0, NUMBER_ITEMS_PAGE);
+  MAX_SIZE_PAGINATION = MAX_SIZE_PAGINATION;
 
   modalRef: BsModalRef;
 
@@ -69,7 +69,7 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
           return this.getCourses();
         }))
       .subscribe((courses) => {
-        this.setCourses(courses);
+        this.courses = courses;
       });
   }
 
@@ -85,7 +85,7 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
     this.modalRef.content.itemAdded
       .pipe(takeUntil(this.destroy$))
       .subscribe((course) => {
-        this.courses.unshift(course);
+        this.courses.push(course);
         this.alerts.push({ type: AlertType.Success, message: 'New course was added!' });
       }, error => {
         this.alerts.push({ type: AlertType.Error, message: error });
@@ -95,10 +95,6 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
   pageChanged(event: any) {
     this.currentPage = event.page;
     this.router.navigate([COURSES_URL], { queryParams: { page: event.page } });
-  }
-
-  setCourses(courses) {
-    this.courses = courses.reverse();
   }
 
   ngOnDestroy() {

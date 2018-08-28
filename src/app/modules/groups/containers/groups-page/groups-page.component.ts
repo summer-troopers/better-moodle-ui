@@ -6,7 +6,7 @@ import { catchError, mergeMap, takeUntil } from 'rxjs/operators';
 
 import { Group } from '@shared/models/group';
 import { CrudService } from '@shared/services/crud/crud.service';
-import { GROUPS_URL, NUMBER_ITEMS_PAGE, MODAL_OPTIONS } from '@shared/constants';
+import { GROUPS_URL, NUMBER_ITEMS_PAGE, MODAL_OPTIONS, MAX_SIZE_PAGINATION } from '@shared/constants';
 import { PaginationParams } from '@shared/models/pagination-params';
 import { PaginatorHelperService } from '@shared/services/paginator-helper/paginator-helper.service';
 import { Alert, AlertType } from '@shared/models/alert';
@@ -17,9 +17,9 @@ import { GlobalModalComponent } from '@shared/components/global-modal/global-mod
   templateUrl: './groups-page.component.html'
 })
 export class GroupsPageComponent implements OnInit, OnDestroy {
-
   destroy$: Subject<boolean> = new Subject<boolean>();
   paginationParams = new PaginationParams(0, NUMBER_ITEMS_PAGE);
+  MAX_SIZE_PAGINATION = MAX_SIZE_PAGINATION;
   alerts: Array<Alert> = [];
   groups: Array<Group> = [];
 
@@ -68,7 +68,7 @@ export class GroupsPageComponent implements OnInit, OnDestroy {
           return this.getGroups();
         }))
       .subscribe((groups) => {
-        this.setGroups(groups);
+        this.groups = groups;
       });
   }
 
@@ -83,7 +83,7 @@ export class GroupsPageComponent implements OnInit, OnDestroy {
     this.modalRef.content.itemAdded
       .pipe(takeUntil(this.destroy$))
       .subscribe((group) => {
-        this.groups.unshift(group);
+        this.groups.push(group);
         this.alerts.push({ type: AlertType.Success, message: 'New group was added!' });
       }, error => {
         this.alerts.push({ type: AlertType.Error, message: error });
@@ -93,10 +93,6 @@ export class GroupsPageComponent implements OnInit, OnDestroy {
   pageChanged(event: any) {
     this.currentPage = event.page;
     this.router.navigate([GROUPS_URL], { queryParams: { page: event.page } });
-  }
-
-  setGroups(groups) {
-    this.groups = groups.reverse();
   }
 
   ngOnDestroy() {
