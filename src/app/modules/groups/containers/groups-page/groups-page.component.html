@@ -12,24 +12,28 @@
     </h1>
     <br>
     <br>
-    <ul class="list-group">
-      <li class="list-group-item list-group-item-dark"
-          *ngFor="let group of groups"
-          [routerLink]="['/groups', group.id]">
-        <a class="list-group-item list-group-item-action">{{group.name}}</a>
+  </div>
+
+  <div *ngFor="let group of groups">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item list-group-item-dark">
+        <a [routerLink]="['/groups', group.id]"
+           class="list-group-item list-group-item-action">{{group.name}}</a>
       </li>
     </ul>
   </div>
+
+  <div class="pagination-container">
+    <pagination class="d-flex justify-content-center"
+                *ngIf="totalItems && currentPage"
+                [maxSize]="MAX_SIZE_PAGINATION"
+                [totalItems]="totalItems"
+                [(ngModel)]="currentPage"
+                (pageChanged)="pageChanged($event)"></pagination>
+  </div>
 </div>
 
-<div class="pagination-container">
-  <pagination class="d-flex justify-content-center"
-              *ngIf="totalItems && currentPage"
-              [maxSize]="MAX_SIZE_PAGINATION"
-              [totalItems]="totalItems"
-              [(ngModel)]="currentPage"
-              (pageChanged)="pageChanged($event)"></pagination>
-</div>
+
 
 <ng-template #noGroups>
   <div class="container bottom-padded">
