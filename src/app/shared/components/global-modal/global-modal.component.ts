@@ -60,22 +60,25 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
         this.itemForm = this.formBuilder.group({
           firstName: [this.getItemValue('firstName'), [
             Validators.required,
-            Validators.pattern(`^[a-z A-Z -]*$`),
+            Validators.pattern(/^[a-z A-Z -]*$/),
             Validators.maxLength(50)]],
           lastName: [this.getItemValue('lastName'), [
             Validators.required,
-            Validators.pattern(`^[a-z A-Z -]*$`),
+            Validators.pattern(/^[a-z A-Z -]*$/),
             Validators.maxLength(50)]],
           email: [this.getItemValue('email'), [
             Validators.required,
             Validators.email]],
-          password: [this.getItemValue('password'), Validators.required],
           phoneNumber: [this.getItemValue('phoneNumber'), [
             Validators.required,
             Validators.minLength(PHONE_NUMBER_LENGTH),
             Validators.maxLength(PHONE_NUMBER_LENGTH),
-            Validators.pattern('[0-9]+')]],
+            Validators.pattern(/^[0-9]+/)
+          ]],
         });
+        if (this.onAdd) {
+          this.itemForm.addControl('password', new FormControl('', Validators.required));
+        }
         this.addGroupIdIfStudent();
         break;
       }
@@ -83,11 +86,11 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
         this.itemForm = this.formBuilder.group({
           name: [this.getItemValue('name'), [
             Validators.required,
-            Validators.pattern(`^[a-z A-Z]*$`),
+            Validators.pattern(/^[a-z A-Z]*$/),
             Validators.maxLength(50)]],
           description: [this.getItemValue('description'), [
             Validators.required,
-            Validators.pattern(`^[a-z A-Z]*$`),
+            Validators.pattern(/^[a-z A-Z]*$/),
             Validators.maxLength(50)]],
         });
         break;
@@ -96,8 +99,9 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
         this.itemForm = this.formBuilder.group({
           name: [this.getItemValue('name'), [
             Validators.required,
-            Validators.pattern(`^[A-Z]{3}\d{3}`)]],
-          spacialtyId: [this.getItemValue('spacialtyId'),
+            Validators.pattern(/^[A-Z]{3}\d{3}/)
+          ]],
+          specialtyId: [this.getItemValue('specialtyId'),
           Validators.required]
         });
         break;
@@ -106,7 +110,7 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
         this.itemForm = this.formBuilder.group({
           name: [this.getItemValue('name'), [
             Validators.required,
-            Validators.pattern(`^[a-z A-Z -]*$`),
+            Validators.pattern(/^[a-z A-Z -]*$/),
             Validators.maxLength(50)]]
         });
         break;
@@ -228,7 +232,7 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.isSubmitted = true;
-    if (this.itemForm.invalid || this.phoneNumberFormat() === false) {
+    if (this.itemForm.invalid) {
       return;
     }
 

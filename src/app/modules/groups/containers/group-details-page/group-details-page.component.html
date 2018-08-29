@@ -15,14 +15,18 @@
 
   <ul class="list-group"
       *ngIf="groupStudents && groupStudents.length >0;else noStudents">
-    <h1>
-      <em>Students from this group</em>
-    </h1>
+    <p>Students from this group:</p>
     <li class="list-group-item list-group-item-dark"
         *ngFor="let student of groupStudents">
       <h4 class="list-group-item">{{student.firstName}} {{student.lastName}}</h4>
     </li>
   </ul>
+  <hr>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
 </div>
 
 <ng-template #noStudents>
