@@ -100,7 +100,7 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
         this.itemForm = this.formBuilder.group({
           name: [this.getItemValue('name'), [
             Validators.required,
-            Validators.pattern(/^[A-Z]{3}\d{3}/)
+            Validators.pattern(/^[A-Z]{2,3}\d{3}/)
           ]],
           specialtyId: [this.getItemValue('specialtyId'),
           Validators.required]
