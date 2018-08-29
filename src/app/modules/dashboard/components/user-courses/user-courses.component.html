@@ -22,12 +22,17 @@
       <th scope="row">{{i+1}}</th>
       <td>{{courseInstance.course.name}}</td>
       <td>
-        <app-course-item [user]="user"
+        <app-task-column [user]="user"
                          [courseInstance]="courseInstance">
 
-        </app-course-item>
+        </app-task-column>
       </td>
-      <td></td>
+      <td>
+        <app-report-column [user]="user"
+                        [courseInstance]="courseInstance">
+
+        </app-report-column>
+      </td>
     </tr>
     </tbody>
 

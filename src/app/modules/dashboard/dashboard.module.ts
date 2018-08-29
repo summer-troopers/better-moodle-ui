@@ -17,7 +17,8 @@ import { UserStudentsComponent } from './components/user-students/user-students.
 import { SharedModule } from '@shared/shared.module';
 import { LabsListForTeacherComponent } from '@modules/dashboard/components/labs-list-for-teacher/labs-list-for-teacher.component';
 import { NgxUploaderModule } from 'ngx-uploader';
-import { CourseItemComponent } from './components/user-courses/course-item/course-item.component';
+import { TaskColumnComponent } from './components/user-courses/task-column/task-column.component';
+import { ReportColumnComponent } from './components/user-courses/report-column/report-column.component';
 
 const COMPONENTS = [
   DashboardPageComponent,
@@ -29,6 +30,8 @@ const COMPONENTS = [
   UserGroupsComponent,
   UserStudentsComponent,
   LabsListForTeacherComponent,
+  TaskColumnComponent,
+  ReportColumnComponent
 ];
 
 @NgModule({
@@ -46,8 +49,7 @@ const COMPONENTS = [
     TabsModule.forRoot(),
   ],
   declarations: [
-    ...COMPONENTS,
-    CourseItemComponent
+    ...COMPONENTS
   ]
 })
 export class DashboardModule {
