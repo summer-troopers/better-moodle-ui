@@ -1,18 +1,15 @@
-import { Student } from '@shared/models/student';
-import LabTask from '@shared/models/labtask';
+import { Teacher } from '@shared/models/teacher';
+import { Course } from '@shared/models/course';
 
-export default class LabReport {
+export interface LabReport {
   id?: string;
   studentId?: string;
-  labTaskId?: string;
-  student?: Student;
-  labTask?: LabTask;
-
-  constructor(labReport: any) {
-    this.id = labReport.id;
-    this.studentId = labReport.studentId;
-    this.labTaskId = labReport.labTaskId;
-    this.student = labReport.student;
-    this.labTask = labReport.labTask;
-  }
+  courseInstanceId?:  {
+    id: string;
+    courseId: string;
+    teacherId: string;
+    course: Course;
+    teacher: Teacher;
+    fileExists: boolean;
+  };
 }

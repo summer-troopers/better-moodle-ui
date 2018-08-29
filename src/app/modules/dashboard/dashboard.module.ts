@@ -16,6 +16,9 @@ import { UserGroupsComponent } from './components/user-groups/user-groups.compon
 import { UserStudentsComponent } from './components/user-students/user-students.component';
 import { SharedModule } from '@shared/shared.module';
 import { LabsListForTeacherComponent } from '@modules/dashboard/components/labs-list-for-teacher/labs-list-for-teacher.component';
+import { NgxUploaderModule } from 'ngx-uploader';
+import { TaskColumnComponent } from './components/user-courses/task-column/task-column.component';
+import { ReportColumnComponent } from './components/user-courses/report-column/report-column.component';
 
 const COMPONENTS = [
   DashboardPageComponent,
@@ -26,7 +29,9 @@ const COMPONENTS = [
   UserCoursesComponent,
   UserGroupsComponent,
   UserStudentsComponent,
-  LabsListForTeacherComponent
+  LabsListForTeacherComponent,
+  TaskColumnComponent,
+  ReportColumnComponent
 ];
 
 @NgModule({
@@ -34,7 +39,10 @@ const COMPONENTS = [
     CommonModule,
     RouterModule,
     dashboardRoutes,
+    FormsModule,
+    ReactiveFormsModule,
     SharedModule,
+    NgxUploaderModule,
     ModalModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,

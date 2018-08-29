@@ -16,76 +16,25 @@
       </th>
     </tr>
     </thead>
+
     <tbody>
-    <tr *ngFor="let course of courses; let i = index">
+    <tr *ngFor="let courseInstance of courseInstances; let i = index">
       <th scope="row">{{i+1}}</th>
-      <td>{{course.name}}</td>
-      <td appHasRole="student"
-          class="labs-cell">
-        <button
-          class="btn btn-secondary icon-button"><i class="fa fa-file"></i><br>Download Task Name
-        </button>
+      <td>{{courseInstance.course.name}}</td>
+      <td>
+        <app-task-column [user]="user"
+                         [courseInstance]="courseInstance">
+
+        </app-task-column>
       </td>
+      <td>
+        <app-report-column [user]="user"
+                        [courseInstance]="courseInstance">
 
-      <td class="labs-cell">
-        <div appHasRole="student">
-          <form *ngIf="fileExists">
-            <input type="file"
-                   id="raport-file"
-                   name="raport-file"
-                   class="inputfile"
-                   value="Add Task"/>
-            <label for="raport-file"><i class="fa fa-upload"
-                                        aria-hidden="true"></i>
-              Choose a file...</label> <br>
-            <input type="button"
-                   (click)="uploadReport()"
-                   class="btn btn-secondary submit-button"
-                   value="Submit"/>
-          </form>
-          <div *ngIf="fileExists">
-            <button class="btn btn-secondary icon-button"
-                    (click)="downloadReport(course.labReport.id)"><i class="fa fa-file"></i><br>{{course.labReport?.name}}Download
-              Raport Name
-            </button>
-            <br>
-            <button class="btn btn-secondary delete-button"
-                    (click)="deleteReport()">Delete Report
-            </button>
-          </div>
-        </div>
-
-        <div appHasRole="teacher"
-             class="custom-file">
-          <form *ngIf="fileExists" action="http://localhost:80/api/v1/lab_tasks" method="post">
-            <input type="file"
-                   id="task-file"
-                   name="labTask"
-                   class="inputfile"
-                   value="Add Task"/>
-            <label for="task-file"><i class="fa fa-upload"
-                                      aria-hidden="true"></i>
-              Choose a file...</label> <br>
-            <input type="submit"
-                   (click)="uploadTask($event)"
-                   class="btn btn-secondary submit-button"
-                   value="Submit"/>
-          </form>
-          <div *ngIf="fileExists">
-            <button class="btn btn-secondary icon-button"
-                    (click)="downloadTask(course.labTask.id)"><i class="fa fa-file"></i><br>{{course.labTask?.name}}Download
-              Task Name
-            </button>
-            <br>
-            <button class="btn btn-secondary delete-button"
-                    (click)="deleteTask()">Delete Task
-            </button>
-          </div>
-          <br>
-        </div>
+        </app-report-column>
       </td>
-
     </tr>
     </tbody>
+
   </table>
 </div>

@@ -1,44 +1,20 @@
-.icon-button {
-  background-color: transparent !important;
-  color: grey;
-  border-color: transparent;
-  border: none;
+.my-drop-zone {
+  border: dotted 3px lightgray;
 }
 
-.icon-button:active, label:active {
-  color: #7ab8a7 !important;
-  border: none;
+.nv-file-over {
+  border: dotted 3px red;
 }
 
-.submit-button {
-  background-color: #7ab8a7;
+/* Default class applied to drop zones on over */
+.another-file-over-class {
+  border: dotted 3px green;
 }
 
-.delete-button {
-  background-color: #d78c42;
-}
-
-.inputfile, label {
-  font-weight: 700;
-  color: grey;
-  background-color: transparent;
-  display: inline-block;
-  cursor: pointer;
-}
-
-.inputfile {
-  width: 0.1px;
-  height: 0.1px;
-  opacity: 0;
-  overflow: hidden;
-  position: absolute;
-  z-index: 1;
+html, body {
+  height: 100%;
 }
 
 .labs-cell {
   text-align: center;
-}
-
-i {
-  font-size: 1.25em;
 }

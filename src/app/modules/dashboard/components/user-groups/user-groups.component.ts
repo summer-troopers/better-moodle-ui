@@ -42,7 +42,7 @@ export class UserGroupsComponent implements OnInit, OnDestroy {
           return throwError(error);
         })
       ).subscribe(groups => {
-        this.groups = groups;
-      });
+      this.groups = groups;
+    });
   }
 }

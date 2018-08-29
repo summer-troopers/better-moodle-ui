@@ -1,0 +1,26 @@
+<div appHasRole="student" class="labs-cell">
+   <form *ngIf="!courseInstance.labReport">
+      <input type="file"
+             ngFileSelect
+             [options]="options"
+             (uploadOutput)="onUploadOutput($event)"
+             [uploadInput]="uploadInput"
+             id="report-file"
+             name="report-file"
+             class="inputfile"
+             value="Add Report"/>
+      <label for="report-file"><i class="fa fa-upload"
+                                  aria-hidden="true"></i>
+        Choose a report file...</label>
+      <input type="button"
+             [disabled]="isDisabled"
+             (click)="uploadReport(courseInstance.id)"
+             class="btn btn-secondary submit-button"
+             value="Submit"/>
+    </form>
+    <div *ngIf="courseInstance.labReport">
+      <button class="btn btn-secondary icon-button"
+              (click)="downloadReport(courseInstance.labReport.id)"><i class="fa fa-file"></i><br>Download Report
+      </button>
+    </div>
+</div>

@@ -1,10 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subject, throwError } from 'rxjs';
-import { catchError, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
-import { Course } from '@shared/models/course';
-import { COURSES_URL } from '@shared/constants';
-import { Alert, AlertType } from '@shared/models/alert';
 import { DashboardService } from '@modules/dashboard/dashboard.service';
 
 @Component({
@@ -14,63 +10,27 @@ import { DashboardService } from '@modules/dashboard/dashboard.service';
 })
 export class UserCoursesComponent implements OnInit, OnDestroy {
   id: string;
-  courses: Array<Course> = [];
+  courseInstances: any;
+
   @Input() user;
 
-  fileExists = true;
-
   destroy$: Subject<boolean> = new Subject<boolean>();
-
-  alerts: Alert[] = [];
 
   constructor(private dashboardService: DashboardService) {
   }
 
   ngOnInit() {
-    this.getAllCourses();
+    this.dashboardService.getAllCourseInstances()
+      .subscribe((courseInstances) => {
+        this.courseInstances = courseInstances;
+        courseInstances.forEach(courseInstance => {
+          courseInstance.labReport = courseInstance.labReports.find(labReport => labReport.studentId === this.user.id);
+        });
+      });
   }
 
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
-  }
-
-  getAllCourses() {
-    const userId = this.user.id;
-
-    const methodToCall = this.user.isTeacher() ?
-      this.dashboardService.getItemsOfTeacher(COURSES_URL, userId) :
-      this.dashboardService.getItemsOfStudent(COURSES_URL, userId);
-
-    methodToCall.pipe(
-      takeUntil(this.destroy$),
-      catchError((error) => {
-        this.alerts.push({ type: AlertType.Error, message: error });
-        return throwError(error);
-      })
-    )
-      .subscribe((courses) => {
-        this.courses = courses;
-      });
-  }
-
-  deleteTask() {
-  }
-
-  deleteReport() {
-  }
-
-  downloadTask(fileData) {
-  }
-
-  downloadReport(fileData) {
-  }
-
-  uploadTask(event) {
-    console.log(event);
-  }
-
-  uploadReport(event) {
-    console.log(event);
   }
 }
