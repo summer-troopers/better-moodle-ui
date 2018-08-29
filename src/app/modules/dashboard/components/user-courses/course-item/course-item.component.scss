@@ -1,0 +1,53 @@
+.icon-button {
+  background-color: transparent !important;
+  color: grey;
+  border-color: transparent;
+  border: none;
+}
+
+.icon-button:active, label:active {
+  color: #7ab8a7 !important;
+  border: none;
+}
+
+.submit-button {
+  background-color: #7ab8a7;
+  margin-bottom: 4px;
+}
+
+.delete-button {
+  background-color: #d78c42;
+}
+
+.inputfile, label {
+  font-weight: 700;
+  color: grey;
+  background-color: transparent;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: 1;
+}
+
+.labs-cell {
+  text-align: center;
+}
+
+i {
+  font-size: 1.25em;
+}
+
+label {
+  margin: 4px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #7ab8a7;
+  border-radius: 4px;
+}

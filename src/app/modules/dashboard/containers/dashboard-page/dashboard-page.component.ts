@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '@shared/services/user/user.service';
+import { Component, Input, OnInit } from '@angular/core';
 import { DashboardService } from '@modules/dashboard/dashboard.service';
 import { Alert } from '@shared/models/alert';
 
@@ -12,12 +11,11 @@ export class DashboardPageComponent implements OnInit {
   user: any;
   alert: Alert[] = [];
 
-  constructor(private userService: UserService,
-    private dashboardService: DashboardService) {
+  constructor(private dashboardService: DashboardService) {
   }
 
   ngOnInit() {
-    this.user = this.userService.getUser();
+    this.user = this.dashboardService.user;
     this.dashboardService.downloadAlert.subscribe(result => {
       this.alert = result;
     });
