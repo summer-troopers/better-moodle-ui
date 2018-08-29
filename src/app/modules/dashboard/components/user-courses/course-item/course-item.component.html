@@ -36,8 +36,6 @@
 </div>
 
 
-
-
 <div appHasRole="student">
 
   <td>{{courseInstance.course.name}}</td>
@@ -63,6 +61,7 @@
                                   aria-hidden="true"></i>
         Choose a report file...</label>
       <input type="button"
+             [disabled]="isDisabled"
              (click)="uploadReport(courseInstance.id)"
              class="btn btn-secondary submit-button"
              value="Submit"/>

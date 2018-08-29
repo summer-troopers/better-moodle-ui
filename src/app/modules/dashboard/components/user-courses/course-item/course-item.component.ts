@@ -91,7 +91,7 @@ export class CourseItemComponent implements OnInit {
       this.isDisabled = true;
       this.userCoursesComponent.ngOnInit();
     }
-    console.log(output);
+     console.log(output);
   }
 
   downloadTask(taskId) {
