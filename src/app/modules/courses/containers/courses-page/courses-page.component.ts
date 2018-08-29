@@ -85,7 +85,7 @@ export class CoursesPageComponent implements OnInit, OnDestroy {
     this.modalRef.content.itemAdded
       .pipe(takeUntil(this.destroy$))
       .subscribe((course) => {
-        this.courses.push(course);
+        this.courses.unshift(course);
         this.alerts.push({ type: AlertType.Success, message: 'New course was added!' });
       }, error => {
         this.alerts.push({ type: AlertType.Error, message: error });

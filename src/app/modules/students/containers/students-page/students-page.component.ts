@@ -71,7 +71,7 @@ export class StudentsPageComponent implements OnInit, OnDestroy {
     this.userModalRef = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
     this.userModalRef.content.itemAdded
       .subscribe((newStudent) => {
-        this.students.push(newStudent);
+        this.students.unshift(newStudent);
         this.alerts.push({ type: AlertType.Success, message: 'New student was added!' });
       }, error => {
         this.alerts.push({ type: AlertType.Error, message: error });

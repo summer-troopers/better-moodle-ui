@@ -84,7 +84,7 @@ export class SpecialtiesPageComponent implements OnInit, OnDestroy {
     this.modalRef = this.modalService.show(GlobalModalComponent, MODAL_OPTIONS);
     this.modalRef.content.itemAdded
       .subscribe((newSpecialty) => {
-        this.specialties.push(newSpecialty);
+        this.specialties.unshift(newSpecialty);
         this.alerts.push({ type: AlertType.Success, message: 'New specialty was added!' });
       }, error => {
         this.alerts.push({ type: AlertType.Error, message: error });
