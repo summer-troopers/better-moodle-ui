@@ -111,9 +111,12 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
         this.itemForm = this.formBuilder.group({
           name: [this.getItemValue('name'), [
             Validators.required,
-            Validators.pattern(/^[a-z A-Z -]*$/),
+            Validators.pattern(/^[a-z A-Z]*$/),
             Validators.maxLength(50)]],
-          description: [this.getItemValue('description'), [Validators.required, Validators.maxLength(50)]]
+          description: [this.getItemValue('description'), [
+            Validators.required,
+            Validators.pattern(/^[a-z A-Z]*$/),
+            Validators.maxLength(50)]]
         });
         break;
       }
