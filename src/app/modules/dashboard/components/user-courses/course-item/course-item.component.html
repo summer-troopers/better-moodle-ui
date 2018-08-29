@@ -1,6 +1,5 @@
 <div appHasRole="teacher">
 
-  <td>{{courseInstance.course.name}}</td>
   <td class="labs-cell">
     <form *ngIf="!courseInstance.fileExists">
       <input type="file"
@@ -32,13 +31,11 @@
     </div>
     <br>
   </td>
-
 </div>
 
 
 <div appHasRole="student">
 
-  <td>{{courseInstance.course.name}}</td>
   <td class="labs-cell">
     <button class="btn btn-secondary icon-button"
             (click)="downloadTask(courseInstance.id)"><i class="fa fa-file"></i><br>Download
