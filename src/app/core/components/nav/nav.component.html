@@ -11,8 +11,7 @@
       </a>
 
       <!--big screen-->
-      <div class="collapse navbar-collapse block"
-           (click)="isCollapsed = false">
+      <div class="collapse navbar-collapse block">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item"
               *ngFor="let item of items"
@@ -21,9 +20,6 @@
                routerLink={{item.url}}>{{item.name}}</a>
           </li>
         </ul>
-      </div>
-
-      <div class="pull-right ml-auto">
         <h1 class="role">{{getRole()}}</h1>
       </div>
 
