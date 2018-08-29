@@ -23,12 +23,10 @@ export class UserCoursesComponent implements OnInit, OnDestroy {
     this.dashboardService.getAllCourseInstances()
       .subscribe((courseInstances) => {
         this.courseInstances = courseInstances;
-        console.log(this.courseInstances);
         courseInstances.forEach(courseInstance => {
           courseInstance.labReport = courseInstance.labReports.find(labReport => labReport.studentId === this.user.id);
         });
       });
-    console.log(this.user);
   }
 
   ngOnDestroy() {

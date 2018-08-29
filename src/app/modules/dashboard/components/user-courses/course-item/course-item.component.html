@@ -14,13 +14,12 @@
              value="Add Task"/>
       <label for="task-file"><i class="fa fa-upload"
                                 aria-hidden="true"></i>
-        Choose a file...</label>
+        Choose a task file...</label>
       <input type="button"
              [disabled]="isDisabled"
              (click)="uploadTask(courseInstance.id)"
              class="btn btn-secondary submit-button"
              value="Submit"/>
-
     </form>
     <div *ngIf="courseInstance.fileExists">
       <button class="btn btn-secondary icon-button"
@@ -62,13 +61,11 @@
              value="Add Report"/>
       <label for="report-file"><i class="fa fa-upload"
                                   aria-hidden="true"></i>
-        Choose a file...</label>
+        Choose a report file...</label>
       <input type="button"
-             [disabled]="isDisabled"
              (click)="uploadReport(courseInstance.id)"
              class="btn btn-secondary submit-button"
              value="Submit"/>
-
     </form>
     <div *ngIf="courseInstance.labReport">
       <button class="btn btn-secondary icon-button"

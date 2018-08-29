@@ -20,7 +20,7 @@
   <tbody>
     <tr *ngFor="let courseInstance of courseInstances; let i = index">
       <th scope="row">{{i+1}}</th>
-      <app-course-item  [courseInstance]="courseInstance"></app-course-item>
+      <app-course-item [user]="user" [courseInstance]="courseInstance"></app-course-item>
     </tr>
   </tbody>
 

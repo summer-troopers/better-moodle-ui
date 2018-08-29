@@ -7,6 +7,7 @@ import { Alert, AlertType } from '@shared/models/alert';
 import { Subject, throwError } from 'rxjs';
 import { COURSE_INSTANCES_URL, LABORATORY_URL } from '@shared/constants';
 import { catchError, takeUntil } from 'rxjs/operators';
+import { UserCoursesComponent } from '@modules/dashboard/components/user-courses/user-courses.component';
 
 @Component({
   selector: 'app-course-item',
@@ -29,7 +30,8 @@ export class CourseItemComponent implements OnInit {
 
   constructor(private dashboardService: DashboardService,
               private crudService: CrudService,
-              private downloadService: DownloadService
+              private downloadService: DownloadService,
+              private userCoursesComponent: UserCoursesComponent,
   ) {
     this.options = {concurrency: 1, maxUploads: 3};
     this.uploadInput = new EventEmitter<UploadInput>();
@@ -87,7 +89,7 @@ export class CourseItemComponent implements OnInit {
       this.isDisabled = false;
     } else if (output.type === 'done') {
       this.isDisabled = true;
-      this.dashboardService.getAllCourseInstances();
+      this.userCoursesComponent.ngOnInit();
     }
     console.log(output);
   }
@@ -128,7 +130,7 @@ export class CourseItemComponent implements OnInit {
           return throwError(error);
         }))
       .subscribe(() => {
-        return this.dashboardService.getAllCourseInstances();
+        return this.userCoursesComponent.ngOnInit();
       });
   }
 
