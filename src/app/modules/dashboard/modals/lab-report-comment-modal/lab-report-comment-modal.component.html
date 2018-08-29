@@ -1,0 +1,40 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">Add comment and mark</h4>
+  <button class="close pull-right"
+          (click)="modalRef.hide()"></button>
+</div>
+<div class="modal-body">
+  <app-local-alert [alerts]="alerts"></app-local-alert>
+  <div class="form-group">
+      <textarea type="text"
+                id="content"
+                class="form-control"
+                placeholder="Comment..."
+                [formControl]="comment"
+                [ngClass]="{ 'is-invalid': isSubmitted && commentContent.errors }">
+      </textarea>
+    <div *ngIf="isSubmitted && commentContent.errors"
+         class="invalid-feedback">The comment is mandatory
+    </div>
+  </div>
+
+  <div>
+    <rating [max]="10"
+            [(ngModel)]="ratingLimitLab"
+            [ngModelOptions]="{standalone: true}"
+            [customTemplate]="template"></rating>
+    <b>(<i>Rate:</i> {{ratingLimitLab}})</b>
+    <ng-template #template
+                 let-i="index"
+                 let-v="value">
+      <button class="btn btn-{{i < v ? 'warning' : 'default'}}">
+        {{i < v ? '&#9733;' : '&#9734;'}}
+      </button>
+    </ng-template>
+  </div>
+
+  <input type="submit"
+         class="btn btn-primary"
+         (click)="onSubmit()">
+</div>
+

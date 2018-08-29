@@ -5,7 +5,7 @@ import { DownloadService } from '@shared/services/download/download.service';
 import { CrudService } from '@shared/services/crud/crud.service';
 import { Alert, AlertType } from '@shared/models/alert';
 import { Subject, throwError } from 'rxjs';
-import { LABORATORY_URL } from '@shared/constants';
+import { LAB_REPORTS_URL } from '@shared/constants';
 import { catchError, takeUntil } from 'rxjs/operators';
 import { UserCoursesComponent } from '@modules/dashboard/components/user-courses/user-courses.component';
 
@@ -46,7 +46,7 @@ export class ReportColumnComponent implements OnInit {
     const userId = this.user.id;
     const uploadEvent: UploadInput = {
       type: 'uploadFile',
-      url: `http://localhost:80/api/v1/${LABORATORY_URL}`,
+      url: `http://localhost:80/api/v1/${LAB_REPORTS_URL}`,
       method: 'POST',
       headers: {token},
       data: {courseInstanceId, userId, ContentType},
@@ -74,7 +74,7 @@ export class ReportColumnComponent implements OnInit {
   }
 
   downloadReport(reportId) {
-    this.crudService.getItem(LABORATORY_URL, reportId, true)
+    this.crudService.getItem(LAB_REPORTS_URL, reportId, true)
       .pipe(takeUntil(this.destroy$),
         catchError((error) => {
           this.alerts.push({type: AlertType.Error, message: error});
