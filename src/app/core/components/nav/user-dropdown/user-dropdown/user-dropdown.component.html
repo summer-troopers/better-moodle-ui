@@ -15,8 +15,10 @@
         (click)="isCollapsed = true">
       <li class="profile-name">{{user.firstName}} {{user.lastName}}</li>
       <li class="divider dropdown-divider"></li>
-      <li routerLinkActive="activated"><a class="nav-link"
-                                          routerLink="dashboard">My Profile</a></li>
+      <li routerLinkActive="activated">
+        <a class="nav-link"
+           routerLink="dashboard">My Profile</a>
+      </li>
       <li routerLinkActive="activated">
         <button class="log-button nav-link"
                 type="button"

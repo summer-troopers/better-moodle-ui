@@ -5,7 +5,11 @@
     <div class="form-group"
          *ngIf="itemType == 'student' || itemType == 'teacher' || itemType == 'admin'">
       <div *ngIf="isRequestError"
-           class="mb-3 text-danger">Email or phone number exist!</div>
+           class="text-center mb-3 text-danger">
+        <p>Email or phone number exist!</p>
+        <img src="../../../../assets/images/tenor.gif"
+             class="image-error" />
+      </div>
       <label for="firstName">First name</label>
       <input formControlName="firstName"
              type="text"

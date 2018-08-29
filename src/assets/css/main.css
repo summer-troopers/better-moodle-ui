@@ -899,7 +899,7 @@ ul.icons {
     transition: opacity 1s ease, transform 1s ease;
     opacity: 1;
     position: relative;
-    z-index: 3; }
+    z-index: 1; }
     #banner > .inner > :last-child {
       margin-bottom: 0; }
   #banner h1 {

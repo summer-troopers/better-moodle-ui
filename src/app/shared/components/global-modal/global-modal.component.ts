@@ -12,7 +12,8 @@ import { PHONE_NUMBER_LENGTH } from '@shared/constants';
 
 @Component({
   selector: 'app-global-modal',
-  templateUrl: './global-modal.component.html'
+  templateUrl: './global-modal.component.html',
+  styleUrls: ['./global-modal.component.scss']
 })
 export class GlobalModalComponent implements OnInit, OnDestroy {
 
@@ -42,7 +43,6 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
     public itemModalRef: BsModalRef) { }
 
   ngOnInit() {
-    console.log(this.isRequestError);
     this.getGroups();
     this.getSpecialties();
     this.initForm();
