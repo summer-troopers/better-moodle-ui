@@ -158,8 +158,9 @@
            class="invalid-feedback">Description is required
       </div>
     </div>
-    <!-- [disabled]="itemForm.invalid" -->
-    <button type="submit"
+
+    <button [disabled]="itemForm.invalid"
+            type="submit"
             class="btn btn-primary">{{buttonTitle}}</button>
   </form>
 </app-default-modal>

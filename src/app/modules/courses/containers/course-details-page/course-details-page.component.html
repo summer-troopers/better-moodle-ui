@@ -17,14 +17,18 @@
 
   <ul class="list-group"
       *ngIf="courseTeachers && courseTeachers.length>0;else noTeachers">
-    <h1>
-      <em>This course has students:</em>
-    </h1>
+    <p>This course has students:</p>
     <li class="list-group-item list-group-item-dark"
         *ngFor="let teacher of courseTeachers">
       <h4 class="list-group-item">{{teacher.firstName}} {{teacher.lastName}}</h4>
     </li>
   </ul>
+  <hr>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
 </div>
 
 

@@ -1,20 +1,26 @@
 <div class="container">
-  <app-local-alert [alerts]="alerts"></app-local-alert>
+        <app-local-alert [alerts]="alerts"></app-local-alert>
 </div>
 <div class="container"
      *ngIf="student">
-  <h1 class="text-center">{{student.firstName}} {{student.lastName}}</h1>
-  <h3>First Name: {{student.firstName}}</h3>
-  <h3>Last Name: {{student.lastName}}</h3>
-  <h3>Email: {{student.email}}</h3>
-  <h3>Phone Number: {{student.phoneNumber}}</h3>
-  <h3>Group: {{student.group.name}}</h3>
+        <h1 class="text-center">{{student.firstName}} {{student.lastName}}</h1>
+        <h3>First Name: {{student.firstName}}</h3>
+        <h3>Last Name: {{student.lastName}}</h3>
+        <h3>Email: {{student.email}}</h3>
+        <h3>Phone Number: {{student.phoneNumber}}</h3>
+        <h3>Group: {{student.group.name}}</h3>
 
-  <button appHasRole="admin"
-          class="btn btn-danger mt-2 mb-2 mr-2"
-          (click)="openDeleteModal()">Delete</button>
+        <button appHasRole="admin"
+                class="btn btn-danger mt-2 mb-2 mr-2"
+                (click)="openDeleteModal()">Delete</button>
 
-  <button appHasRole="admin"
-          class="btn btn-success mt-2 mb-2 mr-2"
-          (click)="openEditModal()">Edit</button>
+        <button appHasRole="admin"
+                class="btn btn-success mt-2 mb-2 mr-2"
+                (click)="openEditModal()">Edit</button>
+        <hr>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
 </div>

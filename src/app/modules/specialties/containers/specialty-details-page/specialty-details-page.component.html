@@ -15,14 +15,18 @@
 
   <ul class="list-group"
       *ngIf="specialtyCourses && specialtyCourses.length > 0;else noCourses">
-    <h1>
-      <em>This specialty has courses:</em>
-    </h1>
+    <p>This specialty has courses:</p>
     <li class="list-group-item list-group-item-dark"
         *ngFor="let course of specialtyCourses">
       <h4 class="list-group-item">{{course.course.name}}</h4>
     </li>
   </ul>
+  <hr>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
 </div>
 
 
