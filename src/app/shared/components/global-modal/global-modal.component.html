@@ -1,11 +1,11 @@
 <app-default-modal [form]="itemForm"
                    [title]="title">
-  <div *ngIf="isRequestError"
-       class="mb-3 text-danger">Email or phone number exist!</div>
   <form [formGroup]="itemForm"
         (ngSubmit)="onSubmit()">
     <div class="form-group"
          *ngIf="itemType == 'student' || itemType == 'teacher' || itemType == 'admin'">
+      <div *ngIf="isRequestError"
+           class="mb-3 text-danger">Email or phone number exist!</div>
       <label for="firstName">First name</label>
       <input formControlName="firstName"
              type="text"
@@ -114,6 +114,8 @@
 
     <div class="form-group"
          *ngIf="itemType == 'course' || itemType == 'specialty' || itemType == 'group'">
+      <div *ngIf="isRequestError"
+           class="mb-3 text-danger">This item exist!</div>
       <label for="name">Name</label>
       <input type="text"
              id="name"
@@ -146,7 +148,7 @@
     </div>
 
     <div class="form-group"
-         *ngIf="itemType == 'specialty'">
+         *ngIf="itemType == 'specialty' || itemType == 'course'">
       <label for="description">Description</label>
       <input type="text"
              id="description"

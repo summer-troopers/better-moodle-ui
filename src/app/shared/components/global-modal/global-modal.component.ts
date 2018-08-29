@@ -42,6 +42,7 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
     public itemModalRef: BsModalRef) { }
 
   ngOnInit() {
+    console.log(this.isRequestError);
     this.getGroups();
     this.getSpecialties();
     this.initForm();
@@ -111,7 +112,8 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
           name: [this.getItemValue('name'), [
             Validators.required,
             Validators.pattern(/^[a-z A-Z -]*$/),
-            Validators.maxLength(50)]]
+            Validators.maxLength(50)]],
+          description: [this.getItemValue('description'), [Validators.required, Validators.maxLength(50)]]
         });
         break;
       }
@@ -232,7 +234,7 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.isSubmitted = true;
-    if (this.itemForm.invalid) {
+    if (this.itemForm.invalid || this.phoneNumberFormat() === false) {
       return;
     }
 
