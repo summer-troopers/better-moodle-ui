@@ -5,7 +5,7 @@ import { Subject, throwError } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 
 import { CrudService } from '@shared/services/crud/crud.service';
-import { ADMINS_URL, COURSES_URL, GROUPS_URL, SPECIALTIES_URL, STUDENTS_URL, TEACHERS_URL } from '@shared/constants';
+import { ADMINS_URL, COURSES_URL, GROUPS_URL, SPECIALTIES_URL, STUDENTS_URL, TEACHERS_URL, MIN_PASSWORD_LENGTH, MAX_PASSWORD_LENGTH } from '@shared/constants';
 import { Group } from '@shared/models/group';
 import { Specialty } from '@shared/models/specialty';
 import { PHONE_NUMBER_LENGTH } from '@shared/constants';
@@ -78,7 +78,9 @@ export class GlobalModalComponent implements OnInit, OnDestroy {
           ]],
         });
         if (this.onAdd) {
-          this.itemForm.addControl('password', new FormControl('', Validators.required));
+          this.itemForm.addControl('password', new FormControl('', [Validators.required,
+          Validators.minLength(MIN_PASSWORD_LENGTH),
+          Validators.maxLength(MAX_PASSWORD_LENGTH)]));
         }
         this.addGroupIdIfStudent();
         break;

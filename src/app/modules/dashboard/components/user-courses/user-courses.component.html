@@ -2,38 +2,38 @@
 
   <table class="table table-sm table-hover">
     <thead>
-    <tr class="table-success">
-      <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col"
-          class="labs-cell"
-          appHasRole="student">Task
-      </th>
-      <th scope="col"
-          class="labs-cell">
-        <div appHasRole="student">My Report</div>
-        <div appHasRole="teacher">My Task</div>
-      </th>
-    </tr>
+      <tr class="table-success">
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col"
+            class="labs-cell"
+            appHasRole="student">Task
+        </th>
+        <th scope="col"
+            class="labs-cell">
+          <div appHasRole="student">My Report</div>
+          <div appHasRole="teacher">My Task</div>
+        </th>
+      </tr>
     </thead>
 
     <tbody>
-    <tr *ngFor="let courseInstance of courseInstances; let i = index">
-      <th scope="row">{{i+1}}</th>
-      <td>{{courseInstance.course.name}}</td>
-      <td>
-        <app-task-column [user]="user"
-                         [courseInstance]="courseInstance">
+      <tr *ngFor="let courseInstance of courseInstances; let i = index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{courseInstance.course.name}}</td>
+        <td>
+          <app-task-column [user]="user"
+                           [courseInstance]="courseInstance">
 
-        </app-task-column>
-      </td>
-      <td>
-        <app-report-column [user]="user"
-                        [courseInstance]="courseInstance">
+          </app-task-column>
+        </td>
+        <td>
+          <app-report-column [user]="user"
+                             [courseInstance]="courseInstance">
 
-        </app-report-column>
-      </td>
-    </tr>
+          </app-report-column>
+        </td>
+      </tr>
     </tbody>
 
   </table>
