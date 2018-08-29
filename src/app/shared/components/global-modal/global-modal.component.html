@@ -18,6 +18,8 @@
              id="firstName"
              autocomplete="on"
              placeholder="Enter First Name">
+      <p class="font-size">Characters are allowed - <span class="text-danger">a-z</span> and <span class="text-danger">A-Z</span>
+      </p>
       <div *ngIf="isSubmitted && firstName.errors"
            class="invalid-feedback">
         <div *ngIf="firstName.errors.required">First Name is required</div>
@@ -35,6 +37,8 @@
              id="lastName"
              autocomplete="on"
              placeholder="Enter Last Name">
+      <p class="font-size">Characters are allowed - <span class="text-danger">a-z</span> and <span class="text-danger">A-Z</span>
+      </p>
       <div *ngIf="isSubmitted && lastName.errors"
            class="invalid-feedback">
         <div *ngIf="lastName.errors.required">Last Name is required</div>
@@ -52,6 +56,7 @@
              placeholder="Enter email"
              formControlName="email"
              [class.is-invalid]="isSubmitted && email.errors || isRequestError">
+      <p class="font-size">Mandatory character <span class="text-danger">@</span></p>
       <div *ngIf="isSubmitted && email.errors"
            class="invalid-feedback">
         <div *ngIf="email.errors.required">Email is required</div>
@@ -91,6 +96,8 @@
              autocomplete="on"
              placeholder="0XXXXXXXX"
              maxlength="9">
+      <p class="font-size">The phone number should begin on <span class="text-danger">06</span> or <span
+        class="text-danger">07</span> and contain <span class="text-danger">9</span> digits</p>
       <div *ngIf="isSubmitted && phoneNumber.errors"
            class="invalid-feedback">
         <div *ngIf="phoneNumber.errors.required">Phone number is required</div>
@@ -127,6 +134,11 @@
              placeholder="Name"
              formControlName="name"
              [class.is-invalid]="isSubmitted && name.errors">
+      <p *ngIf="itemType == 'course' || itemType == 'specialty'" class="font-size">Characters are allowed - <span
+        class="text-danger">a-z</span> and <span class="text-danger">A-Z</span>
+      <p *ngIf="itemType == 'group'" class="font-size">The name should start with <span class="text-danger">2, 3</span>
+        uppercase letters followed by <span class="text-danger">3 </span>digits
+      </p>
       <div *ngIf="isSubmitted && name.errors"
            class="invalid-feedback">The name is required
       </div>
@@ -143,6 +155,9 @@
               type="text"
               [class.is-invalid]="isSubmitted && specialtyId.errors"
               class="form-control">
+        <p class="font-size">Characters are allowed - <span class="text-danger">a-z</span> and <span
+          class="text-danger">A-Z</span>
+        </p>
         <option *ngFor="let specialty of specialtiesName"
                 value="{{specialty.id}}">{{specialty.name}}</option>
       </select>
@@ -160,6 +175,8 @@
              placeholder="Description"
              formControlName="description"
              [class.is-invalid]="isSubmitted && description.errors">
+      <p class="font-size">Maximum length <span class="text-danger">50</span> characters
+      </p>
       <div *ngIf="isSubmitted && description.errors"
            class="invalid-feedback">Description is required
       </div>
