@@ -8,6 +8,7 @@ import { Subject, throwError } from 'rxjs';
 import { COURSE_INSTANCES_URL } from '@shared/constants';
 import { catchError, takeUntil } from 'rxjs/operators';
 import { UserCoursesComponent } from '@modules/dashboard/components/user-courses/user-courses.component';
+import {environment} from '@env/environment';
 
 @Component({
   selector: 'app-task-column',
@@ -45,7 +46,7 @@ export class TaskColumnComponent implements OnInit {
     const ContentType = this.file.type;
     const uploadEvent: UploadInput = {
       type: 'uploadFile',
-      url: `http://localhost:80/api/v1/${COURSE_INSTANCES_URL}/${courseInstanceId}`,
+      url: `${environment.apiUrl}/${COURSE_INSTANCES_URL}/${courseInstanceId}`,
       method: 'PUT',
       headers: {token},
       data: {ContentType},
