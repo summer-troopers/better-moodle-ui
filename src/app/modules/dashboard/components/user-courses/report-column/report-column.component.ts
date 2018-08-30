@@ -8,6 +8,7 @@ import { Subject, throwError } from 'rxjs';
 import { LAB_REPORTS_URL } from '@shared/constants';
 import { catchError, takeUntil } from 'rxjs/operators';
 import { UserCoursesComponent } from '@modules/dashboard/components/user-courses/user-courses.component';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'app-report-column',
@@ -46,7 +47,7 @@ export class ReportColumnComponent implements OnInit {
     const userId = this.user.id;
     const uploadEvent: UploadInput = {
       type: 'uploadFile',
-      url: `http://localhost:80/api/v1/${LAB_REPORTS_URL}`,
+      url: `${environment.apiUrl}/${LAB_REPORTS_URL}`,
       method: 'POST',
       headers: {token},
       data: {courseInstanceId, userId, ContentType},
