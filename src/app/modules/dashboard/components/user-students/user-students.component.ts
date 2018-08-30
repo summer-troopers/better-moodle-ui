@@ -54,6 +54,7 @@ export class UserStudentsComponent implements OnInit, OnDestroy {
       )
       .subscribe(students => {
         this.students = students;
+        console.log(this.students)
       });
   }
 }

@@ -1,44 +1,44 @@
 <div class="container table-responsive">
-  <table class="table table-sm table-hover">
-    <thead>
-    <tr class="table-success">
-      <th scope="col"
-          class="cell-padding">First Name
-      </th>
-      <th scope="col"
-          class="cell-padding">Last Name
-      </th>
-      <th scope="col"
-          class="cell-padding">Phone Number
-      </th>
-      <th scope="col"
-          class="cell-padding">Email
-      </th>
-      <th scope="col"
-          class="cell-padding">Group
-      </th>
-      <th scope="col"
-          class="pull-right cell-padding">Reports
-      </th>
-    </tr>
-    </thead>
-    <tbody *ngFor="let student of students; let i = index">
-    <tr (click)=showStudentDoneLabs(i,student.id)
-        class="student-item">
-      <td class="cell-padding">{{student.firstName}}</td>
-      <td class="cell-padding">{{student.lastName}}</td>
-      <td class="cell-padding">{{student.phoneNumber}}</td>
-      <td class="cell-padding">{{student.email}}</td>
-      <td class="cell-padding">{{student.group?.name}}</td>
-      <td align="center">{{student.labReportCount}}</td>
-    </tr>
-    <tr class="lab-student-list"
-        *ngIf="activeRowIndex === i && isShown">
-      <td colspan="7"
-          class="lab-student-list_item">
-        <app-labs-list-for-teacher [student]="student"></app-labs-list-for-teacher>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+    <table class="table table-sm table-hover">
+        <thead>
+            <tr class="table-success">
+                <th scope="col"
+                    class="cell-padding">First Name
+                </th>
+                <th scope="col"
+                    class="cell-padding">Last Name
+                </th>
+                <th scope="col"
+                    class="cell-padding">Phone Number
+                </th>
+                <th scope="col"
+                    class="cell-padding">Email
+                </th>
+                <th scope="col"
+                    class="cell-padding">Group
+                </th>
+                <th scope="col"
+                    class="cell-padding">Reports
+                </th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let student of students; let i = index">
+            <tr (click)=showStudentDoneLabs(i,student.id)
+                class="student-item">
+                <td class="cell-padding">{{student.firstName}}</td>
+                <td class="cell-padding">{{student.lastName}}</td>
+                <td class="cell-padding">{{student.phoneNumber}}</td>
+                <td class="cell-padding">{{student.email}}</td>
+                <td class="cell-padding">{{student.group?.name}}</td>
+                <td align="center">{{student.labReports.length}}</td>
+            </tr>
+            <tr class="lab-student-list"
+                *ngIf="activeRowIndex === i && isShown">
+                <td colspan="7"
+                    class="lab-student-list_item">
+                    <app-labs-list-for-teacher [student]="student"></app-labs-list-for-teacher>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
